@@ -15,13 +15,11 @@ int main(int argc, char *argv[]) {
                     mode = argv[3];
                     filepath = argv[2];
                 } else {
-                    std::cerr << "" << std::endl;
-//                    std::cout << "" << std::endl;
+                    std::cerr << help << std::endl;
                     return 1;
                 }
             } else {
-                std::cerr << "" << std::endl;
-//                std::cout << "" << std::endl;
+                std::cerr << help << std::endl;
                 return 1;
             }
         } else {
@@ -29,14 +27,12 @@ int main(int argc, char *argv[]) {
                 mode = argv[2];
                 filepath = argv[3];
             } else {
-                std::cerr << "" << std::endl;
-//                std::cout << "" << std::endl;
+                std::cerr << help << std::endl;
                 return 1;
             }
         }
     }else{
-        std::cerr << "" << std::endl;
-//        std::cout << "" <<  std::endl;
+        std::cerr << help << std::endl;
         return 1;
     }
 
@@ -44,8 +40,7 @@ int main(int argc, char *argv[]) {
     file.open(filepath);
 
     if(!(file.is_open())){
-        std::cerr << "" <<  std::endl;
-        std::cout << "" <<  std::endl;
+        std::cerr << help <<  std::endl;
         return 1;
     }
 
@@ -69,8 +64,7 @@ int main(int argc, char *argv[]) {
             std::cout << std::hex << contr_sum << std::endl;
         }
     }catch(std::exception const& e){
-        std::cerr << "" <<  std::endl;
-        std::cout << help <<  std::endl;
+        std::cerr << help <<  std::endl;
         return 1;
     }
     return 0;
