@@ -43,8 +43,8 @@ int main(int argc, char *argv[]) {
     try {
         if (mode == "adler32") {
             uint32_t a = 1, b = 0;
-            char s;
-            while (file.read(&s, sizeof(unsigned char))) {
+            u_char s;
+            while (file.read((char *)(&s), sizeof(u_char))) {
                 a = (a + s) % 65521;
                 b = (b + a) % 65521;
             }
@@ -53,7 +53,6 @@ int main(int argc, char *argv[]) {
             uint64_t contr_sum = 0;
             uint64_t block;
             while (file.read((char *) &block, 8)) {
-                std::cout << block << std::endl;
                 contr_sum += block;
             }
             std::cout << std::hex << contr_sum << std::endl;
