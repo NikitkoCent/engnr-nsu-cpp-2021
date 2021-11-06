@@ -11,6 +11,6 @@ include_directories(lib/googletest/googletest/include)
 ##
 
 add_executable(hasher
-	main.cpp
+		main.cpp
         HashCalc.h
         HashCalc.cpp)
