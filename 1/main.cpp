@@ -47,7 +47,6 @@ int main(int ac, char** av){
     try {
         map<string, string> args = parse_args(ac, av);
         if (args["help"] == "1") {
-            cout << args["mode"] << " " << args["filename"] << endl;
             if (args["mode"] != "" || args["filename"] != ""){
                 goto shitty_logics;
             }
