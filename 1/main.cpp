@@ -15,36 +15,36 @@ int main(int argc, char *argv[]) {
                     mode = argv[3];
                     filepath = argv[2];
                 } else {
-                    std::cerr << std::endl;
+                    std::cerr << "" << std::endl;
                     std::cout << help << std::endl;
-                    return 0;
+                    return 1;
                 }
             } else {
-                std::cerr << std::endl;
+                std::cerr << "" << std::endl;
                 std::cout << help << std::endl;
-                return 0;
+                return 1;
             }
         } else {
             if (argv[2] == "adler32" || argv[2] == "sum64") {
                 mode = argv[2];
                 filepath = argv[3];
             } else {
-                std::cerr << std::endl;
+                std::cerr << "" << std::endl;
                 std::cout << help << std::endl;
-                return 0;
+                return 1;
             }
         }
     }else{
-        std::cerr << std::endl;
+        std::cerr << "" << std::endl;
         std::cout << help <<  std::endl;
-        return 0;
+        return 1;
     }
 
     std::ifstream file;
     file.open(filepath);
 
     if(!(file.is_open())){
-        std::cerr << "FileNotFoundError" <<  std::endl;
+        std::cerr << "" <<  std::endl;
         std::cout << help <<  std::endl;
         return 1;
     }
@@ -69,7 +69,8 @@ int main(int argc, char *argv[]) {
             std::cout << std::hex << contr_sum << std::endl;
         }
     }catch(std::exception const& e){
-        std::cerr << e.what() <<  std::endl;
+        std::cerr << "" <<  std::endl;
+        std::cout << help <<  std::endl;
         return 1;
     }
     return 0;
