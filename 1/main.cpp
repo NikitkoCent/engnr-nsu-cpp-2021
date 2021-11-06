@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
         if (mode == "adler32") {
             uint32_t a = 1, b = 0;
             char s;
-            while (file.read(&s, sizeof(char))) {
+            while (file.read(&s, sizeof(unsigned char))) {
                 a = (a + s) % 65521;
                 b = (b + a) % 65521;
             }
