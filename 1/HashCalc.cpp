@@ -16,11 +16,11 @@
 #define NTOHLL(x) ((1==ntohl(1)) ? (x) : (((uint64_t)ntohl((x) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((x) >> 32)))
 
 uint32_t HashCalc::adler32(std::ifstream &file) {
-    u_char tmp;
+    unsigned char tmp;
     uint32_t a = 1, b = 0;
 
     while (!file.eof()) {
-        file.read((char *)&tmp, sizeof(u_char));
+        file.read((char *)&tmp, sizeof(unsigned char));
         std::streamsize bytes = file.gcount();
 //        std::cout << "read " << bytes << std::endl;
         if (!bytes) break;
