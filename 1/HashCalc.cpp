@@ -22,7 +22,7 @@ uint32_t HashCalc::adler32(std::ifstream &file) {
     while (!file.eof()) {
         file.read(&tmp, sizeof(char));
         std::streamsize bytes = file.gcount();
-        std::cout << "read " << bytes << std::endl;
+//        std::cout << "read " << bytes << std::endl;
         if (!bytes) break;
 
         a = (a + tmp) % MOD_ADLER;
