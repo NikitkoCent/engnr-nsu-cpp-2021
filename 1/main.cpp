@@ -6,6 +6,14 @@
 #include <map>
 #include <cstring>
 
+#ifdef _WIN32
+
+// На винде все не как у людей
+
+#pragma comment(lib, "Ws2_32.lib")
+
+#endif
+
 #include "HashCalc.h"
 
 using std::cerr;
