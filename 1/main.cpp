@@ -23,7 +23,7 @@ map<string, string> parse_args(int ac, char** av){
     m["help"] = "0";
     m["mode"] = "";
     m["filename"] = "";
-    for (int i = 0; i < ac; i++){
+    for (int i = 1; i < ac; i++){
         if (strcmp(av[i], "-h") == 0){
             m["help"] = "1";
             return m;
@@ -47,8 +47,8 @@ int main(int ac, char** av){
                   "\t-m <mode> <filename>\n";
     try {
         map<string, string> args = parse_args(ac, av);
-
         if (args["help"] == "1") {
+            cout << args["mode"] << " " << args["filename"] << endl;
             if (args["mode"] != "" || args["filename"] != ""){
                 goto shitty_logics;
             }
