@@ -26,7 +26,6 @@ map<string, string> parse_args(int ac, char** av){
     for (int i = 1; i < ac; i++){
         if (strcmp(av[i], "-h") == 0){
             m["help"] = "1";
-            return m;
         } else if (strcmp(av[i], "-m") == 0){
             m["mode"] = string(av[i + 1]);
             i++;
