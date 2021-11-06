@@ -1,10 +1,16 @@
+cmake_minimum_required(VERSION 3.19)
 project(cpp_labs)
 
-cmake_minimum_required(VERSION 3.21)
+set(CMAKE_CXX_STANDARD 14)
 
 add_compile_options(-Wall -pedantic)
 
-target_executable(cpp_labs_1
-        main.cpp
+# googletest
+add_subdirectory(lib/googletest)
+include_directories(lib/googletest/googletest/include)
+##
+
+add_executable(hasher
+	main.cpp
         HashCalc.h
         HashCalc.cpp)
