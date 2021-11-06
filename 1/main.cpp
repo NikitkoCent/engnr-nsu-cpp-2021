@@ -48,9 +48,10 @@ int main(int ac, char** av){
     try {
         map<string, string> args = parse_args(ac, av);
 
-        if (args["help"] == "1" || args["mode"] == "" || args["filename"] == "") {
-            cout << "" << "\n";
-            return 0xDEAD;
+        if (args["help"] == "1") {
+            cerr << desc << "\n";
+            if (args["mode"] == "" || args["filename"] == "") return 0xDEAD;
+            return 0;
         }
         mode = args["mode"];
         filename = args["filename"];
