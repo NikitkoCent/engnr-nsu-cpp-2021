@@ -50,7 +50,7 @@ int main(int ac, char** av){
 
         if (args["help"] == "1" || args["mode"] == "" || args["filename"] == "") {
             cout << "" << "\n";
-            return 0;
+            return 0xDEAD;
         }
         mode = args["mode"];
         filename = args["filename"];
