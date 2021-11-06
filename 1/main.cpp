@@ -4,6 +4,7 @@
 #include <exception>
 #include <string>
 #include <map>
+#include <cstring>
 
 #include "HashCalc.h"
 
@@ -48,7 +49,7 @@ int main(int ac, char** av){
         map<string, string> args = parse_args(ac, av);
 
         if (args["help"] == "1" || args["mode"] == "" || args["filename"] == "") {
-            cout << desc << "\n";
+            cout << "" << "\n";
             return 0;
         }
         mode = args["mode"];
@@ -68,16 +69,16 @@ int main(int ac, char** av){
         if (mode == "adler32"){
             uint32_t hash = HashCalc::adler32(file);
 
-            cout << "Hash: 0x" << std::hex << hash << "\n";
+            cout << "Hash: " << std::hex << hash << "\n";
         } else {
             uint64_t hash = HashCalc::sum64(file);
 
-            cout << "Hash: 0x" << std::hex << hash << "\n";
+            cout << std::hex << hash << "\n";
         }
 
     } catch(exception& e) {
-        cerr << "error: " << e.what() << "\n";
-        cerr << "help: " << desc << "\n";
+//        cerr << "error: " << e.what() << "\n";
+        cerr << desc << "\n";
         return 1;
     } catch(...) {
         cerr << "Exception of unknown type!\n";

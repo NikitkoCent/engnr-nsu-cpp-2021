@@ -3,6 +3,7 @@
 //
 
 #include "HashCalc.h"
+#include <cstring>
 
 uint32_t HashCalc::adler32(std::ifstream &file) {
     char tmp;
