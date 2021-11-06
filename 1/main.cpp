@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
+
 
 
 int main(int argc, char *argv[]) {
@@ -9,30 +11,30 @@ int main(int argc, char *argv[]) {
 
 
     if(argc == 4){
-        if (argv[1] == "-m") {
-            if (argv[2] == "-m") {
-                if (argv[3] == "adler32" || argv[3] == "sum64") {
+        if (strcmp(argv[1], "-m") == 0) {
+            if (strcmp(argv[2], "-m") == 0) {
+                if (strcmp(argv[3], "adler32") == 0 || strcmp(argv[3], "sum64") == 0) {
                     mode = argv[3];
                     filepath = argv[2];
                 } else {
-                    std::cerr << help << std::endl;
+                    std::cerr << help << 1 <<  std::endl;
                     return 1;
                 }
             } else {
-                std::cerr << help << std::endl;
+                std::cerr << help << 2 << std::endl;
                 return 1;
             }
         } else {
-            if (argv[2] == "adler32" || argv[2] == "sum64") {
-                mode = argv[2];
-                filepath = argv[3];
+            if ((strcmp(argv[3], "adler32") == 0) || (strcmp(argv[3], "sum64") == 0)) {
+                mode = argv[3];
+                filepath = argv[1];
             } else {
-                std::cerr << help << std::endl;
+                std::cerr << help << 3 << std::endl;
                 return 1;
             }
         }
     }else{
-        std::cerr << help << std::endl;
+        std::cerr << help << 4 << std::endl;
         return 1;
     }
 
@@ -40,16 +42,15 @@ int main(int argc, char *argv[]) {
     file.open(filepath);
 
     if(!(file.is_open())){
-        std::cerr << help <<  std::endl;
+        std::cerr << help << 5 << std::endl;
         return 1;
     }
 
     try{
         if(mode == "adler32"){
             uint32_t a = 1, b = 0;
-            while(!file.eof()){
-                char s;
-                file.read(&s, sizeof(char));
+            char s;
+            while(file.read(&s, sizeof(char))){
                 a = (a + s) % 65521;
                 b = (b + a) % 65521;
             }
@@ -57,14 +58,14 @@ int main(int argc, char *argv[]) {
         }else{
             uint64_t contr_sum = 0;
             uint64_t block;
-            while(!file.eof()){
-                file.read((char*)&block, 8);
+            while(file.read((char*)&block, 8)){
+                std::cout << block << std::endl;
                 contr_sum += block;
             }
             std::cout << std::hex << contr_sum << std::endl;
         }
     }catch(std::exception const& e){
-        std::cerr << help <<  std::endl;
+        std::cerr << help << 6 << std::endl;
         return 1;
     }
     return 0;
