@@ -30,13 +30,13 @@ int main(int argc, char *argv[]) {
                 filepath = argv[3];
             } else {
                 std::cerr << "" << std::endl;
-                std::cout << help << std::endl;
+                std::cout << "" << std::endl;
                 return 1;
             }
         }
     }else{
         std::cerr << "" << std::endl;
-        std::cout << help <<  std::endl;
+        std::cout << "" <<  std::endl;
         return 1;
     }
 
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 
     if(!(file.is_open())){
         std::cerr << "" <<  std::endl;
-        std::cout << help <<  std::endl;
+        std::cout << "" <<  std::endl;
         return 1;
     }
 
