@@ -48,10 +48,10 @@ int main(int ac, char** av){
     string filename, mode;
     ifstream file;
 //    po::options_description desc("Варианты запуска программы");
-    string desc = "Варианты запуска программы:\n"
-                  "\t-h - вывести help\n"
-                  "\t<filename> -m <mode> - запуск по имени файла и режиму (adler32, sum64)\n"
-                  "\t-m <mode> <filename>\n";
+    string desc = "How to launch this app:\n"
+                  "-h - print help\n"
+                  "<filename> -m <mode> - launch using filename and mode (adler32, sum64)\n"
+                  "-m <mode> <filename>\n";
     try {
         map<string, string> args = parse_args(ac, av);
         if (args["help"] == "1") {
