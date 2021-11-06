@@ -8,24 +8,19 @@ int main(int argc, char *argv[]) {
     std::string help = "Usage: ./helper -m <mode> <filename> or ./helper <filename> -m <mode> \nMode types: adler32 or sum64";
 
     if(argc == 2){
-        if (strcmp(argv[1], "-h") == 0){
-            std::cerr << help <<  std::endl;
-            return 0;
-        }else{
-            std::cerr << help <<  std::endl;
-            return 0;
-        }
+        std::cerr << help << std::endl;
+        return 0;
     }else if(argc == 4){
-        if(strcmp(argv[1], "-m") == 0){
-            if(strcmp(argv[2], "adler32") == 0 or strcmp(argv[2], "sum64") == 0){
+        if(argv[1] == "-m"){
+            if(argv[2] == "adler32" or argv[2] == "sum64"){
                 mode = argv[2];
                 filepath = argv[3];
             }else{
                 std::cerr << help <<  std::endl;
                 return 0;
             }
-        }else if(strcmp(argv[2], "-m") == 0){
-            if(strcmp(argv[3], "adler32") == 0 or strcmp(argv[3], "sum64") == 0){
+        }else if(argv[2] == "-m"){
+            if(argv[3] == "adler32" or argv[3] == "sum64"){
                 mode = argv[3];
                 filepath = argv[2];
             }else{
