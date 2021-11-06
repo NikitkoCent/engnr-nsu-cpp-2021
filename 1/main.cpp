@@ -69,11 +69,13 @@ int main(int ac, char** av){
         if (mode == "adler32"){
             uint32_t hash = HashCalc::adler32(file);
 
-            cout << "Hash: " << std::hex << hash << "\n";
+//            cout << std::hex << hash << "\n";
+            printf("%x", hash);
         } else {
             uint64_t hash = HashCalc::sum64(file);
 
-            cout << std::hex << hash << "\n";
+//            cout << std::hex << hash << "\n";
+            printf("%llx", hash);
         }
 
     } catch(exception& e) {
