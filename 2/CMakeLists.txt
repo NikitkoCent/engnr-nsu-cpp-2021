@@ -1,21 +1,30 @@
+cmake_minimum_required(VERSION 3.19)
 project(cpp_labs)
+
+set(CMAKE_CXX_STANDARD 14)
 
 add_compile_options(-Wall -pedantic)
 
 include_directories(lib/SafeInt/)
 
-target_sources(cpp_labs_2 PRIVATE
-        main.cpp
-        StackCalculator.cpp
-        StackCalculator.hpp
-        CommandFactory.h
-        Commands.h)
+## googletest
+add_subdirectory(lib/googletest)
+include_directories(lib/googletest/googletest/include)
+###
 
-target_sources(cpp_labs_2_test PRIVATE
-        test.cpp
-        StackCalculator.cpp
-        StackCalculator.hpp
-        CommandFactory.h
-        Commands.h)
+add_executable(cpp_labs_2
+		main.cpp
+                StackCalculator.cpp
+                StackCalculator.hpp
+                CommandFactory.h
+                Commands.h)
+
+add_executable(cpp_labs_2_test
+		test.cpp
+                StackCalculator.cpp
+                StackCalculator.hpp
+                CommandFactory.h
+                Commands.h)
 
 target_link_libraries(cpp_labs_2_test gtest gtest_main)
+

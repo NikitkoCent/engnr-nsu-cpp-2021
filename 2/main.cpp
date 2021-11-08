@@ -11,8 +11,6 @@
 
 using namespace std;
 
-
-
 int main(int argc, char** argv){
     ifstream in;
     vector<Command*> cmds;
@@ -24,5 +22,5 @@ int main(int argc, char** argv){
     } else {
         stackCalculator.parse_stream(cin);
     }
-
+    return 0;
 }
