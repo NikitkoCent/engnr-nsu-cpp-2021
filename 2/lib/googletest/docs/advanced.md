@@ -2288,7 +2288,7 @@ uncaught exception will cause a pop-up window, so catching the exceptions allows
 you to run the tests automatically.
 
 When debugging the test failures, however, you may instead want the exceptions
-to be handled by the debugger, such that you can examine the call stack when an
+to be handled by the debugger, such that you can examine the call _stack when an
 exception is thrown. To achieve that, set the `GTEST_CATCH_EXCEPTIONS`
 environment variable to `0`, or use the `--gtest_catch_exceptions=0` flag when
 running the tests.

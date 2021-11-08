@@ -269,7 +269,7 @@ any expectations on a mock after passing the mock to an API.
 This means `EXPECT_CALL()` should be read as expecting that a call will occur
 *in the future*, not that a call has occurred. Why does gMock work like that?
 Well, specifying the expectation beforehand allows gMock to report a violation
-as soon as it rises, when the context (stack trace, etc) is still available.
+as soon as it rises, when the context (_stack trace, etc) is still available.
 This makes debugging much easier.
 
 Admittedly, this test is contrived and doesn't do much. You can easily achieve

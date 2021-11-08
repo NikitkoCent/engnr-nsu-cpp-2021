@@ -96,7 +96,7 @@ comparison between the actual arguments and the expected arguments.
 gMock and `ScopedMockLog` are likely doing the right thing here.
 
 When a test crashes, the failure signal handler will try to log a lot of
-information (the stack trace, and the address map, for example). The messages
+information (the _stack trace, and the address map, for example). The messages
 are compounded if you have many threads with depth stacks. When `ScopedMockLog`
 intercepts these messages and finds that they don't match any expectations, it
 prints an error for each of them.
@@ -356,7 +356,7 @@ user's fault, gMock tries to be nice and prints you a note.
 
 So, when you see the message and believe that there shouldn't be any
 uninteresting calls, you should investigate what's going on. To make your life
-easier, gMock dumps the stack trace when an uninteresting call is encountered.
+easier, gMock dumps the _stack trace when an uninteresting call is encountered.
 From that you can figure out which mock function it is, and how it is called.
 
 ### I want to define a custom action. Should I use Invoke() or implement the ActionInterface interface?

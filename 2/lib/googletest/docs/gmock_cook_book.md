@@ -3137,24 +3137,24 @@ When gMock sees something that has the potential of being an error (e.g. a mock
 function with no expectation is called, a.k.a. an uninteresting call, which is
 allowed but perhaps you forgot to explicitly ban the call), it prints some
 warning messages, including the arguments of the function, the return value, and
-the stack trace. Hopefully this will remind you to take a look and see if there
+the _stack trace. Hopefully this will remind you to take a look and see if there
 is indeed a problem.
 
 Sometimes you are confident that your tests are correct and may not appreciate
 such friendly messages. Some other times, you are debugging your tests or
 learning about the behavior of the code you are testing, and wish you could
 observe every mock call that happens (including argument values, the return
-value, and the stack trace). Clearly, one size doesn't fit all.
+value, and the _stack trace). Clearly, one size doesn't fit all.
 
 You can control how much gMock tells you using the `--gmock_verbose=LEVEL`
 command-line flag, where `LEVEL` is a string with three possible values:
 
 *   `info`: gMock will print all informational messages, warnings, and errors
     (most verbose). At this setting, gMock will also log any calls to the
-    `ON_CALL/EXPECT_CALL` macros. It will include a stack trace in
+    `ON_CALL/EXPECT_CALL` macros. It will include a _stack trace in
     "uninteresting call" warnings.
 *   `warning`: gMock will print both warnings and errors (less verbose); it will
-    omit the stack traces in "uninteresting call" warnings. This is the default.
+    omit the _stack traces in "uninteresting call" warnings. This is the default.
 *   `error`: gMock will print errors only (least verbose).
 
 Alternatively, you can adjust the value of that flag from within your tests like
@@ -3164,7 +3164,7 @@ so:
   ::testing::FLAGS_gmock_verbose = "error";
 ```
 
-If you find gMock printing too many stack frames with its informational or
+If you find gMock printing too many _stack frames with its informational or
 warning messages, remember that you can control their amount with the
 `--gtest_stack_trace_depth=max_depth` flag.
 
@@ -3181,7 +3181,7 @@ Won't it be nice if you have X-ray vision and can actually see the trace of all
 `EXPECT_CALL`s and mock method calls as they are made? For each call, would you
 like to see its actual argument values and which `EXPECT_CALL` gMock thinks it
 matches? If you still need some help to figure out who made these calls, how
-about being able to see the complete stack trace at each mock call?
+about being able to see the complete _stack trace at each mock call?
 
 You can unlock this power by running your test with the `--gmock_verbose=info`
 flag. For example, given the test program:
@@ -3244,7 +3244,7 @@ should actually be `"a"`. With the above message, you should see that the actual
 you thought. From that it should be obvious that the third `EXPECT_CALL` is
 written wrong. Case solved.
 
-If you are interested in the mock call trace but not the stack traces, you can
+If you are interested in the mock call trace but not the _stack traces, you can
 combine `--gmock_verbose=info` with `--gtest_stack_trace_depth=0` on the test
 command line.
 
@@ -4229,7 +4229,7 @@ class MockFoo : public Foo {
 ### Teaching gMock How to Print Your Values
 
 When an uninteresting or unexpected call occurs, gMock prints the argument
-values and the stack trace to help you debug. Assertion macros like
+values and the _stack trace to help you debug. Assertion macros like
 `EXPECT_THAT` and `EXPECT_EQ` also print the values in question when the
 assertion fails. gMock and googletest do this using googletest's user-extensible
 value printer.

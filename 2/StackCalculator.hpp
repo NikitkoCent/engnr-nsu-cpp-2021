@@ -20,12 +20,12 @@ using std::vector;
 using std::map;
 
 class StackCalculator {
-    stack<SafeInt<int64_t>> stack;
+    stack<SafeInt<int64_t>> _stack;
     map<string, SafeInt<int64_t>> m;
 public:
     void exec(Command* cmd) {
 //        std::cout << "Cmd " << cmd << std::endl;
-        cmd->exec(stack, m);
+        cmd->exec(_stack, m);
     }
 
     void parse_stream(istream &in){
