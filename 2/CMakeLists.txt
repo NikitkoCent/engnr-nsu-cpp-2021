@@ -28,3 +28,5 @@ add_executable(cpp_labs_2_test
 
 target_link_libraries(cpp_labs_2_test gtest gtest_main)
 
+add_test(google_test cpp_labs_2_test)
+set_tests_properties(google_test PROPERTIES PASS_REGULAR_EXPRESSION "[  PASSED  ]")
