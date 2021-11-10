@@ -2,9 +2,7 @@
 #include <fstream>
 #include <string>
 #include <cstring>
-
-
-//#define NTOHLLL(x) ((1==ntohl(1)) ? (x) : (((uint64_t)ntohl((x) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((x) >> 32)))
+#include <arpa/inet.h>
 
 int main(int argc, char *argv[]) {
     std::string filepath, mode;
@@ -30,7 +28,11 @@ int main(int argc, char *argv[]) {
             }
         }
     } else {
-        std::cerr << help << 4 << std::endl;
+        if(strcmp(argv[1], "-h") == 0){
+            std::cout << help << 4 << std::endl;
+        }else{
+            std::cerr << help << 5 << std::endl;
+        }
         return 1;
     }
 
@@ -38,7 +40,7 @@ int main(int argc, char *argv[]) {
     file.open(filepath);
 
     if (!(file.is_open())) {
-        std::cerr << help << 5 << std::endl;
+        std::cerr << help << 6 << std::endl;
         return 1;
     }
 
@@ -56,11 +58,9 @@ int main(int argc, char *argv[]) {
             while (!file.eof()) {
                 uint64_t block;
                 file.read((char *) &block, sizeof(uint64_t));
-//                block = NTOHLLL(block)
                 block = (((uint64_t)ntohl((block) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((block) >> 32));
                 if (file.gcount() != 8){
-//                    block <<= 8*(8-file.gcount());
-                    block >>= 8*(8-file.gcount());
+                    block >>= 64-8*file.gcount();
                 }
                 contr_sum += block;
             }
