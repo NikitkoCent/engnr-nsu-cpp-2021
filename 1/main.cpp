@@ -9,6 +9,7 @@ int main(int argc, char *argv[]) {
     std::string help = "Usage: ./helper -m <mode> <filename> or ./helper <filename> -m <mode> \nMode types: adler32 or sum64";
 
 
+
     if (argc == 4) {
         if (strcmp(argv[1], "-m") == 0) {
             if (strcmp(argv[2], "adler32") == 0 || strcmp(argv[2], "sum64") == 0) {
@@ -27,6 +28,8 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
         }
+    } else if (argc == 0){
+        std::cerr << help << std::endl;
     } else {
         if(strcmp(argv[1], "-h") == 0 && argc == 2){
             std::cout << help << 4 << std::endl;
@@ -44,7 +47,11 @@ int main(int argc, char *argv[]) {
         std::cerr << help << 6 << std::endl;
         return 1;
     }else if(file.peek() == EOF){
-        std::cout << 0 << std::endl;
+        if(mode == "adler32"){
+            std::cout << 1 << std::endl;
+        }else{
+            std::cout << 0 << std::endl;
+        }
         return 0;
     }
 
