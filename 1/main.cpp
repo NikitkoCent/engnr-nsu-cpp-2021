@@ -8,7 +8,8 @@
 #endif
 
 #ifdef _WIN32
-#include <Ws2_32.lib>
+#include <Winsock2.h>
+#pragma comment(lib, "Ws2_32.lib")
 #endif
 
 
