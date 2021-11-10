@@ -15,8 +15,7 @@
 int main(int argc, char *argv[]) {
     std::string filepath, mode;
     std::string help = "Usage: ./helper -m <mode> <filename> or ./helper <filename> -m <mode> \nMode types: adler32 or sum64";
-
-
+    std::ifstream file;
 
     if (argc == 4) {
         if (strcmp(argv[1], "-m") == 0) {
@@ -49,7 +48,6 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    std::ifstream file;
     file.open(filepath, std::ios::binary);
 
     if (!(file.is_open())) {
@@ -76,7 +74,7 @@ int main(int argc, char *argv[]) {
         } else {
             uint64_t contr_sum = 0;
             while (!file.eof()) {
-                uint64_t block;
+                uint64_t block = 0;
                 file.read((char *) &block, sizeof(uint64_t));
                 block = (((uint64_t)ntohl((block) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((block) >> 32));
                 if (file.gcount() != 8){
