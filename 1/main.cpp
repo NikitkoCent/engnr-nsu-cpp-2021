@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
             while (!file.eof()) {
                 uint64_t block;
                 file.read((char *) &block, sizeof(uint64_t));
-//                block = NTOHLLL(block);
+//                block = NTOHLLL(block)
                 block = (((uint64_t)ntohl((block) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((block) >> 32));
                 if (file.gcount() != 8){
 //                    block <<= 8*(8-file.gcount());
