@@ -30,6 +30,7 @@ int main(int argc, char *argv[]) {
         }
     } else if (argc == 0){
         std::cerr << help << std::endl;
+        return 1;
     } else {
         if(strcmp(argv[1], "-h") == 0 && argc == 2){
             std::cout << help << 4 << std::endl;
