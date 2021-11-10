@@ -4,7 +4,7 @@
 #include <cstring>
 
 
-#define NTOHLLL(x) ((1==ntohl(1)) ? (x) : (((uint64_t)ntohl((x) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((x) >> 32)))
+//#define NTOHLLL(x) ((1==ntohl(1)) ? (x) : (((uint64_t)ntohl((x) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((x) >> 32)))
 
 int main(int argc, char *argv[]) {
     std::string filepath, mode;
@@ -56,7 +56,8 @@ int main(int argc, char *argv[]) {
             while (!file.eof()) {
                 uint64_t block;
                 file.read((char *) &block, sizeof(uint64_t));
-                block = NTOHLLL(block);
+//                block = NTOHLLL(block);
+                block = (((uint64_t)ntohl((block) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((block) >> 32)));
                 if (file.gcount() != 8){
 //                    block <<= 8*(8-file.gcount());
                     block >>= 8*(8-file.gcount());
