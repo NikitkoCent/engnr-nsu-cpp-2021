@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
         }
-    } else if (argc == 0){
+    } else if (argc == 1){
         std::cerr << help << std::endl;
         return 1;
     } else {
