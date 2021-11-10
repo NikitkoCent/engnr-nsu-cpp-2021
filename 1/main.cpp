@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     }
 
     std::ifstream file;
-    file.open(filepath);
+    file.open(filepath, std::ios::binary);
 
     if (!(file.is_open())) {
         std::cerr << help << 6 << std::endl;
@@ -84,8 +84,7 @@ int main(int argc, char *argv[]) {
                 }
                 contr_sum += block;
             }
-            printf("%llx", contr_sum);
-//            std::cout << std::hex << contr_sum << std::endl;
+            std::cout << std::hex << contr_sum << std::endl;
         }
     } catch (std::exception const &e) {
         std::cerr << help << 6 << std::endl;
