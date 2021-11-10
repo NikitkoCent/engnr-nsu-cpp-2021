@@ -11,6 +11,8 @@
 #include <Ws2_32.li>
 #endif
 
+#define reverse(x) ((1==ntohl(1)) ? (x) : (((uint64_t)ntohl((x) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((x) >> 32)))
+
 int main(int argc, char *argv[]) {
     std::string filepath, mode;
     std::string help = "Usage: ./helper -m <mode> <filename> or ./helper <filename> -m <mode> \nMode types: adler32 or sum64";
@@ -74,14 +76,14 @@ int main(int argc, char *argv[]) {
             std::cout << std::hex << ((b << 16) | a) << std::endl;
         } else {
             uint64_t contr_sum = 0;
-            uint64_t block;
             while (!file.eof()) {
+                uint64_t block;
                 file.read((char *) &block, sizeof(uint64_t));
                 std::streamsize s = file.gcount();
-                block = (((uint64_t)ntohl((block) & 0xFFFFFFFFFF)) << 32) | ntohl((uint32_t)((block) >> 32));
-//                if (file.gcount() != 8){
-                block >>= 8*(8-s);
-//                }
+                block = reverse(block);
+                if (file.gcount() != 8){
+                    block >>= 64-8*file.gcount(););
+                }
                 contr_sum += block;
             }
             std::cout << std::hex << contr_sum << std::endl;
