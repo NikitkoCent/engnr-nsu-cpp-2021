@@ -4,10 +4,6 @@
 #include <cstring>
 
 
-unsigned long long reverse(unsigned long long x){
-    return (((unsigned long long)ntohl((x) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((x) >> 32));
-}
-
 int main(int argc, char *argv[]) {
     std::string filepath, mode;
     std::string help = "Usage: ./helper -m <mode> <filename> or ./helper <filename> -m <mode> \nMode types: adler32 or sum64";
@@ -62,7 +58,7 @@ int main(int argc, char *argv[]) {
                     block <<= 8*(8-file.gcount());
                     block >>= 8*(8-file.gcount());
                 }else{
-                    block = reverse(block);
+                    block = NTOHLL(block);
                 }
                 contr_sum += block;
             }
