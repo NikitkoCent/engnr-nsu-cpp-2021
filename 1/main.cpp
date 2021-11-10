@@ -79,10 +79,9 @@ int main(int argc, char *argv[]) {
             while (!file.eof()) {
                 uint64_t block;
                 file.read((char *) &block, sizeof(uint64_t));
-                std::streamsize s = file.gcount();
                 block = reverse(block);
                 if (file.gcount() != 8){
-                    block >>= 64-8*file.gcount(););
+                    block >>= 64-8*file.gcount();
                 }
                 contr_sum += block;
             }
