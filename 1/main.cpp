@@ -4,6 +4,7 @@
 #include <cstring>
 
 
+
 int main(int argc, char *argv[]) {
     std::string filepath, mode;
     std::string help = "Usage: ./helper -m <mode> <filename> or ./helper <filename> -m <mode> \nMode types: adler32 or sum64";
