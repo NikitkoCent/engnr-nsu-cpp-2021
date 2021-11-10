@@ -77,11 +77,10 @@ int main(int argc, char *argv[]) {
             while (!file.eof()) {
                 uint64_t block;
                 file.read((char *) &block, sizeof(uint64_t));
-                block = NTOHLL(block);
-//                block = (((uint64_t)ntohl((block) & 0xFFFFFFFFFF)) << 32) | ntohl((uint32_t)((block) >> 32));
-                if (file.gcount() != 8){
-                    block >>= 64-8*file.gcount();
-                }
+                block = (((uint64_t)ntohl((block) & 0xFFFFFFFFFF)) << 32) | ntohl((uint32_t)((block) >> 32));
+//                if (file.gcount() != 8){
+                block >>= 64-8*file.gcount();
+//                }
                 contr_sum += block;
             }
             std::cout << std::hex << contr_sum << std::endl;
