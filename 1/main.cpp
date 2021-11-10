@@ -4,6 +4,10 @@
 #include <cstring>
 
 
+unsigned long long reverse(unsigned long long x){
+    return (((unsigned long long)ntohl((x) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((x) >> 32));
+}
+
 int main(int argc, char *argv[]) {
     std::string filepath, mode;
     std::string help = "Usage: ./helper -m <mode> <filename> or ./helper <filename> -m <mode> \nMode types: adler32 or sum64";
@@ -43,16 +47,23 @@ int main(int argc, char *argv[]) {
     try {
         if (mode == "adler32") {
             uint32_t a = 1, b = 0;
-            u_char s;
-            while (file.read((char *)(&s), sizeof(u_char))) {
+            unsigned char s;
+            while (file.read((char *)(&s), sizeof(unsigned char))) {
                 a = (a + s) % 65521;
                 b = (b + a) % 65521;
             }
             std::cout << std::hex << ((b << 16) | a) << std::endl;
         } else {
             uint64_t contr_sum = 0;
-            uint64_t block;
-            while (file.read((char *) &block, 8)) {
+            while (!file.eof()) {
+                unsigned long long block;
+                file.read((char *) &block, sizeof(unsigned long long));
+                if (file.gcount() != 8){
+                    block <<= 8*(8-file.gcount());
+                    block >>= 8*(8-file.gcount());
+                }else{
+                    block = reverse(block);
+                }
                 contr_sum += block;
             }
             std::cout << std::hex << contr_sum << std::endl;
@@ -63,3 +74,4 @@ int main(int argc, char *argv[]) {
     }
     return 0;
 }
+
