@@ -53,13 +53,12 @@ int main(int argc, char *argv[]) {
         } else {
             uint64_t contr_sum = 0;
             while (!file.eof()) {
-                unsigned long long block;
-                file.read((char *) &block, sizeof(unsigned long long));
+                uint64_t block;
+                file.read((char *) &block, sizeof(uint64_t));
+                block = NTOHLL(block);
                 if (file.gcount() != 8){
-                    block <<= 8*(8-file.gcount());
+//                    block <<= 8*(8-file.gcount());
                     block >>= 8*(8-file.gcount());
-                }else{
-                    block = NTOHLL(block);
                 }
                 contr_sum += block;
             }
