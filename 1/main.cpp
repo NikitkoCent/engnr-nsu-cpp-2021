@@ -30,6 +30,7 @@ int main(int argc, char *argv[]) {
     } else {
         if(strcmp(argv[1], "-h") == 0 && argc == 2){
             std::cout << help << 4 << std::endl;
+            return 0;
         }else{
             std::cerr << help << 5 << std::endl;
         }
@@ -42,6 +43,9 @@ int main(int argc, char *argv[]) {
     if (!(file.is_open())) {
         std::cerr << help << 6 << std::endl;
         return 1;
+    }else if(file.peek() == EOF){
+        std::cout << 0 << std::endl;
+        return 0;
     }
 
     try {
