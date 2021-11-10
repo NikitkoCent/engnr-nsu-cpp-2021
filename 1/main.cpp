@@ -2,7 +2,14 @@
 #include <fstream>
 #include <string>
 #include <cstring>
+
+#ifdef __linux__
 #include <arpa/inet.h>
+#endif
+
+#ifdef _WIN32
+#include <Ws2_32.li>
+#endif
 
 int main(int argc, char *argv[]) {
     std::string filepath, mode;
@@ -70,7 +77,8 @@ int main(int argc, char *argv[]) {
             while (!file.eof()) {
                 uint64_t block;
                 file.read((char *) &block, sizeof(uint64_t));
-                block = (((uint64_t)ntohl((block) & 0xFFFFFFFFFF)) << 32) | ntohl((uint32_t)((block) >> 32));
+                block = NTOHLL(block);
+//                block = (((uint64_t)ntohl((block) & 0xFFFFFFFFFF)) << 32) | ntohl((uint32_t)((block) >> 32));
                 if (file.gcount() != 8){
                     block >>= 64-8*file.gcount();
                 }
