@@ -2,6 +2,15 @@
 #include <iostream>
 #include <fstream>
 
+#ifdef __linux__
+#include <arpa/inet.h>
+#endif
+
+#ifdef _WIN32
+#include <Winsock2.h>
+#pragma comment(lib, "Ws2_32.lib")
+#endif
+
 void adler32(std::ifstream &file){
     uint32_t a = 1, b = 0;
     unsigned char s;

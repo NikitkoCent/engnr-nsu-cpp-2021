@@ -3,14 +3,6 @@
 #include <string>
 #include <cstring>
 #include "hashFunctions.h"
-#ifdef __linux__
-#include <arpa/inet.h>
-#endif
-
-#ifdef _WIN32
-#include <Winsock2.h>
-#pragma comment(lib, "Ws2_32.lib")
-#endif
 
 
 int main(int argc, char *argv[]) {
