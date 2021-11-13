@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <cstring>
-
+#include "hashFunctions.h"
 #ifdef __linux__
 #include <arpa/inet.h>
 #endif
@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
                 mode = argv[2];
                 filepath = argv[3];
             } else {
-                std::cerr << help << 1 << std::endl;
+                std::cerr << "Wrong usage: unknown mode" << help << std::endl;
                 return 1;
             }
         } else {
@@ -32,19 +32,19 @@ int main(int argc, char *argv[]) {
                 mode = argv[3];
                 filepath = argv[1];
             } else {
-                std::cerr << help << 3 << std::endl;
+                std::cerr  << "Wrong usage: unknown mode" << help << std::endl;
                 return 1;
             }
         }
     } else if (argc == 1){
-        std::cerr << help << std::endl;
+        std::cerr  << "Wrong usage: no arguments" << help << std::endl;
         return 1;
     } else {
         if(strcmp(argv[1], "-h") == 0 && argc == 2){
-            std::cout << help << 4 << std::endl;
+            std::cout << help << std::endl;
             return 0;
         }else{
-            std::cerr << help << 5 << std::endl;
+            std::cerr  << "Wrong usage: unknown commands" << help << std::endl;
         }
         return 1;
     }
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
     file.open(filepath, std::ios::binary);
 
     if (!(file.is_open())) {
-        std::cerr << help << 6 << std::endl;
+        std::cerr << "FileNotFound Error" << help << std::endl;
         return 1;
     }else if(file.peek() == EOF){
         if(mode == "adler32"){
@@ -65,28 +65,12 @@ int main(int argc, char *argv[]) {
 
     try {
         if (mode == "adler32") {
-            uint32_t a = 1, b = 0;
-            unsigned char s;
-            while (file.read((char *)(&s), sizeof(unsigned char))) {
-                a = (a + s) % 65521;
-                b = (b + a) % 65521;
-            }
-            std::cout << std::hex << ((b << 16) | a) << std::endl;
+            adler32(file);
         } else {
-            uint64_t contr_sum = 0;
-            while (!file.eof()) {
-                uint64_t block = 0;
-                file.read((char *) &block, sizeof(uint64_t));
-                block = (((uint64_t)ntohl((block) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((block) >> 32));
-                if (file.gcount() != 8){
-                    block >>= 64-8*file.gcount();
-                }
-                contr_sum += block;
-            }
-            std::cout << std::hex << contr_sum << std::endl;
+            sum64(file);
         }
-    } catch (std::exception const &e) {
-        std::cerr << help << 6 << std::endl;
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
         return 1;
     }
     return 0;
