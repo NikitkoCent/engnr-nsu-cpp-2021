@@ -26,10 +26,16 @@ void sum64(std::ifstream &file){
     while (!file.eof()) {
         uint64_t block = 0;
         file.read((char *) &block, sizeof(uint64_t));
-        block = (((uint64_t)ntohl((block) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((block) >> 32));
-        if (file.gcount() != 8){
-            block >>= 64-8*file.gcount();
+//        std::bitset<64> x(block);
+//        std::cout << x << " " << file.gcount() <<  std::endl;
+//        std::bitset<64> y(block);
+//        std::cout << y << " " << file.gcount() << std::endl;
+        if (file.gcount() == 8){
+            block = (((uint64_t)ntohl((block) & 0xFFFFFFFFUL)) << 32) | ntohl((uint32_t)((block) >> 32));
+
         }
+//        std::bitset<64> z(block);
+//        std::cout << z << " " << file.gcount() << std::endl;
         contr_sum += block;
     }
     std::cout << std::hex << contr_sum << std::endl;
