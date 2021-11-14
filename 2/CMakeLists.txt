@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(stack_calc)
+add_subdirectory(lib/SafeInt)
+add_subdirectory(lib/googletest)
 
 set(CMAKE_CXX_STANDARD 14)
-
-add_compile_options(-Wall -pedantic -Werror)
 
 add_executable (
         stack_calc
@@ -18,3 +18,15 @@ add_executable (
         AppException.cpp
 )
 
+if (MSVC)
+    target_compile_options(stack_calc
+            PRIVATE /W4          # warnings level
+            PRIVATE /WX          # treat all warnings as errors
+            )
+else()
+    target_compile_options(stack_calc
+            PRIVATE -Wall        # basic set of warnings
+            PRIVATE -pedantic    # modern C++ inspections
+            PRIVATE -Werror      # treat all warnings as errors
+            )
+endif()
