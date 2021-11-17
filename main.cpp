@@ -79,6 +79,8 @@ int main()
             else {
                 show_err();
             }
+            cout << endl;
         }
     }
+
 }
