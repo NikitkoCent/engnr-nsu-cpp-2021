@@ -1,11 +1,9 @@
 #include "hash.hpp"
 int main()
 {
-    setlocale(LC_ALL, "Russian");
-
     while (true)
     {
-        string command = "./hasher  -m  adler32 test/test.txt   ";
+        string command = "./hasher  -m  adler32 test/test.txt a  ";
         getline(std::cin, command, '\n');
 
         remove_twin_spaces(command);
@@ -35,11 +33,12 @@ int main()
             {
                 array[countarg++] = nextArg;
 
-                if (countarg > ARG_MAX_SIZE) {
+                if (countarg >= ARG_MAX_SIZE) {
                     show_err();
                     break;
                 }
             }
+
 
             // непосредственно проверка параметров
             if (countarg == 1) {
