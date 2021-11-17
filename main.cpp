@@ -80,7 +80,5 @@ int main()
                 show_err();
             }
         }
-        cout << endl;
     }
-
 }

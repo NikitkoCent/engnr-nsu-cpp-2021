@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Projects/hash1/engnr-nsu-cpp-2021/hash.hpp
+iostream
+-
+string
+-
+sstream
+-
+iomanip
+-
+fstream
+-
+bitset
+-
+iterator
+-
+algorithm
+-
+
+C:/Projects/hash1/engnr-nsu-cpp-2021/main.cpp
+hash.hpp
+C:/Projects/hash1/engnr-nsu-cpp-2021/hash.hpp
+
