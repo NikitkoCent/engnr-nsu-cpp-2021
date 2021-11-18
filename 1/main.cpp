@@ -15,6 +15,14 @@ int main() {
         int countarg = 0;
         x >> nextArg;
 
+        // check space
+        if (eq(" ", command)) {
+            continue;
+        }
+        // check enter
+        if (eq("", command)) {
+            continue;
+        }
         if (!eq("./hasher", nextArg)) {
             show_err();
         } else {
@@ -58,7 +66,6 @@ int main() {
             } else {
                 show_err();
             }
-            cout << endl;
         }
 
     }
