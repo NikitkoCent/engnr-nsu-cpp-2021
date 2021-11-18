@@ -18,7 +18,7 @@ int main()
         // check space
         if (eq(" ", command)) {
             show_err();
-            return 0;
+            return 1;
         }
         // check enter
         if (eq("", command)) {
@@ -36,7 +36,7 @@ int main()
 
                 if (countarg >= ARG_MAX_SIZE) {
                     show_err();
-                    return 0;
+                    return 1;
                 }
             }
 
@@ -49,12 +49,12 @@ int main()
                 }
                 else {
                     show_err();
-                    return 0;
+                    return 1;
                 }
             }
             if (countarg == 2) {
                 show_err();
-                return 0;
+                return 1;
             }
             else if (countarg == 3) {
                 if (eq(array[0], "-m")) {
@@ -66,7 +66,7 @@ int main()
                     }
                     else {
                         show_err();
-                        return 0;
+                        return 1;
                     }
                 }
                 else if (eq(array[1], "-m")) {
@@ -78,17 +78,17 @@ int main()
                     }
                     else {
                         show_err();
-                        return 0;
+                        return 1;
                     }
                 }
                 else {
                     show_err();
-                    return 0;
+                    return 1;
                 }
             }
             else {
                 show_err();
-                return 0;
+                return 1;
             }
         }
         break;
