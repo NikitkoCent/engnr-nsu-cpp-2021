@@ -18,7 +18,7 @@ add_executable (
         AppException.cpp
 )
 
-target_include_directories (target
+target_include_directories (stack_calc
             SafeInt
             googletest/googletest/include/gtest
 )
