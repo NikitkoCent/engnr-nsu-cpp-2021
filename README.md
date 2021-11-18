@@ -1,8 +1,2 @@
-Команды запуска:  
-``./hasher -m <mode> <filename>``   
-
-``./hasher <filename> -m <mode>``   
-
-mode : adler32 ,sum64
-
-Программа считает хэш.
+# engnr-nsu-cpp-2021
+The base repository for the tasks reviewing of the C++ course 2021
