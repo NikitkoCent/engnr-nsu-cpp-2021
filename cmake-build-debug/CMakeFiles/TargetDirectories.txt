@@ -1,3 +1,0 @@
-C:/Projects/hash1/engnr-nsu-cpp-2021/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Projects/hash1/engnr-nsu-cpp-2021/cmake-build-debug/CMakeFiles/hash1.dir
-C:/Projects/hash1/engnr-nsu-cpp-2021/cmake-build-debug/CMakeFiles/rebuild_cache.dir
