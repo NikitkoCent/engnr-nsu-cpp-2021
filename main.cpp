@@ -1,8 +1,6 @@
 #include "hash.hpp"
-int main()
-{
-    while (true)
-    {
+int main() {
+    while (true) {
         string command = "./hasher  -m  adler32 test/test.txt a  ";
         getline(std::cin, command, '\n');
 
@@ -12,7 +10,7 @@ int main()
         x << command;
 
         string nextArg = "";
-        string* array = new string[ARG_MAX_SIZE];
+        string *array = new string[ARG_MAX_SIZE];
 
         int countarg = 0;
         x >> nextArg;
@@ -27,10 +25,8 @@ int main()
         }
         if (!eq("./hasher", nextArg)) {
             show_err();
-        }
-        else {
-            while (x >> nextArg)
-            {
+        } else {
+            while (x >> nextArg) {
                 array[countarg++] = nextArg;
 
                 if (countarg >= ARG_MAX_SIZE) {
@@ -45,42 +41,33 @@ int main()
                 if (eq(array[0], "-h")) {
                     show_help();
                     break;
-                }
-                else
+                } else
                     show_err();
-            }
-            else if (countarg == 3) {
+            } else if (countarg == 3) {
                 if (eq(array[0], "-m")) {
                     if (eq(array[1], "adler32")) {
                         callAdler32(array[2]);
-                    }
-                    else if (eq(array[1], "sum64")) {
+                    } else if (eq(array[1], "sum64")) {
                         callSumm64(array[2]);
-                    }
-                    else {
+                    } else {
                         show_err();
                     }
-                }
-                else if (eq(array[1], "-m")) {
+                } else if (eq(array[1], "-m")) {
                     if (eq(array[2], "adler32")) {
                         callAdler32(array[0]);
-                    }
-                    else if (eq(array[2], "sum64")) {
+                    } else if (eq(array[2], "sum64")) {
                         callSumm64(array[0]);
-                    }
-                    else {
+                    } else {
                         show_err();
                     }
-                }
-                else {
+                } else {
                     show_err();
                 }
-            }
-            else {
+            } else {
                 show_err();
             }
             cout << endl;
         }
-    }
 
+    }
 }
