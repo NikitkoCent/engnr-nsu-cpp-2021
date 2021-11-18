@@ -50,7 +50,7 @@ int main()
                 else {
                     show_help();
                     show_err();
-                    return 1;
+                    return 0;
                 }
             }
             else if (countarg == 3) {
