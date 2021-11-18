@@ -18,20 +18,17 @@ int main() {
         // check space
         if (eq(" ", command)) {
             show_err();
-            show_help();
             return 1;
             continue;
         }
         // check enter
         if (eq("", command)) {
             show_err();
-            show_help();
             return 1;
             continue;
         }
         if (!eq("./hasher", nextArg)) {
             show_err();
-            show_help();
             return 1;
         } else {
             while (x >> nextArg) {
@@ -39,7 +36,6 @@ int main() {
 
                 if (countarg >= ARG_MAX_SIZE) {
                     show_err();
-                    show_help();
                     return 1;
                     break;
                 }
@@ -55,7 +51,6 @@ int main() {
                 } else
                 {
                     show_err();
-                    show_help();
                     return 1;
                 }
 
@@ -67,7 +62,6 @@ int main() {
                         callSumm64(array[2]);
                     } else {
                         show_err();
-                        show_help();
                         return 1;
                     }
                 } else if (eq(array[1], "-m")) {
@@ -77,17 +71,14 @@ int main() {
                         callSumm64(array[0]);
                     } else {
                         show_err();
-                        show_help();
                         return 1;
                     }
                 } else {
                     show_err();
-                    show_help();
                     return 1;
                 }
             } else {
                 show_err();
-                show_help();
                 return 1;
 
             }
