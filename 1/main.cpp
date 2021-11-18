@@ -27,7 +27,7 @@ int main()
         }
         if (!eq("./hasher", nextArg)) {
             show_err();
-            return 0;
+            return 1;
         }
         else {
             while (x >> nextArg)
