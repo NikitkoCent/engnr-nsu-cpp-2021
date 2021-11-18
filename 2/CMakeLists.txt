@@ -19,8 +19,8 @@ add_executable (
 )
 
 target_include_directories (stack_calc
-            SafeInt
-            googletest/googletest/include/gtest
+            PUBLIC SafeInt
+            PUBLIC googletest/googletest/include/gtest
 )
 
 if (MSVC)
