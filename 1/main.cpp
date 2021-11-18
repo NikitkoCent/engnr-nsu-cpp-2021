@@ -48,10 +48,13 @@ int main()
                     return 0;
                 }
                 else {
-                    show_help();
                     show_err();
-                    return 0;
+                    return 1;
                 }
+            }
+            if (countarg == 2) {
+                show_err();
+                return 1;
             }
             else if (countarg == 3) {
                 if (eq(array[0], "-m")) {
