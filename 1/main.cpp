@@ -48,6 +48,7 @@ int main()
                     return 0;
                 }
                 else {
+                    show_help();
                     show_err();
                     return 1;
                 }
