@@ -85,6 +85,7 @@ int callAdler32(const string &fileName) {
 
     uint32_t result_adler = adler32(fileName);
     std::cout<< std::hex<< result_adler << endl;
+    return 0;
 }
 int callSumm64(const string &fileName) {
     ifstream myfile(fileName);
@@ -96,6 +97,7 @@ int callSumm64(const string &fileName) {
 
     uint64_t result_sum64 = summ64(fileName);
     std::cout << std::hex<< result_sum64 << endl;
+    return 0;
 }
 void remove_twin_spaces(std::string& str)
 {
