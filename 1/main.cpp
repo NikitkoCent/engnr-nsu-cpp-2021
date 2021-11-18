@@ -18,7 +18,7 @@ int main()
         // check space
         if (eq(" ", command)) {
             show_err();
-            return 1;
+            return 0;
         }
         // check enter
         if (eq("", command)) {
@@ -27,7 +27,7 @@ int main()
         }
         if (!eq("./hasher", nextArg)) {
             show_err();
-            return 1;
+            return 0;
         }
         else {
             while (x >> nextArg)
@@ -36,7 +36,7 @@ int main()
 
                 if (countarg >= ARG_MAX_SIZE) {
                     show_err();
-                    return 1;
+                    return 0;
                 }
             }
 
@@ -66,7 +66,7 @@ int main()
                     }
                     else {
                         show_err();
-                        return 1;
+                        return 0;
                     }
                 }
                 else if (eq(array[1], "-m")) {
