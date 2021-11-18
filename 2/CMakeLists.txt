@@ -18,6 +18,11 @@ add_executable (
         AppException.cpp
 )
 
+target_include_directories (target
+            SafeInt
+            googletest/googletest/include/gtest
+)
+
 if (MSVC)
     target_compile_options(stack_calc
             PRIVATE /W4          # warnings level
