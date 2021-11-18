@@ -18,23 +18,28 @@ int main() {
         // check space
         if (eq(" ", command)) {
             show_err();
+            show_help();
             return 1;
             continue;
         }
         // check enter
         if (eq("", command)) {
             show_err();
+            show_help();
             return 1;
             continue;
         }
         if (!eq("./hasher", nextArg)) {
             show_err();
+            show_help();
+            return 1;
         } else {
             while (x >> nextArg) {
                 array[countarg++] = nextArg;
 
                 if (countarg >= ARG_MAX_SIZE) {
                     show_err();
+                    show_help();
                     return 1;
                     break;
                 }
@@ -48,8 +53,12 @@ int main() {
                     return 0;
                     break;
                 } else
+                {
                     show_err();
-                return 1;
+                    show_help();
+                    return 1;
+                }
+
             } else if (countarg == 3) {
                 if (eq(array[0], "-m")) {
                     if (eq(array[1], "adler32")) {
@@ -58,6 +67,7 @@ int main() {
                         callSumm64(array[2]);
                     } else {
                         show_err();
+                        show_help();
                         return 1;
                     }
                 } else if (eq(array[1], "-m")) {
@@ -67,15 +77,19 @@ int main() {
                         callSumm64(array[0]);
                     } else {
                         show_err();
+                        show_help();
                         return 1;
                     }
                 } else {
                     show_err();
+                    show_help();
                     return 1;
                 }
             } else {
                 show_err();
+                show_help();
                 return 1;
+
             }
         }
 
