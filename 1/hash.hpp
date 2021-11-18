@@ -7,7 +7,7 @@
 #include <iterator>
 #include <algorithm>
 #define ARG_MAX_SIZE 5
-#define FILE_ERROR -1
+#define FILE_ERROR 1
 #define MODUL 65521
 using namespace std;
 
@@ -22,10 +22,22 @@ uint64_t summ64(const string &name) {
         char buff[8 + 1]{ 0 };
         fs.read(buff, 8);
         uint64_t tmp = 0;
+        int zerosCount = 0;
+
         for (int i = 0; i < 8; i++) {
-            tmp |=  (uint64_t)buff[i] << (7 - i) * 8;
+            char c = buff[i];
+            if (c == 0)
+                zerosCount++;
+            else
+                zerosCount = 0;
+            tmp |= (uint64_t)(unsigned char)c << (7 - i) * 8;
         }
-        result += tmp % UINT64_MAX;
+
+        if (zerosCount > 0)
+            tmp = tmp >> zerosCount * 8;
+
+        result += tmp;
+
         if (fs.eof())
             break;
     }
@@ -42,11 +54,9 @@ uint32_t  adler32(const string &name) {
     if (fs.is_open()) {
         while (true) {
             fs.read(&byte, sizeof(char));
-
             if (fs.eof())
                 break;
-
-            A = (A + byte) % MODUL;
+            A = (A + (unsigned char)byte) % MODUL;
             B = (A + B) % MODUL;
         }
     }
@@ -82,9 +92,8 @@ int callAdler32(const string &fileName) {
         return FILE_ERROR;
     }
 
-
     uint32_t result_adler = adler32(fileName);
-    std::cout<< std::hex<< result_adler << endl;
+    std::cout << std::hex << std::setfill('0') << result_adler;
     return 0;
 }
 int callSumm64(const string &fileName) {
@@ -96,7 +105,7 @@ int callSumm64(const string &fileName) {
     }
 
     uint64_t result_sum64 = summ64(fileName);
-    std::cout << std::hex<< result_sum64 << endl;
+    std::cout << std::hex  << std::setfill('0') << result_sum64;
     return 0;
 }
 void remove_twin_spaces(std::string& str)
