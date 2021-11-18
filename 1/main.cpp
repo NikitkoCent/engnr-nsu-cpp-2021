@@ -49,12 +49,12 @@ int main()
                 }
                 else {
                     show_err();
-                    return 1;
+                    return 0;
                 }
             }
             if (countarg == 2) {
                 show_err();
-                return 1;
+                return 0;
             }
             else if (countarg == 3) {
                 if (eq(array[0], "-m")) {
@@ -78,17 +78,17 @@ int main()
                     }
                     else {
                         show_err();
-                        return 1;
+                        return 0;
                     }
                 }
                 else {
                     show_err();
-                    return 1;
+                    return 0;
                 }
             }
             else {
                 show_err();
-                return 1;
+                return 0;
             }
         }
         break;
