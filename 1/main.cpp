@@ -21,6 +21,8 @@ int main() {
         }
         // check enter
         if (eq("", command)) {
+            show_help();
+            show_err();
             continue;
         }
         if (!eq("./hasher", nextArg)) {
