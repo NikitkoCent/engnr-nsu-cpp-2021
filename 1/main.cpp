@@ -52,7 +52,7 @@ int main()
                     return 1;
                 }
             }
-            if (countarg == 2) {
+            if (countarg == 2 && eq(array[0], "-h")) {
                 show_err();
                 return 1;
             }
