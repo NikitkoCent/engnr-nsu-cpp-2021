@@ -12,7 +12,7 @@
 using namespace std;
 
 
-uint64_t summ64(const string &name) {
+uint64_t summ64(string &name) {
 
     uint64_t result = 0;
 
@@ -44,7 +44,8 @@ uint64_t summ64(const string &name) {
 
     return result;
 }
-uint32_t  adler32(const string &name) {
+
+uint32_t  adler32(string &name) {
     uint16_t A = 1;
     uint16_t B = 0;
     char byte;
@@ -63,6 +64,7 @@ uint32_t  adler32(const string &name) {
 
     return (B << 16) + A;
 }
+
 void show_help() {
     cout << "Background information:" << endl;
     cout << "<filename> -m <mode> - calculate the transmitted version of the hash of the transmitted file;" << endl;
@@ -79,12 +81,7 @@ void show_err() {
     cerr << "\twhere\tfilename is the file name (for example, test.txt)" << endl;
     cerr << "\t\tmode is the name of the adler32 or sum 64 algorithm" << endl;
 }
-
-int eq(const string &first, const string &str) {
-    int result = first == str;
-    return result;
-}
-int callAdler32(const string &fileName) {
+int callAdler32(string fileName) {
     ifstream myfile(fileName);
 
     if (!myfile) {
@@ -96,7 +93,7 @@ int callAdler32(const string &fileName) {
     std::cout << std::hex << std::setfill('0') << result_adler;
     return 0;
 }
-int callSumm64(const string &fileName) {
+int callSumm64(string fileName) {
     ifstream myfile(fileName);
 
     if (!myfile) {
@@ -108,7 +105,12 @@ int callSumm64(const string &fileName) {
     std::cout << std::hex  << std::setfill('0') << result_sum64;
     return 0;
 }
-void remove_twin_spaces(std::string& str)
+int eq(const string &first, const string &str) {
+    int result = first == str;
+    return result;
+}
+
+void remove_twin_spaces(string& str)
 {
     str.erase(
             std::unique_copy(str.begin(), str.end(), str.begin(),
