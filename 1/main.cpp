@@ -52,10 +52,10 @@ int main()
 //                    return 1;
 //                }
             }
-            if (countarg == 2 && eq(array[0], "-h")) {
-                show_err();
-                return 1;
-            }
+//            if (countarg == 2 && eq(array[0], "-h")) {
+//                show_err();
+//                return 1;
+//            }
             else if (countarg == 3) {
                 if (eq(array[0], "-m")) {
                     if (eq(array[1], "adler32")) {
