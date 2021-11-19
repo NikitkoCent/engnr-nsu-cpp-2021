@@ -57,9 +57,9 @@ int main(int argc, char *argv[]) {
 
     try {
         if (mode == "adler32") {
-            adler32(file);
+            std::cout << std::hex << adler32(file) << std::endl;
         } else {
-            sum64(file);
+            std::cout << std::hex << sum64(file) << std::endl;
         }
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;

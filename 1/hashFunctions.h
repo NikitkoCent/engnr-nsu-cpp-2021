@@ -2,7 +2,7 @@
 #define LAB1_HASHFUNCTIONS_H
 #include <iostream>
 
-void adler32(std::ifstream &file);
-void sum64(std::ifstream &file);
+uint32_t adler32(std::istream &file);
+uint64_t sum64(std::istream &file);
 
 #endif

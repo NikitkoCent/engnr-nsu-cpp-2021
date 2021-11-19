@@ -2,26 +2,18 @@
 #include <iostream>
 #include <fstream>
 
-#ifdef __linux__
-#include <arpa/inet.h>
-#endif
 
-#ifdef _WIN32
-#include <Winsock2.h>
-#pragma comment(lib, "Ws2_32.lib")
-#endif
-
-void adler32(std::ifstream &file){
+uint32_t adler32(std::istream &file){
     uint32_t a = 1, b = 0;
     unsigned char s;
     while (file.read((char *)(&s), sizeof(unsigned char))) {
         a = (a + s) % 65521;
         b = (b + a) % 65521;
     }
-    std::cout << std::hex << ((b << 16) | a) << std::endl;
+    return ((b << 16) | a);
 }
 
-void sum64(std::ifstream &file){
+uint64_t sum64(std::istream &file){
     uint64_t contr_sum = 0;
     while (!file.eof()) {
         uint64_t block = 0;
@@ -39,7 +31,7 @@ void sum64(std::ifstream &file){
         }
         contr_sum += res;
     }
-    std::cout << std::hex << contr_sum << std::endl;
+    return contr_sum;
 }
 
 
