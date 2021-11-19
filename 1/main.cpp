@@ -47,10 +47,10 @@ int main()
                     show_help();
                     return 0;
                 }
-                else {
-                    show_err();
-                    return 1;
-                }
+//                else {
+//                    show_err();
+//                    return 1;
+//                }
             }
             if (countarg == 2 && eq(array[0], "-h")) {
                 show_err();
