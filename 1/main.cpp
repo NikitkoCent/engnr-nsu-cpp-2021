@@ -25,6 +25,10 @@ int main()
             show_err();
             return 1;
         }
+        if (eq("-h", nextArg)) {
+            show_help();
+            return 0;
+        }
         if (!eq("./hasher", nextArg)) {
             show_err();
             return 1;
@@ -42,6 +46,7 @@ int main()
 
 
             // непосредственно проверка параметров
+
             if (countarg == 1) {
                 if (eq(array[0], "-h")) {
                     show_help();
