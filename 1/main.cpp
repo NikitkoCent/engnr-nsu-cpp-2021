@@ -47,7 +47,7 @@ int main()
             if (countarg == 1) {
                 if (eq(array[0], "-h")) {
                     show_help();
-                    break;
+                    return 0;
                 }
                 else {
                     show_err();
