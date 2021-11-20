@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/krazer_leonid/Desktop/С++ code/Lab 3/inc/iterators.h
+iterator
+-
+./node.h
+/home/krazer_leonid/Desktop/С++ code/Lab 3/inc/node.h
+
+/home/krazer_leonid/Desktop/С++ code/Lab 3/inc/linked_list.h
+cstdint
+-
+stdexcept
+-
+initializer_list
+-
+node.h
+/home/krazer_leonid/Desktop/С++ code/Lab 3/inc/node.h
+iterators.h
+/home/krazer_leonid/Desktop/С++ code/Lab 3/inc/iterators.h
+../src/linked_list.tpp
+/home/krazer_leonid/Desktop/С++ code/Lab 3/src/linked_list.tpp
+
+/home/krazer_leonid/Desktop/С++ code/Lab 3/inc/node.h
+iostream
+-
+
+/home/krazer_leonid/Desktop/С++ code/Lab 3/main.cpp
+iostream
+-
+./inc/linked_list.h
+/home/krazer_leonid/Desktop/С++ code/Lab 3/inc/linked_list.h
+
+/home/krazer_leonid/Desktop/С++ code/Lab 3/src/linked_list.tpp
+../inc/linked_list.h
+/home/krazer_leonid/Desktop/С++ code/Lab 3/inc/linked_list.h
+iostream
+-
+algorithm
+-
+

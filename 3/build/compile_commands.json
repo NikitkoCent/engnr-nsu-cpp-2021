@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/krazer_leonid/Desktop/С++ code/Lab 3/build",
+  "command": "/bin/clang++-11   -I\"/home/krazer_leonid/Desktop/С++ code/Lab 3/inc\"  -g   -o CMakeFiles/Lab_3.dir/main.cpp.o -c \"/home/krazer_leonid/Desktop/С++ code/Lab 3/main.cpp\"",
+  "file": "/home/krazer_leonid/Desktop/С++ code/Lab 3/main.cpp"
+}
+]

@@ -21,6 +21,12 @@ int main(int argc, char *argv[])
     
     if (*(tokens[0]) == "-h" || *(tokens[0]) == "--help")
         HelpPrint();
+
+    if (tokens.size() == 1) 
+    {
+        std::cerr << "No parameters";
+        HelpPrint();
+    }
     
     if ((*(tokens[0]) == "-m" || *(tokens[0]) == "--mode") && tokens.size( ) == 3)
     {
@@ -30,6 +36,7 @@ int main(int argc, char *argv[])
         if (h == HashMode::_WRONG) 
         {
             std::cerr << "Wrong hash mode";
+            HelpPrint();
         }
 
         hashProccessing(argv[2], h);
@@ -42,6 +49,7 @@ int main(int argc, char *argv[])
         if (h == HashMode::_WRONG) 
         {
             std::cerr << "Wrong hash mode";
+            HelpPrint();
         }
 
         hashProccessing(argv[0], h);
@@ -49,5 +57,6 @@ int main(int argc, char *argv[])
     else
     {
         std::cerr << "Incorrect Input";
+        HelpPrint();
     }
 }
