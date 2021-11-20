@@ -1,5 +1,0 @@
-/home/krazer_leonid/Desktop/С++ code/Lab 3/build/CMakeFiles/edit_cache.dir
-/home/krazer_leonid/Desktop/С++ code/Lab 3/build/CMakeFiles/package_source.dir
-/home/krazer_leonid/Desktop/С++ code/Lab 3/build/CMakeFiles/rebuild_cache.dir
-/home/krazer_leonid/Desktop/С++ code/Lab 3/build/CMakeFiles/package.dir
-/home/krazer_leonid/Desktop/С++ code/Lab 3/build/CMakeFiles/Lab_3.dir
