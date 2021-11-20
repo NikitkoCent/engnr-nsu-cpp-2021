@@ -1,11 +1,15 @@
 #include "hash.hpp"
 int main()
 {
+
     while (true)
     {
-        string command = "./hasher  -m  adler32 test/file";
-        getline(std::cin, command, '\n');
+        //cout << "input command : ";
+        string command = "./hasher -h  -m  adler32 test/file";
+        //getline(std::cin, command, '\n');
+
         remove_twin_spaces(command);
+
         std::stringstream x;
         x << command;
 
@@ -17,17 +21,11 @@ int main()
 
         // check space
         if (eq(" ", command)) {
-            show_err();
             return 1;
         }
         // check enter
         if (eq("", command)) {
-            show_err();
             return 1;
-        }
-        if (eq("-h", nextArg)) {
-            show_help();
-            return 0;
         }
         if (!eq("./hasher", nextArg)) {
             show_err();
@@ -46,21 +44,16 @@ int main()
 
 
             // непосредственно проверка параметров
-
             if (countarg == 1) {
                 if (eq(array[0], "-h")) {
                     show_help();
-                    return 0;
+                    break;
                 }
-//                else {
-//                    show_err();
-//                    return 1;
-//                }
+                else {
+                    show_err();
+                    return 1;
+                }
             }
-//            if (countarg == 2 && eq(array[0], "-h")) {
-//                show_err();
-//                return 1;
-//            }
             else if (countarg == 3) {
                 if (eq(array[0], "-m")) {
                     if (eq(array[1], "adler32")) {

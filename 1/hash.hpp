@@ -11,8 +11,11 @@
 #define MODUL 65521
 using namespace std;
 
-
-uint64_t summ64(string &name) {
+int eq(string first, string str) {
+    int result = first == str;
+    return result;
+}
+uint64_t summ64(string name) {
 
     uint64_t result = 0;
 
@@ -45,7 +48,7 @@ uint64_t summ64(string &name) {
     return result;
 }
 
-uint32_t  adler32(string &name) {
+uint32_t  adler32(string name) {
     uint16_t A = 1;
     uint16_t B = 0;
     char byte;
@@ -105,12 +108,10 @@ int callSumm64(string fileName) {
     std::cout << std::hex  << std::setfill('0') << result_sum64;
     return 0;
 }
-int eq(const string &first, const string &str) {
-    int result = first == str;
-    return result;
-}
 
-void remove_twin_spaces(string& str)
+
+
+void remove_twin_spaces(std::string& str)
 {
     str.erase(
             std::unique_copy(str.begin(), str.end(), str.begin(),
