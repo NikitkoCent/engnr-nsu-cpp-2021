@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/krazer_leonid/Desktop/С++ code/Lab 1/Hasher.cpp
+/home/krazer_leonid/engnr-nsu-cpp-2021/1/Hasher.cpp
 ./inc/Hasher.h
-/home/krazer_leonid/Desktop/С++ code/Lab 1/inc/Hasher.h
+/home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Hasher.h
 iostream
 -
 fstream
@@ -20,19 +20,19 @@ vector
 functional
 -
 
-/home/krazer_leonid/Desktop/С++ code/Lab 1/inc/Hasher.h
+/home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Hasher.h
 cstdint
 -
 map
 -
 Status.h
-/home/krazer_leonid/Desktop/С++ code/Lab 1/inc/Status.h
+/home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Status.h
 
-/home/krazer_leonid/Desktop/С++ code/Lab 1/inc/Status.h
+/home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Status.h
 
-/home/krazer_leonid/Desktop/С++ code/Lab 1/main.cpp
+/home/krazer_leonid/engnr-nsu-cpp-2021/1/main.cpp
 ./inc/Hasher.h
-/home/krazer_leonid/Desktop/С++ code/Lab 1/inc/Hasher.h
+/home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Hasher.h
 iostream
 -
 string

@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/krazer_leonid/Desktop/С++ code/Lab 1/Hasher.cpp" "/home/krazer_leonid/Desktop/С++ code/Lab 1/build/CMakeFiles/Lab_1.dir/Hasher.cpp.o"
-  "/home/krazer_leonid/Desktop/С++ code/Lab 1/main.cpp" "/home/krazer_leonid/Desktop/С++ code/Lab 1/build/CMakeFiles/Lab_1.dir/main.cpp.o"
+  "/home/krazer_leonid/engnr-nsu-cpp-2021/1/Hasher.cpp" "/home/krazer_leonid/engnr-nsu-cpp-2021/1/build/CMakeFiles/Lab_1.dir/Hasher.cpp.o"
+  "/home/krazer_leonid/engnr-nsu-cpp-2021/1/main.cpp" "/home/krazer_leonid/engnr-nsu-cpp-2021/1/build/CMakeFiles/Lab_1.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 

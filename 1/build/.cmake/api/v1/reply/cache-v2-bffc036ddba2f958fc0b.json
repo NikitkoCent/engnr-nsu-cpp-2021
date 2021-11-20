@@ -2,46 +2,6 @@
 	"entries" : 
 	[
 		{
-			"name" : "Boost_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "The directory containing a CMake configuration file for Boost."
-				}
-			],
-			"type" : "PATH",
-			"value" : "/usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0"
-		},
-		{
-			"name" : "Boost_INCLUDE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Path to a file."
-				}
-			],
-			"type" : "PATH",
-			"value" : "/usr/include"
-		},
-		{
-			"name" : "Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : ""
-				}
-			],
-			"type" : "STRING",
-			"value" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0"
-		},
-		{
 			"name" : "CMAKE_ADDR2LINE",
 			"properties" : 
 			[
@@ -95,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/krazer_leonid/Desktop/С++ code/Lab 1/build"
+			"value" : "/home/krazer_leonid/engnr-nsu-cpp-2021/1/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -519,7 +479,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/krazer_leonid/Desktop/С++ code/Lab 1"
+			"value" : "/home/krazer_leonid/engnr-nsu-cpp-2021/1"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1046,18 +1006,6 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_Boost",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Details about finding Boost"
-				}
-			],
-			"type" : "INTERNAL",
-			"value" : "[/usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake][cfound components: program_options ][v1.71.0(1.71.0)]"
-		},
-		{
 			"name" : "Lab_1_BINARY_DIR",
 			"properties" : 
 			[
@@ -1067,7 +1015,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/krazer_leonid/Desktop/С++ code/Lab 1/build"
+			"value" : "/home/krazer_leonid/engnr-nsu-cpp-2021/1/build"
 		},
 		{
 			"name" : "Lab_1_SOURCE_DIR",
@@ -1079,39 +1027,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/krazer_leonid/Desktop/С++ code/Lab 1"
-		},
-		{
-			"name" : "boost_headers_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "The directory containing a CMake configuration file for boost_headers."
-				}
-			],
-			"type" : "PATH",
-			"value" : "/usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.71.0"
-		},
-		{
-			"name" : "boost_program_options_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "The directory containing a CMake configuration file for boost_program_options."
-				}
-			],
-			"type" : "PATH",
-			"value" : "/usr/lib/x86_64-linux-gnu/cmake/boost_program_options-1.71.0"
+			"value" : "/home/krazer_leonid/engnr-nsu-cpp-2021/1"
 		}
 	],
 	"kind" : "cache",

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/krazer_leonid/Desktop/С++ code/Lab 1"
+CMAKE_SOURCE_DIR = /home/krazer_leonid/engnr-nsu-cpp-2021/1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/krazer_leonid/Desktop/С++ code/Lab 1/build"
+CMAKE_BINARY_DIR = /home/krazer_leonid/engnr-nsu-cpp-2021/1/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Lab_1.dir/depend.make
@@ -59,29 +59,29 @@ include CMakeFiles/Lab_1.dir/flags.make
 
 CMakeFiles/Lab_1.dir/main.cpp.o: CMakeFiles/Lab_1.dir/flags.make
 CMakeFiles/Lab_1.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/krazer_leonid/Desktop/С++ code/Lab 1/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Lab_1.dir/main.cpp.o"
-	/bin/clang++-11  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab_1.dir/main.cpp.o -c "/home/krazer_leonid/Desktop/С++ code/Lab 1/main.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/krazer_leonid/engnr-nsu-cpp-2021/1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Lab_1.dir/main.cpp.o"
+	/bin/clang++-11  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab_1.dir/main.cpp.o -c /home/krazer_leonid/engnr-nsu-cpp-2021/1/main.cpp
 
 CMakeFiles/Lab_1.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lab_1.dir/main.cpp.i"
-	/bin/clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/krazer_leonid/Desktop/С++ code/Lab 1/main.cpp" > CMakeFiles/Lab_1.dir/main.cpp.i
+	/bin/clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/krazer_leonid/engnr-nsu-cpp-2021/1/main.cpp > CMakeFiles/Lab_1.dir/main.cpp.i
 
 CMakeFiles/Lab_1.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab_1.dir/main.cpp.s"
-	/bin/clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/krazer_leonid/Desktop/С++ code/Lab 1/main.cpp" -o CMakeFiles/Lab_1.dir/main.cpp.s
+	/bin/clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/krazer_leonid/engnr-nsu-cpp-2021/1/main.cpp -o CMakeFiles/Lab_1.dir/main.cpp.s
 
 CMakeFiles/Lab_1.dir/Hasher.cpp.o: CMakeFiles/Lab_1.dir/flags.make
 CMakeFiles/Lab_1.dir/Hasher.cpp.o: ../Hasher.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/krazer_leonid/Desktop/С++ code/Lab 1/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Lab_1.dir/Hasher.cpp.o"
-	/bin/clang++-11  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab_1.dir/Hasher.cpp.o -c "/home/krazer_leonid/Desktop/С++ code/Lab 1/Hasher.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/krazer_leonid/engnr-nsu-cpp-2021/1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Lab_1.dir/Hasher.cpp.o"
+	/bin/clang++-11  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab_1.dir/Hasher.cpp.o -c /home/krazer_leonid/engnr-nsu-cpp-2021/1/Hasher.cpp
 
 CMakeFiles/Lab_1.dir/Hasher.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lab_1.dir/Hasher.cpp.i"
-	/bin/clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/krazer_leonid/Desktop/С++ code/Lab 1/Hasher.cpp" > CMakeFiles/Lab_1.dir/Hasher.cpp.i
+	/bin/clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/krazer_leonid/engnr-nsu-cpp-2021/1/Hasher.cpp > CMakeFiles/Lab_1.dir/Hasher.cpp.i
 
 CMakeFiles/Lab_1.dir/Hasher.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab_1.dir/Hasher.cpp.s"
-	/bin/clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/krazer_leonid/Desktop/С++ code/Lab 1/Hasher.cpp" -o CMakeFiles/Lab_1.dir/Hasher.cpp.s
+	/bin/clang++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/krazer_leonid/engnr-nsu-cpp-2021/1/Hasher.cpp -o CMakeFiles/Lab_1.dir/Hasher.cpp.s
 
 # Object files for target Lab_1
 Lab_1_OBJECTS = \
@@ -95,7 +95,7 @@ Lab_1: CMakeFiles/Lab_1.dir/main.cpp.o
 Lab_1: CMakeFiles/Lab_1.dir/Hasher.cpp.o
 Lab_1: CMakeFiles/Lab_1.dir/build.make
 Lab_1: CMakeFiles/Lab_1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/krazer_leonid/Desktop/С++ code/Lab 1/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Lab_1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/krazer_leonid/engnr-nsu-cpp-2021/1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Lab_1"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Lab_1.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -108,6 +108,6 @@ CMakeFiles/Lab_1.dir/clean:
 .PHONY : CMakeFiles/Lab_1.dir/clean
 
 CMakeFiles/Lab_1.dir/depend:
-	cd "/home/krazer_leonid/Desktop/С++ code/Lab 1/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/krazer_leonid/Desktop/С++ code/Lab 1" "/home/krazer_leonid/Desktop/С++ code/Lab 1" "/home/krazer_leonid/Desktop/С++ code/Lab 1/build" "/home/krazer_leonid/Desktop/С++ code/Lab 1/build" "/home/krazer_leonid/Desktop/С++ code/Lab 1/build/CMakeFiles/Lab_1.dir/DependInfo.cmake" --color=$(COLOR)
+	cd /home/krazer_leonid/engnr-nsu-cpp-2021/1/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/krazer_leonid/engnr-nsu-cpp-2021/1 /home/krazer_leonid/engnr-nsu-cpp-2021/1 /home/krazer_leonid/engnr-nsu-cpp-2021/1/build /home/krazer_leonid/engnr-nsu-cpp-2021/1/build /home/krazer_leonid/engnr-nsu-cpp-2021/1/build/CMakeFiles/Lab_1.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Lab_1.dir/depend
 
