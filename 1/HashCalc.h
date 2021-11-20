@@ -11,11 +11,11 @@
 
 class HashCalc {
 public:
-    static uint32_t adler32(std::ifstream &file);
-    static uint64_t sum64(std::ifstream &file);
+    static uint32_t adler32(std::istream &file);
+    static uint64_t sum64(std::istream &file);
 
 private:
-    static uint64_t read_uint64(std::ifstream &file);
+    static uint64_t read_uint64(std::istream &file);
 };
 
 
