@@ -9,7 +9,6 @@ cd 'build'                                                                   || 
 
 cmake --version                                                              || exit $?
 make --version                                                               || exit $?
-
 echo
 echo '================================== BUILD Debug ==================================='
 cmake -E rm -rf 'debug'                                                      || exit $?
