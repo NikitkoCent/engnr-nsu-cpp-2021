@@ -59,11 +59,9 @@ jobs:
         with:
           submodules: recursive
       - name: Install vcpkg dependencies
-        uses: lukka/run-vcpkg@v10
-        with:
-          vcpkgArguments: 'boost-program-options'
-          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
-          vcpkgGitCommitId: '${{ matrix.vcpkgCommitId }}'
+        shell: bash
+        run: |
+          bash -c ".github/buildsteps/linux/install-dependencies.sh"
       - name: Build
         shell: bash
         run: |
