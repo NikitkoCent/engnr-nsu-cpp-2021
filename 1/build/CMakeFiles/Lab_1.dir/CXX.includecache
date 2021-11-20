@@ -6,6 +6,20 @@
 
 #IncludeRegexTransform: 
 
+/home/krazer_leonid/engnr-nsu-cpp-2021/1/Hasher.cpp
+./inc/Hasher.h
+/home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Hasher.h
+iostream
+-
+fstream
+-
+filesystem
+-
+vector
+-
+functional
+-
+
 /home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Hasher.h
 cstdint
 -
@@ -15,14 +29,4 @@ Status.h
 /home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Status.h
 
 /home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Status.h
-
-/home/krazer_leonid/engnr-nsu-cpp-2021/1/main.cpp
-./inc/Hasher.h
-/home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Hasher.h
-iostream
--
-string
--
-vector
--
 
