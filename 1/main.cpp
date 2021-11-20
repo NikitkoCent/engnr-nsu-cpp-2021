@@ -27,17 +27,17 @@ int main(int argc, char *argv[])
     for (int i=0; i < argc; i++)
         tokens.push_back(new std::string(argv[i]));
 
+    if (tokens.size() == 1) 
+    {
+        std::cerr << "No parameters" << std::endl;
+        ErrHelpPrint();
+        return -1;
+    }
+
     if ((*tokens[1]) == "-h" || *(tokens[1]) == "--help")
     {
         HelpPrint();
         return 0;
-    }
-
-    if (tokens.size() == 1) 
-    {
-        std::cerr << "No parameters";
-        ErrHelpPrint();
-        return -1;
     }
     
     if ((*(tokens[1]) == "-m" || *(tokens[1]) == "--mode") && tokens.size( ) == 3)
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 
         if (h == HashMode::_WRONG) 
         {
-            std::cerr << "Wrong hash mode";
+            std::cerr << "Wrong hash mode" << std::endl;
             ErrHelpPrint();
             return -1;
         }
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 
         if (h == HashMode::_WRONG) 
         {
-            std::cerr << "Wrong hash mode";
+            std::cerr << "Wrong hash mode" << std::endl;
             ErrHelpPrint();
             return -1;
         }
@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        std::cerr << "Incorrect Input";
+        std::cerr << "Incorrect Input" << std::endl;
         ErrHelpPrint();
         return -1;
     }
