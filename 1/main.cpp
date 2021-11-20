@@ -58,9 +58,11 @@ int main()
                 if (eq(array[0], "-m")) {
                     if (eq(array[1], "adler32")) {
                         callAdler32(array[2]);
+                        return 0;
                     }
                     else if (eq(array[1], "sum64")) {
                         callSumm64(array[2]);
+                        return 0;
                     }
                     else {
                         show_err();
@@ -70,9 +72,11 @@ int main()
                 else if (eq(array[1], "-m")) {
                     if (eq(array[2], "adler32")) {
                         callAdler32(array[0]);
+                        return 0;
                     }
                     else if (eq(array[2], "sum64")) {
                         callSumm64(array[0]);
+                        return 0;
                     }
                     else {
                         show_err();
