@@ -63,6 +63,7 @@ jobs:
         with:
           vcpkgArguments: 'boost-program-options'
           vcpkgDirectory: '${{ github.workspace }}/vcpkg'
+          vcpkgGitCommitId: '${{ matrix.vcpkgCommitId }}'
       - name: Build
         shell: bash
         run: |
