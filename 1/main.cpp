@@ -4,7 +4,15 @@
 #include <string>
 #include <vector>
 
-inline void HelpPrint()
+void HelpPrint()
+{
+    std::cout << "-h, --help                       ==== Help message" << std::endl;
+    std::cout << "-m, --mode                       ==== Choose Hash Mode" << std::endl;
+    std::cout << "-f, --file                       ==== Filepath" << std::endl;
+    return;
+}
+
+void ErrHelpPrint()
 {
     std::cerr << "-h, --help                       ==== Help message" << std::endl;
     std::cerr << "-m, --mode                       ==== Choose Hash Mode" << std::endl;
@@ -27,8 +35,8 @@ int main(int argc, char *argv[])
     if (tokens.size() == 1) 
     {
         std::cerr << "No parameters";
-        HelpPrint();
-        return 0;
+        ErrHelpPrint();
+        return -1;
     }
     
     if ((*(tokens[0]) == "-m" || *(tokens[0]) == "--mode") && tokens.size( ) == 3)
@@ -39,11 +47,12 @@ int main(int argc, char *argv[])
         if (h == HashMode::_WRONG) 
         {
             std::cerr << "Wrong hash mode";
-            HelpPrint();
-            return 0;
+            ErrHelpPrint();
+            return -1;
         }
-
-        hashProccessing(argv[2], h);
+        Status s;
+        s = hashProccessing(argv[2], h);
+        return s == Status::_SUCCESS ?  0 :  -1;
     }
     else if ((*(tokens[1]) == "-m" || *(tokens[1]) == "--mode") && tokens.size( ) == 3)
     {
@@ -53,16 +62,17 @@ int main(int argc, char *argv[])
         if (h == HashMode::_WRONG) 
         {
             std::cerr << "Wrong hash mode";
-            HelpPrint();
-            return 0;
+            ErrHelpPrint();
+            return -1;
         }
-
-        hashProccessing(argv[0], h);
+        Status s;
+        s = hashProccessing(argv[0], h);
+        return s == Status::_SUCCESS ?  0 :  -1;
     }
     else
     {
         std::cerr << "Incorrect Input";
-        HelpPrint();
-        return 0;
+        ErrHelpPrint();
+        return -1;
     }
 }
