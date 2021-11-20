@@ -6,3 +6,4 @@ trap '[[ $BASH_COMMAND != echo* ]] && echo $BASH_COMMAND' DEBUG
 cd "$LAB_INDEX" || exit $?
 
 vcpkg --version || exit $?
+-DCMAKE_TOOLCHAIN_FILE=D:\src\vcpkg\scripts\buildsystems\vcpkg.cmake
