@@ -55,7 +55,7 @@ Status hashProccessing(const char *file_path, HashMode hm)
                 std::streamsize ss = ifs.gcount();
                 resultAdler += adler32(reinterpret_cast<unsigned char*>(buff.data()), ss);
             }
-            std::cout << "Hash of file = " << std::hex << resultAdler << std::endl;
+            std::cout  << std::hex << resultAdler << std::endl;
             return Status::_SUCCESS;
         }
         if (hm == HashMode::_Hash64)
@@ -66,7 +66,7 @@ Status hashProccessing(const char *file_path, HashMode hm)
                 std::streamsize ss = ifs.gcount();
                 resultSum += sum64(reinterpret_cast<unsigned char*>(buff.data()), ss);
             }
-            std::cout << "Hash of file = " << std::hex << resultSum << std::endl;
+            std::cout << std::hex << resultSum << std::endl;
             return Status::_SUCCESS;
         }
         else
