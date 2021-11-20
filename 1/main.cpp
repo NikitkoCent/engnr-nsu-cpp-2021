@@ -26,12 +26,13 @@ int main(int argc, char *argv[])
     HashMode h;
     for (int i=0; i < argc; i++)
         tokens.push_back(new std::string(argv[i]));
-    
-    if (*(tokens[0]) == "-h" || *(tokens[0]) == "--help")
+
+    if ((*tokens[1]) == "-h" || *(tokens[1]) == "--help")
     {
         HelpPrint();
         return 0;
     }
+
     if (tokens.size() == 1) 
     {
         std::cerr << "No parameters";
@@ -39,22 +40,7 @@ int main(int argc, char *argv[])
         return -1;
     }
     
-    if ((*(tokens[0]) == "-m" || *(tokens[0]) == "--mode") && tokens.size( ) == 3)
-    {
-        if (*tokens[1] == "adler32") h = HashMode::_Adler32;
-        if (*tokens[1] == "sum64") h = HashMode::_Hash64;
-
-        if (h == HashMode::_WRONG) 
-        {
-            std::cerr << "Wrong hash mode";
-            ErrHelpPrint();
-            return -1;
-        }
-        Status s;
-        s = hashProccessing(argv[2], h);
-        return s == Status::_SUCCESS ?  0 :  -1;
-    }
-    else if ((*(tokens[1]) == "-m" || *(tokens[1]) == "--mode") && tokens.size( ) == 3)
+    if ((*(tokens[1]) == "-m" || *(tokens[1]) == "--mode") && tokens.size( ) == 3)
     {
         if (*tokens[2] == "adler32") h = HashMode::_Adler32;
         if (*tokens[2] == "sum64") h = HashMode::_Hash64;
@@ -66,7 +52,22 @@ int main(int argc, char *argv[])
             return -1;
         }
         Status s;
-        s = hashProccessing(argv[0], h);
+        s = hashProccessing(argv[3], h);
+        return s == Status::_SUCCESS ?  0 :  -1;
+    }
+    else if ((*(tokens[2]) == "-m" || *(tokens[2]) == "--mode") && tokens.size( ) == 3)
+    {
+        if (*tokens[3] == "adler32") h = HashMode::_Adler32;
+        if (*tokens[3] == "sum64") h = HashMode::_Hash64;
+
+        if (h == HashMode::_WRONG) 
+        {
+            std::cerr << "Wrong hash mode";
+            ErrHelpPrint();
+            return -1;
+        }
+        Status s;
+        s = hashProccessing(argv[1], h);
         return s == Status::_SUCCESS ?  0 :  -1;
     }
     else
