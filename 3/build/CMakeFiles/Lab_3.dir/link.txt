@@ -1,1 +1,0 @@
-/bin/clang++-11  -g  -rdynamic CMakeFiles/Lab_3.dir/main.cpp.o  -o Lab_3 
