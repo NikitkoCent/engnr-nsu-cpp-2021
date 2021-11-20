@@ -23,13 +23,9 @@ void ErrHelpPrint()
 int main(int argc, char *argv[])
 {
     std::vector<std::string*> tokens; 
-    tokens.push_back(new std::string("./Lab_1"));
-    tokens.push_back(new std::string("../../../Desktop/tests/test_4bytes/file"));
-    tokens.push_back(new std::string("-m"));
-    tokens.push_back(new std::string("sum64"));
     HashMode h;
-   // for (int i=0; i < argc; i++)
-   //     tokens.push_back(new std::string(argv[i]));
+    for (int i=0; i < argc; i++)
+        tokens.push_back(new std::string(argv[i]));
 
     if (tokens.size() == 1) 
     {
