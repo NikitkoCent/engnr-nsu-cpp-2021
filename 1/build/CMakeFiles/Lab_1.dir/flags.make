@@ -4,7 +4,7 @@
 # compile CXX with /bin/clang++-11
 CXX_FLAGS = -g   -std=gnu++17
 
-CXX_DEFINES = -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK
+CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I/inc 
 

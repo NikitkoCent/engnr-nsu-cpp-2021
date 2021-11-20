@@ -3,9 +3,9 @@
 
 CMakeFiles/Lab_1.dir/Hasher.cpp.o
  /home/krazer_leonid/Desktop/С++ code/Lab 1/Hasher.cpp
- /home/krazer_leonid/Desktop/С++ code/Lab 1/Hasher.h
- /home/krazer_leonid/Desktop/С++ code/Lab 1/Status.h
+ /home/krazer_leonid/Desktop/С++ code/Lab 1/inc/Hasher.h
+ /home/krazer_leonid/Desktop/С++ code/Lab 1/inc/Status.h
 CMakeFiles/Lab_1.dir/main.cpp.o
- /home/krazer_leonid/Desktop/С++ code/Lab 1/Hasher.h
- /home/krazer_leonid/Desktop/С++ code/Lab 1/Status.h
+ /home/krazer_leonid/Desktop/С++ code/Lab 1/inc/Hasher.h
+ /home/krazer_leonid/Desktop/С++ code/Lab 1/inc/Status.h
  /home/krazer_leonid/Desktop/С++ code/Lab 1/main.cpp

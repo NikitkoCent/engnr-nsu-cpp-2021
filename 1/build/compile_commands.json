@@ -1,12 +1,12 @@
 [
 {
   "directory": "/home/krazer_leonid/Desktop/С++ code/Lab 1/build",
-  "command": "/bin/clang++-11  -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK  -g   -std=gnu++17 -o CMakeFiles/Lab_1.dir/main.cpp.o -c \"/home/krazer_leonid/Desktop/С++ code/Lab 1/main.cpp\"",
+  "command": "/bin/clang++-11   -I/inc  -g   -std=gnu++17 -o CMakeFiles/Lab_1.dir/main.cpp.o -c \"/home/krazer_leonid/Desktop/С++ code/Lab 1/main.cpp\"",
   "file": "/home/krazer_leonid/Desktop/С++ code/Lab 1/main.cpp"
 },
 {
   "directory": "/home/krazer_leonid/Desktop/С++ code/Lab 1/build",
-  "command": "/bin/clang++-11  -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK  -g   -std=gnu++17 -o CMakeFiles/Lab_1.dir/Hasher.cpp.o -c \"/home/krazer_leonid/Desktop/С++ code/Lab 1/Hasher.cpp\"",
+  "command": "/bin/clang++-11   -I/inc  -g   -std=gnu++17 -o CMakeFiles/Lab_1.dir/Hasher.cpp.o -c \"/home/krazer_leonid/Desktop/С++ code/Lab 1/Hasher.cpp\"",
   "file": "/home/krazer_leonid/Desktop/С++ code/Lab 1/Hasher.cpp"
 }
 ]

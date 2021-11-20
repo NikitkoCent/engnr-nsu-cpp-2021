@@ -1,68 +1,53 @@
-#include "boost/program_options.hpp"
+#include "./inc/Hasher.h"
+
 #include <iostream>
+#include <string>
+#include <vector>
 
-#include "Status.h"
-#include "Hasher.h"
-
-namespace po = boost::program_options;
-int main(int argc, char* argv[])
+inline void HelpPrint()
 {
-    try {
-        po::options_description desc("Possible Commands");
-        desc.add_options()
-                ("help,h", "Help screen!!!")
-                ("mode,m", po::value<std::string>(), "Hash Mode [hash64, adler32]")
-                ("filename,f", po::value<std::string>(), "Files to proceed");
-
-        po::positional_options_description p;
-        p.add("filename", -1);
-
-        po::variables_map vm;
-        po::store(po::command_line_parser(argc, argv).
-                options(desc).positional(p).run(), vm);
-        po::notify(vm);
-
-        const std::map<std::string, HashMode> um = { {"hash64", HashMode::_Hash64},
-                                                     {"adler32", HashMode::_Adler32} };
-
-        HashMode hm;
-        std::string input_file;
-
-        if (vm.count("mode"))
-        {
-            std::cout << "Hash mode is: "
-                      << vm["mode"].as<std::string>() << std::endl;
-            try
-            {
-                hm = um.at(vm["mode"].as<std::string>());
-            }
-            catch (const std::exception& e)
-            {
-                std::cerr << "Invalid hash mode" << std::endl;
-                std::cerr << e.what();
-                return -1;
-            }
-        }
-        if (vm.count("filename"))
-        {
-            std::cout << " Input files are: ";
-            input_file = vm["filename"].as<std::string>();
-                std::cout << input_file << std::endl;
-        }
-        if (vm.count("help"))
-        {
-            std::cout << desc << std::endl;
-            return 0;
-        }
-        return hashProccessing(input_file.c_str(), hm) == Status::_SUCCESS ? 0 : -1;
-    }
-    catch (po::error& e) {
-        std::cerr << e.what();
-        return -1;
-    }
+    std::cout << "-h, --help                       ==== Help message" << std::endl;
+    std::cout << "-m, --mode                       ==== Choose Hash Mode" << std::endl;
+    std::cout << "-f, --file                       ==== Filepath" << std::endl;
+    return;
 }
 
+int main(int argc, char *argv[])
+{
+    std::vector<std::string*> tokens;
+    HashMode h;
+    for (int i=0; i < argc; i++)
+        tokens.push_back(new std::string(argv[i]));
+    
+    if (*(tokens[0]) == "-h" || *(tokens[0]) == "--help")
+        HelpPrint();
+    
+    if ((*(tokens[0]) == "-m" || *(tokens[0]) == "--mode") && tokens.size( ) == 3)
+    {
+        if (*tokens[1] == "adler32") h = HashMode::_Adler32;
+        if (*tokens[1] == "sum64") h = HashMode::_Hash64;
 
+        if (h == HashMode::_WRONG) 
+        {
+            std::cerr << "Wrong hash mode";
+        }
 
+        hashProccessing(argv[2], h);
+    }
+    else if ((*(tokens[1]) == "-m" || *(tokens[1]) == "--mode") && tokens.size( ) == 3)
+    {
+        if (*tokens[2] == "adler32") h = HashMode::_Adler32;
+        if (*tokens[2] == "sum64") h = HashMode::_Hash64;
 
+        if (h == HashMode::_WRONG) 
+        {
+            std::cerr << "Wrong hash mode";
+        }
 
+        hashProccessing(argv[0], h);
+    }
+    else
+    {
+        std::cerr << "Incorrect Input";
+    }
+}

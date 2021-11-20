@@ -4,6 +4,7 @@ enum class HashMode
 {
     _Adler32,
     _Hash64,
+    _WRONG,
 };
 
 enum class Status

@@ -94,7 +94,6 @@ Lab_1_EXTERNAL_OBJECTS =
 Lab_1: CMakeFiles/Lab_1.dir/main.cpp.o
 Lab_1: CMakeFiles/Lab_1.dir/Hasher.cpp.o
 Lab_1: CMakeFiles/Lab_1.dir/build.make
-Lab_1: /usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0
 Lab_1: CMakeFiles/Lab_1.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/krazer_leonid/Desktop/С++ code/Lab 1/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Lab_1"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Lab_1.dir/link.txt --verbose=$(VERBOSE)

@@ -1,4 +1,4 @@
-#include "Hasher.h"
+#include "./inc/Hasher.h"
 
 #include <iostream>
 #include <fstream>
