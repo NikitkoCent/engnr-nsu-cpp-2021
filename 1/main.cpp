@@ -6,9 +6,9 @@
 
 inline void HelpPrint()
 {
-    std::cout << "-h, --help                       ==== Help message" << std::endl;
-    std::cout << "-m, --mode                       ==== Choose Hash Mode" << std::endl;
-    std::cout << "-f, --file                       ==== Filepath" << std::endl;
+    std::cerr << "-h, --help                       ==== Help message" << std::endl;
+    std::cerr << "-m, --mode                       ==== Choose Hash Mode" << std::endl;
+    std::cerr << "-f, --file                       ==== Filepath" << std::endl;
     return;
 }
 
