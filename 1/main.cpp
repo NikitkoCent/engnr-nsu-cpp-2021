@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
             return -1;
         }
         Status s;
-        s = hashProccessing((*tokens[1]).c_str(), h);
+        s = hashProccessing(argv[1], h);
         return s == Status::_SUCCESS ?  0 :  -1;
     }
     else
