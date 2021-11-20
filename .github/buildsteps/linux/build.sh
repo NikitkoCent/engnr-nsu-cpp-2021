@@ -9,7 +9,6 @@ cd 'build'                                                                   || 
 
 cmake --version                                                              || exit $?
 make --version                                                               || exit $?
--DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}\vcpkg\scripts\buildsystems\vcpkg.cmake
 
 echo
 echo '================================== BUILD Debug ==================================='
