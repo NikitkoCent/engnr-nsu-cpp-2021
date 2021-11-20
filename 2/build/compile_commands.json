@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/krazer_leonid/Desktop/С++ code/Lab 2/build",
+  "command": "/bin/clang++-11   -I\"/home/krazer_leonid/Desktop/С++ code/Lab 2/inc\"  -g   -std=gnu++17 -o CMakeFiles/Lab_2.dir/main.cpp.o -c \"/home/krazer_leonid/Desktop/С++ code/Lab 2/main.cpp\"",
+  "file": "/home/krazer_leonid/Desktop/С++ code/Lab 2/main.cpp"
+},
+{
+  "directory": "/home/krazer_leonid/Desktop/С++ code/Lab 2/build",
+  "command": "/bin/clang++-11   -I\"/home/krazer_leonid/Desktop/С++ code/Lab 2/inc\"  -g   -std=gnu++17 -o CMakeFiles/Lab_2.dir/src/App.cpp.o -c \"/home/krazer_leonid/Desktop/С++ code/Lab 2/src/App.cpp\"",
+  "file": "/home/krazer_leonid/Desktop/С++ code/Lab 2/src/App.cpp"
+},
+{
+  "directory": "/home/krazer_leonid/Desktop/С++ code/Lab 2/build",
+  "command": "/bin/clang++-11   -I\"/home/krazer_leonid/Desktop/С++ code/Lab 2/inc\"  -g   -std=gnu++17 -o CMakeFiles/Lab_2.dir/src/ArgParser.cpp.o -c \"/home/krazer_leonid/Desktop/С++ code/Lab 2/src/ArgParser.cpp\"",
+  "file": "/home/krazer_leonid/Desktop/С++ code/Lab 2/src/ArgParser.cpp"
+},
+{
+  "directory": "/home/krazer_leonid/Desktop/С++ code/Lab 2/build",
+  "command": "/bin/clang++-11   -I\"/home/krazer_leonid/Desktop/С++ code/Lab 2/inc\"  -g   -std=gnu++17 -o CMakeFiles/Lab_2.dir/src/CalcCmds.cpp.o -c \"/home/krazer_leonid/Desktop/С++ code/Lab 2/src/CalcCmds.cpp\"",
+  "file": "/home/krazer_leonid/Desktop/С++ code/Lab 2/src/CalcCmds.cpp"
+}
+]

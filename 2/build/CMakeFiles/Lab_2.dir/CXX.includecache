@@ -1,0 +1,60 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/krazer_leonid/Desktop/С++ code/Lab 2/inc/App.h
+fstream
+-
+Calculator.h
+/home/krazer_leonid/Desktop/С++ code/Lab 2/inc/Calculator.h
+
+/home/krazer_leonid/Desktop/С++ code/Lab 2/inc/ArgParser.h
+vector
+-
+string
+-
+
+/home/krazer_leonid/Desktop/С++ code/Lab 2/inc/Calculator.h
+stack
+-
+map
+-
+string
+-
+cstdint
+-
+SafeInt.hpp
+/home/krazer_leonid/Desktop/С++ code/Lab 2/inc/SafeInt.hpp
+
+/home/krazer_leonid/Desktop/С++ code/Lab 2/inc/SafeInt.hpp
+cstdint
+-
+limits
+-
+type_traits
+-
+cstddef
+-
+cmath
+-
+intrin.h
+-
+assert.h
+-
+stdlib.h
+-
+
+/home/krazer_leonid/Desktop/С++ code/Lab 2/main.cpp
+iostream
+-
+filesystem
+-
+inc/ArgParser.h
+/home/krazer_leonid/Desktop/С++ code/Lab 2/inc/ArgParser.h
+inc/App.h
+/home/krazer_leonid/Desktop/С++ code/Lab 2/inc/App.h
+
