@@ -17,7 +17,7 @@ filesystem
 -
 vector
 -
-functional
+cstring
 -
 
 /home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Hasher.h
