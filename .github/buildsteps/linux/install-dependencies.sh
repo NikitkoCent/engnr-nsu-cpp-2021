@@ -7,4 +7,3 @@ cd "$LAB_INDEX" || exit $?
 
 vcpkg --version || exit $?
 vcpkg install boost-program-options --triplet x64-linux
-vcpkg install boost-program-options --triplet x86-linux
