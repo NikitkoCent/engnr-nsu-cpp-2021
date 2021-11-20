@@ -5,8 +5,8 @@
 
 const uint16_t BUFFER_SIZE = 1024;
 
-void adler32(const unsigned char*, uint16_t, uint64_t* );
-void sum64(const unsigned char*, uint16_t, uint64_t* );
+uint32_t adler32( unsigned char*, ptrdiff_t);
+uint64_t sum64( unsigned char*, ptrdiff_t);
 Status hashProccessing(const char*, HashMode );
 
 
