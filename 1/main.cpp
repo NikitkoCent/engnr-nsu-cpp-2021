@@ -36,6 +36,11 @@ int main(int argc, char *argv[])
 
     if ((*tokens[1]) == "-h" || *(tokens[1]) == "--help")
     {
+        if (tokens.size() > 2) 
+        {
+            ErrHelpPrint();
+            return -1;
+        }
         HelpPrint();
         return 0;
     }
