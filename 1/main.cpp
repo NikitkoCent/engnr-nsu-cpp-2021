@@ -23,7 +23,7 @@ void ErrHelpPrint()
 int main(int argc, char *argv[])
 {
     std::vector<std::string*> tokens; 
-    HashMode h;
+    HashMode h = HashMode::_WRONG;
     for (int i=0; i < argc; i++)
         tokens.push_back(new std::string(argv[i]));
 
