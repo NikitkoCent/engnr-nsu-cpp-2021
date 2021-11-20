@@ -81,19 +81,15 @@ int main(int ac, char** av){
 
         if (mode == "adler32"){
             uint32_t hash = HashCalc::adler32(file);
-
-//            cout << std::hex << hash << "\n";
-            printf("%x", hash);
+            cout << std::hex << hash << "\n";
         } else {
             uint64_t hash = HashCalc::sum64(file);
-
-//            cout << std::hex << hash << "\n";
-            printf("%llx", hash);
+            cout << std::hex << hash << "\n";
         }
-
     } catch(exception& e) {
 //        cerr << "error: " << e.what() << "\n";
         cerr << desc << "\n";
+        cerr << "Error: " << e.what() << endl;
         return 1;
     } catch(...) {
         cerr << "Exception of unknown type!\n";
