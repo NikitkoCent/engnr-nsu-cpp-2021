@@ -93,9 +93,7 @@ uint32_t  adler32(string name) {
     uint16_t A = 1;
     uint16_t B = 0;
     char byte;
-
     std::fstream fs(name, std::ios::in | std::ios::binary);
-
     if (fs.is_open()) {
         while (true) {
             fs.read(&byte, sizeof(char));
@@ -151,7 +149,7 @@ int callAdler32(string fileName) {
     }
 
     uint32_t result_adler = adler32(fileName);
-    std::cout << std::hex << std::setfill('0') << result_adler;
+    std::cout << std::hex << result_adler;
     return 0;
 }
 int callSumm64(string fileName) {
@@ -163,7 +161,7 @@ int callSumm64(string fileName) {
     }
 
     uint64_t result_sum64 = summ64(fileName);
-    std::cout << std::hex  << std::setfill('0') << result_sum64;
+    std::cout << std::hex << result_sum64;
     return 0;
 }
 
