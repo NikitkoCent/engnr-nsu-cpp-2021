@@ -13,10 +13,8 @@ int main(int argc, char* argv[])
     if (arg->isMode()) {
         if (arg->algo == Algo::ADLER32) {
             callAdler32(arg->path); cout << endl;
-            callSumm64(arg->path);
         }else if (arg->algo == Algo::SUM64) {
             callAdler32(arg->path); cout << endl;
-            callSumm64(arg->path);
         }
         else
             return ALGO_ERROR;
