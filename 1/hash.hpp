@@ -141,7 +141,7 @@ uint64_t summ64(string name) {
 }
 
 int callAdler32(string fileName) {
-    ifstream myfile(fileName);
+    ifstream myfile(fileName, std::ios::in | std::ios::binary);
 
     if (!myfile) {
         std::cerr << "File failed to open";
@@ -153,7 +153,7 @@ int callAdler32(string fileName) {
     return 0;
 }
 int callSumm64(string fileName) {
-    ifstream myfile(fileName);
+    ifstream myfile(fileName, std::ios::in | std::ios::binary);
 
     if (!myfile) {
         std::cerr << "File failed to open";
