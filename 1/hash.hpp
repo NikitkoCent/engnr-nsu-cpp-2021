@@ -111,7 +111,6 @@ uint32_t  adler32(string name) {
 
 uint64_t summ64(string name) {
 
-    uint64_t x = 0;
     uint64_t result = 0;
 
     std::fstream fs(name);
