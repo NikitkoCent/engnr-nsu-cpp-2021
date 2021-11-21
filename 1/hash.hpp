@@ -6,17 +6,112 @@
 #include <bitset>
 #include <iterator>
 #include <algorithm>
-#define ARG_MAX_SIZE 5
-#define FILE_ERROR 1
+#define FILE_ERROR -2
+#define ALGO_ERROR -3
 #define MODUL 65521
 using namespace std;
-
 int eq(string first, string str) {
     int result = first == str;
     return result;
 }
+enum Algo
+{
+    null,
+    ADLER32,
+    SUM64
+};
+
+class ArgHelper {
+public:
+    bool h;
+    bool mode;
+    string path = "";
+    Algo algo = Algo::null;
+
+    bool isHelp() {
+        if (h && !mode && eq(path, "") && algo == Algo::null)
+            return true;
+        return false;
+    }
+    bool isMode() {
+        if (!h && mode && algo != Algo::null)
+            return true;
+        return false;
+    }
+};
+
+ArgHelper* getArg(int argc, char* argv[]) {
+    ArgHelper* argHelper = new ArgHelper();
+
+    if (argc == 2 && eq(argv[1], "-h")) {
+        argHelper->h = true;
+    }
+    else if (argc == 4 && eq(argv[1], "-m")) {
+        argHelper->mode = true;
+        if (eq(argv[2], "adler32"))
+            argHelper->algo = Algo::ADLER32;
+        else if (eq(argv[2], "sum64"))
+            argHelper->algo = Algo::SUM64;
+        else
+            return NULL;
+        argHelper->path = argv[3];
+    }
+    else if (argc == 4 && eq(argv[2], "-m")) {
+        argHelper->mode = true;
+        if (eq(argv[3], "adler32"))
+            argHelper->algo = Algo::ADLER32;
+        else if (eq(argv[3], "sum64"))
+            argHelper->algo = Algo::SUM64;
+        else
+            return NULL;
+        argHelper->path = argv[1];
+    }
+    else
+        return NULL;
+
+    return argHelper;
+}
+
+
+void show_help() {
+    cout << "Background information:" << endl;
+    cout << "<filename> -m <mode> - calculate the transmitted version of the hash of the transmitted file;" << endl;
+    cout <<"-m <mode> <filename> - calculate the transmitted version of the hash of the transmitted file;" << endl;
+    cout << "\twhere\tfilename is the file name (for example, test.txt)" << endl;
+    cout << "\t\tmode is the name of the adler32 or sum 64 algorithm" << endl;
+}
+
+void show_err() {
+    cerr << "Error, arguments are incorrectly set." << endl;
+    cerr << "Reference information:" << endl;
+    cerr << "<filename> -m <mode> - calculate the transmitted version of the hash of the transmitted file;" << endl;
+    cerr <<"-m <mode> <filename> - calculate the transmitted version of the hash of the transmitted file;" << endl;
+    cerr << "\twhere\tfilename is the file name (for example, test.txt)" << endl;
+    cerr << "\t\tmode is the name of the adler32 or sum 64 algorithm" << endl;
+}
+uint32_t  adler32(string name) {
+    uint16_t A = 1;
+    uint16_t B = 0;
+    char byte;
+
+    std::fstream fs(name, std::ios::in | std::ios::binary);
+
+    if (fs.is_open()) {
+        while (true) {
+            fs.read(&byte, sizeof(char));
+            if (fs.eof())
+                break;
+            A = (A + (unsigned char)byte) % MODUL;
+            B = (A + B) % MODUL;
+        }
+    }
+
+    return (B << 16) + A;
+}
+
 uint64_t summ64(string name) {
 
+    uint64_t x = 0;
     uint64_t result = 0;
 
     std::fstream fs(name);
@@ -48,42 +143,6 @@ uint64_t summ64(string name) {
     return result;
 }
 
-uint32_t  adler32(string name) {
-    uint16_t A = 1;
-    uint16_t B = 0;
-    char byte;
-
-    std::fstream fs(name, std::ios::in | std::ios::binary);
-
-    if (fs.is_open()) {
-        while (true) {
-            fs.read(&byte, sizeof(char));
-            if (fs.eof())
-                break;
-            A = (A + (unsigned char)byte) % MODUL;
-            B = (A + B) % MODUL;
-        }
-    }
-
-    return (B << 16) + A;
-}
-
-void show_help() {
-    cout << "Background information:" << endl;
-    cout << "<filename> -m <mode> - calculate the transmitted version of the hash of the transmitted file;" << endl;
-    cout <<"-m <mode> <filename> - calculate the transmitted version of the hash of the transmitted file;" << endl;
-    cout << "\twhere\tfilename is the file name (for example, test.txt)" << endl;
-    cout << "\t\tmode is the name of the adler32 or sum 64 algorithm" << endl;
-}
-
-void show_err() {
-    cerr << "Error, arguments are incorrectly set." << endl;
-    cerr << "Reference information:" << endl;
-    cerr << "<filename> -m <mode> - calculate the transmitted version of the hash of the transmitted file;" << endl;
-    cerr <<"-m <mode> <filename> - calculate the transmitted version of the hash of the transmitted file;" << endl;
-    cerr << "\twhere\tfilename is the file name (for example, test.txt)" << endl;
-    cerr << "\t\tmode is the name of the adler32 or sum 64 algorithm" << endl;
-}
 int callAdler32(string fileName) {
     ifstream myfile(fileName);
 
@@ -109,12 +168,5 @@ int callSumm64(string fileName) {
     return 0;
 }
 
+////////////////////////////////////////////////////////////////
 
-
-void remove_twin_spaces(std::string& str)
-{
-    str.erase(
-            std::unique_copy(str.begin(), str.end(), str.begin(),
-                             [](char c1, char c2) { return c1 == ' ' && c2 == ' '; }),
-            str.end());
-}
