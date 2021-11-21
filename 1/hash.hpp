@@ -72,7 +72,6 @@ ArgHelper* getArg(int argc, char* argv[]) {
     return argHelper;
 }
 
-
 void show_help() {
     cout << "Background information:" << endl;
     cout << "<filename> -m <mode> - calculate the transmitted version of the hash of the transmitted file;" << endl;
@@ -92,18 +91,19 @@ void show_err() {
 uint32_t  adler32(string name) {
     uint16_t A = 1;
     uint16_t B = 0;
-    char byte;
+
     std::fstream fs(name, std::ios::in | std::ios::binary);
+    unsigned char c;
+
     if (fs.is_open()) {
         while (true) {
-            fs.read(&byte, sizeof(char));
+            fs.read((char*)&c, sizeof(unsigned char));
             if (fs.eof())
                 break;
-            A = (A + (unsigned char)byte) % MODUL;
+            A = (A + c) % MODUL;
             B = (A + B) % MODUL;
         }
     }
-
     return (B << 16) + A;
 }
 
@@ -111,37 +111,28 @@ uint64_t summ64(string name) {
 
     uint64_t result = 0;
 
-    std::fstream fs(name, std::ios::in | std::ios::binary);
+    std::ifstream  fs(name, std::ios::in | ios::binary);
 
-    while (true) {
-        char buff[8 + 1]{ 0 };
-        fs.read(buff, 8);
+    while (!fs.eof()) {
+        unsigned char c;
         uint64_t tmp = 0;
-        int zerosCount = 0;
 
         for (int i = 0; i < 8; i++) {
-            char c = buff[i];
-            if (c == 0)
-                zerosCount++;
-            else
-                zerosCount = 0;
-            tmp |= (uint64_t)(unsigned char)c << (7 - i) * 8;
+            fs.read((char*)&c, sizeof(unsigned char));
+            if (fs.eof())
+                break;
+            tmp = (tmp << 8) | c;
         }
 
-        if (zerosCount > 0)
-            tmp = tmp >> zerosCount * 8;
-
         result += tmp;
-
-        if (fs.eof())
-            break;
     }
 
     return result;
 }
 
+
 int callAdler32(string fileName) {
-    ifstream myfile(fileName, std::ios::in | std::ios::binary);
+    ifstream myfile(fileName);
 
     if (!myfile) {
         std::cerr << "File failed to open";
@@ -149,11 +140,11 @@ int callAdler32(string fileName) {
     }
 
     uint32_t result_adler = adler32(fileName);
-    std::cout << std::hex << result_adler;
+    std::cout << std::hex << std::setfill('0') << result_adler;
     return 0;
 }
 int callSumm64(string fileName) {
-    ifstream myfile(fileName, std::ios::in | std::ios::binary);
+    ifstream myfile(fileName, std::ios::binary);
 
     if (!myfile) {
         std::cerr << "File failed to open";
@@ -161,7 +152,7 @@ int callSumm64(string fileName) {
     }
 
     uint64_t result_sum64 = summ64(fileName);
-    std::cout << std::hex << result_sum64;
+    std::cout << std::hex  << std::setfill('0') << result_sum64;
     return 0;
 }
 

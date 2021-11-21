@@ -1,6 +1,7 @@
 #include "hash.hpp"
 int main(int argc, char* argv[])
 {
+    setlocale(LC_ALL, "Russian");
     ArgHelper* arg = getArg(argc, argv);
     if (arg == NULL) {
         show_err();
@@ -14,7 +15,7 @@ int main(int argc, char* argv[])
         if (arg->algo == Algo::ADLER32) {
             callAdler32(arg->path); cout << endl;
         }else if (arg->algo == Algo::SUM64) {
-            callSumm64(arg->path); cout << endl;
+            callSumm64(arg->path);
         }
         else
             return ALGO_ERROR;
