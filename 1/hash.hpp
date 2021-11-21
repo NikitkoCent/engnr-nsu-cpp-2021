@@ -111,7 +111,7 @@ uint64_t summ64(string name) {
 
     uint64_t result = 0;
 
-    std::fstream fs(name);
+    std::fstream fs(name, std::ios::in | std::ios::binary);
 
     while (true) {
         char buff[8 + 1]{ 0 };
