@@ -6,5 +6,5 @@ using namespace ns_LLIST;
 
 int main()
 {
-    
+
 }

@@ -32,7 +32,7 @@ namespace ns_LLIST
         BaseNode<T> *tail;
 
     public:
-        LinkedList() : head(new BaseNode<T>()), tail(new BaseNode<T>()), count(0)
+        LinkedList() : count(0), head(new BaseNode<T>()), tail(new BaseNode<T>())
         {
             head->next = tail;
             tail->prev = head;
@@ -41,7 +41,7 @@ namespace ns_LLIST
         LinkedList(const LinkedList &other) : LinkedList<T>()
         {
             for (auto item : other)
-                push_front(item);
+                push_back(item);
         };
 
         LinkedList(LinkedList &&other)
@@ -77,7 +77,7 @@ namespace ns_LLIST
         LinkedList(std::initializer_list<T> init) : LinkedList<T>()
         {
             for (auto item : init)
-                push_front(item);
+                push_back(item);
         }
         ~LinkedList() { clear(); }
 

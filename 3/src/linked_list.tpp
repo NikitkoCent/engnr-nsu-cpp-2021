@@ -250,12 +250,13 @@ template <typename T>
 typename LinkedList<T>::iterator LinkedList<T>::erase(const_iterator first, const_iterator last)
 {
     auto result = first;
-    for (; first != last; ++first)
+    for (; first != last;)
     {
         result++;
         first._curr_ptr->prev->next = first._curr_ptr->next;
         first._curr_ptr->next->prev = first._curr_ptr->prev;
         delete (first._curr_ptr);
+        first._curr_ptr = result._curr_ptr;
         count--;
     }
     return iterator(*(result._curr_ptr));
