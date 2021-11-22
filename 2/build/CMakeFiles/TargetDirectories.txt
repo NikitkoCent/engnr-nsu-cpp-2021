@@ -1,7 +1,0 @@
-/home/krazer_leonid/Desktop/С++ code/Lab 2/build/CMakeFiles/install/strip.dir
-/home/krazer_leonid/Desktop/С++ code/Lab 2/build/CMakeFiles/install/local.dir
-/home/krazer_leonid/Desktop/С++ code/Lab 2/build/CMakeFiles/install.dir
-/home/krazer_leonid/Desktop/С++ code/Lab 2/build/CMakeFiles/list_install_components.dir
-/home/krazer_leonid/Desktop/С++ code/Lab 2/build/CMakeFiles/rebuild_cache.dir
-/home/krazer_leonid/Desktop/С++ code/Lab 2/build/CMakeFiles/edit_cache.dir
-/home/krazer_leonid/Desktop/С++ code/Lab 2/build/CMakeFiles/Lab_2.dir

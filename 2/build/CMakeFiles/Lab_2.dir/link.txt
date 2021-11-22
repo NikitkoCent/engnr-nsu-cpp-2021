@@ -1,1 +1,0 @@
-/bin/clang++-11  -g   CMakeFiles/Lab_2.dir/main.cpp.o CMakeFiles/Lab_2.dir/src/App.cpp.o CMakeFiles/Lab_2.dir/src/ArgParser.cpp.o CMakeFiles/Lab_2.dir/src/CalcCmds.cpp.o  -o Lab_2 
