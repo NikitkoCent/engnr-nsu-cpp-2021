@@ -10,6 +10,13 @@ namespace ns_LLIST
     class RawIterator
     {
     public:
+        using difference_type = ptrdiff_t;
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = T;
+        using pointer = T*;
+        using reference = T&;
+
+    public:
         BaseNode<T> *_curr_ptr;
 
     public:
@@ -21,15 +28,30 @@ namespace ns_LLIST
     public:
         bool operator!=(const RawIterator<T> &it)
         {
-            if (_curr_ptr == it._curr_ptr)
-                return false;
-            else
-                return true;
+            return !(_curr_ptr == it._curr_ptr);
         }
 
         bool operator==(const RawIterator<T> &it)
         {
-            return !(this != &it);
+            return !(*this != it);
+        }
+
+        bool operator>(const RawIterator<T> &it)
+        {
+            return (_curr_ptr->getData() > it._curr_ptr->getData());
+        }
+
+        bool operator<(const RawIterator<T> &it)
+        {
+            return (_curr_ptr->getData() < it._curr_ptr->getData());
+        }
+
+    public:
+        void swap(const RawIterator& it)
+        {
+            T temp = std::move(it._curr_ptr->getData());
+            it._curr_ptr->getData() = std::move(this->_curr_ptr->getData());
+            this->_curr_ptr->getData() = std::move(temp);
         }
     };
 
@@ -57,6 +79,25 @@ namespace ns_LLIST
             return *result;
         }
 
+        template <bool _isRvrs = isRvrs>
+        typename std::enable_if_t<!_isRvrs, It &>
+        operator--()
+        {
+            _curr_ptr = _curr_ptr->prev;
+            return dynamic_cast<It &>(*this);
+        }
+
+        template <bool _isRvrs = isRvrs>
+        typename std::enable_if_t<!_isRvrs, It &>
+        operator--(int)
+        {
+            It* result = new It(*(this->_curr_ptr));
+            _curr_ptr = _curr_ptr->prev;
+            return *result;
+        }
+        //End Forward Iterator
+
+
         //Reverse Iterator
         template <bool _isRvrs = isRvrs>
         typename std::enable_if_t<_isRvrs, It &>
@@ -74,6 +115,24 @@ namespace ns_LLIST
             _curr_ptr = _curr_ptr->prev;
             return *result;
         }
+
+        template <bool _isRvrs = isRvrs>
+        typename std::enable_if_t<_isRvrs, It &>
+        operator--()
+        {
+            _curr_ptr = _curr_ptr->next;
+            return dynamic_cast<It &>(*this);
+        }
+
+        template <bool _isRvrs = isRvrs>
+        typename std::enable_if_t<_isRvrs, It>
+        operator--(int)
+        {
+            It* result = new It(*(this->_curr_ptr));
+            _curr_ptr = _curr_ptr->next;
+            return *result;
+        }
+        //End Reverse Iterator
 
         It& operator=(RawIterator<T>& other)
         {

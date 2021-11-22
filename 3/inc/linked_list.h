@@ -46,9 +46,11 @@ namespace ns_LLIST
 
         LinkedList(LinkedList &&other)
         {
-            if (other == this)
+            if (&other == this)
                 return;
 
+            this->count = other.count;
+            other.count = 0;
             head = other.head;
             tail = other.tail;
             other.head = nullptr;
@@ -171,7 +173,7 @@ namespace ns_LLIST
 
     public:
         void print() const noexcept;
-
+        bool operator==(const LinkedList&);
         void clear() noexcept;
 
         void resize(size_type _count, const value_type &value);

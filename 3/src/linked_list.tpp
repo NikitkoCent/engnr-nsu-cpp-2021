@@ -23,7 +23,7 @@ LinkedList<T> &LinkedList<T>::operator=(const LinkedList<T> &other)
 template <typename T>
 LinkedList<T> &LinkedList<T>::operator=(LinkedList<T> &&other)
 {
-    if (other == this)
+    if (other.head == this->head)
         return (*this);
 
     clear();
@@ -33,6 +33,7 @@ LinkedList<T> &LinkedList<T>::operator=(LinkedList<T> &&other)
     count = other.count;
     other.head = nullptr;
     other.tail = nullptr;
+    other.count = 0;
     return (*this);
 }
 
@@ -149,7 +150,8 @@ void LinkedList<T>::push_front()
 template <typename T>
 typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, const T &value)
 {
-    if (pos == cend()) throw std::runtime_error("Insert past the tail");
+    if (pos == cend())
+        throw std::runtime_error("Insert past the tail");
 
     Node<T> *_node = new Node<T>(value);
     _node->next = pos._curr_ptr->next;
@@ -163,7 +165,8 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, const
 template <typename T>
 typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, T &&value)
 {
-    if (pos == cend()) throw std::runtime_error("Insert past the tail");
+    if (pos == cend())
+        throw std::runtime_error("Insert past the tail");
 
     Node<T> *_node = new Node<T>(std::move(value));
     _node->next = pos._curr_ptr->next;
@@ -182,7 +185,7 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, size_
         insert(pos, value);
         pos++;
     }
-    return pos;
+    return iterator(*(pos._curr_ptr));
 }
 
 template <typename T>
@@ -194,7 +197,7 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, Input
         insert(pos, *first);
         pos++;
     }
-    return pos;
+    return iterator(*(pos._curr_ptr));
 }
 
 template <typename T>
@@ -205,7 +208,7 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, std::
         insert(pos, item);
         pos++;
     }
-    return pos;
+    return iterator(*(pos._curr_ptr));
 }
 /* #endregion */
 
@@ -237,6 +240,16 @@ void LinkedList<T>::pop_front()
 template <typename T>
 typename LinkedList<T>::iterator LinkedList<T>::erase(const_iterator pos)
 {
+    if (pos == cbegin())
+    {
+        pop_front();
+        return begin();
+    }
+    if (pos == cend())
+    {
+        pop_back();
+        return end();
+    }
     auto result = pos;
     result++;
     pos._curr_ptr->prev->next = pos._curr_ptr->next;
@@ -249,6 +262,22 @@ typename LinkedList<T>::iterator LinkedList<T>::erase(const_iterator pos)
 template <typename T>
 typename LinkedList<T>::iterator LinkedList<T>::erase(const_iterator first, const_iterator last)
 {
+    if (first == cbegin())
+    {
+        ptrdiff_t dist = std::distance(first, last);
+        for (int i = 0; i < dist; i++)
+            pop_front();
+        return begin();
+    }
+
+    if (last == cend())
+    {
+        ptrdiff_t dist = std::distance(first, last);
+        for (int i = 0; i < dist; i++)
+            pop_back();
+        return end();
+    }
+
     auto result = first;
     for (; first != last;)
     {
@@ -270,14 +299,29 @@ typename LinkedList<T>::size_type LinkedList<T>::size() const noexcept
 }
 
 template <typename T>
+bool LinkedList<T>::operator==(const LinkedList<T> &l2)
+{
+    auto it1 = this->begin();
+    auto it2 = l2.begin();
+    for (; it1 != this->end(); it1++, it2++)
+        if (*it1 != *it2)
+            return false;
+    return true;
+}
+
+template <typename T>
 bool LinkedList<T>::empty() const
 {
+    LinkedList<int> list = {1, 2, 3, 4, 5};
     return 0 == count;
 }
 
 template <typename T>
 void LinkedList<T>::clear() noexcept
 {
+    if (count == 0)
+        return;
+
     for (; count != 0;)
         pop_back();
 
@@ -290,14 +334,15 @@ void LinkedList<T>::print() const noexcept
 {
     for (auto item : *this)
     {
-        std::cout << item << std::endl;
+        std::cout << item << " ";
     }
+    std::cout << std::endl;
 }
 
 template <typename T>
 void LinkedList<T>::reverse() noexcept
 {
-    LinkedList<T>* temp = new LinkedList<T>;
+    LinkedList<T> *temp = new LinkedList<T>;
     for (auto i : *this)
         temp->push_front(std::move(i));
 
@@ -308,18 +353,22 @@ void LinkedList<T>::reverse() noexcept
 }
 
 template <typename T>
-void LinkedList<T>::swap(LinkedList<T>& other) noexcept
+void LinkedList<T>::swap(LinkedList<T> &other) noexcept
 {
-    LinkedList<T> temp = std::move(this);
-    this = std::move(other);
-    other = std::move(temp);
+    std::swap(*this, other);
 }
 
 /* #region  sort */
 template <typename T>
 void LinkedList<T>::sort()
 {
-    std::sort(begin(), end());
+    iterator begin_ = begin();
+    iterator end_ = end();
+    for (Iterator i = begin_; i != end_; ++i)
+        for (Iterator j = begin_; 
+        std::distance(begin(),j) < std::distance(begin(),i); ++j)
+            if (*i < *j)
+                j.swap(i);
 }
 
 template <typename T>
@@ -415,7 +464,6 @@ typename LinkedList<T>::size_type LinkedList<T>::remove_if(UnaryPredicate p)
         {
             it = erase(it);
             cnt++;
-            
         }
         it = temp;
     }

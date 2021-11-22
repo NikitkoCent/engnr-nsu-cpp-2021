@@ -16,8 +16,8 @@ namespace ns_LLIST
         virtual ~BaseNode() = default;
 
     public:
-        virtual T &getData() { throw std::runtime_error("Bad Dereference"); }
-        virtual void setData(const T &_data) { throw std::runtime_error("Bad Dereference"); }
+        virtual T &getData() { throw std::runtime_error("Pleaase, Dont Dereference Me, I am a smol node :=("); }
+        virtual void setData(const T &_data) { throw std::runtime_error("Pleaase, Dont Dereference Me, I am a smol node :=( "); }
     };
 
     template <typename T>
