@@ -61,7 +61,6 @@ template <typename InputIt>
 void LinkedList<T>::assign(InputIt first, InputIt last)
 {
     clear();
-    uint16_t counter = 0;
     for (; first != last; first++)
         push_back(*first);
 }

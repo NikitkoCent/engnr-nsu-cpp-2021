@@ -180,6 +180,6 @@ namespace ns_LLIST
         void swap(LinkedList &other) noexcept;
     };
 
-};
+}
 
 #include "../src/linked_list.tpp"
