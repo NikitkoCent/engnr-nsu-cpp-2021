@@ -108,7 +108,7 @@ namespace ns_LLIST
         }
 
         template <bool _isRvrs = isRvrs>
-        typename std::enable_if_t<_isRvrs, It>
+        typename std::enable_if_t<_isRvrs, It &>
         operator++(int)
         {
             It* result = new It(*(this->_curr_ptr));
@@ -125,7 +125,7 @@ namespace ns_LLIST
         }
 
         template <bool _isRvrs = isRvrs>
-        typename std::enable_if_t<_isRvrs, It>
+        typename std::enable_if_t<_isRvrs, It &>
         operator--(int)
         {
             It* result = new It(*(this->_curr_ptr));

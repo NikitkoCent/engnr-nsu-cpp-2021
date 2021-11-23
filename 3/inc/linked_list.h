@@ -81,7 +81,7 @@ namespace ns_LLIST
             for (auto item : init)
                 push_back(item);
         }
-        ~LinkedList() { clear(); }
+        ~LinkedList() { clear(); delete(head); delete(tail);}
 
     public:
         LinkedList &operator=(const LinkedList &other);

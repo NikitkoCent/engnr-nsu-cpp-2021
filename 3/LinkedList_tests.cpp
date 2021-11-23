@@ -42,7 +42,7 @@ TEST(LL__Test, InitList_Test)
     for (int i = 1; i < 6; i++)
     {
         ASSERT_EQ(i, *it);
-        it++;
+        ++it;
     }
 }
 
@@ -79,8 +79,8 @@ TEST(LL__Test, Insert_Test_iterators)
 
     auto it = (++(++list.cbegin()));
     auto it1 = it;
-    it1++;
-    it1++;
+    ++it1;
+    ++it1;
 
     LinkedList<int> list1 = {1, 2, 3, 4, 5};
 
@@ -155,19 +155,19 @@ TEST(LL__Test, Erase_Test_Iterators)
 
     auto it1 = ++list1.cbegin();
     auto it1_ = it1;
-    it1_++;
-    it1_++;
+    ++it1_;
+    ++it1_;
     list1.erase(it1, it1_);
 
     auto it2 = list2.cbegin();
     auto it2_ = it2;
-    it2_++;
-    it2_++;
+    ++it2_;
+    ++it2_;
     list2.erase(it2, it2_);
 
     auto it3 = list3.cend();
     auto it3_ = ++list3.cbegin();
-    it3_++;
+    ++it3_;
     list3.erase(it3_, it3);
 
     ASSERT_EQ(list1 == list1_t, true);

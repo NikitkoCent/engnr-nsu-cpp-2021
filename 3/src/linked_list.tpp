@@ -183,7 +183,7 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, size_
     for (int i = 0; i < _count; i++)
     {
         insert(pos, value);
-        pos++;
+        ++pos;
     }
     return iterator(*(pos._curr_ptr));
 }
@@ -195,7 +195,7 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, Input
     for (; first != last; ++first)
     {
         insert(pos, *first);
-        pos++;
+        ++pos;
     }
     return iterator(*(pos._curr_ptr));
 }
@@ -206,7 +206,7 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, std::
     for (auto item : ilist)
     {
         insert(pos, item);
-        pos++;
+        ++pos;
     }
     return iterator(*(pos._curr_ptr));
 }
@@ -251,7 +251,7 @@ typename LinkedList<T>::iterator LinkedList<T>::erase(const_iterator pos)
         return end();
     }
     auto result = pos;
-    result++;
+    ++result;
     pos._curr_ptr->prev->next = pos._curr_ptr->next;
     pos._curr_ptr->next->prev = pos._curr_ptr->prev;
     delete (pos._curr_ptr);
@@ -281,7 +281,7 @@ typename LinkedList<T>::iterator LinkedList<T>::erase(const_iterator first, cons
     auto result = first;
     for (; first != last;)
     {
-        result++;
+        ++result;
         first._curr_ptr->prev->next = first._curr_ptr->next;
         first._curr_ptr->next->prev = first._curr_ptr->prev;
         delete (first._curr_ptr);
@@ -303,7 +303,7 @@ bool LinkedList<T>::operator==(const LinkedList<T> &l2)
 {
     auto it1 = this->begin();
     auto it2 = l2.begin();
-    for (; it1 != this->end(); it1++, it2++)
+    for (; it1 != this->end(); ++it1, ++it2)
         if (*it1 != *it2)
             return false;
     return true;
@@ -350,6 +350,8 @@ void LinkedList<T>::reverse() noexcept
 
     for (auto i : *temp)
         this->push_back(std::move(i));
+    
+    delete(temp);
 }
 
 template <typename T>
@@ -375,7 +377,13 @@ template <typename T>
 template <typename Compare>
 void LinkedList<T>::sort(Compare comp)
 {
-    std::sort(begin(), end(), comp);
+    iterator begin_ = begin();
+    iterator end_ = end();
+    for (Iterator i = begin_; i != end_; ++i)
+        for (Iterator j = begin_; 
+        std::distance(begin(),j) < std::distance(begin(),i); ++j)
+            if (comp(*i *j))
+                j.swap(i);
 }
 /* #endregion */
 
@@ -393,14 +401,16 @@ typename LinkedList<T>::size_type LinkedList<T>::unique()
         if (*first == *second)
         {
             erase(first);
-            first = second++;
+            first = second;
+            ++second;
         }
         else
         {
-            first++;
-            second++;
+            ++first;
+            ++second;
         }
     }
+
     return count;
 }
 
@@ -422,8 +432,8 @@ typename LinkedList<T>::size_type LinkedList<T>::unique(BinaryPredicate p)
         }
         else
         {
-            first++;
-            second++;
+            ++first;
+            ++second;
         }
     }
     return count;
@@ -439,11 +449,11 @@ typename LinkedList<T>::size_type LinkedList<T>::remove(const T &value)
     for (; it != cend();)
     {
         auto temp = it;
-        temp++;
+        ++temp;
         if (*it == value)
         {
             erase(it);
-            cnt++;
+            ++cnt;
         }
         it = temp;
     }
@@ -459,11 +469,11 @@ typename LinkedList<T>::size_type LinkedList<T>::remove_if(UnaryPredicate p)
     for (; it != cend(); it++)
     {
         auto temp = it;
-        temp++;
+        ++temp;
         if (p(*it))
         {
             it = erase(it);
-            cnt++;
+            ++cnt;
         }
         it = temp;
     }
