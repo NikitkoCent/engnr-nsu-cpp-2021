@@ -23,12 +23,24 @@ TEST(Calc_Test, Test_Medium_2)
 
 TEST(Calc_Test, Test_Hard)
 {
-    ns_Calc::CalcContext calc =proceedWithArgs("../../tests/test4.txt");
+    ns_Calc::CalcContext calc = proceedWithArgs("../../tests/test4.txt");
     ASSERT_EQ(16, calc.m_stack.top());
 }
 
-TEST(Calc_Test, Test_Read)
+TEST(Calc_Test, Test_Exception)
 {
-    ns_Calc::CalcContext calc = proceedWithArgs("../../tests/test5.txt");
-    ASSERT_EQ(300, calc.m_stack.top());
+    EXPECT_THROW(
+        {
+            try
+            {
+                ns_Calc::CalcContext calc = proceedWithArgs("../../tests/test5.txt");;
+            }
+            catch (const std::runtime_error &e)
+            {
+                // and this tests that it has the correct message
+                EXPECT_STREQ("Stack is empty", e.what());
+                throw;
+            }
+        },
+        std::runtime_error);
 }
