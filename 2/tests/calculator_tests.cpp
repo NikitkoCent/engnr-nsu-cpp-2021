@@ -11,7 +11,7 @@ TEST(Calc_Test, Test_Simple)
 
 TEST(Calc_Test, Test_Medium_1)
 {
-    ns_Calc::CalcContext calc = proceedWithArgs("../tests/test2.txt");
+    ns_Calc::CalcContext calc = proceedWithArgs("../../tests/test2.txt");
     ASSERT_EQ(2, calc.m_stack.top());
 }
 
