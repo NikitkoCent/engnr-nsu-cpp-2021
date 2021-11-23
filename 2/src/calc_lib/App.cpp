@@ -8,7 +8,9 @@
 
 ns_Calc::CalcContext proceedWithArgs(const char *path)
 {
-    std::ifstream ifs(path);
+    std::filesystem::path file = path;
+    std::filesystem::path abs_path = std::filesystem::current_path() / file;
+    std::ifstream ifs(abs_path.c_str());
     if (ifs)
         return calculateWithArgs(ifs);
     else
