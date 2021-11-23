@@ -24,7 +24,7 @@ struct push_var_cmd : abstract_command {
 
 struct push_num_cmd : abstract_command {
     explicit push_num_cmd(SafeInt<int64_t> _arg) : arg(_arg) {};
-    SafeInt<uint64_t> arg;
+    SafeInt<int64_t> arg;
 
     void execute(CalcContext &_calc) override;
 };

@@ -1,28 +1,30 @@
-#include "../inc/App.h"
-#include "../inc/CalcCmds.h"
+#include "../../inc/App.h"
+#include "../../inc/CalcCmds.h"
 
 #include <iostream>
 #include <deque>
 #include <memory>
+#include <filesystem>
 
-void proceedWithArgs(const char *path) {
+ns_Calc::CalcContext proceedWithArgs(const char *path)
+{
     std::ifstream ifs(path);
-    if (ifs) {
-        calculateWithArgs(ifs);
-    } else {
+    if (ifs)
+        return calculateWithArgs(ifs);
+    else
         throw std::runtime_error("File Not Found");
-    }
 }
 
-void calculateWithArgs(std::ifstream& ifs)
+ns_Calc::CalcContext calculateWithArgs(std::ifstream &ifs)
 {
     ns_Calc::CalcContext calc;
     std::string buff;
     std::deque<std::unique_ptr<abstract_command>> pipeline;
     while (ifs.good())
     {
-        std::getline(ifs,buff);
-        if (buff == "") continue;
+        std::getline(ifs, buff);
+        if (buff == "" || buff[0] == '#')
+            continue;
         pipeline.emplace_back(CreateAbstCmd(buff));
     }
 
@@ -31,14 +33,15 @@ void calculateWithArgs(std::ifstream& ifs)
         pipeline.front().get()->execute(calc);
         pipeline.pop_front();
     }
+    return calc;
 }
 
-void proceedNoArgs()
+ns_Calc::CalcContext proceedNoArgs()
 {
-    calculateNoArgs();
+    return calculateNoArgs();
 }
 
-void calculateNoArgs()
+CalcContext calculateNoArgs()
 {
     ns_Calc::CalcContext calc;
     std::string buff;
@@ -54,4 +57,5 @@ void calculateNoArgs()
         pipeline.front().get()->execute(calc);
         pipeline.pop_front();
     }
+    return calc;
 }

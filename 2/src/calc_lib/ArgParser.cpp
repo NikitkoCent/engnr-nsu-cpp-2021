@@ -1,4 +1,4 @@
-#include "../inc/ArgParser.h"
+#include "../../inc/ArgParser.h"
 #include <algorithm>
 
 InputParser::InputParser(int &argc, char* argv[]) : tokens() {

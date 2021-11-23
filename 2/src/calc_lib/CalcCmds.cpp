@@ -2,7 +2,8 @@
 #include <cstdlib>
 #include <cmath>
 #include <vector>
-#include "../inc/CalcCmds.h"
+
+#include "../../inc/CalcCmds.h"
 
 void push_var_cmd::execute(CalcContext &_calc) 
 {
@@ -10,7 +11,7 @@ void push_var_cmd::execute(CalcContext &_calc)
         throw std::runtime_error("Variable is not found");
     else
         _calc.m_stack.push(_calc.m_varmap[arg]);
-};
+}
 
 void push_num_cmd::execute(CalcContext &_calc) 
 {
@@ -59,7 +60,7 @@ void plus_cmd::execute(CalcContext &_calc)
         throw std::runtime_error("Number of elements less than 2");
     else{
         auto p = GetTwoElements(_calc);
-        _calc.m_stack.push(p.first + p.second);
+        _calc.m_stack.push(p.second + p.first);
     }
 }
 
@@ -69,7 +70,7 @@ void minus_cmd::execute(CalcContext &_calc)
         throw std::runtime_error("Number of elements less than 2");
     else{
         auto p = GetTwoElements(_calc);
-        _calc.m_stack.push(p.first - p.second);
+        _calc.m_stack.push(p.second - p.first);
     }
 }
 
@@ -78,7 +79,7 @@ void mul_cmd::execute(CalcContext &_calc) {
         throw std::runtime_error("Number of elements less than 2");
     else{
         auto p = GetTwoElements(_calc);
-        _calc.m_stack.push(p.first * p.second);
+        _calc.m_stack.push(p.second * p.first);
     }
 }
 
@@ -87,7 +88,7 @@ void div_cmd::execute(CalcContext &_calc) {
         throw std::runtime_error("Number of elements less than 2");
     else{
         auto p = GetTwoElements(_calc);
-        _calc.m_stack.push(p.first / p.second);
+        _calc.m_stack.push(p.second / p.first);
     }
 }
 
@@ -96,7 +97,7 @@ void print_cmd::execute(CalcContext &_calc) {
         throw std::runtime_error("Stack is empty");
     else {
         SafeInt<int64_t> num = _calc.m_stack.top();
-        std::cout << (long)num;
+        std::cout << (long)num << std::endl;
     }
 }
 
@@ -109,32 +110,32 @@ void read_cmd::execute(CalcContext &_calc) {
 std::unique_ptr<abstract_command> CreateAbstCmd(std::string &command)
 {
     auto tokens = split(command);
-    //std::cout << tokens[0].length();
     if (tokens[0] == "POP"){
         return std::unique_ptr<pop_cmd>(new pop_cmd);
     }else if (tokens[0] == "PUSH"){
-        if (std::isdigit(static_cast<unsigned char>(tokens[1][0]))){
-            return std::unique_ptr<push_num_cmd>( new push_num_cmd( SafeInt<int64_t>( std::stoi( tokens[1] ))));
+        if (std::isdigit(static_cast<unsigned char>(tokens[1][0])) || tokens[1][0] == '-'){
+            return std::unique_ptr<push_num_cmd>{ new push_num_cmd( SafeInt<int64_t>(std::stoi(tokens[1])))};
         }else{
-            return std::unique_ptr<push_var_cmd>( new push_var_cmd( std::move( tokens[1])));
+            return std::unique_ptr<push_var_cmd>{ new push_var_cmd( std::move( tokens[1]))};
         }
     }else if (tokens[0] == "PEEK"){
-        return std::unique_ptr<peek_cmd>( new peek_cmd( std::move( tokens[1])));
+        return std::unique_ptr<peek_cmd>{ new peek_cmd( std::move( tokens[1]))};
     }else if (tokens[0] == "ABS"){
-        return std::unique_ptr<abs_cmd>(new abs_cmd());
+        return std::unique_ptr<abs_cmd>{new abs_cmd()};
     }else if (tokens[0] == "PLUS"){
-        return std::unique_ptr<plus_cmd>(new plus_cmd());
+        return std::unique_ptr<plus_cmd>{new plus_cmd()};
     }else if (tokens[0] == "MINUS"){
-        return std::unique_ptr<minus_cmd>(new minus_cmd());
+        return std::unique_ptr<minus_cmd>{new minus_cmd()};
     }else if (tokens[0] == "MUL"){
-        return std::unique_ptr<mul_cmd>(new mul_cmd());
+        return std::unique_ptr<mul_cmd>{new mul_cmd()};
     }else if (tokens[0] == "DIV"){
-        return std::unique_ptr<div_cmd>(new div_cmd());
+        return std::unique_ptr<div_cmd>{new div_cmd()};
     }else if (tokens[0] == "PRINT"){
-        return std::unique_ptr<print_cmd>(new print_cmd());
+        return std::unique_ptr<print_cmd>{new print_cmd()};
     }else if (tokens[0] == "READ"){
-        return std::unique_ptr<read_cmd>(new read_cmd());
+        return std::unique_ptr<read_cmd>{new read_cmd()};
     }else{
+        std::cout << command << std::endl;
         throw std::runtime_error("Command not found");
     } 
 }

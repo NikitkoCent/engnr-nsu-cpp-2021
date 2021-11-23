@@ -14,5 +14,5 @@ namespace ns_Calc {
         std::map<std::string, SafeInt<int64_t>> m_varmap;
         CalcContext() : m_stack(), m_varmap{} {};
     };
-};
+}
 

@@ -1,8 +1,8 @@
 #include <iostream>
 #include <filesystem>
 
-#include "inc/ArgParser.h"
-#include "inc/App.h"
+#include "../inc/ArgParser.h"
+#include "../inc/App.h"
 
 int main(int argc, char *argv[]) {
     InputParser input(argc, argv);
