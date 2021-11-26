@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Утилита может считать 2 варианта хеша:
 Adler32
 Sum64
@@ -13,3 +14,7 @@ Sum64
 
 Где <mode> ∈ { adler32, sum64 }.
 
+=======
+# engnr-nsu-cpp-2021
+The base repository for the tasks reviewing of the C++ course 2021
+>>>>>>> c740809f3917d2bf5148585d7c634ac29f504b50
