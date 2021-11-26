@@ -1,10 +1,6 @@
 #include "hash.hpp"
 int main(int argc, char* argv[])
 {
-<<<<<<< HEAD
-=======
-    setlocale(LC_ALL, "Russian");
->>>>>>> c740809f3917d2bf5148585d7c634ac29f504b50
     ArgHelper* arg = getArg(argc, argv);
     if (arg == NULL) {
         show_err();

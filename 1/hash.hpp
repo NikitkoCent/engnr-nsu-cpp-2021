@@ -140,11 +140,7 @@ int callAdler32(string fileName) {
     }
 
     uint32_t result_adler = adler32(fileName);
-<<<<<<< HEAD
     std::cout << std::hex<< result_adler;
-=======
-    std::cout << std::hex << std::setfill('0') << result_adler;
->>>>>>> c740809f3917d2bf5148585d7c634ac29f504b50
     return 0;
 }
 int callSumm64(string fileName) {
@@ -156,16 +152,7 @@ int callSumm64(string fileName) {
     }
 
     uint64_t result_sum64 = summ64(fileName);
-<<<<<<< HEAD
     std::cout << std::hex<< result_sum64;
     return 0;
 }
 
-=======
-    std::cout << std::hex  << std::setfill('0') << result_sum64;
-    return 0;
-}
-
-////////////////////////////////////////////////////////////////
-
->>>>>>> c740809f3917d2bf5148585d7c634ac29f504b50
