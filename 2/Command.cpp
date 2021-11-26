@@ -41,7 +41,7 @@ void AbsCommand::execute(Context & ctx) const {
         }else {
             ctx.stack.push(-value);
         }
-    }catch (SafeIntException& exc) {
+    }catch (...) {
         throw OverflowException("Overflow detected in ABS command");
     }
 }

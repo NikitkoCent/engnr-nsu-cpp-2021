@@ -2,6 +2,7 @@
 #define STACK_CALC_CONTEXT_H
 
 #include <stack>
+#include <string>
 #include <map>
 
 class Context {

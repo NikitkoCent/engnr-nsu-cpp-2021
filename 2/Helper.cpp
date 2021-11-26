@@ -3,7 +3,7 @@
 std::vector<std::string> Helper::split(std::string line, const std::string& delimiter) {
     std::vector<std::string> result;
     int pos = 0;
-    while ((pos = line.find(delimiter)) != (int)std::string::npos) {
+    while ((pos = (int)line.find(delimiter)) != (int)std::string::npos) {
         std::string token = line.substr(0, pos);
         result.push_back(Helper::strip(token));
         line.erase(0, pos + delimiter.length());

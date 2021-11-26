@@ -8,7 +8,7 @@
 #include <vector>
 #include "Context.h"
 #include "AppException.h"
-#include <SafeInt.hpp>
+#include "lib/SafeInt/SafeInt.hpp"
 
 
 class Command {
