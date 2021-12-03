@@ -6,8 +6,26 @@
 
 #IncludeRegexTransform: 
 
+/home/krazer_leonid/engnr-nsu-cpp-2021/1/Hasher.cpp
+./inc/Hasher.h
+/home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Hasher.h
+iostream
+-
+fstream
+-
+filesystem
+-
+vector
+-
+cstring
+-
+
 /home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Hasher.h
 cstdint
+-
+fstream
+-
+iostream
 -
 map
 -
@@ -20,6 +38,8 @@ Status.h
 ./inc/Hasher.h
 /home/krazer_leonid/engnr-nsu-cpp-2021/1/inc/Hasher.h
 iostream
+-
+fstream
 -
 string
 -

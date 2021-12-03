@@ -42,9 +42,7 @@ uint64_t sum64(std::ifstream &ifs)
 Status hashProccessing(const char *file_path, HashMode hm)
 {
     namespace fs = std::filesystem;
-
-    fs::path abs_path = fs::current_path() / fs::path(file_path);
-    std::ifstream ifs(abs_path, std::ifstream::binary);
+    std::ifstream ifs(fs::path(file_path), std::ifstream::binary);
 
     if (ifs)
     {
