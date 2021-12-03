@@ -5,7 +5,7 @@
 #include <string>
 #include <cstdint>
 
-#include "SafeInt.hpp"
+#include "SafeInt/SafeInt.hpp"
 
 namespace ns_Calc {
     class CalcContext {
