@@ -1,5 +1,4 @@
 #include <iostream>
-#include <filesystem>
 
 #include "../inc/ArgParser.h"
 #include "../inc/App.h"
@@ -7,15 +6,16 @@
 int main(int argc, char *argv[]) {
     InputParser input(argc, argv);
 
-    const std::string &file_name = input.getCmdOption("-f");
+    const std::optional<std::string_view> file_name = input.getCmdOption("-f");
     try {
-        if (file_name.empty()) {
-            auto path = std::filesystem::current_path() / std::filesystem::path(file_name);
-            proceedWithArgs(path.string().c_str());
+        if (file_name.has_value()){
+            proceedWithArgs(file_name.value().data());
         } else {
             proceedNoArgs();
         }
+        return 1;
     } catch (std::exception &error) {
         std::cerr << error.what() << std::endl;
+        return 0;
     }
 }

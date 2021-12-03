@@ -1,19 +1,19 @@
 #include "../../inc/ArgParser.h"
 #include <algorithm>
+#include <optional>
+#include <string_view>
 
 InputParser::InputParser(int &argc, char* argv[]) : tokens() {
     for (int i = 1; i < argc; ++i)
         this->tokens.emplace_back(std::string(argv[i]));
 }
 
-const std::string &InputParser::getCmdOption(const std::string &option) const {
-    std::vector<std::string>::const_iterator itr;
-    itr = std::find(this->tokens.begin(), this->tokens.end(), option);
+const std::optional<std::string_view> InputParser::getCmdOption(const std::string &option) const {
+    auto itr = std::find(this->tokens.begin(), this->tokens.end(), option);
     if (itr != this->tokens.end() && ++itr != this->tokens.end()) {
-        return *itr;
+        return {*itr};
     }
-    static const std::string empty_string;
-    return empty_string;
+    return {};
 }
 
 

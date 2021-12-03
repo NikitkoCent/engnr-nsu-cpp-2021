@@ -4,54 +4,45 @@
 #include <iostream>
 #include <deque>
 #include <memory>
-#include <filesystem>
 
 ns_Calc::CalcContext proceedWithArgs(const char *path)
 {
-    std::filesystem::path file = path;
-    std::filesystem::path abs_path = std::filesystem::current_path() / file;
-    std::ifstream ifs(abs_path.c_str());
+    std::ifstream ifs(path);
     if (ifs)
-        return calculateWithArgs(ifs);
+    {
+        std::cin.rdbuf(ifs.rdbuf());
+        return calculate(ifs);
+    }
     else
         throw std::runtime_error("File Not Found");
 }
 
-ns_Calc::CalcContext calculateWithArgs(std::ifstream &ifs)
-{
-    ns_Calc::CalcContext calc;
-    std::string buff;
-    std::deque<std::unique_ptr<abstract_command>> pipeline;
-    while (ifs.good())
-    {
-        std::getline(ifs, buff);
-        if (buff == "" || buff[0] == '#')
-            continue;
-        pipeline.emplace_back(CreateAbstCmd(buff));
-    }
-
-    while (pipeline.empty() != true)
-    {
-        pipeline.front().get()->execute(calc);
-        pipeline.pop_front();
-    }
-    return calc;
-}
-
 ns_Calc::CalcContext proceedNoArgs()
 {
-    return calculateNoArgs();
+    return calculate(std::cin);
 }
 
-CalcContext calculateNoArgs()
+ns_Calc::CalcContext calculate(std::istream &input)
 {
     ns_Calc::CalcContext calc;
     std::string buff;
     std::deque<std::unique_ptr<abstract_command>> pipeline;
-    while (buff != "exit")
+    int err_line = 1;
+    for (;!input.eof(); std::getline(input, buff))
     {
-        std::cin >> buff;
-        pipeline.emplace_back(CreateAbstCmd(buff));
+        try
+        {
+            if (buff == "" || buff[0] == '#')
+                continue;
+            pipeline.emplace_back(CreateAbstCmd(buff));
+            err_line++;
+        }
+        catch (std::exception& e)
+        {
+            auto error = (std::string(e.what())+"\nError was occured in " + 
+                                std::to_string(err_line) + " line: " + buff); 
+            throw std::runtime_error(error.c_str());
+        }
     }
 
     while (pipeline.empty() != true)

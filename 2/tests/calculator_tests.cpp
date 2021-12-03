@@ -1,11 +1,12 @@
 #include <gtest/gtest.h>
+#include <sstream>
 
 #include "../inc/App.h"
 #include "../inc/Calculator.h"
 
 TEST(Calc_Test, Test_Simple)
 {
-    ns_Calc::CalcContext calc = proceedWithArgs("../../tests/test1.txt");
+    ns_Calc::CalcContext calc = proceedWithArgs("../tests/test1.txt");
     ASSERT_EQ(220, calc.m_stack.top());
 }
 
@@ -44,3 +45,10 @@ TEST(Calc_Test, Test_Exception)
         },
         std::runtime_error);
 }
+
+/*TEST(Calc_Test, User_Input_Test)
+{
+    const char* buff = "ahahahah\n ahaha\n\0";
+    std::istringstream sstr (buff);
+    ns_Calc::CalcContext calc = proceedNoArgs();
+}*/
