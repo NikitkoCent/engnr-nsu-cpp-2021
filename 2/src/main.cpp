@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
         if (file_name.has_value()){
             proceedWithArgs(file_name.value().data());
         } else {
-            proceedNoArgs();
+            proceedNoArgs(std::cin);
         }
         return 1;
     } catch (std::exception &error) {

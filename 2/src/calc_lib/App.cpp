@@ -9,17 +9,14 @@ ns_Calc::CalcContext proceedWithArgs(const char *path)
 {
     std::ifstream ifs(path);
     if (ifs)
-    {
-        std::cin.rdbuf(ifs.rdbuf());
         return calculate(ifs);
-    }
     else
         throw std::runtime_error("File Not Found");
 }
 
-ns_Calc::CalcContext proceedNoArgs()
+ns_Calc::CalcContext proceedNoArgs(std::istream& input)
 {
-    return calculate(std::cin);
+    return calculate(input);
 }
 
 ns_Calc::CalcContext calculate(std::istream &input)
@@ -28,7 +25,7 @@ ns_Calc::CalcContext calculate(std::istream &input)
     std::string buff;
     std::deque<std::unique_ptr<abstract_command>> pipeline;
     int err_line = 1;
-    for (;!input.eof(); std::getline(input, buff))
+    while(std::getline(input,buff))
     {
         try
         {

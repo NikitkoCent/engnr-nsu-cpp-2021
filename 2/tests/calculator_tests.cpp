@@ -27,6 +27,12 @@ TEST(Calc_Test, Test_Hard)
     ns_Calc::CalcContext calc = proceedWithArgs("../../tests/test4.txt");
     ASSERT_EQ(16, calc.m_stack.top());
 }
+TEST(Calc_Test, User_Input_Test)
+{
+    std::istringstream ss("PUSH 14\nPUSH 15\nMUL\nPRINT\n");
+
+    ns_Calc::CalcContext calc = proceedNoArgs(ss);
+}
 
 TEST(Calc_Test, Test_Exception)
 {
@@ -34,21 +40,31 @@ TEST(Calc_Test, Test_Exception)
         {
             try
             {
-                ns_Calc::CalcContext calc = proceedWithArgs("../tests/test5.txt");
+                ns_Calc::CalcContext calc = proceedWithArgs("../../tests/test5.txt");
             }
             catch (const std::runtime_error &e)
             {
-                // and this test that it has the correct message
-                
+                EXPECT_STREQ("Stack is empty", e.what());
                 throw;
             }
         },
         std::runtime_error);
 }
 
-/*TEST(Calc_Test, User_Input_Test)
+TEST(Calc_Test, Test_Exception_Peek)
 {
-    const char* buff = "ahahahah\n ahaha\n\0";
-    std::istringstream sstr (buff);
-    ns_Calc::CalcContext calc = proceedNoArgs();
-}*/
+    EXPECT_THROW(
+        {
+            try
+            {
+                std::istringstream ss("PEEK");
+                ns_Calc::CalcContext calc = proceedNoArgs(ss);
+            }
+            catch (const std::runtime_error &e)
+            {
+                EXPECT_STREQ("Required 2 arguements\nError was occured in 1 line: PEEK", e.what());
+                throw;
+            }
+        },
+        std::runtime_error);
+}
