@@ -13,18 +13,19 @@ int main(int argc, char* argv[])
     if (arg.isMode()) {
         uint64_t result;
         std::fstream fs(arg.path, std::ios::in | std::ios::binary);
+        int e = 0;
 
         if (arg.algo == Algo::ADLER32) {
-            if ((call(fs, adler32, result)) == 0)
+            if ((e = call(fs, adler32, result)) == 0)
                 std::cout << std::hex<< result;
             else
-                return ALGO_ERROR;
+                return e;
 
         }else if (arg.algo == Algo::SUM64) {
-            if(! (call(fs, summ64, result)))
+            if(! (e = call(fs, summ64, result)))
                 std::cout << std::hex<< result;
             else
-                return ALGO_ERROR;
+                return e;
         }
         else
             return ALGO_ERROR;
