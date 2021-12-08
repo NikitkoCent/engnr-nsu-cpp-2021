@@ -1,8 +1,13 @@
 #include "hash.cpp"
 int main(int argc, char* argv[])
 {
+<<<<<<< HEAD
     ArgHelper arg = getArg(argc, argv);
     if (arg.error) {
+=======
+    ArgHelper* arg = getArg(argc, argv);
+    if (arg == NULL) {
+>>>>>>> 8a482a7b84a359cba63f9c858ac91a24862ef370
         show_err();
         return -1;
     }
