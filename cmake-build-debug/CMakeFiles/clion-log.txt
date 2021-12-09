@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Projects\hash1\engnr-nsu-cpp-2021 Select CMakeLists.txt
