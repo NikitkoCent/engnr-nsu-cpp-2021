@@ -24,11 +24,10 @@ class StackCalculator {
     map<string, SafeInt<int64_t>> m;
 public:
     void exec(Command* cmd) {
-//        std::cout << "Cmd " << cmd << std::endl;
         cmd->exec(_stack, m);
     }
 
-    void parse_stream(istream &in){
+    void parse_stream(std::istream &in){
         CommandFactory factory;
 
         while (!in.eof()){

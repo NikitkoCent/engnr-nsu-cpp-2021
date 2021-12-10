@@ -8,6 +8,9 @@
 #include <map>
 #include <stack>
 #include <string>
+#include <iostream>
+
+#include "SafeInt.hpp"
 
 using std::map;
 using std::stringstream;
@@ -44,20 +47,19 @@ public:
         return *p == 0;
     }
 
-    void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
+    void exec(stack<SafeInt<int64_t>> &_stack, map<string, SafeInt<int64_t>> &m) override {
 //        std::cout << "exec!" << std::endl;
         string varname;
-        int64_t num;
         args >> varname;
 //        std::cout << "VARMAME: " << varname << std::endl;
         if (is_number(varname)) {
 //            cout << "Push " << varname << endl;
-            stack.push(std::stoi(varname));
+            _stack.push(std::stoi(varname));
         } else {
             if (m.count(varname) == 0)
                 throw std::invalid_argument("Can't push by varname to stack: no such key in container!");
 //            cout << "Push m[" << varname << "]=" << (int64_t)m[varname] << endl;
-            stack.push(m[varname]);
+            _stack.push(m[varname]);
         }
     }
 };
