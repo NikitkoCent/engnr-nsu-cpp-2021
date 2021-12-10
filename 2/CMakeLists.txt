@@ -11,3 +11,15 @@ add_subdirectory(libs/googletest)
 add_subdirectory(libs/SafeInt)
 add_subdirectory(tests)
 
+if (MSVC)
+    target_compile_options(calculator
+            PRIVATE /W4
+            PRIVATE /WX
+            )
+else()
+    target_compile_options(calculator
+            PRIVATE -Wall
+            PRIVATE -pedantic
+            PRIVATE -Werror
+            )
+endif()
