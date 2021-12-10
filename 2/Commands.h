@@ -24,24 +24,22 @@ class Command {
 protected:
     stringstream args;
 public:
-    Command(string &_args) {
+    explicit Command(string &_args) {
         string ass;
         args = stringstream(_args);
         args >> ass; // read cmd name
     }
 
-    virtual void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) = 0;
-
-    ~Command() {}
+    virtual void exec(stack<SafeInt<int64_t>> &_stack, map<string, SafeInt<int64_t>> &m) = 0;
 };
 
 class Push : public Command {
 public:
-    Push(string &_args) : Command(_args) {
+    explicit Push(string &_args) : Command(_args) {
 //        std::cout << "Push ctor: " << _args << std::endl;
     }
 
-    bool is_number(const std::string &line) {
+    static bool is_number(const std::string &line) {
         char *p;
         strtol(line.c_str(), &p, 10);
         return *p == 0;
@@ -66,7 +64,7 @@ public:
 
 class Pop : public Command {
 public:
-    Pop(string &_args) : Command(_args) {}
+    explicit Pop(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
 //        cout << "Pop " << (int64_t)stack.top() << endl;
@@ -76,7 +74,7 @@ public:
 
 class Peek : public Command {
 public:
-    Peek(string &_args) : Command(_args) {}
+    explicit Peek(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
         string varname;
@@ -90,7 +88,7 @@ public:
 
 class Abs : public Command {
 public:
-    Abs(string &_args) : Command(_args) {}
+    explicit Abs(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
         auto t = stack.top();
@@ -105,7 +103,7 @@ public:
 
 class Plus : public Command {
 public:
-    Plus(string &_args) : Command(_args) {}
+    explicit Plus(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
         auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
@@ -116,7 +114,7 @@ public:
 
 class Minus : public Command {
 public:
-    Minus(string &_args) : Command(_args) {}
+    explicit Minus(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
         auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
@@ -127,7 +125,7 @@ public:
 
 class Mul : public Command {
 public:
-    Mul(string &_args) : Command(_args) {}
+    explicit Mul(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
         auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
@@ -138,7 +136,7 @@ public:
 
 class Div : public Command {
 public:
-    Div(string &_args) : Command(_args) {}
+    explicit Div(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
         auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
@@ -149,7 +147,7 @@ public:
 
 class Print : public Command {
 public:
-    Print(string &_args) : Command(_args) {}
+    explicit Print(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
         auto a = stack.top(); stack.pop();
@@ -160,7 +158,7 @@ public:
 
 class Read : public Command {
 public:
-    Read(string &_args) : Command(_args) {}
+    explicit Read(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
         int64_t a;
