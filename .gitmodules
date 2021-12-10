@@ -1,0 +1,3 @@
+[submodule "stack_calc"]
+	path = stack_calc
+	url = https://github.com/okm-lab/stack_calc.git
