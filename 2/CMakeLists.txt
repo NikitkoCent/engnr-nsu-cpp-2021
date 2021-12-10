@@ -20,6 +20,5 @@ else()
     target_compile_options(calculator
             PRIVATE -Wall
             PRIVATE -pedantic
-            PRIVATE -Werror
             )
 endif()
