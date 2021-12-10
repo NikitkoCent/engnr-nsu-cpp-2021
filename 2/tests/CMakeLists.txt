@@ -11,7 +11,3 @@ target_link_libraries(calculator_tests
         gtest
         gmock_main
         )
-
-add_test(NAME calculator_tests_all
-        COMMAND "calculator_tests"
-        )
