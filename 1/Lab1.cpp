@@ -8,8 +8,8 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-    std::string filename;
-    std::string mode;
+    std::string filename = 0;
+    std::string mode = 0;
 
  
    
