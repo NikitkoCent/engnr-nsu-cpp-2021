@@ -23,7 +23,7 @@ uint64_t sum64(std::istream &file) {
     unsigned char k;
     while (!file.eof()) {
         c = 0;
-        while (file.read((char *) (&k), sizeof(unsigned char)) && c < sizeof(unsigned char)) {
+        while (file.read((char *) (&k), sizeof(unsigned char)) && c < sizeof(unsigned int)) {
             s <<= 8;
             s |= k;
             c++;
