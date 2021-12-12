@@ -1,3 +1,0 @@
-/Users/artemsmakov/CLionProjects/lab1/cmake-build-debug/CMakeFiles/hasher.dir
-/Users/artemsmakov/CLionProjects/lab1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/artemsmakov/CLionProjects/lab1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
