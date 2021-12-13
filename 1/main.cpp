@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 
-#define HELP_MSG std::cerr << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
 
 
 // ./hasher -h  => ac = 2 av = ["hasher", "-h" ]
@@ -23,7 +23,7 @@ int main(int ac, char **av) {
         } else {
             if (!filename.empty()){
                 std::cerr << "Only one file can be used" << std::endl;
-                HELP_MSG
+                std::cerr << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
                 return 1;
             }
             filename = std::string(av[i]);
@@ -32,19 +32,19 @@ int main(int ac, char **av) {
 
 
     if (help_mode) {
-        HELP_MSG
+        std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
         return 0;
     }
     if (mode != "adler32" && mode != "sum64") {
         // std::cerr << mode << std::endl;
         std::cerr << "Mode must be adler32 or sum64" << std::endl;
-        HELP_MSG
+        std::cerr << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
         return 1;
     }
     file = std::ifstream (filename);
     if (!file.is_open()) {
         std::cerr << "File doesn't exists" << std::endl;
-        HELP_MSG
+        std::cerr << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
         return 1;
     }
 
