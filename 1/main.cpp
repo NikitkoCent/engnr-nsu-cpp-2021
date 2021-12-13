@@ -38,7 +38,7 @@ int main(int ac, char **av) {
         std::cerr << "Mode must be adler32 or sum64" << std::endl;
         if (help_mode) {
             std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
-            return 0;
+            return 1;
         }
         std::cerr << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
         return 1;
@@ -48,7 +48,7 @@ int main(int ac, char **av) {
         std::cerr << "File doesn't exists" << std::endl;
         if (help_mode) {
             std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
-            return 0;
+            return 1;
         }
         std::cerr << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
         return 1;
