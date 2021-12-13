@@ -8,6 +8,9 @@
 
 // ./hasher -h  => ac = 2 av = ["hasher", "-h" ]
 // ./hasher -m sum64  => ac = 3 av = ["hasher", "-m", "sum64" ]
+void help_msg(std::ostream &os) {
+    os << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>";
+}
 
 int main(int ac, char **av) {
     std::string mode, filename;
@@ -24,38 +27,29 @@ int main(int ac, char **av) {
         } else {
             if (!filename.empty()) {
                 std::cerr << "Only one file can be used" << std::endl;
-                std::cerr << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>";
+                help_msg(std::cerr);
                 return 1;
             }
             filename = std::string(av[i]);
         }
     }
-    if (help_mode && mode.empty() && filename.empty()) {
-        std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>";
-        return 1;
+    if (help_mode) {
+        if (ac > 2) {
+            help_msg(std::cerr);
+        } else {
+            help_msg(std::cout);
+        }
+        return ac > 2;
     }
     if (mode != "adler32" && mode != "sum64") {
-        // std::cerr << mode << std::endl;
-
-//        if (help_mode) {
-//            std::cout << "Mode must be adler32 or sum64" << std::endl;
-//            std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>";
-//            return 1;
-//        }
         std::cerr << "Mode must be adler32 or sum64" << std::endl;
-        std::cerr << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>";
+        help_msg(std::cerr);
         return 1;
     }
     file.open(filename, std::ios::binary);
     if (!file.is_open()) {
-
-//        if (help_mode) {
-//            std::cout << "File doesn't exists" << std::endl;
-//            std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>";
-//            return 1;
-//        }
         std::cerr << "File doesn't exists" << std::endl;
-        std::cerr << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>";
+        help_msg(std::cerr);
         return 1;
     }
 
