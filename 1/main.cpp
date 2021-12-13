@@ -60,6 +60,9 @@ int main(int ac, char **av) {
     if (mode == "adler32") {
         auto result = HashCalc::Adler32(file);
         std::cout << std::hex << result << std::endl;
+    } else if (mode == "sum64") {
+        auto result = HashCalc::Sum64(file);
+        std::cout << std::hex << result << std::endl;
     }
 
 
