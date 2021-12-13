@@ -23,21 +23,17 @@ class StackCalculator {
     stack<SafeInt<int64_t>> _stack;
     map<string, SafeInt<int64_t>> m;
 public:
-    void exec(Command* cmd) {
+    void exec(std::unique_ptr<Command> cmd) {
         cmd->exec(_stack, m);
     }
 
     void parse_stream(std::istream &in){
-        CommandFactory factory;
-
-        while (!in.eof()){
-            string line;
-            getline(in, line);
-//            cout << "cmd line: " << line << endl;
+        string line;
+        while (!in.eof() && getline(in, line)){
             stringstream ls(line);
-            Command *shit = factory.parseCmd(ls);
+            std::unique_ptr<Command> shit(CommandFactory::parseCmd(ls));
             if (shit != nullptr)
-                this->exec(shit);
+                this->exec(std::move(shit));
         }
     }
 

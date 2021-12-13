@@ -44,3 +44,41 @@ TEST(test, test_2){
 }
 
 
+TEST(test, test_3){
+    StackCalculator stackCalculator;
+    stringstream ss("PUSH 4\n"
+                    "PEEK a\n"
+                    "POP\n"
+                    "PUSH 6\n"
+                    "PEEK c\n"
+                    "POP\n"
+                    "PUSH 2\n"
+                    "PEEK d\n"
+                    "POP\n"
+                    "PUSH 36\n"
+                    "PEEK e\n"
+                    "POP\n"
+                    "PUSH 11\n"
+                    "PEEK f\n"
+                    "POP\n"
+                    "PUSH 2\n"
+                    "PEEK g\n"
+                    "POP\n"
+                    "PUSH a\n"
+                    "PUSH c\n"
+                    "PLUS\n"
+                    "PUSH d\n"
+                    "MUL\n"
+                    "PUSH e\n"
+                    "PUSH f\n"
+                    "PUSH g\n"
+                    "MINUS\n"
+                    "DIV\n"
+                    "MINUS\n"
+                    "PRINT");
+    stackCalculator.parse_stream(ss);
+    EXPECT_EQ(16, (int64_t)stackCalculator.getM()["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"]);
+}
+
+
+

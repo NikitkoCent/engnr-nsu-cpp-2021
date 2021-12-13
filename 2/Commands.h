@@ -31,6 +31,8 @@ public:
     }
 
     virtual void exec(stack<SafeInt<int64_t>> &_stack, map<string, SafeInt<int64_t>> &m) = 0;
+
+    virtual ~Command() {};
 };
 
 class Push : public Command {
