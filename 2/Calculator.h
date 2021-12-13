@@ -36,7 +36,7 @@ class Print : public Command {
               int64_t &result) override {
         if(values.empty())
             throw std::invalid_argument("Operation: print, stack is empty");
-        std::cout << (int64_t)values.top();
+        std::cout << (int64_t)values.top() << std::endl;
         values.pop();
     }
 };

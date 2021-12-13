@@ -47,8 +47,6 @@ void command_processing() {
         }
         c = creator.factoryMethod(words[0]);
         c->exec(words, values, names_and_values, result);
-        if(words[0] == "PRINT")
-            break;
         words.clear();
         delete c;
     }
