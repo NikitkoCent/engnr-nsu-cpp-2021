@@ -30,10 +30,7 @@ int main(int ac, char **av) {
             filename = std::string(av[i]);
         }
     }
-    if (help_mode && mode.empty() && filename.empty()) {
-        std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>";
-        return 0;
-    }
+
     if (mode != "adler32" && mode != "sum64") {
         // std::cerr << mode << std::endl;
 
@@ -59,7 +56,10 @@ int main(int ac, char **av) {
         return 1;
     }
 
-
+    if (help_mode) {
+        std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>";
+        return 0;
+    }
     // endregion
     if (mode == "adler32") {
         auto result = HashCalc::Adler32(file);
