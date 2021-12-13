@@ -26,12 +26,10 @@ uint64_t sum64(std::istream &file) {
         while (c < 8 * sizeof(unsigned char)) {
             file.read((char *) (&k), sizeof(unsigned char));
             if (!file.gcount()) break;
-            printf("%x\n", k);
             s <<= 8;
             s |= k & 0xff;
             c++;
         }
-        printf("%llx\n", s);
         b += s;
     }
     return b;
