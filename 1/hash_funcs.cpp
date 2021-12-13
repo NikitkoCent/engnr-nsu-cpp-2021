@@ -13,7 +13,7 @@ uint64_t block_to_uint64(const char block[], int64_t length){
 uint64_t sum64(std::ifstream &file){
     char block[8] {};
     uint64_t hash = 0;
-    int length;
+    int64_t length;
     while(true)
     {
         file.read(block, 8);
