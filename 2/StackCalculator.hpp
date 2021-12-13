@@ -31,6 +31,8 @@ public:
     void parse_stream(std::istream &in){
         string line;
         while (!in.eof() && getline(in, line)){
+            if (line.empty()) continue; // don't parse empty line
+
             stringstream ls(line);
             std::unique_ptr<Command> shit(CommandFactory::parseCmd(ls));
             if (shit != nullptr)
