@@ -7,60 +7,49 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <istream>
 
-bool is_number(const std::string &line) {
-    char *p;
-    strtol(line.c_str(), &p, 10);
-    return *p == 0;
-}
 
-SafeInt<int64_t> get_result(const std::string &str) {
-    ns_calculator::Calculator c;
-    std::stringstream iss(str);
+//void command_processing(const std::vector<std::string> &commands) {
+//    CommandCreator creator;
+//    std::vector<std::string> words;
+//    std::string word;
+//    Command* c;
+//    std::stack<SafeInt<int64_t>> values;
+//    std::map<std::string, SafeInt<int64_t>> names_and_values;
+//    int64_t result = 0;
+//    for (const auto& command : commands) {
+//        c = creator.factoryMethod(command);
+//        std::stringstream ss(command);
+//        while(getline(ss, word, ' '))
+//            words.push_back(word);
+//        c->exec(words, values, names_and_values, result);
+//        words.clear();
+//        delete c;
+//    }
+//}
+
+
+void command_processing() {
+    CommandCreator creator;
+    std::vector<std::string> words;
+    std::string word;
+    Command* c;
+    std::stack<SafeInt<int64_t>> values;
+    std::map<std::string, SafeInt<int64_t>> names_and_values;
+    int64_t result = 0;
     std::string command;
-    try {
-        while (iss >> command) {
-            if (command == "#") {
-                std::string comment;
-                std::getline(iss, comment, '\n');
-                std::cout << comment << std::endl;
-            } else if (command == "POP") {
-                c.pop();
-            } else if (command == "PEEK") {
-                std::string varname;
-                iss >> varname;
-                c.peek(varname);
-            } else if (command == "PUSH") {
-                std::string varname;
-                iss >> varname;
-                if (is_number(varname)) {
-                    c.push(stoi(varname));
-                } else {
-                    c.push(varname);
-                }
-            } else if (command == "ABS") {
-                SafeInt<int64_t> value = c.pop_elem();
-                c.push(c.abs(value));
-            } else if (command == "MINUS") {
-                c.minus();
-            } else if (command == "PLUS") {
-                c.plus();
-            } else if (command == "MUL") {
-                c.mul();
-            } else if (command == "DIV") {
-                c.div();
-            } else if (command == "PRINT") {
-                return c.print();
-            } else if (command == "READ") {
-                int value;
-                iss >> value;
-                c.push(value);
-            }
+    std::string cmds;
+    while(getline(std::cin, cmds , '\n')) {
+        std::stringstream ss(cmds);
+        while(getline(ss, word, ' ')) {
+            words.push_back(word);
         }
+        c = creator.factoryMethod(words[0]);
+        c->exec(words, values, names_and_values, result);
+        if(words[0] == "PRINT")
+            break;
+        words.clear();
+        delete c;
     }
-    catch (std::invalid_argument &e) {
-        std::cerr << e.what() << std::endl;
-        return -1;
-    }
-    return 0;
 }
