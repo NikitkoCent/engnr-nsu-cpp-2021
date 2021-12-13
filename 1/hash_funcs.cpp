@@ -13,9 +13,13 @@ uint64_t block_to_uint64(const char block[], int64_t length){
 uint64_t sum64(std::ifstream &file){
     char block[8] {};
     uint64_t hash = 0;
-    while(file.get(block, 8))
+    int length;
+    while(true)
     {
-        hash += block_to_uint64(block, file.gcount());
+        file.read(block, 8);
+        length = file.gcount();
+        hash += block_to_uint64(block, length);
+        if(length < 8) break;
     }
     return hash;
 }
@@ -23,10 +27,10 @@ uint64_t sum64(std::ifstream &file){
 uint32_t adler32(std::ifstream &file){
     const uint32_t MOD_ADLER = 65521;
     uint32_t a = 1, b = 0;
-    unsigned char c;
-    while(file >> c)
+    char c;
+    while(file.read(&c, 1))
     {
-        a = (a + c) % MOD_ADLER;
+        a = (a + static_cast<unsigned char>(c)) % MOD_ADLER;
         b = (b + a) % MOD_ADLER;
     }
     return (b << 16) | a;
