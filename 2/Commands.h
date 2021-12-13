@@ -70,6 +70,7 @@ public:
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
 //        cout << "Pop " << (int64_t)stack.top() << endl;
+        if (stack.empty()) throw std::runtime_error("Empty stack on pop!");
         stack.pop();
     }
 };
@@ -152,6 +153,7 @@ public:
     explicit Print(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
+        if (stack.empty()) throw std::runtime_error("Empty stack on print!");
         auto a = stack.top();
         std::cout << (int64_t)a << std::endl;
         m["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"] = a;
