@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
             exit(UNEXPECTED_FLAG);
         }
 
-        std::ifstream file(filepath);
+        std::ifstream file(filepath, std::ios::binary );
         if (file.is_open())
         {
             if (strcmp(mode, "adler32") == 0)

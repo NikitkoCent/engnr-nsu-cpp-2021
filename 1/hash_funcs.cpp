@@ -1,4 +1,3 @@
-#include <iostream>
 #include "hash_funcs.h"
 
 uint64_t block_to_uint64(const char block[], int64_t length){

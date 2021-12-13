@@ -1,6 +1,5 @@
 #ifndef HASHER_HASH_FUNCS_H
 #define HASHER_HASH_FUNCS_H
-#include <cstdint>
 #include <fstream>
 
 
