@@ -176,10 +176,7 @@ class Comment : public Command {
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result) override {
-        for (const auto &word: tokens) {
-            std::cout << word << ' ';
-        }
-        std::cout << std::endl;
+        //nothing
     }
 };
 
