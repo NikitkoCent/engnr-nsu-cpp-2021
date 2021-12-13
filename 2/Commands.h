@@ -152,7 +152,7 @@ public:
     explicit Print(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        auto a = stack.top(); stack.pop();
+        auto a = stack.top();
         std::cout << (int64_t)a << std::endl;
         m["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"] = a;
     }
