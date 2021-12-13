@@ -18,16 +18,20 @@ uint32_t adler32(std::istream &file) {
 
 uint64_t sum64(std::istream &file) {
     uint64_t s, b, c;
-    s = 0;
     b = 0;
     unsigned char k;
     while (!file.eof()) {
+        s = 0;
         c = 0;
-        while (file.read((char *) (&k), sizeof(unsigned char)) && c < 8 * sizeof(unsigned char)) {
+        while (c < 8 * sizeof(unsigned char)) {
+            file.read((char *) (&k), sizeof(unsigned char));
+            if (!file.gcount()) break;
+            printf("%x\n", k);
             s <<= 8;
-            s |= k;
+            s |= k & 0xff;
             c++;
         }
+        printf("%llx\n", s);
         b += s;
     }
     return b;
