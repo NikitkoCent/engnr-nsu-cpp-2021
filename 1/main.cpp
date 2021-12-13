@@ -17,7 +17,7 @@ int main(int ac, char **av) {
     for (int i = 1; i < ac; i++) {
         if (strcmp(av[i], "-h") == 0 || strcmp(av[i], "--help") == 0) {
             help_mode = true;
-            break;
+
         } else if ((strcmp(av[i], "-m") == 0) || (strcmp(av[i], "--mode") == 0)) {
             mode = std::string(av[++i]);
         } else {
@@ -30,24 +30,31 @@ int main(int ac, char **av) {
         }
     }
 
-
-    if (help_mode) {
-        std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
-        return 0;
-    }
     if (mode != "adler32" && mode != "sum64") {
         // std::cerr << mode << std::endl;
         std::cerr << "Mode must be adler32 or sum64" << std::endl;
+        if (help_mode) {
+            std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
+            return 0;
+        }
         std::cerr << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
         return 1;
     }
     file = std::ifstream (filename);
     if (!file.is_open()) {
         std::cerr << "File doesn't exists" << std::endl;
+        if (help_mode) {
+            std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
+            return 0;
+        }
         std::cerr << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
         return 1;
     }
 
+    if (help_mode) {
+        std::cout << "usage: [-h | --help] [-m <adler32; sum64> | --mode <adler32; sum64>] <filename>" ;
+        return 0;
+    }
     // endregion
 
 
