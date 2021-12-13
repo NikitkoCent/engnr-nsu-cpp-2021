@@ -40,7 +40,7 @@ void command_processing() {
     int64_t result = 0;
     std::string command;
     std::string cmds;
-    while(getline(std::cin, cmds , '\n')) {
+    while(getline(std::cin, cmds)) {
         std::stringstream ss(cmds);
         while(getline(ss, word, ' ')) {
             words.push_back(word);

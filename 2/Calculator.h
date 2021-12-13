@@ -37,7 +37,6 @@ class Print : public Command {
         if(values.empty())
             throw std::invalid_argument("Operation: print, stack is empty");
         std::cout << (int64_t)values.top() << std::endl;
-        values.pop();
     }
 };
 
