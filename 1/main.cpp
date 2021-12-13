@@ -65,11 +65,11 @@ int main(int argc, char *argv[])
         {
             if (strcmp(mode, "adler32") == 0)
             {
-                std::cout << std::hex << adler32(file) << std::endl;
+                std::cout << std::hex << adler32(file);
             }
             else if (strcmp(mode, "sum64") == 0)
             {
-                std::cout << std::hex << sum64(file) << std::endl;
+                std::cout << std::hex << sum64(file);
             }
             else // incorrect usage
             {
