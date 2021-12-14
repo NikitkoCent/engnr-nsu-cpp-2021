@@ -8,13 +8,16 @@
 //    return RUN_ALL_TESTS();
 //}
 
-int main(int argc, char** argv) {
+int main(int argc, char* argv[]) {
+    argc = 0;
+    const char *first_path = argv[1];
+    const char *second_path = argv[2];
     if(argc > 1) {
-        freopen("input.txt", "r", stdin);
-        freopen("output.txt", "w", stdout);
+        freopen(first_path, "r", stdin);
+        freopen(second_path, "w", stdout);
     }
-    std::ifstream in("input.txt");
-    std::ofstream out("output.txt");
+    std::ifstream in(first_path);
+    std::ofstream out(second_path);
     command_processing(in, out, argc);
     return 0;
 }
