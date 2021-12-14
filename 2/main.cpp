@@ -7,8 +7,16 @@
 //
 //    return RUN_ALL_TESTS();
 //}
+
 int main() {
-    command_processing();
+    std::ifstream in;
+    in.open("input.txt");
+
+    std::ofstream out;
+    out.open("output.txt");
+    command_processing(in, out);
+    in.close();
+    out.close();
     return 0;
 }
 

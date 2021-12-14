@@ -11,6 +11,7 @@
 #include <vector>
 #include <iterator>
 #include <string>
+#include <fstream>
 
 
 bool is_number(const std::string &line) {
@@ -24,7 +25,7 @@ public:
     virtual void exec(const std::vector<std::string> &tokens,
                       std::stack<SafeInt<int64_t>> &values,
                       std::map<std::string, SafeInt<int64_t>> &names_and_values,
-                      int64_t &result) = 0;
+                      int64_t &result, std::ifstream& in, std::ofstream& out) = 0;
     virtual ~Command() = default;
 
 };
@@ -33,10 +34,11 @@ class Print : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result) override {
+              int64_t &result, std::ifstream& in, std::ofstream& out) override {
         if(values.empty())
             throw std::invalid_argument("Operation: print, stack is empty");
-        std::cout << (int64_t)values.top() << std::endl;
+        std::string res = std::to_string((int64_t)values.top());
+        out << res << std::endl;
     }
 };
 
@@ -44,7 +46,7 @@ class Plus : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result) override {
+              int64_t &result, std::ifstream& in, std::ofstream& out) override {
         if (values.size() < 2)
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         int64_t first_element = values.top();
@@ -59,7 +61,7 @@ class Minus : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result) override {
+              int64_t &result, std::ifstream& in, std::ofstream& out) override {
         if (values.size() < 2)
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         int64_t first_element = values.top();
@@ -90,7 +92,7 @@ class Mul : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result) override {
+              int64_t &result, std::ifstream& in, std::ofstream& out) override {
         if (values.size() < 2)
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         int64_t first_element = values.top();
@@ -105,7 +107,7 @@ class Div : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result) override {
+              int64_t &result, std::ifstream& in, std::ofstream& out) override {
         if (values.size() < 2)
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         int64_t first_element = values.top();
@@ -123,7 +125,7 @@ class Push : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result) override {
+              int64_t &result, std::ifstream& in, std::ofstream& out) override {
         std::string varname = tokens[1];
         if (is_number(varname)) {
             values.push(stoi(varname));
@@ -139,7 +141,7 @@ class Peek : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result) override {
+              int64_t &result, std::ifstream& in, std::ofstream& out) override {
         if(values.empty())
             throw std::invalid_argument("Operation: peek, stack is empty");
         std::string varname = tokens[1];
@@ -152,7 +154,7 @@ class Abs : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result) override {
+              int64_t &result, std::ifstream& in, std::ofstream& out) override {
         if(values.empty())
             throw std::invalid_argument("Operation: abs, stack is empty");
         int64_t value = values.top();
@@ -167,7 +169,7 @@ class Pop : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result) override {
+              int64_t &result, std::ifstream& in, std::ofstream& out) override {
         if (!values.empty())
             values.pop();
         else
@@ -180,7 +182,7 @@ class Read : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result) override {
+              int64_t &result, std::ifstream& in, std::ofstream& out) override {
         int value = std::stoi(tokens[1]);
         values.push(value);
     }
@@ -190,7 +192,7 @@ class Comment : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result) override {
+              int64_t &result, std::ifstream& in, std::ofstream& out) override {
         //nothing
     }
 };
@@ -209,7 +211,7 @@ class CommandCreator : Calculator {
 public:
     Command *factoryMethod(const std::vector<std::string> &commands) override {
         std::string tag = commands[0];
-        if (tag == "#" || tag == "" || tag == " " || tag == "\n") {
+        if (tag == "#") {
             return nullptr;
         } else if (tag == "PRINT") {
             return new Print();

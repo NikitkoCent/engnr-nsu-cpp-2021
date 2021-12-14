@@ -8,7 +8,7 @@
 #include <vector>
 #include <sstream>
 #include <istream>
-
+#include <fstream>
 
 //void command_processing(const std::vector<std::string> &commands) {
 //    CommandCreator creator;
@@ -30,25 +30,25 @@
 //}
 
 
-void command_processing() {
+void command_processing(std::ifstream& in, std::ofstream& out) {
     CommandCreator creator;
     std::vector<std::string> words;
     std::string word;
-    Command* c;
+    Command *c;
     std::stack<SafeInt<int64_t>> values;
     std::map<std::string, SafeInt<int64_t>> names_and_values;
     int64_t result = 0;
     std::string command;
     std::string cmd_s;
-    while(getline(std::cin, cmd_s, '\n')) {
+    while (getline(in, cmd_s, '\n')) {
         std::stringstream ss(cmd_s);
-        if(cmd_s == "")
+        if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
             continue;
-        while(getline(ss, word, ' ')) {
+        while (getline(ss, word, ' ')) {
             words.push_back(word);
         }
         c = creator.factoryMethod(words);
-        c->exec(words, values, names_and_values, result);
+        c->exec(words, values, names_and_values, result, in, out);
         words.clear();
         delete c;
     }
