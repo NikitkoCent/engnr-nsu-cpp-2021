@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]) {
     std::string filepath;
-    std::string help = "Usage: ./Calculator -file <filepath> or ./Calculator\n"
+    std::string help = "Usage: ./Calculator <filepath> or ./Calculator\n"
                        "Commands: #, POP, PUSH <number>, PUSH <varname>, PEEK <varname>, ABS, PLUS, MINUS, MUL, DIV, PRINT, READ.";
     bool flag = false;
 
@@ -37,7 +37,6 @@ int main(int argc, char *argv[]) {
             std::cerr << "FileNotFoundError" << help << std::endl;
             return 1;
         }else if(file.peek() == EOF){
-//            std::cerr << "FileIsEmptyError" << help << std::endl;
             return 0;
         }
         ReadFromStream(file);
