@@ -30,11 +30,11 @@ public:
 
     void parse_stream(std::istream &in){
         string line;
-        while (!in.eof()) {
+        while (!in.eof() && !in.bad() && !in.fail()) {
 //            cin >> line;
             getline(in, line);
 
-            cout << "Read line: \""<< line << "\"" << in.eof() << endl;
+//            cout << "Read line: \""<< line << "\"" << in.eof() << endl;
 
             if (line.empty()) continue; // don't parse empty line
 
