@@ -39,15 +39,27 @@ void command_processing() {
     std::map<std::string, SafeInt<int64_t>> names_and_values;
     int64_t result = 0;
     std::string command;
-    std::string cmds;
-    while(getline(std::cin, cmds)) {
-        std::stringstream ss(cmds);
+    std::string cmd_s;
+    while(getline(std::cin, cmd_s, '\n')) {
+        std::stringstream ss(cmd_s);
+        if(cmd_s == "")
+            continue;
         while(getline(ss, word, ' ')) {
             words.push_back(word);
         }
-        c = creator.factoryMethod(words[0]);
+        c = creator.factoryMethod(words);
         c->exec(words, values, names_and_values, result);
         words.clear();
         delete c;
     }
 }
+/*
+ * PUSH -72
+PRINT
+ABS
+PRINT
+PUSH 4
+PRINT
+DIV
+PRINT
+ */

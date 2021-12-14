@@ -69,6 +69,22 @@ class Minus : public Command {
         values.push(second_element - first_element);
     }
 };
+/*
+# myVar = -14 / 5
+PUSH -14
+PUSH 5
+DIV
+PEEK myVar
+POP
+
+# PRINT (9 - myVar) * 20
+PUSH 9
+PUSH myVar
+MINUS
+PUSH 20
+MUL
+PRINT
+*/
 
 class Mul : public Command {
     void exec(const std::vector<std::string> &tokens,
@@ -184,22 +200,17 @@ public:
 
     Calculator() = default;
 
-    virtual Command *factoryMethod(const std::string &command) = 0;
+    virtual Command *factoryMethod(const std::vector<std::string> &commands) = 0;
 
 };
 
 
 class CommandCreator : Calculator {
 public:
-    Command *factoryMethod(const std::string &command) override {
-        std::vector<std::string> words;
-        std::stringstream ss(command);
-        std::string word;
-        while (getline(ss, word, ' '))
-            words.push_back(word);
-        std::string tag = words[0];
-        if (tag == "#") {
-            return new Comment();
+    Command *factoryMethod(const std::vector<std::string> &commands) override {
+        std::string tag = commands[0];
+        if (tag == "#" || tag == "" || tag == " " || tag == "\n") {
+            return nullptr;
         } else if (tag == "PRINT") {
             return new Print();
         } else if (tag == "PLUS") {
@@ -221,8 +232,7 @@ public:
         } else if (tag == "POP") {
             return new Pop();
         } else {
-            std::cerr << "ERROR" << std::endl;
-            return nullptr;
+            throw std::runtime_error("sad");
         }
     }
 };
