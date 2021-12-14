@@ -151,7 +151,9 @@ Command *StackCalc::read_command(std::string &command_line) {
     x << command_line;
     x >> command;
     Command *operation;
-    if(command == "POP") {
+    if(command.empty()){
+        return nullptr;
+    }else if(command == "POP") {
         operation = new Pop(command);
     }else if(command == "PUSH") {
         x >> command;
@@ -209,6 +211,9 @@ StackCalc ReadFromStream(std::istream &file){
     while (!file.eof()) {
         std::getline(file, command_line);
         Command *cmd = calculator.read_command(command_line);
+        if(cmd == nullptr){
+            continue;
+        }
         try{
             calculator.command(cmd);
         }catch(std::exception &e){
