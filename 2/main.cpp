@@ -9,9 +9,9 @@
 //}
 
 int main(int argc, char *argv[]) {
-//    const char *first_path = argv[1];
-    argc = 2;
-    const char *first_path = "input.txt";
+    const char *first_path = argv[1];
+//    argc = 2;
+//    const char *first_path = "input.txt";
     std::ifstream in;
     in.open(first_path);
     if(!in.is_open())
