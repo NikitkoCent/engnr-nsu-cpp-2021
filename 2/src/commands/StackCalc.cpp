@@ -191,8 +191,13 @@ StackCalc OneCommandRead(){
     StackCalc calculator;
     std::string command_line = "s";
     while (!command_line.empty()) {
+        if (std::cin.eof()) break;
+
         getline(std::cin, command_line);
         Command *cmd = calculator.read_command(command_line);
+        if(cmd == nullptr){
+            continue;
+        }
         try{
             calculator.command(cmd);
         }catch(std::exception &e){
