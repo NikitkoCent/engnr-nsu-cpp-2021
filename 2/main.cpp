@@ -12,9 +12,8 @@ int main(int argc, char** argv) {
     if(argc > 1) {
         freopen("input.txt", "r", stdin);
         freopen("output.txt", "w", stdout);
-    } else {
-        command_processing();
     }
+    command_processing();
     return 0;
 }
 
