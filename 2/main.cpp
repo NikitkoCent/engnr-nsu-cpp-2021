@@ -11,7 +11,7 @@
 int main(int argc, char *argv[]) {
     const char *filepath;
     std::ifstream file;
-    if(argc > 2 && argc == 0)
+    if(argc > 2 || argc == 0)
         return 1;
     if(argc == 2) {
         filepath = argv[1];

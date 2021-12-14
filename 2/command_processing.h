@@ -53,7 +53,7 @@ void command_processing(std::ifstream& in, int args) {
             words.clear();
             delete c;
         }
-    } else if(args == 1){
+    } else if(args == 1) {
         while (getline(std::cin, cmd_s, '\n') && !std::cin.eof()) {
             std::stringstream ss(cmd_s);
             if (cmd_s.empty())
