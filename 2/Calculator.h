@@ -35,8 +35,10 @@ class Print : public Command {
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
-        if(values.empty())
+        if(values.empty()) {
+            std::cerr << "ERROR";
             throw std::invalid_argument("Operation: print, stack is empty");
+        }
         std::string res = std::to_string((int64_t)values.top());
         std::cout << res << std::endl;
     }
@@ -47,8 +49,10 @@ class Plus : public Command {
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
-        if (values.size() < 2)
+        if (values.size() < 2) {
+            std::cerr << "ERROR";
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
+        }
         int64_t first_element = values.top();
         values.pop();
         int64_t second_element = values.top();
@@ -62,8 +66,10 @@ class Minus : public Command {
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
-        if (values.size() < 2)
+        if (values.size() < 2) {
+            std::cerr << "ERROR";
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
+        }
         int64_t first_element = values.top();
         values.pop();
         int64_t second_element = values.top();
@@ -93,8 +99,10 @@ class Mul : public Command {
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
-        if (values.size() < 2)
+        if (values.size() < 2) {
+            std::cerr << "ERROR";
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
+        }
         int64_t first_element = values.top();
         values.pop();
         int64_t second_element = values.top();
@@ -108,13 +116,16 @@ class Div : public Command {
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
-        if (values.size() < 2)
+        if (values.size() < 2) {
+            std::cerr << "ERROR";
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
+        }
         int64_t first_element = values.top();
         values.pop();
         int64_t second_element = values.top();
         values.pop();
         if (first_element == 0) {
+            std::cerr << "ERROR";
             throw std::invalid_argument("Operation: div, error: zero division");
         }
         values.push(second_element / first_element);
@@ -131,6 +142,7 @@ class Push : public Command {
             values.push(stoi(varname));
         } else {
             if (names_and_values.find(varname) == names_and_values.end())
+                std::cerr << "ERROR";
                 throw std::invalid_argument("Operation: push, varname doesn't exist");
             values.push(names_and_values[varname]);
         }
@@ -142,8 +154,10 @@ class Peek : public Command {
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
-        if(values.empty())
+        if(values.empty()) {
+            std::cerr << "ERROR";
             throw std::invalid_argument("Operation: peek, stack is empty");
+        }
         std::string varname = tokens[1];
         names_and_values[varname] = values.top();
     }
@@ -155,8 +169,10 @@ class Abs : public Command {
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
-        if(values.empty())
+        if(values.empty()) {
+            std::cerr << "ERROR";
             throw std::invalid_argument("Operation: abs, stack is empty");
+        }
         int64_t value = values.top();
         values.pop();
         value = value > 0 ? value : -value;
@@ -172,8 +188,10 @@ class Pop : public Command {
               int64_t &result, std::ifstream& in, int args) override {
         if (!values.empty())
             values.pop();
-        else
+        else {
+            std::cerr << "ERROR";
             throw std::invalid_argument("Operation: pop, stack is empty");
+        }
     }
 };
 
@@ -234,6 +252,7 @@ public:
         } else if (tag == "POP") {
             return new Pop();
         } else {
+            std::cerr << "ERROR";
             throw std::runtime_error("sad");
             return nullptr;
         }
