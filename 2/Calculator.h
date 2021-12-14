@@ -212,7 +212,7 @@ public:
     Command *factoryMethod(const std::vector<std::string> &commands) override {
         std::string tag = commands[0];
         if (tag == "#") {
-            return nullptr;
+            return new Comment();
         } else if (tag == "PRINT") {
             return new Print();
         } else if (tag == "PLUS") {
