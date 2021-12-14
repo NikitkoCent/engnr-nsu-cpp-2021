@@ -8,11 +8,13 @@
 //    return RUN_ALL_TESTS();
 //}
 
-int main() {
-    freopen("input.txt", "r", stdin);
-
-    freopen("output.txt", "w", stdout);
-    command_processing();
+int main(int argc, char** argv) {
+    if(argc > 1) {
+        freopen("input.txt", "r", stdin);
+        freopen("output.txt", "w", stdout);
+    } else {
+        command_processing();
+    }
     return 0;
 }
 

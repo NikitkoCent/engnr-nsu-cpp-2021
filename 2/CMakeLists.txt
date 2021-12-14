@@ -9,7 +9,7 @@ add_subdirectory(lib/SafeInt)
 include_directories(lib/googletest/googletest/include)
 include_directories(lib/SafeInt/Test)
 
-add_executable(lab2 main.cpp Calculator.h command_processing.h tests.h tests.cpp)
+add_executable(lab2 main.cpp Calculator.h command_processing.h)
 target_link_libraries(lab2)
 
 #if (MSVC)
