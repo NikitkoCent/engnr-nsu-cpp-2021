@@ -10,12 +10,20 @@
 
 int main(int argc, char *argv[]) {
 //    argc = 0;
-    const char *first_path = argv[1];
+    std::string first_path = argv[1];
+    std::ifstream in;
 //    const char *first_path = "input.txt";
     if(argc > 1) {
-        freopen(first_path, "r", stdin);
+        if(argc == 2)
+            first_path = argv[1];
+        else
+            return 1;
+    } else {
+        in.open(first_path);
+        if (!in.is_open()) {
+            return 1;
+        }
     }
-    std::ifstream in(first_path);
     command_processing(in, argc);
     return 0;
 }
