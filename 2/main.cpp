@@ -9,18 +9,13 @@
 //}
 
 int main(int argc, char *argv[]) {
-    std::string first_path;
-    if(argc == 2)
-        first_path = argv[1];
-    argc = 1;
-    std::ifstream file;
-    file.open(first_path);
-    if (!file.is_open()) {
-        return 1;
-    } else if (file.peek() == EOF) {
-        return 0;
+//    argc = 0;
+    const char *first_path = argv[1];
+//    const char *first_path = "input.txt";
+    if(argc > 1) {
+        freopen(first_path, "r", stdin);
     }
-    command_processing(file, argc);
+    std::ifstream in(first_path);
+    command_processing(in, argc);
     return 0;
 }
-
