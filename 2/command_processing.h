@@ -30,7 +30,7 @@
 //}
 
 
-void command_processing() {
+void command_processing(std::ifstream& in, std::ofstream& out, int args) {
     CommandCreator creator;
     std::vector<std::string> words;
     std::string word;
@@ -40,17 +40,32 @@ void command_processing() {
     int64_t result = 0;
     std::string command;
     std::string cmd_s;
-    while (getline(std::cin, cmd_s, '\n')) {
-        std::stringstream ss(cmd_s);
-        if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
-            continue;
-        while (getline(ss, word, ' ')) {
-            words.push_back(word);
+    if(args > 1) {
+        while (getline(std::cin, cmd_s, '\n')) {
+            std::stringstream ss(cmd_s);
+            if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
+                continue;
+            while (getline(ss, word, ' ')) {
+                words.push_back(word);
+            }
+            c = creator.factoryMethod(words);
+            c->exec(words, values, names_and_values, result, in, out, args);
+            words.clear();
+            delete c;
         }
-        c = creator.factoryMethod(words);
-        c->exec(words, values, names_and_values, result);
-        words.clear();
-        delete c;
+    } else {
+        while (getline(in, cmd_s, '\n')) {
+            std::stringstream ss(cmd_s);
+            if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
+                continue;
+            while (getline(ss, word, ' ')) {
+                words.push_back(word);
+            }
+            c = creator.factoryMethod(words);
+            c->exec(words, values, names_and_values, result, in, out, args);
+            words.clear();
+            delete c;
+        }
     }
 }
 /*

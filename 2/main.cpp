@@ -13,7 +13,9 @@ int main(int argc, char** argv) {
         freopen("input.txt", "r", stdin);
         freopen("output.txt", "w", stdout);
     }
-    command_processing();
+    std::ifstream in("input.txt");
+    std::ofstream out("output.txt");
+    command_processing(in, out, argc);
     return 0;
 }
 
