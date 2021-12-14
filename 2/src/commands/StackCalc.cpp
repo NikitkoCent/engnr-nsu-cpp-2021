@@ -188,7 +188,7 @@ Command *StackCalc::read_command(std::string &command_line) {
 StackCalc OneCommandRead(){
     StackCalc calculator;
     std::string command_line;
-    while (command_line != "PRINT") {
+    while (!command_line.empty()) {
         getline(std::cin, command_line);
         Command *cmd = calculator.read_command(command_line);
         try{

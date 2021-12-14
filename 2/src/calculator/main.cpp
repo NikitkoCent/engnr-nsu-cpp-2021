@@ -17,13 +17,8 @@ int main(int argc, char *argv[]) {
             std::cout << help << std::endl;
             return 0;
         }
-        if(argc == 3){
-            if (strcmp(argv[1], "-file") == 0){
-                filepath = argv[2];
-            }else{
-                std::cerr << "Wrong usage." << help << std::endl;
-                return 1;
-            }
+        if(argc == 2){
+            filepath = argv[1];
         }else{
             std::cerr << "Wrong usage." << help << std::endl;
             return 1;
