@@ -49,13 +49,6 @@ int main(int argc, char *argv[]) {
     if (!(file.is_open())) {
         cerr << "FileNotFound Error" << help << endl;
         return 1;
-    }else if(file.peek() == EOF){
-        if(mode == "adler32"){
-            cout << 1 << endl;
-        }else{
-            cout << 0 << endl;
-        }
-        return 0;
     }
 
     try {
