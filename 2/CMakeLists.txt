@@ -4,7 +4,6 @@ project(2lab)
 set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(lib/googletest)
-
 add_subdirectory(lib/SafeInt)
 
 include_directories(lib/googletest/googletest/include)

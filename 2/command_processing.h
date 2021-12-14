@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Calculator.h"
-#include "../lab2/lib/SafeInt/SafeInt.hpp"
+#include "lib/SafeInt/SafeInt.hpp"
 
 #include <cstdint>
 #include <iostream>
@@ -30,7 +30,7 @@
 //}
 
 
-void command_processing(std::ifstream& in, std::ofstream& out, int args) {
+void command_processing(std::ifstream& in, int args) {
     CommandCreator creator;
     std::vector<std::string> words;
     std::string word;
@@ -49,12 +49,12 @@ void command_processing(std::ifstream& in, std::ofstream& out, int args) {
                 words.push_back(word);
             }
             c = creator.factoryMethod(words);
-            c->exec(words, values, names_and_values, result, in, out, args);
+            c->exec(words, values, names_and_values, result, in, args);
             words.clear();
             delete c;
         }
     } else {
-        while (getline(in, cmd_s, '\n') && !std::cin.eof()) {
+        while (getline(in, cmd_s, '\n') && !in.eof()) {
             std::stringstream ss(cmd_s);
             if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
                 continue;
@@ -62,7 +62,7 @@ void command_processing(std::ifstream& in, std::ofstream& out, int args) {
                 words.push_back(word);
             }
             c = creator.factoryMethod(words);
-            c->exec(words, values, names_and_values, result, in, out, args);
+            c->exec(words, values, names_and_values, result, in, args);
             words.clear();
             delete c;
         }

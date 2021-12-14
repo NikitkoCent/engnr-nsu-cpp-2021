@@ -8,16 +8,19 @@
 //    return RUN_ALL_TESTS();
 //}
 
-int main(int argc, char* argv[]) {
-    const char *first_path = argv[1];
-    const char *second_path = argv[2];
-    if(argc > 1) {
-        freopen(first_path, "r", stdin);
-        freopen(second_path, "w", stdout);
+int main(int argc, char *argv[]) {
+    std::string first_path;
+    if(argc == 2)
+        first_path = argv[1];
+    argc = 1;
+    std::ifstream file;
+    file.open(first_path);
+    if (!file.is_open()) {
+        return 1;
+    } else if (file.peek() == EOF) {
+        return 0;
     }
-    std::ifstream in(first_path);
-    std::ofstream out(second_path);
-    command_processing(in, out, argc);
+    command_processing(file, argc);
     return 0;
 }
 

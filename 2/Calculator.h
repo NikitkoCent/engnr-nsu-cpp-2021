@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../lab2/lib/SafeInt/SafeInt.hpp"
+#include "lib/SafeInt/SafeInt.hpp"
 
 #include <stack>
 #include <sstream>
@@ -25,7 +25,7 @@ public:
     virtual void exec(const std::vector<std::string> &tokens,
                       std::stack<SafeInt<int64_t>> &values,
                       std::map<std::string, SafeInt<int64_t>> &names_and_values,
-                      int64_t &result, std::ifstream& in, std::ofstream& out, int args) = 0;
+                      int64_t &result, std::ifstream& in, int args) = 0;
     virtual ~Command() = default;
 
 };
@@ -34,14 +34,11 @@ class Print : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, std::ofstream& out, int args) override {
+              int64_t &result, std::ifstream& in, int args) override {
         if(values.empty())
             throw std::invalid_argument("Operation: print, stack is empty");
         std::string res = std::to_string((int64_t)values.top());
-//        if(args > 1)
-            std::cout << res << std::endl;
-//        else
-//            std::cout << res << std::endl;
+        std::cout << res << std::endl;
     }
 };
 
@@ -49,7 +46,7 @@ class Plus : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, std::ofstream& out, int args) override {
+              int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2)
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         int64_t first_element = values.top();
@@ -64,7 +61,7 @@ class Minus : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, std::ofstream& out, int args) override {
+              int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2)
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         int64_t first_element = values.top();
@@ -95,7 +92,7 @@ class Mul : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, std::ofstream& out, int args) override {
+              int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2)
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         int64_t first_element = values.top();
@@ -110,7 +107,7 @@ class Div : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, std::ofstream& out, int args) override {
+              int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2)
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         int64_t first_element = values.top();
@@ -128,7 +125,7 @@ class Push : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, std::ofstream& out, int args) override {
+              int64_t &result, std::ifstream& in, int args) override {
         std::string varname = tokens[1];
         if (is_number(varname)) {
             values.push(stoi(varname));
@@ -144,7 +141,7 @@ class Peek : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, std::ofstream& out, int args) override {
+              int64_t &result, std::ifstream& in, int args) override {
         if(values.empty())
             throw std::invalid_argument("Operation: peek, stack is empty");
         std::string varname = tokens[1];
@@ -157,7 +154,7 @@ class Abs : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, std::ofstream& out, int args) override {
+              int64_t &result, std::ifstream& in, int args) override {
         if(values.empty())
             throw std::invalid_argument("Operation: abs, stack is empty");
         int64_t value = values.top();
@@ -172,7 +169,7 @@ class Pop : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, std::ofstream& out, int args) override {
+              int64_t &result, std::ifstream& in, int args) override {
         if (!values.empty())
             values.pop();
         else
@@ -185,7 +182,7 @@ class Read : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, std::ofstream& out, int args) override {
+              int64_t &result, std::ifstream& in, int args) override {
         int value = std::stoi(tokens[1]);
         values.push(value);
     }
@@ -195,7 +192,7 @@ class Comment : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, std::ofstream& out, int args) override {
+              int64_t &result, std::ifstream& in, int args) override {
         //nothing
     }
 };
@@ -238,6 +235,7 @@ public:
             return new Pop();
         } else {
             throw std::runtime_error("sad");
+            return nullptr;
         }
     }
 };
