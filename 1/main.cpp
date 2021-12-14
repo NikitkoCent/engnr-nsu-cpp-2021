@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
                 mode = argv[3];
                 filename = argv[1];
             } else {
-                std::cerr << "Unknown mode!" << help << std::endl;
+                cerr << "Unknown mode!" << help << endl;
                 return 1;
             }
             if (strcmp(argv[1], "-m") == 0) {
@@ -47,13 +47,13 @@ int main(int argc, char *argv[]) {
 
     file.open(filename, std::ios::binary);
     if (!(file.is_open())) {
-        std::cerr << "FileNotFound Error" << help << std::endl;
+        cerr << "FileNotFound Error" << help << endl;
         return 1;
     }else if(file.peek() == EOF){
         if(mode == "adler32"){
-            std::cout << 1 << std::endl;
+            cout << 1 << endl;
         }else{
-            std::cout << 0 << std::endl;
+            cout << 0 << endl;
         }
         return 0;
     }
