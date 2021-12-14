@@ -38,10 +38,10 @@ class Print : public Command {
         if(values.empty())
             throw std::invalid_argument("Operation: print, stack is empty");
         std::string res = std::to_string((int64_t)values.top());
-        if(args > 1)
+//        if(args > 1)
             std::cout << res << std::endl;
-        else
-            out << res << std::endl;
+//        else
+//            std::cout << res << std::endl;
     }
 };
 
