@@ -40,8 +40,8 @@ void command_processing(std::ifstream& in, int args) {
     int64_t result = 0;
     std::string command;
     std::string cmd_s;
-    if(args > 1) {
-        while (getline(std::cin, cmd_s, '\n') && !std::cin.eof()) {
+    if(args == 2) {
+        while (getline(in, cmd_s, '\n') && !in.eof()) {
             std::stringstream ss(cmd_s);
             if (cmd_s.empty())
                 continue;
@@ -54,7 +54,7 @@ void command_processing(std::ifstream& in, int args) {
             delete c;
         }
     } else {
-        while (getline(in, cmd_s, '\n') && !in.eof()) {
+        while (getline(std::cin, cmd_s, '\n') && !std::cin.eof()) {
             std::stringstream ss(cmd_s);
             if (cmd_s.empty())
                 continue;
