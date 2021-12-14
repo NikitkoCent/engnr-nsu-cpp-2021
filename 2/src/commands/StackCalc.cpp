@@ -22,8 +22,8 @@ void Pop::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map
 Push::Push(std::string &args) : Command(args) {}
 void Push::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
     try{
-        int val = std::stoi(params);
-        stack.push(val);
+        SafeInt<int64_t, CustomException> val = std::stoi(params);
+        stack.push((int64_t)val);
     }catch(const std::invalid_argument&){
         if(variables.find(params) == variables.end()){
             std::cerr << "Variable doesn't exist. PUSH operation failed." << std::endl;
@@ -47,9 +47,9 @@ void Peek::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::ma
 Abs::Abs(std::string &args) : Command(args) {}
 void Abs::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
     if(!stack.empty()) {
-        int val = stack.top();
+        SafeInt<int64_t, CustomException> val = stack.top();
         stack.pop();
-        stack.push(abs(val));
+        stack.push(abs((int64_t)val));
     }else{
         std::cerr << "Stack is empty. ABS operation failed." << std::endl;
         throw;
@@ -59,11 +59,11 @@ void Abs::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map
 Plus::Plus(std::string &args) : Command(args) {}
 void Plus::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
     if(stack.size() >= 2){
-        int val1 = stack.top();
+        SafeInt<int64_t, CustomException> val1 = stack.top();
         stack.pop();
-        int val2 = stack.top();
+        SafeInt<int64_t, CustomException> val2 = stack.top();
         stack.pop();
-        stack.push(val1 + val2);
+        stack.push((int64_t)val1 + (int64_t)val2);
     }else{
         std::cerr << "Less than 2 elements in stack. PLUS operation failed." << std::endl;
         throw;
@@ -73,11 +73,11 @@ void Plus::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::ma
 Minus::Minus(std::string &args) : Command(args) {}
 void Minus::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
     if(stack.size() >= 2) {
-        int val1 = stack.top();
+        SafeInt<int64_t, CustomException> val1 = stack.top();
         stack.pop();
-        int val2 = stack.top();
+        SafeInt<int64_t, CustomException> val2 = stack.top();
         stack.pop();
-        stack.push(val2 - val1);
+        stack.push((int64_t)val2 - (int64_t)val1);
     }else{
         std::cerr << "Less than 2 elements in stack. MINUS operation failed." << std::endl;
         throw;
@@ -87,11 +87,11 @@ void Minus::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::m
 Multiply::Multiply(std::string &args) : Command(args) {}
 void Multiply::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
     if(stack.size() >= 2) {
-        int val1 = stack.top();
+        SafeInt<int64_t, CustomException> val1 = stack.top();
         stack.pop();
-        int val2 = stack.top();
+        SafeInt<int64_t, CustomException> val2 = stack.top();
         stack.pop();
-        stack.push(val2 * val1);
+        stack.push((int64_t)val2 * (int64_t)val1);
     }else{
         std::cerr << "Less than 2 elements in stack. MUL operation failed." << std::endl;
         throw;
@@ -101,11 +101,11 @@ void Multiply::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std
 Division::Division(std::string &args) : Command(args) {}
 void Division::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
     if(stack.size() >= 2) {
-        int val1 = stack.top();
+        SafeInt<int64_t, CustomException> val1 = stack.top();
         stack.pop();
-        int val2 = stack.top();
+        SafeInt<int64_t, CustomException> val2 = stack.top();
         stack.pop();
-        stack.push(val2 / val1);
+        stack.push((int64_t)val2 / (int64_t)val1);
     }else{
         std::cerr << "Less than 2 elements in stack. DIV operation failed." << std::endl;
         throw;
@@ -115,9 +115,9 @@ void Division::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std
 Print::Print(std::string &args) : Command(args) {}
 void Print::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
     if(!stack.empty()) {
-        int val = stack.top();
+        SafeInt<int64_t, CustomException> val = stack.top();
         variables["result"] = val;
-        std::cout << val << std::endl;
+        std::cout << (int64_t)val << std::endl;
     }else{
         std::cerr << "Stack is empty. POP operation failed." << std::endl;
         throw;
@@ -193,9 +193,7 @@ StackCalc OneCommandRead(){
     while (!std::cin.eof()) {
         getline(std::cin, command_line);
         if (command_line.empty()) continue;
-
         Command *cmd = calculator.read_command(command_line);
-
         if(cmd == nullptr){
             continue;
         }
