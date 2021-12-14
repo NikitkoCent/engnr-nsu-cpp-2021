@@ -9,21 +9,28 @@
 //}
 
 int main(int argc, char *argv[]) {
-//    argc = 0;
-    std::string first_path = argv[1];
-    std::ifstream in;
-//    const char *first_path = "input.txt";
-    if(argc > 1) {
-        if(argc == 2)
-            first_path = argv[1];
-        else
-            return 1;
-    } else {
-        in.open(first_path);
-        if (!in.is_open()) {
+    std::string filepath;
+    bool flag = false;
+
+    if (argc > 1) {
+        if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "-help") == 0) {
+            return 0;
+        }
+        if (argc == 2) {
+            filepath = argv[1];
+        } else {
             return 1;
         }
+    } else {
+        flag = true;
     }
-    command_processing(in, argc);
+    std::ifstream file;
+    file.open(filepath);
+    if (!file.is_open()) {
+        return 1;
+    } else if (file.peek() == EOF) {
+        return 0;
+    }
+    command_processing(file, argc);
     return 0;
 }
