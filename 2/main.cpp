@@ -9,14 +9,10 @@
 //}
 
 int main() {
-    std::ifstream in;
-    in.open("input.txt");
+    freopen("input.txt", "r", stdin);
 
-    std::ofstream out;
-    out.open("output.txt");
-    command_processing(in, out);
-    in.close();
-    out.close();
+    freopen("output.txt", "w", stdout);
+    command_processing();
     return 0;
 }
 

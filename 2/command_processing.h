@@ -30,7 +30,7 @@
 //}
 
 
-void command_processing(std::ifstream& in, std::ofstream& out) {
+void command_processing() {
     CommandCreator creator;
     std::vector<std::string> words;
     std::string word;
@@ -40,7 +40,7 @@ void command_processing(std::ifstream& in, std::ofstream& out) {
     int64_t result = 0;
     std::string command;
     std::string cmd_s;
-    while (getline(in, cmd_s, '\n')) {
+    while (getline(std::cin, cmd_s, '\n')) {
         std::stringstream ss(cmd_s);
         if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
             continue;
@@ -48,7 +48,7 @@ void command_processing(std::ifstream& in, std::ofstream& out) {
             words.push_back(word);
         }
         c = creator.factoryMethod(words);
-        c->exec(words, values, names_and_values, result, in, out);
+        c->exec(words, values, names_and_values, result);
         words.clear();
         delete c;
     }
