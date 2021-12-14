@@ -9,7 +9,6 @@
 //}
 
 int main(int argc, char* argv[]) {
-    argc = 0;
     const char *first_path = argv[1];
     const char *second_path = argv[2];
     if(argc > 1) {
