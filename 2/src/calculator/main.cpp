@@ -30,7 +30,6 @@ int main(int argc, char *argv[]) {
         }
     }else{
         flag = true;
-        std::cout << "Вводите комманды через '\\n', завершите командой CTRL+D:" << std::endl;
     }
 
 
@@ -43,8 +42,8 @@ int main(int argc, char *argv[]) {
             std::cerr << "FileNotFoundError" << help << std::endl;
             return 1;
         }else if(file.peek() == EOF){
-            std::cerr << "FileIsEmptyError" << help << std::endl;
-            return 1;
+//            std::cerr << "FileIsEmptyError" << help << std::endl;
+            return 0;
         }
         ReadFromStream(file);
     }
