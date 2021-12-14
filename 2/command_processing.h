@@ -43,8 +43,8 @@ void command_processing(std::ifstream& in, std::ofstream& out, int args) {
     if(args > 1) {
         while (getline(std::cin, cmd_s, '\n')) {
             std::stringstream ss(cmd_s);
-            if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
-                continue;
+//            if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
+//                continue;
             while (getline(ss, word, ' ')) {
                 words.push_back(word);
             }
@@ -56,8 +56,8 @@ void command_processing(std::ifstream& in, std::ofstream& out, int args) {
     } else {
         while (getline(in, cmd_s, '\n')) {
             std::stringstream ss(cmd_s);
-            if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
-                continue;
+//            if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
+//                continue;
             while (getline(ss, word, ' ')) {
                 words.push_back(word);
             }
