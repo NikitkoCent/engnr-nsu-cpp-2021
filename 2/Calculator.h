@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lib/SafeInt/SafeInt.hpp"
+#include "../lab2/lib/SafeInt/SafeInt.hpp"
 
 #include <stack>
 #include <sstream>

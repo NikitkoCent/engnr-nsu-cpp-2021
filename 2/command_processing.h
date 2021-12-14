@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Calculator.h"
-#include "lib/SafeInt/SafeInt.hpp"
+#include "../lab2/lib/SafeInt/SafeInt.hpp"
 
 #include <cstdint>
 #include <iostream>
@@ -41,7 +41,7 @@ void command_processing(std::ifstream& in, std::ofstream& out, int args) {
     std::string command;
     std::string cmd_s;
     if(args > 1) {
-        while (getline(std::cin, cmd_s, '\n')) {
+        while (getline(std::cin, cmd_s, '\n') && !std::cin.eof()) {
             std::stringstream ss(cmd_s);
             if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
                 continue;
@@ -54,7 +54,7 @@ void command_processing(std::ifstream& in, std::ofstream& out, int args) {
             delete c;
         }
     } else {
-        while (getline(in, cmd_s, '\n')) {
+        while (getline(in, cmd_s, '\n') && !std::cin.eof()) {
             std::stringstream ss(cmd_s);
             if (cmd_s == "" || cmd_s == "\n" || cmd_s == " ")
                 continue;
