@@ -190,11 +190,12 @@ Command *StackCalc::read_command(std::string &command_line) {
 StackCalc OneCommandRead(){
     StackCalc calculator;
     std::string command_line = "s";
-    while (!command_line.empty()) {
-        if (std::cin.eof()) break;
-
+    while (!std::cin.eof()) {
         getline(std::cin, command_line);
+        if (command_line.empty()) continue;
+
         Command *cmd = calculator.read_command(command_line);
+
         if(cmd == nullptr){
             continue;
         }
