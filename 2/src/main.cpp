@@ -6,8 +6,6 @@
 
 int main(int argc, char *argv[])
 {
-    InputParser input(argc, argv);
-    const std::optional<std::string_view> file_name = input.getCmdOption("-f");
     try
     {
         if (argc == 1)
