@@ -12,6 +12,6 @@ target_link_libraries(calculator_tests
         gmock_main
         )
 
-include(GoogleTest)
-enable_testing()
-gtest_discover_tests(calculator_tests)
+#include(GoogleTest)
+#enable_testing()
+#gtest_discover_tests(calculator_tests 1)
