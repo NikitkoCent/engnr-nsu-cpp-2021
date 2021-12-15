@@ -16,7 +16,7 @@ add_executable(cpp_labs_2
                 StackCalculator.hpp
                 CommandFactory.h
 				CommandFactory.cpp
-                Commands.h)
+                Commands.h Exceptions.cpp Exceptions.h)
 
 add_executable(cpp_labs_2_test
 		test.cpp

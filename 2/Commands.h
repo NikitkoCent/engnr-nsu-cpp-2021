@@ -11,6 +11,7 @@
 #include <iostream>
 
 #include "SafeInt.hpp"
+#include "Exceptions.h"
 
 using std::map;
 using std::stringstream;
@@ -57,7 +58,7 @@ public:
             _stack.push(std::stoi(varname));
         } else {
             if (m.count(varname) == 0)
-                throw std::invalid_argument("Can't push by varname to stack: no such key in container!");
+                throw InvalidArgumentsException("PUSH", "no such variable in container!");
 //            cout << "Push m[" << varname << "]=" << (int64_t)m[varname] << endl;
             _stack.push(m[varname]);
         }
@@ -70,7 +71,7 @@ public:
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
 //        cout << "Pop " << (int64_t)stack.top() << endl;
-        if (stack.empty()) throw std::runtime_error("Empty stack on pop!");
+        if (stack.empty()) throw StackEmptyException("POP");
         stack.pop();
     }
 };
@@ -83,7 +84,7 @@ public:
         string varname;
         args >> varname;
         if (varname.empty())
-            throw std::invalid_argument("Can't PEEK: empty key!");
+            throw InvalidArgumentsException("PEEK", "varname is empty!");
 //        cout << "Peek m[" << varname << "]=" << (int64_t)stack.top() << endl;
         m[varname] = stack.top();
     }
@@ -94,7 +95,7 @@ public:
     explicit Abs(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        if (stack.empty()) throw std::runtime_error("Empty stack on minus!");
+        if (stack.empty()) throw StackEmptyException("ABS");
 
         auto t = stack.top();
 //        cout << "Abs " << (int64_t)t << endl;
@@ -111,7 +112,7 @@ public:
     explicit Plus(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        if (stack.size() < 2) throw std::runtime_error("Empty stack on plus!");
+        if (stack.size() < 2) throw StackEmptyException("PLUS");
 
         auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
 //        cout << (int64_t)a << " + " << (int64_t)b << endl;
@@ -124,7 +125,7 @@ public:
     explicit Minus(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        if (stack.size() < 2) throw std::runtime_error("Empty stack on minus!");
+        if (stack.size() < 2) throw StackEmptyException("MINUS");
 
         auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
 //        cout << (int64_t)b << " - " << (int64_t)a << endl;
@@ -137,7 +138,7 @@ public:
     explicit Mul(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        if (stack.size() < 2) throw std::runtime_error("Empty stack on mul!");
+        if (stack.size() < 2) throw StackEmptyException("MUL");
 
         auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
 //        cout << (int64_t)a << " * " << (int64_t)b << endl;
@@ -150,7 +151,7 @@ public:
     explicit Div(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        if (stack.size() < 2) throw std::runtime_error("Empty stack on minus!");
+        if (stack.size() < 2) throw StackEmptyException("DIV");
         auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
 //        cout << (int64_t)b << " / " << (int64_t)a << endl;
         stack.push(b / a);
@@ -162,7 +163,7 @@ public:
     explicit Print(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        if (stack.empty()) throw std::runtime_error("Empty stack on print!");
+        if (stack.empty()) throw StackEmptyException("PRINT");
         auto a = stack.top();
         std::cout << (int64_t)a << std::endl;
         m["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"] = a;
