@@ -4,7 +4,8 @@
 #include <string>
 #include <sstream>
 #include <cstring>
-
+#include "../../libs/SafeInt/SafeInt.hpp"
+#include <stdexcept>
 
 int main(int argc, char *argv[]) {
     try {
@@ -49,6 +50,9 @@ int main(int argc, char *argv[]) {
         return 1;
     }  catch (std::runtime_error &e) {
         std::cerr << e.what() << std::endl;
+        return 1;
+    }catch (SafeIntException &e) {
+        std::cerr << "Integer operation exception";
         return 1;
     }
     return 0;
