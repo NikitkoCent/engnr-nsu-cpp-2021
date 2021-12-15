@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
         command_processing(file, argc);
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
+        return 1;
     }
-
     return 0;
 }
