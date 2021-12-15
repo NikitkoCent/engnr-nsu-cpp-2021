@@ -38,3 +38,8 @@ TEST(CALCULATOR1, COMMAND_LINE_TEST) {
     int64_t result = 10;
     ASSERT_EQ(ReadFromStream(data).FindResult()["result"], result);
 }
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
