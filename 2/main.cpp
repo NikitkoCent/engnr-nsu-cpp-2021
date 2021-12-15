@@ -22,5 +22,9 @@ int main(int argc, char** argv) {
         std::cerr << err.what();
         return 2;
     }
+    catch (SafeIntException &err) {
+        std::cerr << "Integer operation exception";
+        return 3;
+    }
     return 0;
 }

@@ -10,17 +10,9 @@ StackActions::Action::Action(std::string &_args) {
     args >> str;
 }
 
-bool StackActions::Action::is_number(const std::string &line) {
-    // stupid but simple way to check if input is num or var :)
-    // in real project it will be better to iterate through all chars and check them in '0' <= c <= '9'
-    try {
-        std::stol(line);
-        return true;
-    }
-    catch (const std::invalid_argument &err) {
-        (void)err;
-        return false;
-    }
+
+bool StackActions::Action::is_number(const std::string &s) {
+    return !s.empty() && std::all_of(s.begin(), s.end(), [](char c) {return ::isdigit(c) || c == '-';});
 }
 
 SafeInt<long> StackActions::ArithmeticAction::pop(std::stack<SafeInt<long>> &st) {
@@ -87,13 +79,7 @@ void StackActions::Plus::act(Context &context) {
         throw StackExceptions::StackLack();
     }
     SafeInt<long> b=context.st.top(); context.st.pop(); SafeInt<long> a = context.st.top(); context.st.pop();
-    try {
-        context.st.push(a + b);
-    }
-    catch (SafeIntException &err){
-        (void)err;
-        throw StackExceptions::OverflowException();
-    }
+    context.st.push(a + b);
 }
 
 void StackActions::Minus::act(Context &context) {
@@ -101,13 +87,7 @@ void StackActions::Minus::act(Context &context) {
         throw StackExceptions::StackLack();
     }
     SafeInt<long> b=context.st.top(); context.st.pop(); SafeInt<long> a = context.st.top(); context.st.pop();
-    try {
-        context.st.push(a - b);
-    }
-    catch (SafeIntException &err){
-        (void)err;
-        throw StackExceptions::OverflowException();
-    }
+    context.st.push(a - b);
 }
 
 void StackActions::Mul::act(Context &context) {
@@ -115,13 +95,7 @@ void StackActions::Mul::act(Context &context) {
         throw StackExceptions::StackLack();
     }
     SafeInt<long> b=context.st.top(); context.st.pop(); SafeInt<long> a = context.st.top(); context.st.pop();
-    try {
-        context.st.push(a * b);
-    }
-    catch (SafeIntException &err){
-        (void)err;
-        throw StackExceptions::OverflowException();
-    }
+    context.st.push(a * b);
 }
 
 void StackActions::Div::act(Context &context) {
