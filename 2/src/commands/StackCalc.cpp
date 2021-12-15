@@ -240,8 +240,8 @@ Command *StackCalc::read_command(std::string &command_line) {
 StackCalc OneCommandRead(){
     StackCalc calculator;
     std::string command_line = "s";
-    while (!std::cin.eof()) {
-        getline(std::cin, command_line);
+    while (getline(std::cin, command_line, '\n')) {
+//        getline(std::cin, command_line);
         if (command_line.empty()) continue;
         try{
             std::unique_ptr<Command> cmd(calculator.read_command(command_line));
