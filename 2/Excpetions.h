@@ -30,8 +30,7 @@ namespace StackExceptions {
     public:
         std::string overflow_error;
 
-        OverflowException(long a, std::string op, long b) :
-                    overflow_error("Overflow exception (" + std::to_string(a) + " " + op + " " + std::to_string(b) + ")!") {}
+        OverflowException() : overflow_error("Overflow exception") {}
 
         virtual std::string what() override;
     };
@@ -41,7 +40,7 @@ namespace StackExceptions {
     public:
         std::string push_error;
 
-        explicit PushException(const std::string& val) : push_error("PUSH ("+ val + " is not an integer or variable)!") {}
+        explicit PushException() : push_error("PUSH (arg is not an integer or variable)!") {}
 
         virtual std::string what() override;
     };
@@ -61,7 +60,7 @@ namespace StackExceptions {
     public:
         std::string lack_error;
 
-        StackLack(unsigned long count) : lack_error("Stack has only " + std::to_string(count) + " argument(s)!") {}
+        StackLack() : lack_error("Stack has less than 2 arguments!") {}
 
         virtual std::string what() override;
     };
@@ -91,7 +90,7 @@ namespace StackExceptions {
     public:
         std::string operation_error;
 
-        explicit InvalidOperation(std::string op) : operation_error("Invalid operation (" + op  + ")!") {}
+        explicit InvalidOperation() : operation_error("Invalid operation!") {}
 
         virtual std::string what() override;
     };

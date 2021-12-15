@@ -35,7 +35,7 @@ void StackActions::Push::act(Context &context) {
         context.st.push(std::stol(value));
     } else {
         if (context.vars.count(value) == 0) {
-            throw StackExceptions::PushException(value);
+            throw StackExceptions::PushException();
         }
         context.st.push(context.vars[value]);
     }
@@ -83,46 +83,46 @@ void StackActions::Abs::act(Context &context) {
 
 void StackActions::Plus::act(Context &context) {
     if (context.st.size() < 2) {
-        throw StackExceptions::StackLack(context.st.size());
+        throw StackExceptions::StackLack();
     }
     SafeInt<long> b=context.st.top(); context.st.pop(); SafeInt<long> a = context.st.top(); context.st.pop();
     try {
         context.st.push(a + b);
     }
     catch (SafeIntException &err){
-        throw StackExceptions::OverflowException((long)a, "+", (long)b);
+        throw StackExceptions::OverflowException();
     }
 }
 
 void StackActions::Minus::act(Context &context) {
     if (context.st.size() < 2) {
-        throw StackExceptions::StackLack(context.st.size());
+        throw StackExceptions::StackLack();
     }
     SafeInt<long> b=context.st.top(); context.st.pop(); SafeInt<long> a = context.st.top(); context.st.pop();
     try {
         context.st.push(a - b);
     }
     catch (SafeIntException &err){
-        throw StackExceptions::OverflowException((long)a, "-", (long)b);
+        throw StackExceptions::OverflowException();
     }
 }
 
 void StackActions::Mul::act(Context &context) {
     if (context.st.size() < 2) {
-        throw StackExceptions::StackLack(context.st.size());
+        throw StackExceptions::StackLack();
     }
     SafeInt<long> b=context.st.top(); context.st.pop(); SafeInt<long> a = context.st.top(); context.st.pop();
     try {
         context.st.push(a * b);
     }
     catch (SafeIntException &err){
-        throw StackExceptions::OverflowException((long)a, "*", (long)b);
+        throw StackExceptions::OverflowException();
     }
 }
 
 void StackActions::Div::act(Context &context) {
     if (context.st.size() < 2) {
-        throw StackExceptions::StackLack(context.st.size());
+        throw StackExceptions::StackLack();
     }
     SafeInt<long> b=context.st.top(); context.st.pop(); SafeInt<long> a = context.st.top(); context.st.pop();
     if (b == 0) {
