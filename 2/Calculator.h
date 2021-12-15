@@ -37,7 +37,7 @@ class Print final : public Command {
               int64_t &result, std::ifstream& in, int args) override {
         if(values.empty()) {
             std::cerr << "ERROR";
-            throw std::invalid_argument("Operation: print, stack is empty");
+//            throw std::invalid_argument("Operation: print, stack is empty");
         }
         std::cout << std::to_string((int64_t)values.top()) << std::endl;
     }
@@ -50,7 +50,7 @@ class Plus final : public Command {
               int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2) {
             std::cerr << "ERROR";
-            throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
+//            throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         }
         int64_t first_element = values.top(); values.pop();
         int64_t second_element = values.top(); values.pop();
@@ -65,7 +65,7 @@ class Minus : public Command {
               int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2) {
             std::cerr << "ERROR";
-            throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
+//            throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         }
         int64_t first_element = values.top(); values.pop();
         int64_t second_element = values.top(); values.pop();
@@ -80,7 +80,7 @@ class Mul : public Command {
               int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2) {
             std::cerr << "ERROR";
-            throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
+//            throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         }
         int64_t first_element = values.top(); values.pop();
         int64_t second_element = values.top(); values.pop();
@@ -95,13 +95,13 @@ class Div : public Command {
               int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2) {
             std::cerr << "ERROR";
-            throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
+//            throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         }
         int64_t first_element = values.top(); values.pop();
         int64_t second_element = values.top(); values.pop();
         if (first_element == 0) {
             std::cerr << "ERROR";
-            throw std::invalid_argument("Operation: div, error: zero division");
+//            throw std::invalid_argument("Operation: div, error: zero division");
         }
         values.push(second_element / first_element);
     }
@@ -118,7 +118,7 @@ class Push : public Command {
         } else {
             if (names_and_values.find(varname) == names_and_values.end()) {
                 std::cerr << "ERROR";
-                throw std::invalid_argument("Operation: push, varname doesn't exist");
+//                throw std::invalid_argument("Operation: push, varname doesn't exist");
             }
             values.push(names_and_values[varname]);
         }
@@ -132,7 +132,7 @@ class Peek : public Command {
               int64_t &result, std::ifstream& in, int args) override {
         if(values.empty()) {
             std::cerr << "ERROR";
-            throw std::invalid_argument("Operation: peek, stack is empty");
+//            throw std::invalid_argument("Operation: peek, stack is empty");
         }
         std::string varname = tokens[1];
         names_and_values[varname] = values.top();
@@ -147,7 +147,7 @@ class Abs : public Command {
               int64_t &result, std::ifstream& in, int args) override {
         if(values.empty()) {
             std::cerr << "ERROR";
-            throw std::invalid_argument("Operation: abs, stack is empty");
+//            throw std::invalid_argument("Operation: abs, stack is empty");
         }
         int64_t value = values.top();
         values.pop();
@@ -166,7 +166,7 @@ class Pop : public Command {
             values.pop();
         else {
             std::cerr << "ERROR";
-            throw std::invalid_argument("Operation: pop, stack is empty");
+//            throw std::invalid_argument("Operation: pop, stack is empty");
         }
     }
 };
@@ -229,7 +229,7 @@ public:
             return new Pop();
         } else {
             std::cerr << "ERROR";
-            throw std::runtime_error("sad");
+//            throw std::runtime_error("sad");
         }
     }
 };
