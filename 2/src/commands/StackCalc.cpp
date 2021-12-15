@@ -4,9 +4,24 @@
 #include <sstream>
 #include <iostream>
 
+std::string WrongArgument::what() {
+    return text + wrong;
+}
+
+std::string EmptyStack::what() {
+    return text + empty;
+}
+
+std::string FewElementError::what() {
+    return text + few_elem;
+}
 
 void CustomException::SafeIntOnOverflow(){
     std::cerr << "Caught a SafeInt Overflow exception!" << std::endl;
+}
+
+std::string PopException::what() {
+    return text + empty + pop;
 }
 
 Pop::Pop(std::string &args) : Command(args) {}
@@ -14,9 +29,12 @@ void Pop::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map
     if(!stack.empty()){
         stack.pop();
     }else{
-        std::cerr << "Stack is empty. POP operation failed." << std::endl;
-        throw;
+        throw PopException();
     }
+}
+
+std::string PushException::what() {
+    return text + wrong + push;
 }
 
 Push::Push(std::string &args) : Command(args) {}
@@ -26,12 +44,15 @@ void Push::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::ma
         stack.push((int64_t)val);
     }catch(const std::invalid_argument&){
         if(variables.find(params) == variables.end()){
-            std::cerr << "Variable doesn't exist. PUSH operation failed." << std::endl;
-            throw;
+            throw PushException();
         }else{
             stack.push(variables[params]);
         }
     }
+}
+
+std::string PeekException::what() {
+    return text + empty + peek;
 }
 
 Peek::Peek(std::string &args) : Command(args) {}
@@ -39,9 +60,12 @@ void Peek::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::ma
     if(!stack.empty()) {
         variables[params] = stack.top();
     }else{
-        std::cerr << "Stack is empty. PEEK operation failed." << std::endl;
-        throw;
+        throw PeekException();
     }
+}
+
+std::string AbsException::what() {
+    return text + empty + abs;
 }
 
 Abs::Abs(std::string &args) : Command(args) {}
@@ -49,11 +73,18 @@ void Abs::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map
     if(!stack.empty()) {
         SafeInt<int64_t, CustomException> val = stack.top();
         stack.pop();
-        stack.push(abs((int64_t)val));
+        if (val < 0){
+            stack.push(-(int64_t)val);
+        }else {
+            stack.push((int64_t)val);
+        }
     }else{
-        std::cerr << "Stack is empty. ABS operation failed." << std::endl;
-        throw;
+        throw AbsException();
     }
+}
+
+std::string PlusException::what() {
+    return text + few_elem + plus;
 }
 
 Plus::Plus(std::string &args) : Command(args) {}
@@ -65,9 +96,12 @@ void Plus::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::ma
         stack.pop();
         stack.push((int64_t)val1 + (int64_t)val2);
     }else{
-        std::cerr << "Less than 2 elements in stack. PLUS operation failed." << std::endl;
-        throw;
+        throw PlusException();
     }
+}
+
+std::string MinusException::what() {
+    return text + few_elem + minus;
 }
 
 Minus::Minus(std::string &args) : Command(args) {}
@@ -79,9 +113,12 @@ void Minus::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::m
         stack.pop();
         stack.push((int64_t)val2 - (int64_t)val1);
     }else{
-        std::cerr << "Less than 2 elements in stack. MINUS operation failed." << std::endl;
-        throw;
+        throw MinusException();
     }
+}
+
+std::string MultiplyException::what() {
+    return text + few_elem + mul;
 }
 
 Multiply::Multiply(std::string &args) : Command(args) {}
@@ -93,9 +130,12 @@ void Multiply::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std
         stack.pop();
         stack.push((int64_t)val2 * (int64_t)val1);
     }else{
-        std::cerr << "Less than 2 elements in stack. MUL operation failed." << std::endl;
-        throw;
+        throw MultiplyException();
     }
+}
+
+std::string DivisionException::what() {
+    return text + few_elem + div;
 }
 
 Division::Division(std::string &args) : Command(args) {}
@@ -107,9 +147,13 @@ void Division::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std
         stack.pop();
         stack.push((int64_t)val2 / (int64_t)val1);
     }else{
-        std::cerr << "Less than 2 elements in stack. DIV operation failed." << std::endl;
-        throw;
+        throw DivisionException();
+
     }
+}
+
+std::string PrintException::what() {
+    return text + empty + print;
 }
 
 Print::Print(std::string &args) : Command(args) {}
@@ -119,9 +163,12 @@ void Print::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::m
         variables["result"] = val;
         std::cout << (int64_t)val << std::endl;
     }else{
-        std::cerr << "Stack is empty. POP operation failed." << std::endl;
-        throw;
+        throw PrintException();
     }
+}
+
+std::string ReadException::what() {
+    return text + wrong + read;
 }
 
 Read::Read(std::string &args) : Command(args) {}
@@ -131,15 +178,14 @@ void Read::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::ma
         std::cin >> val;
         stack.push(std::stoi(val));
     }catch(const std::invalid_argument&){
-        std::cerr << "READ operation failed." << std::endl;
-        throw;
+        throw ReadException();
     }
 }
 
 Comment::Comment(std::string &args) : Command(args) {}
 void Comment::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {}
 
-void StackCalc::command(Command *cmd) {
+void StackCalc::command(std::unique_ptr<Command> cmd) {
     cmd->command(stack, variables);
 }
 
@@ -193,17 +239,16 @@ StackCalc OneCommandRead(){
     while (!std::cin.eof()) {
         getline(std::cin, command_line);
         if (command_line.empty()) continue;
-        Command *cmd = calculator.read_command(command_line);
-        if(cmd == nullptr){
-            continue;
-        }
         try{
-            calculator.command(cmd);
-        }catch(std::exception &e){
+            std::unique_ptr<Command> cmd(calculator.read_command(command_line));
+            if(cmd == nullptr){
+                continue;
+            }
+            calculator.command(std::move(cmd));
+        }catch(StackException &e){
             std::cerr << e.what() <<std::endl;
-            delete cmd;
+            throw &e;
         }
-        delete cmd;
     }
     return calculator;
 }
@@ -214,17 +259,16 @@ StackCalc ReadFromStream(std::istream &file){
     std::string command_line;
     while (!file.eof()) {
         std::getline(file, command_line);
-        Command *cmd = calculator.read_command(command_line);
-        if(cmd == nullptr){
-            continue;
-        }
         try{
-            calculator.command(cmd);
-        }catch(std::exception &e){
+            std::unique_ptr<Command> cmd(calculator.read_command(command_line));
+            if(cmd == nullptr){
+                continue;
+            }
+            calculator.command(std::move(cmd));
+        }catch(StackException &e){
             std::cerr << e.what() <<std::endl;
-            delete cmd;
+            throw &e;
         }
-        delete cmd;
     }
     return calculator;
 }

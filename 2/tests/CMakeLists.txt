@@ -11,3 +11,9 @@ target_link_libraries(calculator_tests
         gtest
         gmock_main
         )
+
+enable_testing()
+add_test(EXAMPLE_TEST calculator_tests)
+add_test(EASY_TEST calculator_tests)
+add_test(HARD_TEST calculator_tests)
+add_test(COMMAND_LINE_TEST calculator_tests)
