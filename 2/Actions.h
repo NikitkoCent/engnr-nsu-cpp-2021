@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <stack>
+#include <algorithm>
 #include <map>
 #include "SafeInt/SafeInt.hpp"
 #include "Excpetions.h"
