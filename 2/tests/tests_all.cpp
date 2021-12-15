@@ -7,7 +7,7 @@ TEST(CALCULATOR1, EXAMPLE_TEST) {
     std::ifstream file;
     file.open(filepath);
     int64_t result = 220;
-    ASSERT_EQ(ReadFromStream(file).FindResult()["result"], result);
+    EXPECT_EQ(ReadFromStream(file).FindResult()["result"], result);
 }
 
 TEST(CALCULATOR1, EASY_TEST) {
@@ -15,7 +15,7 @@ TEST(CALCULATOR1, EASY_TEST) {
     std::ifstream file;
     file.open(filepath);
     int64_t result = 0;
-    ASSERT_EQ(ReadFromStream(file).FindResult()["result"], result);
+    EXPECT_EQ(ReadFromStream(file).FindResult()["result"], result);
 }
 
 TEST(CALCULATOR1, HARD_TEST) {
@@ -23,7 +23,7 @@ TEST(CALCULATOR1, HARD_TEST) {
     std::ifstream file;
     file.open(filepath);
     int64_t result = 16;
-    ASSERT_EQ(ReadFromStream(file).FindResult()["result"], result);
+    EXPECT_EQ(ReadFromStream(file).FindResult()["result"], result);
 }
 
 TEST(CALCULATOR1, COMMAND_LINE_TEST) {
@@ -36,7 +36,7 @@ TEST(CALCULATOR1, COMMAND_LINE_TEST) {
                            "MUL\n"
                            "PRINT");
     int64_t result = 10;
-    ASSERT_EQ(ReadFromStream(data).FindResult()["result"], result);
+    EXPECT_EQ(ReadFromStream(data).FindResult()["result"], result);
 }
 
 int main(int argc, char **argv) {
