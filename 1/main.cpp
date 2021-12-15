@@ -1,4 +1,4 @@
-#include "hash.cpp"
+#include "hash.hpp"
 int main(int argc, char* argv[])
 {
     ArgHelper arg = getArg(argc, argv);
@@ -19,17 +19,28 @@ int main(int argc, char* argv[])
                 uint32_t r = (uint32_t)result;
                 std::cout << std::hex << r;
             }
-            else
+            else{
+                show_err();
                 return ALGO_ERROR;
+            }
+
 
         }else if (arg.algo == Algo::SUM64) {
             if (!call(fs, summ64, result)) {
                 std::cout << std::hex << result;
             }
-            else
+            else {
+                show_err();
                 return ALGO_ERROR;
+            }
         }
-        else
+        else {
+            show_err();
             return ALGO_ERROR;
+        }
+    }
+    else {
+        show_err();
+        return ALGO_ERROR;
     }
 }

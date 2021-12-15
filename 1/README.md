@@ -1,3 +1,9 @@
+Интрукция по запуску утилиты Hasher:
+
+git clone https://github.com/vlad00k/engnr-nsu-cpp-2021.git
+
+=Не получается=
+
 Утилита может считать 2 варианта хеша:
 Adler32
 Sum64
@@ -12,4 +18,3 @@ Sum64
 ./hasher -m <mode> <filename> - посчитать переданный вариант хеша переданного файла;
 
 Где <mode> ∈ { adler32, sum64 }.
-

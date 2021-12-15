@@ -1,5 +1,24 @@
 #include "hash.hpp"
 
+ArgHelper::ArgHelper() {
+    error = false;
+    h = false;
+    mode = false;
+}
+bool ArgHelper:: isHelp() {
+    if (h && !mode && eq(path, "") && algo == Algo::null)
+        return true;
+    return false;
+}
+bool ArgHelper::isMode() {
+    if (!h && mode && algo != Algo::null)
+        return true;
+    return false;
+}
+int eq(std::string first, std::string str) {
+    int result = first == str;
+    return result;
+}
 ArgHelper getArg(int argc, char* argv[]) {
     ArgHelper argHelper;
 

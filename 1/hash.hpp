@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -15,11 +16,6 @@ enum Algo
     ADLER32,
     SUM64
 };
-int eq(std::string first, std::string str) {
-    int result = first == str;
-    return result;
-}
-
 class ArgHelper {
 public:
     bool error;
@@ -28,22 +24,18 @@ public:
     std::string path = "";
     Algo algo = Algo::null;
 
-    ArgHelper() {
-        error = false;
-        h = false;
-        mode = false;
-    }
-    bool isHelp() {
-        if (h && !mode && eq(path, "") && algo == Algo::null)
-            return true;
-        return false;
-    }
-    bool isMode() {
-        if (!h && mode && algo != Algo::null)
-            return true;
-        return false;
-    }
+    ArgHelper();
+    bool isHelp();
+    bool isMode();
 };
+
+int eq(std::string first, std::string str);
+ArgHelper getArg(int argc, char* argv[]);
+void show_help();
+void show_err();
+uint64_t summ64(std::fstream &fs);
+uint64_t  adler32(std::fstream &fs);
+int call(std::fstream &fs, uint64_t(*func)(std::fstream &), uint64_t& result);
 
 
 
