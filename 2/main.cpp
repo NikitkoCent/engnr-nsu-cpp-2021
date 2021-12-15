@@ -9,7 +9,8 @@
 //}
 
 int main(int argc, char *argv[]) {
-    const char *filepath;
+    argc = 1;
+    const char *filepath = "input.txt";
     std::ifstream file;
     if(argc > 2 || argc == 0)
         return 1;
@@ -22,6 +23,8 @@ int main(int argc, char *argv[]) {
         else if(file.peek() == EOF)
             return 0;
     }
+    if(argc == 1)
+        freopen(filepath, "r", stdin);
     command_processing(file, argc);
 
     return 0;
