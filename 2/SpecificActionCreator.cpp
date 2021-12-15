@@ -21,7 +21,7 @@ StackActions::Action *SAC::SpecificActionCreator::getAction(std::istringstream &
     std::string action;
     line >> action;
     std::string args = line.str();
-    if (action[0] != '#') {
+    if ((action[0] != '#') && (action.length())) {
         if (actions.count(action) == 0) {
             throw StackExceptions::InvalidOperation();
         }
