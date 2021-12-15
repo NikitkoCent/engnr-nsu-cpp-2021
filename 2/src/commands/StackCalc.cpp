@@ -26,9 +26,9 @@ std::string PopException::what() {
 }
 
 Pop::Pop(std::string &args) : Command(args) {}
-void Pop::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
-    if(!stack.empty()){
-        stack.pop();
+void Pop::command(ContextExecution &context_execution) {
+    if(!context_execution.stack.empty()){
+        context_execution.stack.pop();
     }else{
         throw PopException();
     }
@@ -39,15 +39,15 @@ std::string PushException::what() {
 }
 
 Push::Push(std::string &args) : Command(args) {}
-void Push::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
+void Push::command(ContextExecution &context_execution) {
     try{
         SafeInt<int64_t, CustomException> val = std::stoi(params);
-        stack.push((int64_t)val);
+        context_execution.stack.push((int64_t)val);
     }catch(const std::invalid_argument&){
-        if(variables.find(params) == variables.end()){
+        if(context_execution.variables.find(params) == context_execution.variables.end()){
             throw PushException();
         }else{
-            stack.push(variables[params]);
+            context_execution.stack.push(context_execution.variables[params]);
         }
     }
 }
@@ -57,9 +57,9 @@ std::string PeekException::what() {
 }
 
 Peek::Peek(std::string &args) : Command(args) {}
-void Peek::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
-    if(!stack.empty()) {
-        variables[params] = stack.top();
+void Peek::command(ContextExecution &context_execution) {
+    if(!context_execution.stack.empty()) {
+        context_execution.variables[params] = context_execution.stack.top();
     }else{
         throw PeekException();
     }
@@ -70,14 +70,14 @@ std::string AbsException::what() {
 }
 
 Abs::Abs(std::string &args) : Command(args) {}
-void Abs::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
-    if(!stack.empty()) {
-        SafeInt<int64_t, CustomException> val = stack.top();
-        stack.pop();
+void Abs::command(ContextExecution &context_execution) {
+    if(!context_execution.stack.empty()) {
+        SafeInt<int64_t, CustomException> val = context_execution.stack.top();
+        context_execution.stack.pop();
         if (val < 0){
-            stack.push(-(int64_t)val);
+            context_execution.stack.push(-(int64_t)val);
         }else {
-            stack.push((int64_t)val);
+            context_execution.stack.push((int64_t)val);
         }
     }else{
         throw AbsException();
@@ -89,13 +89,13 @@ std::string PlusException::what() {
 }
 
 Plus::Plus(std::string &args) : Command(args) {}
-void Plus::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
-    if(stack.size() >= 2){
-        SafeInt<int64_t, CustomException> val1 = stack.top();
-        stack.pop();
-        SafeInt<int64_t, CustomException> val2 = stack.top();
-        stack.pop();
-        stack.push((int64_t)val1 + (int64_t)val2);
+void Plus::command(ContextExecution &context_execution) {
+    if(context_execution.stack.size() >= 2){
+        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
+        context_execution.stack.pop();
+        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
+        context_execution.stack.pop();
+        context_execution.stack.push((int64_t)val1 + (int64_t)val2);
     }else{
         throw PlusException();
     }
@@ -106,13 +106,13 @@ std::string MinusException::what() {
 }
 
 Minus::Minus(std::string &args) : Command(args) {}
-void Minus::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
-    if(stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = stack.top();
-        stack.pop();
-        SafeInt<int64_t, CustomException> val2 = stack.top();
-        stack.pop();
-        stack.push((int64_t)val2 - (int64_t)val1);
+void Minus::command(ContextExecution &context_execution) {
+    if(context_execution.stack.size() >= 2) {
+        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
+        context_execution.stack.pop();
+        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
+        context_execution.stack.pop();
+        context_execution.stack.push((int64_t)val2 - (int64_t)val1);
     }else{
         throw MinusException();
     }
@@ -123,13 +123,14 @@ std::string MultiplyException::what() {
 }
 
 Multiply::Multiply(std::string &args) : Command(args) {}
-void Multiply::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
-    if(stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = stack.top();
-        stack.pop();
-        SafeInt<int64_t, CustomException> val2 = stack.top();
-        stack.pop();
-        stack.push((int64_t)val2 * (int64_t)val1);
+void
+Multiply::command(ContextExecution &context_execution) {
+    if(context_execution.stack.size() >= 2) {
+        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
+        context_execution.stack.pop();
+        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
+        context_execution.stack.pop();
+        context_execution.stack.push((int64_t)val2 * (int64_t)val1);
     }else{
         throw MultiplyException();
     }
@@ -140,13 +141,14 @@ std::string DivisionException::what() {
 }
 
 Division::Division(std::string &args) : Command(args) {}
-void Division::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
-    if(stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = stack.top();
-        stack.pop();
-        SafeInt<int64_t, CustomException> val2 = stack.top();
-        stack.pop();
-        stack.push((int64_t)val2 / (int64_t)val1);
+void
+Division::command(ContextExecution &context_execution) {
+    if(context_execution.stack.size() >= 2) {
+        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
+        context_execution.stack.pop();
+        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
+        context_execution.stack.pop();
+        context_execution.stack.push((int64_t)val2 / (int64_t)val1);
     }else{
         throw DivisionException();
 
@@ -158,10 +160,10 @@ std::string PrintException::what() {
 }
 
 Print::Print(std::string &args) : Command(args) {}
-void Print::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
-    if(!stack.empty()) {
-        SafeInt<int64_t, CustomException> val = stack.top();
-        variables["result"] = val;
+void Print::command(ContextExecution &context_execution) {
+    if(!context_execution.stack.empty()) {
+        SafeInt<int64_t, CustomException> val = context_execution.stack.top();
+        context_execution.variables["result"] = val;
         std::cout << (int64_t)val << std::endl;
     }else{
         throw PrintException();
@@ -173,21 +175,22 @@ std::string ReadException::what() {
 }
 
 Read::Read(std::string &args) : Command(args) {}
-void Read::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {
+void Read::command(ContextExecution &context_execution) {
     try {
         std::string val;
         std::cin >> val;
-        stack.push(std::stoi(val));
+        context_execution.stack.push(std::stoi(val));
     }catch(const std::invalid_argument&){
         throw ReadException();
     }
 }
 
 Comment::Comment(std::string &args) : Command(args) {}
-void Comment::command(std::stack<SafeInt<int64_t, CustomException>> &stack, std::map<std::string, SafeInt<int64_t, CustomException>> &variables) {}
+void
+Comment::command(ContextExecution &context_execution) {}
 
 void StackCalc::command(std::unique_ptr<Command> cmd) {
-    cmd->command(stack, variables);
+    cmd->command(context_execution);
 }
 
 Command *StackCalc::read_command(std::string &command_line) {
