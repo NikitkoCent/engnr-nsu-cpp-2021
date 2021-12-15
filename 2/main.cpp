@@ -24,8 +24,8 @@ int main(int argc, char *argv[]) {
         else if(file.peek() == EOF)
             return 0;
     }
-    if(argc == 1)
-        freopen(filepath, "r", stdin);
+//    if(argc == 1)
+//        freopen(filepath, "r", stdin);
     command_processing(file, argc);
 
     return 0;
