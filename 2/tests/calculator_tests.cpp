@@ -68,3 +68,21 @@ TEST(Calc_Test, Test_Exception_Peek)
         },
         std::runtime_error);
 }
+
+TEST(Calc_Test, Test_Exception_Push)
+{
+    EXPECT_THROW(
+        {
+            try
+            {
+                std::istringstream ss("PUSH ");
+                ns_Calc::CalcContext calc = proceedNoArgs(ss);
+            }
+            catch (const std::runtime_error &e)
+            {
+                EXPECT_STREQ("Required 2 arguements\nError was occured in 1 line: PUSH ", e.what());
+                throw;
+            }
+        },
+        std::runtime_error);
+}

@@ -13,9 +13,9 @@ int main(int argc, char *argv[]) {
         } else {
             proceedNoArgs(std::cin);
         }
-        return 1;
+        return 0;
     } catch (std::exception &error) {
         std::cerr << error.what() << std::endl;
-        return 0;
+        return -1;
     }
 }
