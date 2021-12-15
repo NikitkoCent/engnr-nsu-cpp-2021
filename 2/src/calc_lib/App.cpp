@@ -35,9 +35,9 @@ ns_Calc::CalcContext calculate(std::istream &input)
             pipeline.emplace_back(CreateAbstCmd(buff));
             err_line++;
         }
-        catch (std::exception &e)
+        catch (const std::exception &e)
         {
-            throw CalcRuntimeExc(e.what(), buff, err_line);
+            throw CalcInputExc(e.what(), buff, err_line);
         }
     }
     err_line = 1;
