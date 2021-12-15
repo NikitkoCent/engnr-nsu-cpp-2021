@@ -7,12 +7,11 @@
 int main(int argc, char *argv[])
 {
     InputParser input(argc, argv);
-
     const std::optional<std::string_view> file_name = input.getCmdOption("-f");
     try
     {
-        if (file_name.has_value())
-            proceedWithArgs(file_name.value().data());
+        if (argc == 1)
+            proceedWithArgs(*argv);
         else
             proceedNoArgs(std::cin);
         return 0;
