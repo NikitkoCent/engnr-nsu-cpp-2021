@@ -252,6 +252,9 @@ StackCalc OneCommandRead(){
         }catch(StackException &e){
             std::cerr << e.what() <<std::endl;
             throw &e;
+        }catch(std::exception &e){
+            std::cerr << e.what() <<std::endl;
+            throw &e;
         }
     }
     return calculator;
