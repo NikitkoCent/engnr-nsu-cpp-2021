@@ -8,10 +8,14 @@ int main(int argc, char *argv[])
 {
     try
     {
-        if (argc == 1)
+        if (argc == 2)
             proceedWithArgs(*argv);
-        else
+        if (argc == 1)
             proceedNoArgs(std::cin);
+        else
+        {
+            std::cerr << "Input name of file or not" << std::endl;
+        }
         return 0;
     }
     catch (const std::exception &error)
