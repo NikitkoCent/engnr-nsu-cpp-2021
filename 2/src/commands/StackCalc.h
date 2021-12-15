@@ -9,7 +9,7 @@
 #include <iostream>
 #include <utility>
 #include "../../libs/SafeInt/SafeInt.hpp"
-
+#include <memory>
 
 class StackException {
 public:

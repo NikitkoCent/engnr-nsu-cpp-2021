@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <memory>
 
 std::string WrongArgument::what() {
     return text + wrong;
