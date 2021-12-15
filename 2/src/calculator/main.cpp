@@ -27,19 +27,23 @@ int main(int argc, char *argv[]) {
         flag = true;
     }
 
-
-    if (flag) {
-        OneCommandRead();
-    } else {
-        std::ifstream file;
-        file.open(filepath);
-        if(!file.is_open()){
-            std::cerr << "FileNotFoundError" << help << std::endl;
-            return 1;
-        }else if(file.peek() == EOF){
-            return 0;
+    try {
+        if (flag) {
+            OneCommandRead();
+        } else {
+            std::ifstream file;
+            file.open(filepath);
+            if (!file.is_open()) {
+                std::cerr << "FileNotFoundError" << help << std::endl;
+                return 1;
+            } else if (file.peek() == EOF) {
+                return 0;
+            }
+            ReadFromStream(file);
         }
-        ReadFromStream(file);
+    }catch(std::exception &e){
+        std::cerr << e.what() << std::endl;
+        return 1;
     }
     return 0;
 }
