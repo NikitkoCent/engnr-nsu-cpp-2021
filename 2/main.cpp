@@ -23,6 +23,7 @@ int main(int argc, char** argv) {
         return 2;
     }
     catch (SafeIntException &err) {
+        (void)err;
         std::cerr << "Integer operation exception";
         return 3;
     }
