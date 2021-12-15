@@ -3,6 +3,7 @@
 //
 
 #include "Excpetions.h"
+#include <cstring>
 
 std::string StackExceptions::InvalidArgument::what() {
     return default_error + invalid_error;

@@ -3,6 +3,7 @@
 //
 
 #include "StackCalc.h"
+#include <memory>
 
 void SC::StackCalc::act(std::unique_ptr<StackActions::Action> action) {
     action->act(context);
