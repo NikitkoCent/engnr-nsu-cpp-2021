@@ -15,12 +15,16 @@ int main(int argc, char** argv){
     ifstream in;
     vector<Command*> cmds;
     StackCalculator stackCalculator;
-
-    if (argc > 1) {
-        in.open(argv[1]);
-        stackCalculator.parse_stream(in);
-    } else {
-        stackCalculator.parse_stream(cin);
+    try {
+        if (argc > 1) {
+            in.open(argv[1]);
+            stackCalculator.parse_stream(in);
+        } else {
+            stackCalculator.parse_stream(cin);
+        }
+    } catch (std::exception &e) {
+        cerr << e.what() << endl;
+        return 1;
     }
     return 0;
 }
