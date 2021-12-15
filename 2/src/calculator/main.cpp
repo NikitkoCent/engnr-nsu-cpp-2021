@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
             }
             ReadFromStream(file);
         }
-    } catch (std::exception &e) {
+    } catch (StackException &e) {
         std::cerr << e.what() << std::endl;
         return 1;
     }
