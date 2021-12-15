@@ -4,3 +4,6 @@
 [submodule "2/googletest"]
 	path = 2/googletest
 	url = https://github.com/google/googletest.git
+[submodule "2/lib"]
+	path = 2/lib
+	url = https://github.com/google/googletest.git
