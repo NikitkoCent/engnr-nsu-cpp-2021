@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Calculator.h"
-#include "lib/SafeInt/SafeInt.hpp"
+#include "libs/SafeInt/SafeInt.hpp"
 
 #include <cstdint>
 #include <iostream>
