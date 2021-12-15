@@ -9,9 +9,10 @@
 //}
 
 int main(int argc, char *argv[]) {
-    argc = 1;
-    const char *filepath = "input.txt";
+//    argc = 1;
+//    const char *filepath = "input.txt";
     std::ifstream file;
+    const char *filepath;
     if(argc > 2 || argc == 0)
         return 1;
     if(argc == 2) {
