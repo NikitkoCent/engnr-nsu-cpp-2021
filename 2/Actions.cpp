@@ -18,6 +18,7 @@ bool StackActions::Action::is_number(const std::string &line) {
         return true;
     }
     catch (const std::invalid_argument &err) {
+        (void)err;
         return false;
     }
 }
@@ -90,6 +91,7 @@ void StackActions::Plus::act(Context &context) {
         context.st.push(a + b);
     }
     catch (SafeIntException &err){
+        (void)err;
         throw StackExceptions::OverflowException();
     }
 }
@@ -103,6 +105,7 @@ void StackActions::Minus::act(Context &context) {
         context.st.push(a - b);
     }
     catch (SafeIntException &err){
+        (void)err;
         throw StackExceptions::OverflowException();
     }
 }
@@ -116,6 +119,7 @@ void StackActions::Mul::act(Context &context) {
         context.st.push(a * b);
     }
     catch (SafeIntException &err){
+        (void)err;
         throw StackExceptions::OverflowException();
     }
 }
