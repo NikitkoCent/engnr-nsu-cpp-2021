@@ -44,7 +44,7 @@ public:
         sstream << "Input error was occured in line " << m_errLineNum << "\n"
                 << "Error line : " << m_errLine << "\n"
                 << m_message << "\n";
-        m_what = "sstream.str().c_str()";
+        m_what = sstream.str();
     };
 
     const char* what() const throw() override
