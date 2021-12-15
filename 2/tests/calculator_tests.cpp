@@ -6,7 +6,7 @@
 
 TEST(Calc_Test, Test_Simple)
 {
-    ns_Calc::CalcContext calc = proceedWithArgs("../../tests/test1.txt");
+    ns_Calc::CalcContext calc = proceedWithArgs("../tests/test1.txt");
     ASSERT_EQ(220, calc.m_stack.top());
 }
 
