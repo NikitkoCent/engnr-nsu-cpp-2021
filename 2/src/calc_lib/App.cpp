@@ -46,14 +46,12 @@ ns_Calc::CalcContext calculate(std::istream &input)
         try
         {
             pipeline.front().get()->execute(calc);
+            pipeline.pop_front();
         }
         catch (const std::exception &e)
         {
             throw CalcRuntimeExc(e.what(), "", err_line);
         }
-
-        pipeline.front().get()->execute(calc);
-        pipeline.pop_front();
     }
     return calc;
 }
