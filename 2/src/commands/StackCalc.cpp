@@ -17,9 +17,9 @@ std::string FewElementError::what() {
     return text + few_elem;
 }
 
-void CustomException::SafeIntOnOverflow(){
-    std::cerr << "Caught a SafeInt Overflow exception!" << std::endl;
-}
+//void CustomException::SafeIntOnOverflow(){
+//    std::cerr << "Caught a SafeInt Overflow exception!" << std::endl;
+//}
 
 std::string PopException::what() {
     return text + empty + pop;
@@ -41,7 +41,7 @@ std::string PushException::what() {
 Push::Push(std::string &args) : Command(args) {}
 void Push::command(ContextExecution &context_execution) {
     try{
-        SafeInt<int64_t, CustomException> val = std::stoi(params);
+        SafeInt<int64_t> val = std::stoi(params);
         context_execution.stack.push((int64_t)val);
     }catch(const std::invalid_argument&){
         if(context_execution.variables.find(params) == context_execution.variables.end()){
@@ -72,7 +72,7 @@ std::string AbsException::what() {
 Abs::Abs(std::string &args) : Command(args) {}
 void Abs::command(ContextExecution &context_execution) {
     if(!context_execution.stack.empty()) {
-        SafeInt<int64_t, CustomException> val = context_execution.stack.top();
+        SafeInt<int64_t> val = context_execution.stack.top();
         context_execution.stack.pop();
         if (val < 0){
             context_execution.stack.push(-(int64_t)val);
@@ -91,9 +91,9 @@ std::string PlusException::what() {
 Plus::Plus(std::string &args) : Command(args) {}
 void Plus::command(ContextExecution &context_execution) {
     if(context_execution.stack.size() >= 2){
-        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
+        SafeInt<int64_t> val1 = context_execution.stack.top();
         context_execution.stack.pop();
-        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
+        SafeInt<int64_t> val2 = context_execution.stack.top();
         context_execution.stack.pop();
         context_execution.stack.push((int64_t)val1 + (int64_t)val2);
     }else{
@@ -108,9 +108,9 @@ std::string MinusException::what() {
 Minus::Minus(std::string &args) : Command(args) {}
 void Minus::command(ContextExecution &context_execution) {
     if(context_execution.stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
+        SafeInt<int64_t> val1 = context_execution.stack.top();
         context_execution.stack.pop();
-        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
+        SafeInt<int64_t> val2 = context_execution.stack.top();
         context_execution.stack.pop();
         context_execution.stack.push((int64_t)val2 - (int64_t)val1);
     }else{
@@ -126,9 +126,9 @@ Multiply::Multiply(std::string &args) : Command(args) {}
 void
 Multiply::command(ContextExecution &context_execution) {
     if(context_execution.stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
+        SafeInt<int64_t> val1 = context_execution.stack.top();
         context_execution.stack.pop();
-        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
+        SafeInt<int64_t> val2 = context_execution.stack.top();
         context_execution.stack.pop();
         context_execution.stack.push((int64_t)val2 * (int64_t)val1);
     }else{
@@ -144,9 +144,9 @@ Division::Division(std::string &args) : Command(args) {}
 void
 Division::command(ContextExecution &context_execution) {
     if(context_execution.stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
+        SafeInt<int64_t> val1 = context_execution.stack.top();
         context_execution.stack.pop();
-        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
+        SafeInt<int64_t> val2 = context_execution.stack.top();
         context_execution.stack.pop();
         context_execution.stack.push((int64_t)val2 / (int64_t)val1);
     }else{
@@ -162,7 +162,7 @@ std::string PrintException::what() {
 Print::Print(std::string &args) : Command(args) {}
 void Print::command(ContextExecution &context_execution) {
     if(!context_execution.stack.empty()) {
-        SafeInt<int64_t, CustomException> val = context_execution.stack.top();
+        SafeInt<int64_t> val = context_execution.stack.top();
         context_execution.variables["result"] = val;
         std::cout << (int64_t)val << std::endl;
     }else{

@@ -52,15 +52,15 @@ public:
     virtual std::string what() override;
 };
 
-class CustomException : public SafeIntException {
-public:
-    static void SafeIntOnOverflow();
-};
+//class CustomException : public SafeIntException {
+//public:
+//    static void SafeIntOnOverflow();
+//};
 
 
 typedef struct context_execution {
-    std::stack<SafeInt<int64_t, CustomException>> stack;
-    std::map<std::string, SafeInt<int64_t, CustomException>> variables;
+    std::stack<SafeInt<int64_t>> stack;
+    std::map<std::string, SafeInt<int64_t>> variables;
 } ContextExecution;
 
 
@@ -271,7 +271,7 @@ public:
 
     Command *read_command(std::string &command_line);
 
-    std::map<std::string, SafeInt<int64_t, CustomException>> FindResult() {
+    std::map<std::string, SafeInt<int64_t>> FindResult() {
         return context_execution.variables;
     }
 };
