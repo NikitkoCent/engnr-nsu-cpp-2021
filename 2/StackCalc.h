@@ -5,6 +5,7 @@
 #ifndef STACK_CALC_STACKCALC_H
 #define STACK_CALC_STACKCALC_H
 #include <string>
+#include <memory>
 #include "SpecificActionCreator.h"
 #include "SafeInt/SafeInt.hpp"
 
