@@ -10,12 +10,12 @@
 
 template<typename T>
 class SafeQueue {
-public:
     std::queue<T> q;
     std::mutex m;
     int length = 0;
 
-    void push(T elem);
+public:
+    void push(T &elem);
     T next();
     bool is_empty();
     int get_length();

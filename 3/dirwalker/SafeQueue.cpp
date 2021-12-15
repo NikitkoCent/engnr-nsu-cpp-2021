@@ -11,7 +11,7 @@
  * @param elem element
  */
 template<typename T>
-void SafeQueue<T>::push(T elem) {
+void SafeQueue<T>::push(T &elem) {
     std::lock_guard<std::mutex> lock(m);
     q.push(elem);
     this->length++;
