@@ -30,7 +30,7 @@ public:
 
 };
 
-class Print : public Command {
+class Print final : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
@@ -39,12 +39,11 @@ class Print : public Command {
             std::cerr << "ERROR";
             throw std::invalid_argument("Operation: print, stack is empty");
         }
-        std::string res = std::to_string((int64_t)values.top());
-        std::cout << res << std::endl;
+        std::cout << std::to_string((int64_t)values.top()) << std::endl;
     }
 };
 
-class Plus : public Command {
+class Plus final : public Command {
     void exec(const std::vector<std::string> &tokens,
               std::stack<SafeInt<int64_t>> &values,
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
@@ -53,11 +52,9 @@ class Plus : public Command {
             std::cerr << "ERROR";
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         }
-        int64_t first_element = values.top();
-        values.pop();
-        int64_t second_element = values.top();
-        values.pop();
-        values.push(first_element + second_element);
+        int64_t first_element = values.top(); values.pop();
+        int64_t second_element = values.top(); values.pop();
+        values.push(second_element + first_element);
     }
 };
 
@@ -70,29 +67,11 @@ class Minus : public Command {
             std::cerr << "ERROR";
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         }
-        int64_t first_element = values.top();
-        values.pop();
-        int64_t second_element = values.top();
-        values.pop();
+        int64_t first_element = values.top(); values.pop();
+        int64_t second_element = values.top(); values.pop();
         values.push(second_element - first_element);
     }
 };
-/*
-# myVar = -14 / 5
-PUSH -14
-PUSH 5
-DIV
-PEEK myVar
-POP
-
-# PRINT (9 - myVar) * 20
-PUSH 9
-PUSH myVar
-MINUS
-PUSH 20
-MUL
-PRINT
-*/
 
 class Mul : public Command {
     void exec(const std::vector<std::string> &tokens,
@@ -103,10 +82,8 @@ class Mul : public Command {
             std::cerr << "ERROR";
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         }
-        int64_t first_element = values.top();
-        values.pop();
-        int64_t second_element = values.top();
-        values.pop();
+        int64_t first_element = values.top(); values.pop();
+        int64_t second_element = values.top(); values.pop();
         values.push(second_element * first_element);
     }
 };
@@ -120,10 +97,8 @@ class Div : public Command {
             std::cerr << "ERROR";
             throw std::invalid_argument("Operation: plus, error: expected size of queue more than 2");
         }
-        int64_t first_element = values.top();
-        values.pop();
-        int64_t second_element = values.top();
-        values.pop();
+        int64_t first_element = values.top(); values.pop();
+        int64_t second_element = values.top(); values.pop();
         if (first_element == 0) {
             std::cerr << "ERROR";
             throw std::invalid_argument("Operation: div, error: zero division");
@@ -141,9 +116,10 @@ class Push : public Command {
         if (is_number(varname)) {
             values.push(stoi(varname));
         } else {
-            if (names_and_values.find(varname) == names_and_values.end())
+            if (names_and_values.find(varname) == names_and_values.end()) {
                 std::cerr << "ERROR";
                 throw std::invalid_argument("Operation: push, varname doesn't exist");
+            }
             values.push(names_and_values[varname]);
         }
     }
@@ -254,7 +230,6 @@ public:
         } else {
             std::cerr << "ERROR";
             throw std::runtime_error("sad");
-            return nullptr;
         }
     }
 };
