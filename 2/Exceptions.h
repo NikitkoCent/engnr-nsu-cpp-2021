@@ -6,26 +6,22 @@
 #define CPP_LABS_EXCEPTIONS_H
 
 #include <stdexcept>
+#include <cstring>
 
-class StackCalculatorException : std::runtime_error {
+class StackCalculatorException : public std::runtime_error {
 public:
     explicit StackCalculatorException(const char *exc_txt) : std::runtime_error(exc_txt) {}
-
     explicit StackCalculatorException(const std::string &exc_txt) : std::runtime_error(exc_txt) {}
 };
 
-class StackEmptyException : StackCalculatorException {
+class StackEmptyException : public StackCalculatorException {
 public:
-    explicit StackEmptyException(const char *command_name) : StackCalculatorException(
-            strcat("Stack is empty! Calling command: ", command_name)) {}
+    StackEmptyException() : StackCalculatorException("Stack is empty!") {}
 };
 
-class InvalidArgumentsException : StackCalculatorException {
+class InvalidArgumentsException : public StackCalculatorException {
 public:
-    InvalidArgumentsException(const char *command_name, const char* args) : StackCalculatorException(
-            strcat(strcat(strcat("Command has invalid args:", args), "; Reason: "), command_name)) {}
-    InvalidArgumentsException(const char *command_name, std::string &args) : StackCalculatorException(
-            strcat(strcat(strcat("Command has invalid args:", args.c_str()), "; Reason: "), command_name)) {}
+    InvalidArgumentsException() : StackCalculatorException("Command has invalid args!") {}
 };
 
 #endif //CPP_LABS_EXCEPTIONS_H

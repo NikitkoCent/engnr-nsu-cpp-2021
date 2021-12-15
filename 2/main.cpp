@@ -25,6 +25,9 @@ int main(int argc, char** argv){
     } catch (std::exception &e) {
         cerr << e.what() << endl;
         return 1;
+    } catch (std::runtime_error &e) {
+        cerr << e.what() << endl;
+        return 1;
     }
     return 0;
 }
