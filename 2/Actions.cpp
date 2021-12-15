@@ -15,12 +15,6 @@ bool StackActions::Action::is_number(const std::string &s) {
     return !s.empty() && std::all_of(s.begin(), s.end(), [](char c) {return ::isdigit(c) || c == '-';});
 }
 
-SafeInt<long> StackActions::ArithmeticAction::pop(std::stack<SafeInt<long>> &st) {
-    SafeInt<long> val = st.top();
-    st.pop();
-    return val;
-}
-
 void StackActions::Push::act(Context &context) {
     std::string value;
     args >> value;
@@ -71,7 +65,9 @@ void StackActions::Abs::act(Context &context) {
     if (context.st.empty()) {
         throw StackExceptions::StackEmpty();
     }
-    context.st.push(context.st.top() * (pop(context.st) > 0 ? 1 : -1));
+    SafeInt<long> top = context.st.top(); context.st.pop();
+    if (top < 0) top *= -1;
+    context.st.push(top);
 }
 
 void StackActions::Plus::act(Context &context) {
