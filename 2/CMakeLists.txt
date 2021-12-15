@@ -22,12 +22,10 @@ if (MSVC)
 else()
     target_compile_options(stack_calc
             PRIVATE -Wall        # basic set of warnings
-            PRIVATE -pedantic    # modern C++ inspections
             PRIVATE -Werror      # treat all warnings as errors
             )
     target_compile_options(stack_calc_test
             PRIVATE -Wall        # basic set of warnings
-            PRIVATE -pedantic    # modern C++ inspections
             PRIVATE -Werror      # treat all warnings as errors
             )
 endif()
