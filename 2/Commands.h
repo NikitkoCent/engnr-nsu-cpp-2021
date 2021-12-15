@@ -94,7 +94,7 @@ public:
     explicit Abs(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        if (stack.empty()) throw std::runtime_error("Empty stack on abs!");
+        if (stack.empty()) throw std::runtime_error("Empty stack on minus!");
 
         auto t = stack.top();
 //        cout << "Abs " << (int64_t)t << endl;
@@ -111,12 +111,9 @@ public:
     explicit Plus(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        if (stack.empty()) throw std::runtime_error("Empty stack on plus!");
+        if (stack.size() < 2) throw std::runtime_error("Empty stack on plus!");
 
-        auto a = stack.top();
-        stack.pop();
-        auto b = stack.top();
-        stack.pop();
+        auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
 //        cout << (int64_t)a << " + " << (int64_t)b << endl;
         stack.push(a + b);
     }
@@ -127,12 +124,9 @@ public:
     explicit Minus(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        if (stack.empty()) throw std::runtime_error("Empty stack on minus!");
+        if (stack.size() < 2) throw std::runtime_error("Empty stack on minus!");
 
-        auto a = stack.top();
-        stack.pop();
-        auto b = stack.top();
-        stack.pop();
+        auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
 //        cout << (int64_t)b << " - " << (int64_t)a << endl;
         stack.push(b - a);
     }
@@ -143,12 +137,9 @@ public:
     explicit Mul(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        if (stack.empty()) throw std::runtime_error("Empty stack on mul!");
+        if (stack.size() < 2) throw std::runtime_error("Empty stack on mul!");
 
-        auto a = stack.top();
-        stack.pop();
-        auto b = stack.top();
-        stack.pop();
+        auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
 //        cout << (int64_t)a << " * " << (int64_t)b << endl;
         stack.push(a * b);
     }
@@ -159,12 +150,8 @@ public:
     explicit Div(string &_args) : Command(_args) {}
 
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
-        if (stack.empty()) throw std::runtime_error("Empty stack on div!");
-
-        auto a = stack.top();
-        stack.pop();
-        auto b = stack.top();
-        stack.pop();
+        if (stack.size() < 2) throw std::runtime_error("Empty stack on minus!");
+        auto a = stack.top(); stack.pop(); auto b = stack.top(); stack.pop();
 //        cout << (int64_t)b << " / " << (int64_t)a << endl;
         stack.push(b / a);
     }
@@ -177,7 +164,7 @@ public:
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
         if (stack.empty()) throw std::runtime_error("Empty stack on print!");
         auto a = stack.top();
-        std::cout << (int64_t) a << std::endl;
+        std::cout << (int64_t)a << std::endl;
         m["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"] = a;
     }
 };
@@ -189,9 +176,10 @@ public:
     void exec(stack<SafeInt<int64_t>> &stack, map<string, SafeInt<int64_t>> &m) override {
         int64_t a;
         std::cin >> a;
-        stack.push((SafeInt<int64_t>) a);
+        stack.push((SafeInt<int64_t>)a);
     }
 };
+
 
 
 #endif //CPP_LABS_COMMANDS_H
