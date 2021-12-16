@@ -76,11 +76,11 @@ int main(int args, char* argv[])
 	 try {
 		 if (mode == 1)
 		 {
-			 std::cout << std::hex << hashfunc::adler32(file) << std::endl;
+			 std::cout << std::hex << adler32(file) << std::endl;
 		 }
 		 else if (mode == 2) 
 		 {
-			 std::cout << std::hex << hashfunc::sum64(file) << std::endl;
+			 std::cout << std::hex << sum64(file) << std::endl;
 		 }
 	 }
 	 catch (std::exception& e) {

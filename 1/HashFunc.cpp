@@ -1,7 +1,7 @@
 ﻿#include "HashFunc.h"
 #include <iostream>
 #include <fstream>
-namespace hashfunc {
+
 	uint32_t adler32(std::istream& file)
 	{
 		uint32_t a = 1, b = 0;
@@ -35,4 +35,3 @@ namespace hashfunc {
 		}
 		return sum;
 	}
-}
