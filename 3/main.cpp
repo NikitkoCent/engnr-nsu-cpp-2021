@@ -4,10 +4,6 @@
 
 using namespace std;
 
-int worker(string path){
-    cout << "Test" << endl;
-    return 1337;
-}
 
 int main() {
 //    ThreadPool tp(4);
@@ -32,8 +28,11 @@ int main() {
 //        tp.submit(move([i]{ return i; }));
 //    }
 
-    Task<int> t1(move([] { return 1337; }));
+    Task<int> t1([a=228]{ return a; });
 
+//    SafeQueue<int> a;
+//    int b = 2;
+//    a.push(b);
 
     std::cout << "Hello, World!" << std::endl;
     return 0;

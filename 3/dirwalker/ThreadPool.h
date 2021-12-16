@@ -38,7 +38,7 @@ public:
 
 template<typename T>
 Task<T>::Task(std::function<T()> &&t) {
-    task = t;
+//    task = t;
     tasks.push(t);
     std::cout << "Tasks: " << &tasks << std::endl;
 }
