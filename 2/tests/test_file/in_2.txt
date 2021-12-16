@@ -1,0 +1,12 @@
+# myVar = 90
+PUSH -90
+PUSH 1
+MUL
+ABS
+PEEK myVar
+# PRINT 90 / 45
+POP
+PUSH myVar
+PUSH 45
+DIV
+PRINT
