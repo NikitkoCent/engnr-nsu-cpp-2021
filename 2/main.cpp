@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
                 return 0;
         }
         command_processing(file, argc);
-    } catch (StackException &e) {
+    } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
         return 1;
     }

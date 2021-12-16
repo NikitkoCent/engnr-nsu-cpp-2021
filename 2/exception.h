@@ -2,11 +2,11 @@
 
 #include <iostream>
 
-class StackException : public std::runtime_error {
+class StackException : public std::exception {
 public:
     std::string text = "ERROR: ";
 
-    explicit StackException() : std::runtime_error(text) {
+    StackException() : std::exception() {
     };
 
     virtual std::string what() = 0;
@@ -29,7 +29,7 @@ public:
     EmptyStack() : empty("Empty stack error: ") {
     };
 
-    virtual std::string what() override;
+    std::string what() override;
 };
 
 class FewElementError : public StackException {
@@ -137,15 +137,4 @@ public:
     virtual std::string what() override;
 };
 
-
-
-class ReadException : public WrongArgument {
-public:
-    std::string read;
-
-    explicit ReadException() : read("READ operation failed.") {
-    };
-
-    virtual std::string what() override;
-};
 

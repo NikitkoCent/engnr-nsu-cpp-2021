@@ -53,6 +53,3 @@ std::string PrintException::what() {
 }
 
 
-std::string ReadException::what() {
-    return text + wrong + read;
-}
