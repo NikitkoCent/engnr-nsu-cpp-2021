@@ -243,18 +243,23 @@ Command *StackCalc::read_command(std::string &command_line) {
 
 
 StackCalc OneCommandRead(){
-    StackCalc calculator;
-    std::string command_line = "s";
-    while (!std::cin.eof()) {
-        getline(std::cin, command_line);
-        if (command_line.empty()) continue;
+    try {
+        StackCalc calculator;
+        std::string command_line = "s";
+        while (!std::cin.eof()) {
+            getline(std::cin, command_line);
+            if (command_line.empty()) continue;
             std::unique_ptr<Command> cmd(calculator.read_command(command_line));
-            if(cmd == nullptr){
+            if (cmd == nullptr) {
                 continue;
             }
             calculator.command(std::move(cmd));
+        }
+        return calculator;
+    }catch(std::exception &e){
+        std::cerr << "WINDA GOVNO" << std::endl;
+        throw e;
     }
-    return calculator;
 }
 
 
