@@ -13,5 +13,5 @@ include_directories(libs/googletest/googletest/include)
 include_directories(libs/SafeInt/Test)
 
 add_executable(2lab main.cpp Calculator.h command_processing.h exception.h exception.cpp)
-target_link_libraries(2lab)
+target_link_libraries(2lab gtest)
 
