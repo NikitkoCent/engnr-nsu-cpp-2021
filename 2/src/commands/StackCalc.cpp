@@ -175,6 +175,10 @@ void Print::command(ContextExecution &context_execution) {
         std::cout << "Kavo kavo kavo" << std::endl;
         std::cerr << "Winda kal" << std::endl;
         throw e;
+    }catch(std::runtime_error &e){
+        std::cout << "Kavo kavo kto" << std::endl;
+        std::cerr << "Winda kal" << std::endl;
+        throw e;
     }
 }
 
