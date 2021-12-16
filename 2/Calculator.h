@@ -50,7 +50,7 @@ class Plus final : public Command {
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2) {
-            throw Plus();
+            throw PlusException();
         }
         int64_t first_element = values.top(); values.pop();
         int64_t second_element = values.top(); values.pop();
@@ -126,7 +126,7 @@ class Peek : public Command {
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
         if(values.empty()) {
-            PeekException();
+            throw PeekException();
         }
         std::string varname = tokens[1];
         names_and_values[varname] = values.top();
@@ -140,7 +140,7 @@ class Abs : public Command {
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
         if(values.empty()) {
-            AbsException();
+            throw AbsException();
         }
         int64_t value = values.top();
         values.pop();
@@ -158,7 +158,7 @@ class Pop : public Command {
         if (!values.empty())
             values.pop();
         else {
-            PopException();
+            throw PopException();
         }
     }
 };
@@ -220,8 +220,7 @@ public:
         } else if (tag == "POP") {
             return new Pop();
         } else {
-            std::cerr << "ERROR";
-            throw std::runtime_error("sad");
+            throw WrongArgument();
         }
     }
 };
