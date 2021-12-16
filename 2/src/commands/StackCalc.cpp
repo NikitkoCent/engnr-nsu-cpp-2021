@@ -164,6 +164,7 @@ Division::command(ContextExecution &context_execution) {
 }
 
 std::string PrintException::what() {
+    std::cerr << text << empty << print << std::endl;
     return text + empty + print;
 }
 

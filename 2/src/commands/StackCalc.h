@@ -12,11 +12,11 @@
 #include <memory>
 
 
-class StackException: public std::runtime_error{
+class StackException: public std::runtime_error {
 public:
     std::string text = "ERROR: ";
-    StackException() : std::runtime_error(text) {
-        std::cerr << text << std::endl;
+
+    explicit StackException() : std::runtime_error(text) {
     };
 
     virtual std::string what() = 0;
@@ -226,7 +226,7 @@ class PrintException : public EmptyStack {
 public:
     std::string print;
 
-    PrintException() : print("PRINT operation failed.") {
+    explicit PrintException() : print("PRINT operation failed.") {
     };
 
     virtual std::string what() override;
