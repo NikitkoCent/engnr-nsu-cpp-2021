@@ -2,15 +2,15 @@
 
 project (Lab1)
 set(CMAKE_CXX_STANDARD 17)
-add_executable(worker main.cpp HashFunc.h HashFunc.cpp)
+add_executable(lab1_hash main.cpp HashFunc.h HashFunc.cpp)
 
 if (MSVC)
-    target_compile_options(worker
+    target_compile_options(lab1_hash
         PRIVATE /W4          # warnings level
         PRIVATE /WX          # treat all warnings as errors
     )
 else()
-    target_compile_options(worker
+    target_compile_options(lab1_hash
         PRIVATE -Wall        # basic set of warnings
         PRIVATE -pedantic    # modern C++ inspections
         PRIVATE -Werror      # treat all warnings as errors

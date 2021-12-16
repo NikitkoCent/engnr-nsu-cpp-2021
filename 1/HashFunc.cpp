@@ -1,4 +1,5 @@
-﻿#include "HashFunc.h"
+﻿#pragma once
+#include "HashFunc.h"
 #include <iostream>
 #include <fstream>
 
