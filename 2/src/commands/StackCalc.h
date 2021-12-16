@@ -12,50 +12,89 @@
 #include <memory>
 
 
-class StackException: public std::runtime_error {
+//class StackException : public std::runtime_error {
+//public:
+//    std::string text = "ERROR: ";
+//
+//    explicit StackException() : std::runtime_error(text) {
+//    };
+//
+//    virtual std::string what() {
+//        return text;
+//    };
+//};
+
+//class WrongArgument : public StackException {
+//public:
+//    std::string wrong;
+//
+//    WrongArgument() : wrong("HUI") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
+//class EmptyStack : public StackException {
+//public:
+//    std::string empty;
+//
+//    EmptyStack() : empty("Empty stack error: ") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
+//class FewElementError : public StackException {
+//public:
+//    std::string few_elem;
+//
+//    FewElementError() : few_elem("Too few elements in stack for operation:") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
+
+
+
+
+class StackException : public std::runtime_error {
+    std::string what_message = "Error: ";
 public:
-    std::string text = "ERROR: ";
+    StackException(const std::string &whatMessage) : runtime_error(whatMessage),
+                                                what_message(whatMessage) {};
 
-    explicit StackException() : std::runtime_error(text) {
-    };
-
-    virtual std::string what() = 0;
+    const char *what() {
+        return what_message.c_str();
+    }
 };
 
 class WrongArgument : public StackException {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string wrong;
-
-    WrongArgument() : wrong("Wrong argument ") {
-    };
-
-    virtual std::string what() override;
+    WrongArgument(const std::string &whatMessage) : StackException(whatMessage) {}
+    WrongArgument() : StackException("WrongArg") {}
 };
 
 class EmptyStack : public StackException {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string empty;
-
-    EmptyStack() : empty("Empty stack error: ") {
-    };
-
-    virtual std::string what() override;
+    EmptyStack(const std::string &whatMessage) : StackException(whatMessage) {}
+    EmptyStack() : StackException("Stack is Empty") {}
 };
 
 class FewElementError : public StackException {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string few_elem;
-
-    FewElementError() : few_elem("Too few elements in stack for operation:") {
-    };
-
-    virtual std::string what() override;
+    FewElementError(const std::string &whatMessage) : StackException(whatMessage) {}
+    FewElementError() : StackException("FewElementError") {}
 };
-
-//class CustomException : public SafeIntException {
-//public:
-//    static void SafeIntOnOverflow();
-//};
 
 
 typedef struct context_execution {
@@ -77,14 +116,23 @@ protected:
     std::string params;
 };
 
+//class PopException : public EmptyStack {
+//public:
+//    std::string pop;
+//
+//    PopException() : pop("POP operation failed.") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
 class PopException : public EmptyStack {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string pop;
-
-    PopException() : pop("POP operation failed.") {
-    };
-
-    virtual std::string what() override;
+    PopException(const std::string &whatMessage) : EmptyStack(whatMessage) {}
+    PopException() : EmptyStack("POP operation failed.") {}
 };
 
 class Pop : public Command {
@@ -96,14 +144,23 @@ public:
 
 };
 
+//class PushException : public WrongArgument {
+//public:
+//    std::string push;
+//
+//    explicit PushException() : push("Variable doesn't exist. PUSH operation failed.") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
 class PushException : public WrongArgument {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string push;
-
-    explicit PushException() : push("Variable doesn't exist. PUSH operation failed.") {
-    };
-
-    virtual std::string what() override;
+    PushException(const std::string &whatMessage) : WrongArgument(whatMessage) {}
+    PushException() : WrongArgument("PUSH operation failed.") {}
 };
 
 class Push : public Command {
@@ -114,14 +171,23 @@ public:
     command(ContextExecution &context_execution) override;
 };
 
+//class PeekException : public EmptyStack {
+//public:
+//    std::string peek;
+//
+//    explicit PeekException() : peek("PEEK operation failed.") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
 class PeekException : public EmptyStack {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string peek;
-
-    explicit PeekException() : peek("PEEK operation failed.") {
-    };
-
-    virtual std::string what() override;
+    PeekException(const std::string &whatMessage) : EmptyStack(whatMessage) {}
+    PeekException() : EmptyStack("PEEK operation failed.") {}
 };
 
 class Peek : public Command {
@@ -132,14 +198,24 @@ public:
     command(ContextExecution &context_execution) override;
 };
 
+
+//class AbsException : public EmptyStack {
+//public:
+//    std::string abs;
+//
+//    explicit AbsException() : abs("ABS operation failed.") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
 class AbsException : public EmptyStack {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string abs;
-
-    explicit AbsException() : abs("ABS operation failed.") {
-    };
-
-    virtual std::string what() override;
+    AbsException(const std::string &whatMessage) : EmptyStack(whatMessage) {}
+    AbsException() : EmptyStack("ABS operation failed.") {}
 };
 
 class Abs : public Command {
@@ -150,14 +226,23 @@ public:
     command(ContextExecution &context_execution) override;
 };
 
+//class PlusException : public FewElementError {
+//public:
+//    std::string plus;
+//
+//    explicit PlusException() : plus("PLUS operation failed.") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
 class PlusException : public FewElementError {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string plus;
-
-    explicit PlusException() : plus("PLUS operation failed.") {
-    };
-
-    virtual std::string what() override;
+    PlusException(const std::string &whatMessage) : FewElementError(whatMessage) {}
+    PlusException() : FewElementError("PLUS operation failed.") {}
 };
 
 class Plus : public Command {
@@ -168,14 +253,23 @@ public:
     command(ContextExecution &context_execution) override;
 };
 
+//class MinusException : public FewElementError {
+//public:
+//    std::string minus;
+//
+//    explicit MinusException() : minus("MINUS operation failed.") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
 class MinusException : public FewElementError {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string minus;
-
-    explicit MinusException() : minus("MINUS operation failed.") {
-    };
-
-    virtual std::string what() override;
+    MinusException(const std::string &whatMessage) : FewElementError(whatMessage) {}
+    MinusException() : FewElementError("MINUS operation failed.") {}
 };
 
 class Minus : public Command {
@@ -186,14 +280,23 @@ public:
     command(ContextExecution &context_execution) override;
 };
 
+//class MultiplyException : public FewElementError {
+//public:
+//    std::string mul;
+//
+//    explicit MultiplyException() : mul("MUL operation failed.") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
 class MultiplyException : public FewElementError {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string mul;
-
-    explicit MultiplyException() : mul("MUL operation failed.") {
-    };
-
-    virtual std::string what() override;
+    MultiplyException(const std::string &whatMessage) : FewElementError(whatMessage) {}
+    MultiplyException() : FewElementError("MUL operation failed.") {}
 };
 
 class Multiply : public Command {
@@ -204,14 +307,23 @@ public:
     command(ContextExecution &context_execution) override;
 };
 
+//class DivisionException : public FewElementError {
+//public:
+//    std::string div;
+//
+//    explicit DivisionException() : div("DIV operation failed.") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
 class DivisionException : public FewElementError {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string div;
-
-    explicit DivisionException() : div("DIV operation failed.") {
-    };
-
-    virtual std::string what() override;
+    DivisionException(const std::string &whatMessage) : FewElementError(whatMessage) {}
+    DivisionException() : FewElementError("DIV operation failed.") {}
 };
 
 class Division : public Command {
@@ -222,14 +334,23 @@ public:
     command(ContextExecution &context_execution) override;
 };
 
+//class PrintException : public EmptyStack {
+//public:
+//    std::string print;
+//
+//    explicit PrintException() : print("PRINT operation failed.") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
 class PrintException : public EmptyStack {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string print;
-
-    explicit PrintException() : print("PRINT operation failed.") {
-    };
-
-    virtual std::string what() override;
+    PrintException(const std::string &whatMessage) : EmptyStack(whatMessage) {}
+    PrintException() : EmptyStack("PRINT operation failed.") {}
 };
 
 class Print : public Command {
@@ -240,14 +361,23 @@ public:
     command(ContextExecution &context_execution) override;
 };
 
+//class ReadException : public WrongArgument {
+//public:
+//    std::string read;
+//
+//    explicit ReadException() : read("READ operation failed.") {
+//    };
+//
+//    virtual std::string what() override;
+//};
+
 class ReadException : public WrongArgument {
+private:
+//    std::string what_message = "KEK";
+
 public:
-    std::string read;
-
-    explicit ReadException() : read("READ operation failed.") {
-    };
-
-    virtual std::string what() override;
+    ReadException(const std::string &whatMessage) : WrongArgument(whatMessage) {}
+    ReadException() : WrongArgument("READ operation failed.") {}
 };
 
 class Read : public Command {
@@ -281,3 +411,10 @@ StackCalc ReadFromStream(std::istream &str);
 StackCalc OneCommandRead();
 
 #endif
+
+
+
+
+
+
+
