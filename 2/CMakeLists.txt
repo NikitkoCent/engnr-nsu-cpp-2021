@@ -7,6 +7,8 @@ add_subdirectory(libs/googletest)
 add_subdirectory(libs/SafeInt)
 add_subdirectory(tests)
 
+enable_testing()
+
 include_directories(libs/googletest/googletest/include)
 include_directories(libs/SafeInt/Test)
 
