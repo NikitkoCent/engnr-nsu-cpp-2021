@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-uint32_t adler32(std::istream& file)
+uint32_t hashpunk::adler32(std::istream &file)
 {
 	uint32_t a = 1, b = 0;
 	unsigned char s;
@@ -14,7 +14,7 @@ uint32_t adler32(std::istream& file)
 	return ((b << 16) | a);
 }
 
-uint64_t sum64(std::istream& file)
+uint64_t hashpunk::sum64(std::istream &file)
 {
 	uint64_t sum = 0, k = 0;
 	int g = 0;
