@@ -12,10 +12,11 @@
 #include <memory>
 
 
-class StackException: public std::exception{
+class StackException: public std::runtime_error{
 public:
     std::string text = "ERROR: ";
-    StackException() : std::exception() {
+    StackException() : std::runtime_error(text) {
+        std::cerr << text << std::endl;
     };
 
     virtual std::string what() = 0;

@@ -31,7 +31,6 @@ void Pop::command(ContextExecution &context_execution) {
     if (!context_execution.stack.empty()) {
         context_execution.stack.pop();
     } else {
-        std::cerr << "Kakaya-to hernya" << std::endl;
         throw PopException();
     }
 }
@@ -176,7 +175,6 @@ void Print::command(ContextExecution &context_execution) {
         context_execution.variables["result"] = val;
         std::cout << (int64_t) val << std::endl;
     } else {
-        std::cerr << "Kakaya-to hernya" << std::endl;
         throw PrintException();
     }
 }
