@@ -31,6 +31,7 @@ void Pop::command(ContextExecution &context_execution) {
     if (!context_execution.stack.empty()) {
         context_execution.stack.pop();
     } else {
+        std::cerr << "Kakaya-to hernya" << std::endl;
         throw PopException();
     }
 }
@@ -170,9 +171,7 @@ std::string PrintException::what() {
 Print::Print(std::string &args) : Command(args) {}
 
 void Print::command(ContextExecution &context_execution) {
-//    try {
     if (!context_execution.stack.empty()) {
-//        std::cout << "Ya tyt" << std::endl;
         SafeInt<int64_t> val = context_execution.stack.top();
         context_execution.variables["result"] = val;
         std::cout << (int64_t) val << std::endl;
@@ -180,15 +179,6 @@ void Print::command(ContextExecution &context_execution) {
         std::cerr << "Kakaya-to hernya" << std::endl;
         throw PrintException();
     }
-//    }catch(std::exception &e){
-//        std::cout << "Kavo kavo kavo" << std::endl;
-//        std::cerr << "Winda kal" << std::endl;
-//        throw e;
-//    }catch(std::runtime_error &e){
-//        std::cout << "Kavo kavo kto" << std::endl;
-//        std::cerr << "Winda kal" << std::endl;
-//        throw e;
-//    }
 }
 
 std::string ReadException::what() {
