@@ -1,55 +1,42 @@
 #include "exception.h"
 
-std::string WrongArgument::what() {
-    return text + wrong;
+AbsException::AbsException(std::string text_) {
+    text = text_;
 }
 
-std::string EmptyStack::what() {
-    return text + empty;
+PrintException::PrintException(std::string text_) {
+    text = text_;
 }
 
-std::string FewElementError::what() {
-    return text + few_elem;
+DivException::DivException(std::string text_) {
+    text = text_;
 }
 
-std::string PopException::what() {
-    return text + empty + pop;
+MulException::MulException(std::string text_) {
+    text = text_;
 }
 
-std::string PushException::what() {
-    return text + wrong + push;
+PlusException::PlusException(std::string text_) {
+    text = text_;
 }
 
-std::string PeekException::what() {
-    return text + empty + peek;
+MinusException::MinusException(std::string text_) {
+    text = text_;
 }
 
-
-std::string AbsException::what() {
-    return text + empty + abs;
+PushException::PushException(std::string text_) {
+    text = text_;
 }
 
-
-std::string PlusException::what() {
-    return text + few_elem + plus;
-}
-
-std::string MinusException::what() {
-    return text + few_elem + minus;
-}
-
-std::string MultiplyException::what() {
-    return text + few_elem + mul;
+PeekException::PeekException(std::string text_) {
+    text = text_;
 }
 
 
-std::string DivisionException::what() {
-    return text + few_elem + div;
+PopException::PopException(std::string text_) {
+    text = text_;
 }
 
-
-std::string PrintException::what() {
-    return text + empty + print;
+CommandException::CommandException(std::string text_) {
+    text = text_;
 }
-
-

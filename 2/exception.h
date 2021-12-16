@@ -3,138 +3,219 @@
 #include <iostream>
 
 class StackException : public std::exception {
+protected:
+    std::string text = " ERROR: ";
 public:
-    std::string text = "ERROR: ";
-
-    StackException() : std::exception() {
-    };
 
     virtual std::string what() = 0;
 };
 
-class WrongArgument : public StackException {
+class DivException : public StackException {
 public:
-    std::string wrong;
+    DivException() {
+        text += " div exception ";
+    }
+    explicit DivException(std::string text_);
 
-    WrongArgument() : wrong("Wrong argument ") {
-    };
-
-    virtual std::string what() override;
+    std::string what() override {
+        return text;
+    }
 };
 
-class EmptyStack : public StackException {
+class ZeroDivisionException : public DivException {
 public:
-    std::string empty;
-
-    EmptyStack() : empty("Empty stack error: ") {
-    };
-
-    std::string what() override;
+    ZeroDivisionException() : DivException() {
+        text += " zero division error ";
+    }
+    std::string what() {
+        return text;
+    }
 };
 
-class FewElementError : public StackException {
+class MulException : public StackException {
 public:
-    std::string few_elem;
-
-    FewElementError() : few_elem("Too few elements in stack for operation:") {
-    };
-
-    virtual std::string what() override;
+    MulException() {
+        text += " mul exception ";
+    }
+    MulException(std::string text_);
+    std::string what() {
+        return text;
+    }
 };
 
-class PopException : public EmptyStack {
+class PlusException : public StackException {
 public:
-    std::string pop;
-
-    PopException() : pop("POP operation failed.") {
-    };
-
-    virtual std::string what() override;
+    PlusException() {
+        text += " plus exception ";
+    }
+    PlusException(std::string text_);
+    std::string what() {
+        return text;
+    }
 };
 
-class PushException : public WrongArgument {
+class MinusException : public StackException {
 public:
-    std::string push;
-
-    explicit PushException() : push("Variable doesn't exist. PUSH operation failed.") {
-    };
-
-    virtual std::string what() override;
+    MinusException() {
+        text += " minus exception ";
+    }
+    MinusException(std::string text_);
+    std::string what() {
+        return text;
+    }
 };
 
-class PeekException : public EmptyStack {
+class PrintException : public StackException {
 public:
-    std::string peek;
-
-    explicit PeekException() : peek("PEEK operation failed.") {
-    };
-
-    virtual std::string what() override;
+    PrintException() {
+        text += " print exception ";
+    }
+    PrintException(std::string text_);
+    std::string what() {
+        return text;
+    }
 };
 
-
-class AbsException : public EmptyStack {
+class PrintEmptyStack : public PrintException {
 public:
-    std::string abs;
+    PrintEmptyStack() : PrintException() {
+        text += " empty stack ";
+    }
 
-    explicit AbsException() : abs("ABS operation failed.") {
-    };
-
-    virtual std::string what() override;
-};
-
-
-class PlusException : public FewElementError {
-public:
-    std::string plus;
-
-    explicit PlusException() : plus("PLUS operation failed.") {
-    };
-
-    virtual std::string what() override;
+    std::string what() {
+        return text;
+    }
 };
 
 
-class MinusException : public FewElementError {
+class DivEmptyStack : public DivException {
 public:
-    std::string minus;
+    DivEmptyStack() : DivException() {
+        text += " empty stack ";
+    }
 
-    explicit MinusException() : minus("MINUS operation failed.") {
-    };
-
-    virtual std::string what() override;
+    std::string what() {
+        return text;
+    }
 };
 
-
-class MultiplyException : public FewElementError {
+class PlusEmptyStack : public PlusException {
 public:
-    std::string mul;
+    PlusEmptyStack() : PlusException() {
+        text += " empty stack ";
+    }
 
-    explicit MultiplyException() : mul("MUL operation failed.") {
-    };
-
-    virtual std::string what() override;
+    std::string what() {
+        return text;
+    }
 };
 
-
-class DivisionException : public FewElementError {
+class MinusEmptyStack : public MinusException {
 public:
-    std::string div;
+    MinusEmptyStack() : MinusException() {
+        text += " empty stack ";
+    }
 
-    explicit DivisionException() : div("DIV operation failed.") {
-    };
-
-    virtual std::string what() override;
+    std::string what() {
+        return text;
+    }
 };
 
-class PrintException : public EmptyStack {
+class MulEmptyStack : public MulException {
 public:
-    std::string print;
+    MulEmptyStack() : MulException() {
+        text += " empty stack ";
+    }
 
-    PrintException() : print("PRINT operation failed.") {
-    };
-
-    virtual std::string what() override;
+    std::string what() {
+        return text;
+    }
 };
 
+class PushException : public StackException {
+public:
+    PushException() {
+        text += " push exception ";
+    }
+    PushException(std::string text_);
+    std::string what() {
+        return text;
+    }
+};
 
+class PeekException : public StackException {
+public:
+    PeekException() {
+        text += " peek exception ";
+    }
+    PeekException(std::string text_);
+    std::string what() {
+        return text;
+    }
+};
+
+class PeekEmptyStack : public PeekException {
+public:
+    PeekEmptyStack() : PeekException() {
+        text += " empty stack ";
+    }
+
+    std::string what() {
+        return text;
+    }
+};
+
+class AbsException : public StackException {
+public:
+    AbsException() {
+        text += " abs exception ";
+    }
+    AbsException(std::string text_);
+    std::string what() {
+        return text;
+    }
+};
+
+class AbsStackEmpty : public AbsException {
+public:
+    AbsStackEmpty() : AbsException() {
+        text += " empty stack ";
+    }
+
+    std::string what() {
+        return text;
+    }
+};
+
+class PopException : public StackException {
+public:
+    PopException() {
+        text += " pop exception ";
+    }
+    PopException(std::string text_);
+    std::string what() {
+        return text;
+    }
+};
+
+class PopStackEmpty : public PopException {
+public:
+    PopStackEmpty() : PopException() {
+        text += " empty stack ";
+    }
+
+    std::string what() {
+        return text;
+    }
+};
+
+class CommandException : public StackException {
+public:
+    CommandException() {
+        text += " command exception ";
+    }
+    CommandException(std::string text_);
+    std::string what() {
+        return text;
+    }
+};

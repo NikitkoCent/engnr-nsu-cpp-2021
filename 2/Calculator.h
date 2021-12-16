@@ -38,7 +38,9 @@ class Print final : public Command {
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
         if(values.empty()) {
-            throw PrintException();
+            throw PrintEmptyStack();
+//            std::cerr << "ERROR";
+//            throw std::runtime_error("ERROR");
         }
         std::cout << std::to_string((int64_t)values.top()) << std::endl;
     }
@@ -50,7 +52,9 @@ class Plus final : public Command {
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2) {
-            throw PlusException();
+            throw PlusEmptyStack();
+//            std::cerr << "ERROR";
+//            throw std::runtime_error("ERROR");
         }
         int64_t first_element = values.top(); values.pop();
         int64_t second_element = values.top(); values.pop();
@@ -64,7 +68,9 @@ class Minus : public Command {
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2) {
-            throw MinusException();
+//            std::cerr << "ERROR";
+//            throw std::runtime_error("ERROR");
+            throw MinusEmptyStack();
         }
         int64_t first_element = values.top(); values.pop();
         int64_t second_element = values.top(); values.pop();
@@ -78,7 +84,9 @@ class Mul : public Command {
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2) {
-            throw MultiplyException();
+//            std::cerr << "ERROR";
+//            throw std::runtime_error("ERROR");
+            throw MulEmptyStack();
         }
         int64_t first_element = values.top(); values.pop();
         int64_t second_element = values.top(); values.pop();
@@ -92,12 +100,16 @@ class Div : public Command {
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
         if (values.size() < 2) {
-            throw DivisionException();
+//            std::cerr << "ERROR";
+//            throw std::runtime_error("ERROR");
+            throw DivEmptyStack();
         }
         int64_t first_element = values.top(); values.pop();
         int64_t second_element = values.top(); values.pop();
         if (first_element == 0) {
-            throw DivisionException();
+            throw DivException();
+//            std::cerr << "ERROR";
+//            throw std::runtime_error("ERROR");
         }
         values.push(second_element / first_element);
     }
@@ -114,6 +126,8 @@ class Push : public Command {
         } else {
             if (names_and_values.find(varname) == names_and_values.end()) {
                 throw PushException();
+//                std::cerr << "ERROR";
+//                throw std::runtime_error("ERROR");
             }
             values.push(names_and_values[varname]);
         }
@@ -126,7 +140,9 @@ class Peek : public Command {
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
         if(values.empty()) {
-            throw PeekException();
+            throw PeekEmptyStack();
+//            std::cerr << "ERROR";
+//            throw std::runtime_error("ERROR");
         }
         std::string varname = tokens[1];
         names_and_values[varname] = values.top();
@@ -140,7 +156,9 @@ class Abs : public Command {
               std::map<std::string, SafeInt<int64_t>> &names_and_values,
               int64_t &result, std::ifstream& in, int args) override {
         if(values.empty()) {
-            throw AbsException();
+            throw AbsStackEmpty();
+//            std::cerr << "ERROR";
+//            throw std::runtime_error("ERROR");
         }
         int64_t value = values.top();
         values.pop();
@@ -158,7 +176,9 @@ class Pop : public Command {
         if (!values.empty())
             values.pop();
         else {
-            throw PopException();
+            throw PopStackEmpty();
+//            std::cerr << "ERROR";
+//            throw std::runtime_error("ERROR");
         }
     }
 };
@@ -220,7 +240,9 @@ public:
         } else if (tag == "POP") {
             return new Pop();
         } else {
-            throw WrongArgument();
+            throw CommandException();
+//            std::cerr << "ERROR";
+//            throw std::runtime_error("ERROR");
         }
     }
 };

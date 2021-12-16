@@ -1,7 +1,9 @@
 #include "command_processing.h"
+#include "exception.h"
 
 int main(int argc, char *argv[]) {
     try {
+        argc = 1;
         std::ifstream file;
         const char *filepath;
         if (argc > 2 || argc == 0)
@@ -15,7 +17,7 @@ int main(int argc, char *argv[]) {
                 return 0;
         }
         command_processing(file, argc);
-    } catch (std::exception &e) {
+    } catch (StackException &e) {
         std::cerr << e.what() << std::endl;
         return 1;
     }

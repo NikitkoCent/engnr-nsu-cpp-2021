@@ -2,6 +2,7 @@
 #include "gtest/gtest.h"
 #include "../libs/SafeInt/SafeInt.hpp"
 
+
 #include <sstream>
 
 TEST(test1, test_1) {
@@ -61,7 +62,6 @@ TEST(test5, test_5) {
     std::string result = "300\n";
     command_processing(in, 2);
     std::string output = testing::internal::GetCapturedStdout();
-    std::cout << output;
     EXPECT_EQ(output, result);
 }
 
