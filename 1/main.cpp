@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <cstring>
-#include "HashFunc.cpp"
+#include "HashFunc.h"
 
 int main(int args, char* argv[])
 {
