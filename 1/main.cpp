@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include "HashFunc.cpp"
 
 int main(int args, char* argv[])
