@@ -161,12 +161,16 @@ std::string PrintException::what() {
 
 Print::Print(std::string &args) : Command(args) {}
 void Print::command(ContextExecution &context_execution) {
-    if(!context_execution.stack.empty()) {
-        SafeInt<int64_t> val = context_execution.stack.top();
-        context_execution.variables["result"] = val;
-        std::cout << (int64_t)val << std::endl;
-    }else{
-        throw PrintException();
+    try {
+        if (!context_execution.stack.empty()) {
+            SafeInt<int64_t> val = context_execution.stack.top();
+            context_execution.variables["result"] = val;
+            std::cout << (int64_t) val << std::endl;
+        } else {
+            throw PrintException();
+        }
+    }catch(std::exception &e){
+        throw std::runtime_error("Х*Й");
     }
 }
 

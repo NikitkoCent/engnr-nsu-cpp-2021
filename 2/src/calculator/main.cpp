@@ -42,15 +42,15 @@ int main(int argc, char *argv[]) {
             }
             ReadFromStream(file);
         }
-    } catch (StackException &e) {
-        std::cerr << e.what() << std::endl;
-        return 1;
     } catch (std::runtime_error &e) {
         std::cerr << e.what() << std::endl;
-        return 1;
-    }catch (SafeIntException &e) {
+        return 2;
+    } catch (SafeIntException &e) {
         std::cerr << "Integer operation exception";
-        return 1;
+        return 3;
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return 4;
     }
     return 0;
 }
