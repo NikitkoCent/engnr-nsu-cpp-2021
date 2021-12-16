@@ -163,6 +163,7 @@ Print::Print(std::string &args) : Command(args) {}
 void Print::command(ContextExecution &context_execution) {
     try {
         if (!context_execution.stack.empty()) {
+            std::cout << "Ya tyt" << std::endl;
             SafeInt<int64_t> val = context_execution.stack.top();
             context_execution.variables["result"] = val;
             std::cout << (int64_t) val << std::endl;
@@ -170,6 +171,7 @@ void Print::command(ContextExecution &context_execution) {
             throw PrintException();
         }
     }catch(std::exception &e){
+        std::cout << "Kavo kavo kavo" << std::endl;
         std::cerr << "Winda kal" << std::endl;
         throw e;
     }
@@ -238,6 +240,7 @@ Command *StackCalc::read_command(std::string &command_line) {
             operation = new Comment(command);
         }
     }
+    std::cout << command << std::endl;
     return operation;
 }
 
