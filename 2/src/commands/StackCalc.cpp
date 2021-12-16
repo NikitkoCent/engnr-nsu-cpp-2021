@@ -172,7 +172,7 @@ Print::Print(std::string &args) : Command(args) {}
 void Print::command(ContextExecution &context_execution) {
 //    try {
     if (!context_execution.stack.empty()) {
-        std::cout << "Ya tyt" << std::endl;
+//        std::cout << "Ya tyt" << std::endl;
         SafeInt<int64_t> val = context_execution.stack.top();
         context_execution.variables["result"] = val;
         std::cout << (int64_t) val << std::endl;
