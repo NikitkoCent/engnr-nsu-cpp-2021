@@ -1,5 +1,4 @@
-﻿#pragma once
-#include "HashFunc.h"
+﻿#include "HashFunc.h"
 #include <iostream>
 #include <fstream>
 namespace hashfunc {
