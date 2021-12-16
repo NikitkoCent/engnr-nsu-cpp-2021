@@ -43,12 +43,15 @@ int main(int argc, char *argv[]) {
             ReadFromStream(file);
         }
     } catch (std::runtime_error &e) {
+        std::cerr << "Winda kal" << std::endl;
         std::cerr << e.what() << std::endl;
         return 2;
     } catch (SafeIntException &e) {
+        std::cerr << "Winda kal" << std::endl;
         std::cerr << "Integer operation exception";
         return 3;
     } catch (std::exception &e) {
+        std::cerr << "Winda kal" << std::endl;
         std::cerr << e.what() << std::endl;
         return 4;
     }
