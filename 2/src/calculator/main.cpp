@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
     }  catch (StackException &e) {
         std::cerr << e.what() << std::endl;
         return 1;
-    } catch (std::exception &e) {
+    } catch (std::runtime_error &e) {
         std::cerr << e.what() << std::endl;
         return 1;
     }

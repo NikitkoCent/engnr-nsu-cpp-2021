@@ -5,25 +5,6 @@
 #include <iostream>
 #include <memory>
 
-//std::string WrongArgument::what() {
-//    return text + wrong;
-//}
-//
-//std::string EmptyStack::what() {
-//    return text + empty;
-//}
-//
-//std::string FewElementError::what() {
-//    return text + few_elem;
-//}
-
-//void CustomException::SafeIntOnOverflow(){
-//    std::cerr << "Caught a SafeInt Overflow exception!" << std::endl;
-//}
-
-//std::string PopException::what() {
-//    return text + empty + pop;
-//}
 
 Pop::Pop(std::string &args) : Command(args) {}
 
@@ -36,9 +17,6 @@ void Pop::command(ContextExecution &context_execution) {
     }
 }
 
-//std::string PushException::what() {
-//    return text + wrong + push;
-//}
 
 Push::Push(std::string &args) : Command(args) {}
 
@@ -55,10 +33,6 @@ void Push::command(ContextExecution &context_execution) {
     }
 }
 
-//std::string PeekException::what() {
-//    return text + empty + peek;
-//}
-
 Peek::Peek(std::string &args) : Command(args) {}
 
 void Peek::command(ContextExecution &context_execution) {
@@ -69,9 +43,6 @@ void Peek::command(ContextExecution &context_execution) {
     }
 }
 
-//std::string AbsException::what() {
-//    return text + empty + abs;
-//}
 
 Abs::Abs(std::string &args) : Command(args) {}
 
@@ -89,9 +60,6 @@ void Abs::command(ContextExecution &context_execution) {
     }
 }
 
-//std::string PlusException::what() {
-//    return text + few_elem + plus;
-//}
 
 Plus::Plus(std::string &args) : Command(args) {}
 
@@ -108,10 +76,6 @@ void Plus::command(ContextExecution &context_execution) {
     }
 }
 
-//std::string MinusException::what() {
-//    return text + few_elem + minus;
-//}
-
 Minus::Minus(std::string &args) : Command(args) {}
 
 void Minus::command(ContextExecution &context_execution) {
@@ -126,9 +90,6 @@ void Minus::command(ContextExecution &context_execution) {
     }
 }
 
-//std::string MultiplyException::what() {
-//    return text + few_elem + mul;
-//}
 
 Multiply::Multiply(std::string &args) : Command(args) {}
 
@@ -145,9 +106,6 @@ Multiply::command(ContextExecution &context_execution) {
     }
 }
 
-//std::string DivisionException::what() {
-//    return text + few_elem + div;
-//}
 
 Division::Division(std::string &args) : Command(args) {}
 
@@ -165,10 +123,6 @@ Division::command(ContextExecution &context_execution) {
     }
 }
 
-//std::string PrintException::what() {
-//    std::cerr << text << empty << print << std::endl;
-//    return text + empty + print;
-//}
 
 Print::Print(std::string &args) : Command(args) {}
 
@@ -183,9 +137,6 @@ void Print::command(ContextExecution &context_execution) {
     }
 }
 
-//std::string ReadException::what() {
-//    return text + wrong + read;
-//}
 
 Read::Read(std::string &args) : Command(args) {}
 
@@ -253,7 +204,6 @@ Command *StackCalc::read_command(std::string &command_line) {
 
 
 StackCalc OneCommandRead() {
-//    try {
     StackCalc calculator;
     std::string command_line = "s";
     while (!std::cin.eof()) {
