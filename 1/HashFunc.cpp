@@ -12,7 +12,7 @@ uint32_t adler32(std::istream& file)
 		b = (b + a) % 65521;
 	}
 	return ((b << 16) | a);
-};
+}
 
 uint64_t sum64(std::istream& file)
 {
@@ -34,4 +34,4 @@ uint64_t sum64(std::istream& file)
 		sum += k;
 	}
 	return sum;
-};
+}
