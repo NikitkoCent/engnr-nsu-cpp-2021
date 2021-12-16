@@ -168,6 +168,7 @@ void Print::command(ContextExecution &context_execution) {
             context_execution.variables["result"] = val;
             std::cout << (int64_t) val << std::endl;
         } else {
+            std::cout << "Kakaya-to hernya" << std::endl;
             throw PrintException();
         }
     }catch(std::exception &e){
