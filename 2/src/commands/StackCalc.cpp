@@ -171,7 +171,7 @@ void Print::command(ContextExecution &context_execution) {
         }
     }catch(std::exception &e){
         std::cerr << "Winda kal" << std::endl;
-        exit(1);
+        throw &e;
     }
 }
 
