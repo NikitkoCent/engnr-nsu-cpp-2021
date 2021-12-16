@@ -45,15 +45,15 @@ int main(int argc, char *argv[]) {
     } catch (std::runtime_error &e) {
         std::cerr << "Winda kal" << std::endl;
         std::cerr << e.what() << std::endl;
-        return 2;
+        return 1;
     } catch (SafeIntException &e) {
         std::cerr << "Winda kal" << std::endl;
         std::cerr << "Integer operation exception";
-        return 3;
+        return 1;
     } catch (std::exception &e) {
         std::cerr << "Winda kal" << std::endl;
         std::cerr << e.what() << std::endl;
-        return 4;
+        return 1;
     }
     return 0;
 }
