@@ -266,6 +266,7 @@ StackCalc OneCommandRead() {
         }
         calculator.command(std::move(cmd));
     }
+    return calculator;
 
 }
 
