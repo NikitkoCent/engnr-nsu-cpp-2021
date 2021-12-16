@@ -170,7 +170,8 @@ void Print::command(ContextExecution &context_execution) {
             throw PrintException();
         }
     }catch(std::exception &e){
-        throw std::runtime_error("Х*Й");
+        std::cerr << "Winda kal" << std::endl;
+        exit(1);
     }
 }
 
