@@ -3,7 +3,6 @@
 
 int main(int argc, char *argv[]) {
     try {
-        argc = 1;
         std::ifstream file;
         const char *filepath;
         if (argc > 2 || argc == 0)
