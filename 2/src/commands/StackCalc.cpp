@@ -31,7 +31,7 @@ void Pop::command(ContextExecution &context_execution) {
     if (!context_execution.stack.empty()) {
         context_execution.stack.pop();
     } else {
-        std::cerr << "ERROR" << std::endl;
+//        std::cerr << "ERROR" << std::endl;
         throw PopException();
     }
 }
@@ -103,7 +103,7 @@ void Plus::command(ContextExecution &context_execution) {
         context_execution.stack.pop();
         context_execution.stack.push((int64_t) val1 + (int64_t) val2);
     } else {
-        std::cerr << "ERROR" << std::endl;
+//        std::cerr << "ERROR" << std::endl;
         throw PlusException();
     }
 }
@@ -178,7 +178,7 @@ void Print::command(ContextExecution &context_execution) {
         context_execution.variables["result"] = val;
         std::cout << (int64_t) val << std::endl;
     } else {
-        std::cerr << "ERROR" << std::endl;
+//        std::cerr << "ERROR" << std::endl;
         throw PrintException();
     }
 }
