@@ -225,7 +225,7 @@ class PrintException : public EmptyStack {
 public:
     std::string print;
 
-    explicit PrintException() : print("PRINT operation failed.") {
+    PrintException() : print("PRINT operation failed.") {
     };
 
     virtual std::string what() override;

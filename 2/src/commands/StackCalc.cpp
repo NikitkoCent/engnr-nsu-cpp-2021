@@ -26,10 +26,11 @@ std::string PopException::what() {
 }
 
 Pop::Pop(std::string &args) : Command(args) {}
+
 void Pop::command(ContextExecution &context_execution) {
-    if(!context_execution.stack.empty()){
+    if (!context_execution.stack.empty()) {
         context_execution.stack.pop();
-    }else{
+    } else {
         throw PopException();
     }
 }
@@ -39,14 +40,15 @@ std::string PushException::what() {
 }
 
 Push::Push(std::string &args) : Command(args) {}
+
 void Push::command(ContextExecution &context_execution) {
-    try{
+    try {
         SafeInt<int64_t> val = std::stoi(params);
-        context_execution.stack.push((int64_t)val);
-    }catch(const std::invalid_argument&){
-        if(context_execution.variables.find(params) == context_execution.variables.end()){
+        context_execution.stack.push((int64_t) val);
+    } catch (const std::invalid_argument &) {
+        if (context_execution.variables.find(params) == context_execution.variables.end()) {
             throw PushException();
-        }else{
+        } else {
             context_execution.stack.push(context_execution.variables[params]);
         }
     }
@@ -57,10 +59,11 @@ std::string PeekException::what() {
 }
 
 Peek::Peek(std::string &args) : Command(args) {}
+
 void Peek::command(ContextExecution &context_execution) {
-    if(!context_execution.stack.empty()) {
+    if (!context_execution.stack.empty()) {
         context_execution.variables[params] = context_execution.stack.top();
-    }else{
+    } else {
         throw PeekException();
     }
 }
@@ -70,16 +73,17 @@ std::string AbsException::what() {
 }
 
 Abs::Abs(std::string &args) : Command(args) {}
+
 void Abs::command(ContextExecution &context_execution) {
-    if(!context_execution.stack.empty()) {
+    if (!context_execution.stack.empty()) {
         SafeInt<int64_t> val = context_execution.stack.top();
         context_execution.stack.pop();
-        if (val < 0){
-            context_execution.stack.push(-(int64_t)val);
-        }else {
-            context_execution.stack.push((int64_t)val);
+        if (val < 0) {
+            context_execution.stack.push(-(int64_t) val);
+        } else {
+            context_execution.stack.push((int64_t) val);
         }
-    }else{
+    } else {
         throw AbsException();
     }
 }
@@ -89,14 +93,15 @@ std::string PlusException::what() {
 }
 
 Plus::Plus(std::string &args) : Command(args) {}
+
 void Plus::command(ContextExecution &context_execution) {
-    if(context_execution.stack.size() >= 2){
+    if (context_execution.stack.size() >= 2) {
         SafeInt<int64_t> val1 = context_execution.stack.top();
         context_execution.stack.pop();
         SafeInt<int64_t> val2 = context_execution.stack.top();
         context_execution.stack.pop();
-        context_execution.stack.push((int64_t)val1 + (int64_t)val2);
-    }else{
+        context_execution.stack.push((int64_t) val1 + (int64_t) val2);
+    } else {
         throw PlusException();
     }
 }
@@ -106,14 +111,15 @@ std::string MinusException::what() {
 }
 
 Minus::Minus(std::string &args) : Command(args) {}
+
 void Minus::command(ContextExecution &context_execution) {
-    if(context_execution.stack.size() >= 2) {
+    if (context_execution.stack.size() >= 2) {
         SafeInt<int64_t> val1 = context_execution.stack.top();
         context_execution.stack.pop();
         SafeInt<int64_t> val2 = context_execution.stack.top();
         context_execution.stack.pop();
-        context_execution.stack.push((int64_t)val2 - (int64_t)val1);
-    }else{
+        context_execution.stack.push((int64_t) val2 - (int64_t) val1);
+    } else {
         throw MinusException();
     }
 }
@@ -123,15 +129,16 @@ std::string MultiplyException::what() {
 }
 
 Multiply::Multiply(std::string &args) : Command(args) {}
+
 void
 Multiply::command(ContextExecution &context_execution) {
-    if(context_execution.stack.size() >= 2) {
+    if (context_execution.stack.size() >= 2) {
         SafeInt<int64_t> val1 = context_execution.stack.top();
         context_execution.stack.pop();
         SafeInt<int64_t> val2 = context_execution.stack.top();
         context_execution.stack.pop();
-        context_execution.stack.push((int64_t)val2 * (int64_t)val1);
-    }else{
+        context_execution.stack.push((int64_t) val2 * (int64_t) val1);
+    } else {
         throw MultiplyException();
     }
 }
@@ -141,15 +148,16 @@ std::string DivisionException::what() {
 }
 
 Division::Division(std::string &args) : Command(args) {}
+
 void
 Division::command(ContextExecution &context_execution) {
-    if(context_execution.stack.size() >= 2) {
+    if (context_execution.stack.size() >= 2) {
         SafeInt<int64_t> val1 = context_execution.stack.top();
         context_execution.stack.pop();
         SafeInt<int64_t> val2 = context_execution.stack.top();
         context_execution.stack.pop();
-        context_execution.stack.push((int64_t)val2 / (int64_t)val1);
-    }else{
+        context_execution.stack.push((int64_t) val2 / (int64_t) val1);
+    } else {
         throw DivisionException();
 
     }
@@ -160,26 +168,27 @@ std::string PrintException::what() {
 }
 
 Print::Print(std::string &args) : Command(args) {}
+
 void Print::command(ContextExecution &context_execution) {
-    try {
-        if (!context_execution.stack.empty()) {
-            std::cout << "Ya tyt" << std::endl;
-            SafeInt<int64_t> val = context_execution.stack.top();
-            context_execution.variables["result"] = val;
-            std::cout << (int64_t) val << std::endl;
-        } else {
-            std::cout << "Kakaya-to hernya" << std::endl;
-            throw PrintException();
-        }
-    }catch(std::exception &e){
-        std::cout << "Kavo kavo kavo" << std::endl;
-        std::cerr << "Winda kal" << std::endl;
-        throw e;
-    }catch(std::runtime_error &e){
-        std::cout << "Kavo kavo kto" << std::endl;
-        std::cerr << "Winda kal" << std::endl;
-        throw e;
+//    try {
+    if (!context_execution.stack.empty()) {
+        std::cout << "Ya tyt" << std::endl;
+        SafeInt<int64_t> val = context_execution.stack.top();
+        context_execution.variables["result"] = val;
+        std::cout << (int64_t) val << std::endl;
+    } else {
+        std::cerr << "Kakaya-to hernya" << std::endl;
+        throw PrintException();
     }
+//    }catch(std::exception &e){
+//        std::cout << "Kavo kavo kavo" << std::endl;
+//        std::cerr << "Winda kal" << std::endl;
+//        throw e;
+//    }catch(std::runtime_error &e){
+//        std::cout << "Kavo kavo kto" << std::endl;
+//        std::cerr << "Winda kal" << std::endl;
+//        throw e;
+//    }
 }
 
 std::string ReadException::what() {
@@ -187,17 +196,19 @@ std::string ReadException::what() {
 }
 
 Read::Read(std::string &args) : Command(args) {}
+
 void Read::command(ContextExecution &context_execution) {
     try {
         std::string val;
         std::cin >> val;
         context_execution.stack.push(std::stoi(val));
-    }catch(const std::invalid_argument&){
+    } catch (const std::invalid_argument &) {
         throw ReadException();
     }
 }
 
 Comment::Comment(std::string &args) : Command(args) {}
+
 void
 Comment::command(ContextExecution &context_execution) {}
 
@@ -213,77 +224,77 @@ Command *StackCalc::read_command(std::string &command_line) {
     x << command_line;
     x >> command;
     Command *operation;
-    if(command.empty()){
+    if (command.empty()) {
         return nullptr;
-    }else if(command == "POP") {
+    } else if (command == "POP") {
         operation = new Pop(command);
-    }else if(command == "PUSH") {
+    } else if (command == "PUSH") {
         x >> command;
         operation = new Push(command);
-    }else if(command == "PEEK"){
+    } else if (command == "PEEK") {
         x >> command;
         operation = new Peek(command);
-    }else if(command == "ABS"){
+    } else if (command == "ABS") {
         operation = new Abs(command);
-    }else if(command == "PLUS"){
+    } else if (command == "PLUS") {
         operation = new Plus(command);
-    }else if(command == "MINUS"){
+    } else if (command == "MINUS") {
         operation = new Minus(command);
-    }else if(command == "MUL"){
+    } else if (command == "MUL") {
         operation = new Multiply(command);
-    }else if(command == "DIV"){
+    } else if (command == "DIV") {
         operation = new Division(command);
-    }else if(command == "PRINT"){
+    } else if (command == "PRINT") {
         operation = new Print(command);
-    }else if(command == "READ"){
+    } else if (command == "READ") {
         operation = new Read(command);
-    }else{
-        if(command != "#"){
+    } else {
+        if (command != "#") {
             std::cerr << "Unknown command:" << command << help << std::endl;
             throw;
-        }else{
+        } else {
             operation = new Comment(command);
         }
     }
-    std::cout << command << std::endl;
+//    std::cout << command << std::endl;
     return operation;
 }
 
 
-StackCalc OneCommandRead(){
-    try {
-        StackCalc calculator;
-        std::string command_line = "s";
-        while (!std::cin.eof()) {
-            getline(std::cin, command_line);
-            if (command_line.empty()) continue;
+StackCalc OneCommandRead() {
+//    try {
+    StackCalc calculator;
+    std::string command_line = "s";
+    while (!std::cin.eof()) {
+        getline(std::cin, command_line);
+        if (command_line.empty()) continue;
+        std::unique_ptr<Command> cmd(calculator.read_command(command_line));
+        if (cmd == nullptr) {
+            continue;
+        }
+        calculator.command(std::move(cmd));
+    }
+    return calculator;
+//    } catch (std::exception &e) {
+//        std::cerr << "WINDA GOVNO" << std::endl;
+//        throw e;
+//    }
+}
+
+
+StackCalc ReadFromStream(std::istream &file) {
+    StackCalc calculator;
+    std::string command_line;
+    while (!file.eof()) {
+        std::getline(file, command_line);
+        try {
             std::unique_ptr<Command> cmd(calculator.read_command(command_line));
             if (cmd == nullptr) {
                 continue;
             }
             calculator.command(std::move(cmd));
-        }
-        return calculator;
-    }catch(std::exception &e){
-        std::cerr << "WINDA GOVNO" << std::endl;
-        throw e;
-    }
-}
-
-
-StackCalc ReadFromStream(std::istream &file){
-    StackCalc calculator;
-    std::string command_line;
-    while (!file.eof()) {
-        std::getline(file, command_line);
-        try{
-            std::unique_ptr<Command> cmd(calculator.read_command(command_line));
-            if(cmd == nullptr){
-                continue;
-            }
-            calculator.command(std::move(cmd));
-        }catch(StackException &e){
-            std::cerr << e.what() <<std::endl;
+        } catch (StackException &e) {
+            std::cerr << e.what() << std::endl;
             throw &e;
         }
     }
