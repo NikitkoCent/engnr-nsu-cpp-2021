@@ -7,6 +7,7 @@ TEST(CALCULATOR1, EXAMPLE_TEST) {
     std::ifstream file;
     file.open(filepath);
     int64_t result = 220;
+    std::cout << "DDdddd" << std::endl;
     StackCalc stack;
     stack = ReadFromStream(file);
     EXPECT_EQ(stack.FindResult()["result"], result);
@@ -44,15 +45,5 @@ TEST(CALCULATOR1, COMMAND_LINE_TEST) {
     int64_t result = 10;
     StackCalc stack;
     stack = ReadFromStream(data);
-    EXPECT_EQ(stack.FindResult()["result"], result);
-}
-
-int main(int argc, char *argv[]){
-    std::string filepath = argv[1];
-    std::ifstream file;
-    file.open(filepath);
-    int64_t result = 16;
-    StackCalc stack;
-    stack = ReadFromStream(file);
     EXPECT_EQ(stack.FindResult()["result"], result);
 }
