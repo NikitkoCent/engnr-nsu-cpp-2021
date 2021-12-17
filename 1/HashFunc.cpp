@@ -8,8 +8,11 @@ uint32_t hashpunk::adler32(std::istream &file)
 {
 	uint32_t a = 1, b = 0;
 	unsigned char s;
-	while (file.read((char*)&s, sizeof(unsigned char)))
+	while (!file.eof())
 	{
+		file.read((char*)&s, sizeof(unsigned char));
+		std::streamsize bytes = file.gcount();
+		if (!bytes) break;
 		a = (a + s) % 65521;
 		b = (b + a) % 65521;
 	}
@@ -21,8 +24,11 @@ uint64_t hashpunk::sum64(std::istream &file)
 	uint64_t sum = 0, k = 0;
 	int g = 0;
 	unsigned char s;
-	while (file.read((char*)&s, sizeof(unsigned char)))
+	while (!file.eof())
 	{
+		file.read((char*)&s, sizeof(unsigned char));
+		std::streamsize bytes = file.gcount();
+		if (!bytes) break;
 		if (g == 7)
 		{
 			sum += k;
