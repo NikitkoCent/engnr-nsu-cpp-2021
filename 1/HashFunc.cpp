@@ -44,10 +44,18 @@ uint64_t hashpunk::sum64(std::istream &file)
 	return sum;
 }
 
-void Help()
+void Help(int k)
 {
 	std::string help = "Usage: ./helper -m <mode> <filename> or ./helper <filename> -m <mode> \nMode types: adler32 or sum64";
-	std::cerr << help << std::endl;
+	if (k)
+	{
+		std::cerr << help << std::endl;
+	}
+	else
+	{
+		std::cout << help << std::endl;
+	}
+
 }
 
 programActions::programActions()
@@ -61,7 +69,7 @@ void programActions::inputParser(int args, char* argv[])
 {
 
 	if (args == 2 && strcmp(argv[1], "-h") == 0) {
-		Help();
+		Help(0);
 		result = 0;
 	}
 	else if (args == 4)
@@ -81,7 +89,7 @@ void programActions::inputParser(int args, char* argv[])
 			else
 			{
 				std::cerr << "Wrong usage: unknown mode" << std::endl;
-				Help();
+				Help(1);
 				result = 1;
 			}
 		}
@@ -100,21 +108,21 @@ void programActions::inputParser(int args, char* argv[])
 			else
 			{
 				std::cerr << "Wrong usage: unknown mode" << std::endl;
-				Help();
+				Help(1);
 				result = 1;
 			}
 		}
 		else
 		{
 			std::cerr << "Wrong usage: wrong arguments" << std::endl;
-			Help();
+			Help(1);
 			result = 1;
 		}
 	}
 	else
 	{
 		std::cerr << "Wrong usage: unknown commands" << std::endl;
-		Help();
+		Help(1);
 		result = 1;
 	}
 }

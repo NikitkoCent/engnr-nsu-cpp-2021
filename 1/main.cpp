@@ -23,7 +23,7 @@ int main(int args, char* argv[])
 		{
 			//std::cout << "Error is here" << std::endl;
 			std::cerr << "Program error: file is not found" << std::endl;
-			Help();
+			Help(1);
 			return 1;
 		}
 		//std::cout << "HELLO MY DEAR FRIEND3" << std::endl;
