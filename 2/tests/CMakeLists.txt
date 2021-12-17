@@ -13,4 +13,4 @@ target_link_libraries(calculator_tests
         )
 
 enable_testing()
-add_test(google_test calculator_tests)
+add_test(NAME google_test COMMAND calculator_tests)
