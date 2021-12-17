@@ -25,14 +25,14 @@ int main(int argc, char* argv[])
                 filename = argv[3];
             }
             else {
-                std::cout << "Error: no -m in the string. End of program" << std::endl;
+                std::cerr << "Error: no -m in the string. End of program" << std::endl;
                 return 1;
             }
         }
         else {
-            std::cout << "Error: Not enough arguments" << std::endl;
-            std::cout << "Examples: <filename> -m <mode>" << std::endl;
-            std::cout << "          -m <mode> <filename>" << std::endl;
+            std::cerr << "Error: Not enough arguments" << std::endl;
+            std::cerr << "Examples: <filename> -m <mode>" << std::endl;
+            std::cerr << "          -m <mode> <filename>" << std::endl;
             return 1;
         }
     }
@@ -52,9 +52,9 @@ int main(int argc, char* argv[])
             throw 1;
         }
     }
-    catch (int a) {
-        std::cout << "Error: No such mode" << std::endl;
-        std::cout << "Information: <mode>:  <adler32, sum64> " << std::endl;
+    catch (std::int a) {
+        std::cerr << "Error: No such mode" << std::endl;
+        std::cerr << "Information: <mode>:  <adler32, sum64> " << std::endl;
         return 1;
     }
     catch (...) {
