@@ -6,9 +6,9 @@ int main(int argc, char* argv[])
 {
     std::string filename;
     std::string mode;
-    if (argc >=2) {    
+    if (argc >= 2) {
         if (strcmp(argv[1], "-h") == 0) {
-     
+
             std::cout << "Information: <mode>:  <adler32, sum64> " << std::endl;
             std::cout << "Input:             <filename> -m <mode>" << std::endl;
             std::cout << "Input:             -m <mode> <filename>" << std::endl;
@@ -26,48 +26,43 @@ int main(int argc, char* argv[])
             }
             else {
                 std::cout << "Error: no -m in the string. End of program" << std::endl;
-                return 0;
+                return 1;
             }
         }
         else {
             std::cout << "Error: Not enough arguments" << std::endl;
             std::cout << "Examples: <filename> -m <mode>" << std::endl;
             std::cout << "          -m <mode> <filename>" << std::endl;
-            return 0;
+            return 1;
         }
     }
     else {
         std::cout << "Error: no arguments in the string. End of program" << std::endl;
         return 1;
     }
-    if (mode == "adler32" ){
-        std::ifstream in(filename);
-        if (in.is_open())
-        {
+    std::ifstream in(filename);
+    try {
+        if (mode == "adler32") {
             std::cout << std::hex << adler32(in) << std::endl;
         }
-        else {
-            std::cout << "File not found" << std::endl;
-            return 0;
-        }
-        in.close();      
-        }   
-    else if (mode == "sum64"){
-        std::ifstream in(filename);
-        if (in.is_open())
-        {
+        else if (mode == "sum64") {
             std::cout << std::hex << sum64(in) << std::endl;
         }
         else {
-            std::cout << "File not found" << std::endl;
-            return 0;
+            throw 1;
         }
-        in.close();
     }
-    else {
+    catch (int a) {
         std::cout << "Error: No such mode" << std::endl;
         std::cout << "Information: <mode>:  <adler32, sum64> " << std::endl;
         return 1;
     }
-	return 0;
+    catch (...) {
+        std::cerr << "File error" << std::endl;
+        return 1;
+    }
+    in.close();
+    
+
+    return 0;
 }
