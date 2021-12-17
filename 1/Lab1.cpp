@@ -8,8 +8,9 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-    std::string filename = 0;
-    std::string mode = 0;
+    std::string filename;
+    std::string mode;
+    std::unit_64t val1 = 0;
 
  
    
@@ -51,6 +52,7 @@ int main(int argc, char* argv[])
         std::ifstream in(filename);
         if (in.is_open())
         {
+	    val1 = adler32(in);
             std::cout << std::hex << adler32(in) << std::endl;
         }
         else {
@@ -65,6 +67,7 @@ int main(int argc, char* argv[])
         std::ifstream in(filename);
         if (in.is_open())
         {
+	    val1 = sum64;
             std::cout << std::hex << sum64(in) << std::endl;
         }
         else {
