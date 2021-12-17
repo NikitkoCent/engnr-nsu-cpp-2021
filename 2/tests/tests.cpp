@@ -1,53 +1,127 @@
 #include "../command_processing.h"
 #include "gtest/gtest.h"
-#include "../libs/SafeInt/SafeInt.hpp"
 
 
 #include <sstream>
 
 TEST(test1, test_1) {
-    std::string filepath = "..\\tests\\test_file\\in_1.txt";
+    std::string test = "# myVar = -14 / 5\n"
+                       "PUSH -14\n"
+                       "PUSH 5\n"
+                       "DIV\n"
+                       "PEEK myVar\n"
+                       "# PRINT (9 - myVar) * 20\n"
+                       "POP\n"
+                       "PUSH 9\n"
+                       "PUSH myVar\n"
+                       "MINUS\n"
+                       "PUSH 20\n"
+                       "MUL\n"
+                       "PRINT";
     testing::internal::CaptureStdout();
-    std::ifstream in(filepath);
-
+    std::stringstream in_s(test);
+    std::ifstream in;
     std::string result = "220\n";
-    command_processing(in, 2);
+    command_processing(in_s, in, 3);
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output;
     EXPECT_EQ(output, result);
 }
 
 TEST(test2, test_2) {
-    std::string filepath = "..\\tests\\test_file\\in_2.txt";
+    std::string test = "# myVar = 90\n"
+                       "PUSH -90\n"
+                       "PUSH 1\n"
+                       "MUL\n"
+                       "ABS\n"
+                       "PEEK myVar\n"
+                       "# PRINT 90 / 45\n"
+                       "POP\n"
+                       "PUSH myVar\n"
+                       "PUSH 45\n"
+                       "DIV\n"
+                       "PRINT";
     testing::internal::CaptureStdout();
-    std::ifstream in(filepath);
-
+    std::stringstream in_s(test);
+    std::ifstream in;
     std::string result = "2\n";
-    command_processing(in, 2);
+    command_processing(in_s, in, 3);
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output;
     EXPECT_EQ(output, result);
 }
 
 TEST(test3, test_3) {
-    std::string filepath = "..\\tests\\test_file\\in_3.txt";
+    std::string test = "PUSH -72\n"
+                       "ABS\n"
+                       "PUSH 4\n"
+                       "DIV\n"
+                       "PRINT";
     testing::internal::CaptureStdout();
-    std::ifstream in(filepath);
-
+    std::stringstream in_s(test);
+    std::ifstream in;
     std::string result = "18\n";
-    command_processing(in, 2);
+    command_processing(in_s, in, 3);
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output;
     EXPECT_EQ(output, result);
 }
 
 TEST(test4, test_4) {
-    std::string filepath ="..\\tests\\test_file\\in_4.txt";
+    std::string test = "# a = 4, c = 6, d = 2, e = 36, f = 11, g = 2\n"
+                       "# (a + c) * d - e / (f - g) = 16\n"
+                       "\n"
+                       "PUSH 4\n"
+                       "PEEK a\n"
+                       "POP\n"
+                       "\n"
+                       "PUSH 6\n"
+                       "PEEK c\n"
+                       "POP\n"
+                       "\n"
+                       "PUSH 2\n"
+                       "PEEK d\n"
+                       "POP\n"
+                       "\n"
+                       "PUSH 36\n"
+                       "PEEK e\n"
+                       "POP\n"
+                       "\n"
+                       "PUSH 11\n"
+                       "PEEK f\n"
+                       "POP\n"
+                       "\n"
+                       "PUSH 2\n"
+                       "PEEK g\n"
+                       "POP\n"
+                       "\n"
+                       "\n"
+                       "PUSH a\n"
+                       "PUSH c\n"
+                       "\n"
+                       "PLUS\n"
+                       "\n"
+                       "PUSH d\n"
+                       "\n"
+                       "MUL\n"
+                       "\n"
+                       "PUSH e\n"
+                       "\n"
+                       "PUSH f\n"
+                       "PUSH g\n"
+                       "\n"
+                       "MINUS\n"
+                       "\n"
+                       "DIV\n"
+                       "\n"
+                       "MINUS\n"
+                       "\n"
+                       "PRINT";
     testing::internal::CaptureStdout();
-    std::ifstream in(filepath);
-
+    std::stringstream in_s(test);
+    std::ifstream in;
     std::string result = "16\n";
-    command_processing(in, 2);
+    command_processing(in_s, in, 3);
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output;
     EXPECT_EQ(output, result);
@@ -55,13 +129,17 @@ TEST(test4, test_4) {
 
 
 TEST(test5, test_5) {
-    std::string filepath = "..\\tests\\test_file\\in_5.txt";
+    std::string test = "READ 234\n"
+                       "PUSH 66\n"
+                       "PLUS\n"
+                       "PRINT";
     testing::internal::CaptureStdout();
-    std::ifstream in(filepath);
-
+    std::stringstream in_s(test);
+    std::ifstream in;
     std::string result = "300\n";
-    command_processing(in, 2);
+    command_processing(in_s, in, 3);
     std::string output = testing::internal::GetCapturedStdout();
+    std::cout << output;
     EXPECT_EQ(output, result);
 }
 

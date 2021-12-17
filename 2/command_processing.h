@@ -10,7 +10,7 @@
 #include <istream>
 #include <fstream>
 
-void command_processing(std::ifstream& in, int args) {
+void command_processing(std::stringstream& in_s, std::ifstream& in, int args) {
     CommandCreator creator;
     std::vector<std::string> words;
     std::string word;
@@ -35,6 +35,19 @@ void command_processing(std::ifstream& in, int args) {
         }
     } else if(args == 1) {
         while (getline(std::cin, cmd_s, '\n')) {
+            if(cmd_s.empty())
+                continue;
+            std::stringstream ss(cmd_s);
+            while (getline(ss, word, ' ')) {
+                words.push_back(word);
+            }
+            c = creator.factoryMethod(words);
+            c->exec(words, values, names_and_values, result, in, args);
+            words.clear();
+            delete c;
+        }
+    } else if(args == 3) {
+        while (getline(in_s, cmd_s, '\n')) {
             if(cmd_s.empty())
                 continue;
             std::stringstream ss(cmd_s);
