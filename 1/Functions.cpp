@@ -27,6 +27,7 @@ uint64_t sum64(std::ifstream& file) {
         if (counter == 8) {
             result += part;
             counter = 0;
+            part = 0;
         }
         part << 8;
         
