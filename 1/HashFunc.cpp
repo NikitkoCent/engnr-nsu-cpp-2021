@@ -46,9 +46,9 @@ void Help()
 
 programActions::programActions()
 {
-	int mode = -1;
-	int result = -1;
-	int file = false;
+	mode = -1;
+	result = -1;
+	file = false;
 }
 
 void programActions::inputParser(int args, char* argv[])
