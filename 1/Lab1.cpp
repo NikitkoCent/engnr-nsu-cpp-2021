@@ -29,18 +29,18 @@ int main(int argc, char* argv[])
         }
         else if (argc < 4) {
             std::cerr << "Error: Not enough arguments" << std::endl;
-            std::cout << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;            
+            std::cerr << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;            
             return 1;
         }
         else {
             std::cerr << "Error: Too many arguments" << std::endl;
-            std::cout << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;
+            std::cerr << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;
             return 1;
         }
     }
     else {
         std::cerr << "Error: no arguments in the string. End of program" << std::endl;
-        std::cout << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;        
+        std::cerr << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;        
         return 1;
     }
     std::ifstream in(filename);
