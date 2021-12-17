@@ -24,7 +24,7 @@ int main(int args, char* argv[])
 			Help();
 			return 1;
 		}
-
+		std::cout << "HELLO MY DEAR FRIEND3" << std::endl;
 		try {
 			std::cout << "HELLO MY DEAR FRIEND2" << std::endl;
 			if (mode == 1)
