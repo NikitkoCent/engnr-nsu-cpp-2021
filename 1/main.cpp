@@ -28,11 +28,11 @@ int main(int args, char* argv[])
 		try {
 			if (mode == 1)
 			{
-				std::cout << std::hex << hashpunk::adler32(file) << std::endl;
+				std::cout << std::hex << hashpunk::adler32(file) << "HI" << std::endl;
 			}
 			else if (mode == 2)
 			{
-				std::cout << std::hex << hashpunk::sum64(file) << std::endl;
+				std::cout << std::hex << hashpunk::sum64(file) << "HI" << std::endl;
 			}
 		}
 		catch (std::exception& e) {
