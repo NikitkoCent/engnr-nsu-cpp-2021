@@ -6,6 +6,8 @@ int main(int argc, char* argv[])
 {
     std::string filename;
     std::string mode;
+    std::uint32_t u32 = 0;
+    std::uint64_t u64 = 0;
     if (argc >= 2) {
         if (strcmp(argv[1], "-h") == 0 && argc == 2) {
             std::cout << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;
@@ -46,10 +48,12 @@ int main(int argc, char* argv[])
     std::ifstream in(filename);
     try {
         if (mode == "adler32") {
-            std::cout << std::hex << adler32(in) << std::endl;
+            u32 = adler32(in)
+            std::cout << std::hex << u32 << std::endl;
         }
         else if (mode == "sum64") {
-            std::cout << std::hex << sum64(in) << std::endl;
+            u64 = sum64(in);
+            std::cout << std::hex << u64 << std::endl;
         }
         else {
             throw 1;
