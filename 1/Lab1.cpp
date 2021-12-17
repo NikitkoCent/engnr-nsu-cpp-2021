@@ -31,8 +31,6 @@ int main(int argc, char* argv[])
         }
         else if (argc < 4) {
             std::cerr << "Error: Not enough arguments" << std::endl;
-            std::cerr << "Examples: <filename> -m <mode>" << std::endl;
-            std::cerr << "          -m <mode> <filename>" << std::endl;
             std::cout << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;            
             return 1;
         }
