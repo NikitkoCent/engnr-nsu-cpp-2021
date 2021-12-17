@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
             std::cout << "Input:             -m <mode> <filename>" << std::endl;
             return 0;
         }
-        else if (argc >= 4) {
+        else if (argc == 4) {
             if (strcmp(argv[1], "-m") == 0) {
                 mode = argv[2];
                 filename = argv[3];
@@ -28,10 +28,14 @@ int main(int argc, char* argv[])
                 return 1;
             }
         }
-        else {
+        else if (argc < 4) {
             std::cerr << "Error: Not enough arguments" << std::endl;
             std::cerr << "Examples: <filename> -m <mode>" << std::endl;
             std::cerr << "          -m <mode> <filename>" << std::endl;
+            return 1;
+        }
+        else {
+            std::cerr << "Error: Too many arguments" << std::endl;
             return 1;
         }
     }
