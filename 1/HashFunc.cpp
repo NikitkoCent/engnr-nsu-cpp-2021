@@ -37,7 +37,7 @@ uint64_t hashpunk::sum64(std::istream &file)
 			k = 0;
 		}
 	}
-	if (g != 0)
+	if (g != 7)
 	{
 		sum += k;
 	}
