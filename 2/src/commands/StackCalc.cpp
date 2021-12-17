@@ -230,16 +230,16 @@ StackCalc ReadFromStream(std::istream &file) {
     std::string command_line;
     while (!file.eof()) {
         std::getline(file, command_line);
-        try {
+//        try {
             std::unique_ptr<Command> cmd(calculator.read_command(command_line));
             if (cmd == nullptr) {
                 continue;
             }
             calculator.command(std::move(cmd));
-        } catch (StackException &e) {
-            std::cerr << e.what() << std::endl;
-            throw &e;
-        }
+//        } catch (StackException &e) {
+//            std::cerr << e.what() << std::endl;
+//            throw &e;
+//        }
     }
     return calculator;
 }
