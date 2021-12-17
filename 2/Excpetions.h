@@ -7,13 +7,13 @@
 #include <iostream>
 
 namespace StackExceptions {
-    class SCException{
+    class SCException: std::exception{
     public:
         std::string default_error;
 
         SCException() : default_error("\nStackCalc Exception: ") {};
 
-        virtual std::string what() = 0;
+        virtual std::string _what() = 0;
     };
 
     class InvalidArgument: public SCException {
@@ -22,7 +22,7 @@ namespace StackExceptions {
 
         InvalidArgument() : invalid_error("Invalid argument in method ") {}
 
-        virtual std::string what() override;
+        virtual std::string _what() override;
     };
 
 //
@@ -42,7 +42,7 @@ namespace StackExceptions {
 
         explicit PushException() : push_error("PUSH (arg is not an integer or variable)!") {}
 
-        virtual std::string what() override;
+        virtual std::string _what() override;
     };
 
 
@@ -52,7 +52,7 @@ namespace StackExceptions {
 
         ReadException() : read_error("READ!") {}
 
-        virtual std::string what() override;
+        virtual std::string _what() override;
     };
 
 
@@ -62,7 +62,7 @@ namespace StackExceptions {
 
         StackLack() : lack_error("Stack has less than 2 arguments!") {}
 
-        virtual std::string what() override;
+        virtual std::string _what() override;
     };
 
 
@@ -72,7 +72,7 @@ namespace StackExceptions {
 
         StackEmpty() : empty_error("Stack is empty!") {}
 
-        virtual std::string what() override;
+        virtual std::string _what() override;
     };
 
 
@@ -82,7 +82,7 @@ namespace StackExceptions {
 
         DivisionByZero() : zero_error("Division by zero!") {}
 
-        virtual std::string what() override;
+        virtual std::string _what() override;
     };
 
 
@@ -92,7 +92,7 @@ namespace StackExceptions {
 
         explicit InvalidOperation() : operation_error("Invalid operation!") {}
 
-        virtual std::string what() override;
+        virtual std::string _what() override;
     };
 }
 

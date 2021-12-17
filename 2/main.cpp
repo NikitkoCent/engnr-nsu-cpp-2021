@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
         }
     }
     catch (StackExceptions::SCException &err) {
-        std::cerr << err.what();
+        std::cerr << err._what();
         return 1;
     }
     catch (std::exception &err) {
