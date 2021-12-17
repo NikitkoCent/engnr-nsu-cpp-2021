@@ -5,7 +5,7 @@ std::uint32_t adler32(std::ifstream& file)
     std::uint32_t s1 = 1;
     std::uint32_t s2 = 0;
     unsigned char ch = 0;
-    while (file.read((char*)&ch, sizeof(ch)))
+    while (file.read((char*)&ch, sizeof(unsigned char)))
     {
         s1 = (s1 + ch) % 65521;
         s2 = (s2 + s1) % 65521;
