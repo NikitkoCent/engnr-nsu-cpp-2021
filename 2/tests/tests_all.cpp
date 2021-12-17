@@ -11,7 +11,7 @@
 //    stack = ReadFromStream(file);
 //    EXPECT_EQ(stack.FindResult()["result"], result);
 //}
-
+//
 //TEST(CALCULATOR1, EASY_TEST) {
 //    std::string filepath = "../../tests/test_files/EASY_TEST";
 //    std::ifstream file;
@@ -31,7 +31,7 @@
 //    stack = ReadFromStream(file);
 //    EXPECT_EQ(stack.FindResult()["result"], result);
 //}
-//
+
 TEST(CALCULATOR1, COMMAND_LINE_TEST) {
     std::stringstream data("PUSH 234\n"
                            "PUSH 66\n"
