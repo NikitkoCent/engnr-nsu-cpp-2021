@@ -8,4 +8,4 @@ target_link_libraries(calculator_tests
         )
 
 enable_testing()
-#add_test(calculator_tests)
+add_test(googletest calculator_tests)
