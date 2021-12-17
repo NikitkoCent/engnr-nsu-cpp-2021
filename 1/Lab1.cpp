@@ -26,14 +26,14 @@ int main(int argc, char* argv[])
             }
             else {
                 std::cout << "Error: no -m in the string. End of program" << std::endl;
-                return 1;
+                return 0;
             }
         }
         else {
             std::cout << "Error: Not enough arguments" << std::endl;
             std::cout << "Examples: <filename> -m <mode>" << std::endl;
             std::cout << "          -m <mode> <filename>" << std::endl;
-            return 1;
+            return 0;
         }
     }
     else {
@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
         }
         else {
             std::cout << "File not found" << std::endl;
-            return 1;
+            return 0;
         }
         in.close();      
         }   
@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
         }
         else {
             std::cout << "File not found" << std::endl;
-            return 1;
+            return 0;
         }
         in.close();
     }
