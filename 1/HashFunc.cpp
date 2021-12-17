@@ -111,4 +111,5 @@ void programActions::inputParser(int args, char* argv[])
 		Help();
 		result = 1;
 	}
+	std::cout << "HELLO MY DEAR FRIEND3" << std::endl;
 }

@@ -15,7 +15,7 @@ int main(int args, char* argv[])
 	std::string filepath = argv[actions.file];
 	int mode = actions.mode;
 	std::fstream file;
-
+	std::cout << "HELLO MY DEAR FRIEND1" << std::endl;
 		file.open(filepath, std::ios::binary);
 
 		if (!(file.is_open()))
@@ -26,13 +26,14 @@ int main(int args, char* argv[])
 		}
 
 		try {
+			std::cout << "HELLO MY DEAR FRIEND2" << std::endl;
 			if (mode == 1)
 			{
-				std::cout << std::hex << hashpunk::adler32(file) << "HI" << std::endl;
+				std::cout << std::hex << hashpunk::adler32(file) <<  std::endl;
 			}
 			else if (mode == 2)
 			{
-				std::cout << std::hex << hashpunk::sum64(file) << "HI" << std::endl;
+				std::cout << std::hex << hashpunk::sum64(file) <<  std::endl;
 			}
 		}
 		catch (std::exception& e) {
