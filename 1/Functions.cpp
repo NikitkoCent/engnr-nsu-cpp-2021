@@ -18,7 +18,7 @@ std::uint32_t adler32(std::ifstream& file)
 std::uint64_t sum64(std::ifstream& file) {
     std::uint64_t result = 0;
     std::uint64_t part = 0;
-    std::uint64_t element = 0;
+    unsigned char element = 0;
     std::uint64_t counter = 0;
     while (file.read((char*)&element, sizeof(unsigned char)))
     {
