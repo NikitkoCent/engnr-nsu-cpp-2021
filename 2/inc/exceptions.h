@@ -6,7 +6,7 @@
 class CalcExcept : public std::exception
 {
 protected:
-    const char* m_message;
+    std::string m_message;
     std::string m_errLine;
     int m_errLineNum;
 
@@ -24,7 +24,6 @@ public:
     { 
         std::ostringstream sstream;
         sstream << "Runtime Error was occured in line " << m_errLineNum << "\n"
-                << "Error line : " << m_errLine << "\n"
                 << m_message << "\n";
         m_what = sstream.str();
     };
