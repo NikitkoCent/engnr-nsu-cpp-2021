@@ -36,6 +36,9 @@ int main(int argc, char* argv[])
         }
         else {
             std::cerr << "Error: Too many arguments" << std::endl;
+            std::cout << "Information: <mode>:  <adler32, sum64> " << std::endl;
+            std::cout << "Input:             <filename> -m <mode>" << std::endl;
+            std::cout << "Input:             -m <mode> <filename>" << std::endl;
             return 1;
         }
     }
