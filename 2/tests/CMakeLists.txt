@@ -12,5 +12,5 @@ target_link_libraries(calculator_tests
         gmock_main
         )
 
-enable_testing()
-add_test(NAME google_test COMMAND calculator_tests)
+#enable_testing()
+#add_test(NAME google_test COMMAND calculator_tests)
