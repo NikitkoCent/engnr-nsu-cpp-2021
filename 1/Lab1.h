@@ -12,6 +12,6 @@
 #include <cstdint>
 #include <cstring>
 
-std::uint16_t adler32(std::ifstream& file);
+std::uint32_t adler32(std::ifstream& file);
 std::uint64_t sum64(std::ifstream& file);
 
