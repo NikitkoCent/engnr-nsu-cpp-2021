@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 
     std::string filename;
     std::string mode;
-    std::unit_64t val1 = 0;
+    std::uint_64t val1 = 0;
 
  
    
