@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
         std::ifstream in(filename);
         if (in.is_open())
         {
-	    val1 = sum64;
+	    val1 = sum64(in);
             std::cout << std::hex << val1 << std::endl;
         }
         else {
