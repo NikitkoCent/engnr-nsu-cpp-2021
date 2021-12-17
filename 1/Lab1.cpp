@@ -45,7 +45,8 @@ int main(int argc, char* argv[])
         std::cerr << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;        
         return 1;
     }
-    std::ifstream in(filename);
+    
+    std::ifstream in(filename, std::ios::binary);
     try {
         if (mode == "adler32") {
             u32 = adler32(in);
