@@ -29,12 +29,12 @@ std::uint64_t sum64(std::ifstream& file) {
             counter = 0;
             part = 0;
         }
-        part << 8;
+        part = part << 8;
         
 
     }
     if (counter != 0) {
-        part >> 8;
+        part = part >> 8;
         result += part;
     }
     return result;
