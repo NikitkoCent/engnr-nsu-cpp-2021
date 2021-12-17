@@ -3,7 +3,7 @@
 //
 
 #include "SpecificActionCreator.h"
-
+#include <memory>
 std::unique_ptr<StackActions::Action> SAC::SpecificActionCreator::getAction(std::istringstream &line) {
     std::string action;
     line >> action;
