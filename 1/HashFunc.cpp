@@ -1,6 +1,7 @@
 ﻿#include "HashFunc.h"
 #include <iostream>
 #include <fstream>
+#include <cstring>
 
 uint32_t hashpunk::adler32(std::istream &file)
 {
@@ -8,6 +9,8 @@ uint32_t hashpunk::adler32(std::istream &file)
 	unsigned char s;
 	while (file.read((char*)&s, sizeof(unsigned char)))
 	{
+		std::streamsize bytes = file.gcount();
+		if (!bytes) break;
 		a = (a + s) % 65521;
 		b = (b + a) % 65521;
 	}
@@ -21,6 +24,8 @@ uint64_t hashpunk::sum64(std::istream &file)
 	unsigned char s;
 	while (file.read((char*)&s, sizeof(unsigned char)))
 	{
+		std::streamsize bytes = file.gcount();
+		if (!bytes) break;
 		if (g == 7)
 		{
 			sum += k;
