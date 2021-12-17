@@ -5,8 +5,8 @@
 #ifndef STACK_CALC_SPECIFICACTIONCREATOR_H
 #define STACK_CALC_SPECIFICACTIONCREATOR_H
 #include "Actions.h"
-#include <functional>
 #include <memory>
+#include <functional>
 namespace SAC {
     class SpecificActionCreator {
     private:
