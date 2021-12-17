@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
     std::string filename;
     std::string mode;
     if (argc >= 2) {
-        if (strcmp(argv[1], "-h") == 0) {
+        if (strcmp(argv[1], "-h") == 0 || argc == 2) {
             std::cout << "Information: <mode>:  <adler32, sum64> " << std::endl;
             std::cout << "Input:             <filename> -m <mode>" << std::endl;
             std::cout << "Input:             -m <mode> <filename>" << std::endl;
