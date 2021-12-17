@@ -6,7 +6,7 @@
 #include <sstream>
 
 TEST(test1, test_1) {
-    std::string filepath = "../../tests/test_file/in_1.txt";
+    std::string filepath = "..\\tests\\test_file\\in_1.txt";
     testing::internal::CaptureStdout();
     std::ifstream in(filepath);
 
@@ -18,7 +18,7 @@ TEST(test1, test_1) {
 }
 
 TEST(test2, test_2) {
-    std::string filepath = "../../tests/test_file/in_2.txt";
+    std::string filepath = "..\\tests\\test_file\\in_2.txt";
     testing::internal::CaptureStdout();
     std::ifstream in(filepath);
 
@@ -30,7 +30,7 @@ TEST(test2, test_2) {
 }
 
 TEST(test3, test_3) {
-    std::string filepath = "../../tests/test_file/in_3.txt";
+    std::string filepath = "..\\tests\\test_file\\in_3.txt";
     testing::internal::CaptureStdout();
     std::ifstream in(filepath);
 
@@ -42,7 +42,7 @@ TEST(test3, test_3) {
 }
 
 TEST(test4, test_4) {
-    std::string filepath = "../../tests/test_file/in_4.txt";
+    std::string filepath ="..\\tests\\test_file\\in_4.txt";
     testing::internal::CaptureStdout();
     std::ifstream in(filepath);
 
@@ -55,7 +55,7 @@ TEST(test4, test_4) {
 
 
 TEST(test5, test_5) {
-    std::string filepath = "../../tests/test_file/in_5.txt";
+    std::string filepath = "..\\tests\\test_file\\in_5.txt";
     testing::internal::CaptureStdout();
     std::ifstream in(filepath);
 
