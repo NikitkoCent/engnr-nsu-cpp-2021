@@ -10,7 +10,6 @@
 #include <locale.h>
 #include <stdio.h>
 #include <cstdint>
-using namespace std;
 
 uint16_t adler32(std::ifstream& file);
 uint16_t sum64(std::ifstream& file);
