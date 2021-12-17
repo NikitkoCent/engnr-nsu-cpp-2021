@@ -6,11 +6,12 @@ int main(int argc, char* argv[])
 {
     std::string filename;
     std::string mode;
+    std::string info = "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> ";
     std::uint32_t u32 = 0;
     std::uint64_t u64 = 0;
     if (argc >= 2) {
         if (strcmp(argv[1], "-h") == 0 && argc == 2) {
-            std::cout << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;
+            std::cout << info << std::endl;
             return 0;
         }
         else if (argc == 4) {
@@ -25,24 +26,24 @@ int main(int argc, char* argv[])
             }
             else {
                 std::cerr << "Error: no -m in the string. End of program" << std::endl;
-                std::cout << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;
+                std::cout << info << std::endl;
                 return 1;
             }
         }
         else if (argc < 4) {
             std::cerr << "Error: Not enough arguments" << std::endl;
-            std::cerr << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;            
+            std::cerr << info << std::endl;            
             return 1;
         }
         else {
             std::cerr << "Error: Too many arguments" << std::endl;
-            std::cerr << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;
+            std::cerr << info << std::endl;
             return 1;
         }
     }
     else {
         std::cerr << "Error: no arguments in the string. End of program" << std::endl;
-        std::cerr << "Information: mode - <adler32, sum64>; input: <filename> -m <mode> or -m <mode> <filename> " << std::endl;        
+        std::cerr << info << std::endl;        
         return 1;
     }
     
