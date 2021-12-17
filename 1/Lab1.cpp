@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
             throw 1;
         }
     }
-    catch (std::int a) {
+    catch (int) {
         std::cerr << "Error: No such mode" << std::endl;
         std::cerr << "Information: <mode>:  <adler32, sum64> " << std::endl;
         return 1;
