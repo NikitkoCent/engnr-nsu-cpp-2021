@@ -8,7 +8,6 @@ int main(int argc, char* argv[])
     std::string mode;
     if (argc >= 2) {
         if (strcmp(argv[1], "-h") == 0) {
-
             std::cout << "Information: <mode>:  <adler32, sum64> " << std::endl;
             std::cout << "Input:             <filename> -m <mode>" << std::endl;
             std::cout << "Input:             -m <mode> <filename>" << std::endl;
@@ -21,8 +20,8 @@ int main(int argc, char* argv[])
 
             }
             else if (strcmp(argv[2], "-m") == 0) {
-                mode = argv[1];
-                filename = argv[3];
+                mode = argv[3];
+                filename = argv[1];
             }
             else {
                 std::cerr << "Error: no -m in the string. End of program" << std::endl;
@@ -37,7 +36,7 @@ int main(int argc, char* argv[])
         }
     }
     else {
-        std::cout << "Error: no arguments in the string. End of program" << std::endl;
+        std::cerr << "Error: no arguments in the string. End of program" << std::endl;
         return 1;
     }
     std::ifstream in(filename);
