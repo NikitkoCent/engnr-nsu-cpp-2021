@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
     std::string filename;
     std::string mode;
     if (argc >=2) {    
-        if (std::strcmp(argv[1], "-h") == 0) {
+        if (strcmp(argv[1], "-h") == 0) {
      
             std::cout << "Information: <mode>:  <adler32, sum64> " << std::endl;
             std::cout << "Input:             <filename> -m <mode>" << std::endl;
@@ -16,12 +16,12 @@ int main(int argc, char* argv[])
             return 0;
         }
         else if (argc >= 4) {
-            if (std::strcmp(argv[1], "-m") == 0) {
+            if (strcmp(argv[1], "-m") == 0) {
                 mode = argv[2];
                 filename = argv[3];
 
             }
-            else if (std::strcmp(argv[2], "-m") == 0) {
+            else if (strcmp(argv[2], "-m") == 0) {
                 mode = argv[1];
                 filename = argv[3];
             }
