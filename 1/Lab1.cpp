@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 
     std::string filename;
     std::string mode;
-    std::uint64_t val1 = 0;
+
 
  
    
@@ -52,8 +52,8 @@ int main(int argc, char* argv[])
         std::ifstream in(filename);
         if (in.is_open())
         {
-	    val1 = adler32(in);
-            std::cout << std::hex << val1 << std::endl;
+
+            std::cout << std::hex << adler32(in) << std::endl;
         }
         else {
             std::cout << "File not found" << endl;
@@ -67,8 +67,8 @@ int main(int argc, char* argv[])
         std::ifstream in(filename);
         if (in.is_open())
         {
-	    val1 = sum64(in);
-            std::cout << std::hex << val1 << std::endl;
+
+            std::cout << std::hex << sum64(in) << std::endl;
         }
         else {
             std::cout << "File not found" << endl;
