@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
         if (in.is_open())
         {
 	    val1 = adler32(in);
-            std::cout << std::hex << adler32(in) << std::endl;
+            std::cout << std::hex << val1 << std::endl;
         }
         else {
             std::cout << "File not found" << endl;
@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
         if (in.is_open())
         {
 	    val1 = sum64;
-            std::cout << std::hex << sum64(in) << std::endl;
+            std::cout << std::hex << val1 << std::endl;
         }
         else {
             std::cout << "File not found" << endl;
