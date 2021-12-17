@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
     std::ifstream in(filename);
     try {
         if (mode == "adler32") {
-            u32 = adler32(in)
+            u32 = adler32(in);
             std::cout << std::hex << u32 << std::endl;
         }
         else if (mode == "sum64") {
