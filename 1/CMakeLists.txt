@@ -9,3 +9,15 @@ project ("Lab1")
 add_executable (Lab1 "Lab1.cpp" "Lab1.h" "Functions.cpp")
 
 # TODO: Add tests and install targets if needed.
+if (MSVC)
+    target_compile_options(<target>
+        PRIVATE /W4          # warnings level
+        PRIVATE /WX          # treat all warnings as errors
+    )
+else()
+    target_compile_options(<target>
+        PRIVATE -Wall        # basic set of warnings
+        PRIVATE -pedantic    # modern C++ inspections
+        PRIVATE -Werror      # treat all warnings as errors
+    )
+endif()
