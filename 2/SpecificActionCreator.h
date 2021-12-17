@@ -6,6 +6,7 @@
 #define STACK_CALC_SPECIFICACTIONCREATOR_H
 #include "Actions.h"
 #include <functional>
+#include <memory>
 namespace SAC {
     class SpecificActionCreator {
     private:
