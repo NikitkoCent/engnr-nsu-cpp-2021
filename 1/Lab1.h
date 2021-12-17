@@ -11,6 +11,6 @@
 #include <stdio.h>
 #include <cstdint>
 
-uint16_t adler32(std::ifstream& file);
-uint16_t sum64(std::ifstream& file);
+std::uint16_t adler32(std::ifstream& file);
+std::uint16_t sum64(std::ifstream& file);
 
