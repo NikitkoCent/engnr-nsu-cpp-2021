@@ -6,6 +6,7 @@
 
 int main(int args, char* argv[])
 {
+	std::cout << argv[1] << " " << argv[2] << " " << argv[3] << std::endl;
 	programActions actions;
 	actions.inputParser(args, argv);
 	if (actions.result != -1)
@@ -17,7 +18,6 @@ int main(int args, char* argv[])
 	std::fstream file;
 	std::cout << "HELLO MY DEAR FRIEND1" << mode << filepath << std::endl;
 		file.open(filepath, std::ios::binary);
-		std::cout << "HELLO MY DEAR FRIEND4" << std::endl;
 		if (!(file.is_open()))
 		{
 			std::cout << "Error is here" << std::endl;
@@ -27,7 +27,6 @@ int main(int args, char* argv[])
 		}
 		std::cout << "HELLO MY DEAR FRIEND3" << std::endl;
 		try {
-			std::cout << "HELLO MY DEAR FRIEND2" << std::endl;
 			if (mode == 1)
 			{
 				std::cout << std::hex << hashpunk::adler32(file) <<  std::endl;
