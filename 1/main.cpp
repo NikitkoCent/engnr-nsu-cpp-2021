@@ -15,9 +15,9 @@ int main(int args, char* argv[])
 	std::string filepath = argv[actions.file];
 	int mode = actions.mode;
 	std::fstream file;
-	std::cout << "HELLO MY DEAR FRIEND1" << std::endl;
+	std::cout << "HELLO MY DEAR FRIEND1" << mode << filepath << std::endl;
 		file.open(filepath, std::ios::binary);
-
+		std::cout << "HELLO MY DEAR FRIEND4" << std::endl;
 		if (!(file.is_open()))
 		{
 			std::cerr << "Program error: file is not found" << std::endl;
