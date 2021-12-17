@@ -204,7 +204,7 @@ Command *StackCalc::read_command(std::string &command_line) {
 
 
 StackCalc OneCommandRead() {
-    try {
+//    try {
         StackCalc calculator;
         std::string command_line = "s";
         while (!std::cin.eof()) {
@@ -217,10 +217,10 @@ StackCalc OneCommandRead() {
             calculator.command(std::move(cmd));
         }
         return calculator;
-    }catch(StackException &e){
-        std::cerr << e.what() << std::endl;
-        throw &e;
-    }
+//    }catch(StackException &e){
+//        std::cerr << e.what() << std::endl;
+//        throw &e;
+//    }
 
 }
 

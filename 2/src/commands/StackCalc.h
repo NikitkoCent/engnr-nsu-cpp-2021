@@ -17,7 +17,7 @@ class StackException : public std::runtime_error {
 public:
     explicit StackException(const std::string &whatMessage) : runtime_error(whatMessage),
                                                 what_message(whatMessage) {};
-    const char *what() {
+    const char *what() const noexcept override {
         return what_message.c_str();
     }
 };
