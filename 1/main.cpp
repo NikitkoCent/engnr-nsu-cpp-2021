@@ -20,6 +20,7 @@ int main(int args, char* argv[])
 		std::cout << "HELLO MY DEAR FRIEND4" << std::endl;
 		if (!(file.is_open()))
 		{
+			std::cout << "Error is here" << std::endl;
 			std::cerr << "Program error: file is not found" << std::endl;
 			Help();
 			return 1;
