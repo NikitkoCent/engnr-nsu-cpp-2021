@@ -112,7 +112,7 @@ TEST (sc, pop_exception) {
     try {
         calc.execute(in);
     } catch (StackExceptions::StackEmpty &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack is empty!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Stack is empty!"));
     }
 }
 
@@ -123,7 +123,7 @@ TEST (sc, print_exception) {
     try {
         calc.execute(in);
     } catch (StackExceptions::StackEmpty &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack is empty!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Stack is empty!"));
     }
 }
 
@@ -134,7 +134,7 @@ TEST (sc, peek_exception) {
     try {
         calc.execute(in);
     } catch (StackExceptions::StackEmpty &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack is empty!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Stack is empty!"));
     }
 }
 
@@ -146,7 +146,7 @@ TEST (sc, wrong_push_exception) {
     try {
         calc.execute(in);
     } catch (StackExceptions::InvalidArgument &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Invalid argument in method PUSH (arg is not an integer or variable)!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Invalid argument in method PUSH (arg is not an integer or variable)!"));
     }
 }
 
@@ -157,7 +157,7 @@ TEST (sc, wrong_push_exception_2) {
     try {
         calc.execute(in);
     } catch (StackExceptions::InvalidArgument &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Invalid argument in method PUSH (arg is not an integer or variable)!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Invalid argument in method PUSH (arg is not an integer or variable)!"));
     }
 }
 
@@ -168,7 +168,7 @@ TEST (sc, wrong_operation) {
     try {
         calc.execute(in);
     } catch (StackExceptions::InvalidArgument &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Invalid operation!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Invalid operation!"));
     }
 }
 
@@ -179,7 +179,7 @@ TEST (sc, plus_exception) {
     try {
         calc.execute(in);
     } catch (StackExceptions::StackLack &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
     }
 }
 
@@ -191,7 +191,7 @@ TEST (sc, plus_exception_2) {
     try {
         calc.execute(in);
     } catch (StackExceptions::StackLack &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
     }
 }
 
@@ -203,7 +203,7 @@ TEST (sc, minus_exception) {
     try {
         calc.execute(in);
     } catch (StackExceptions::StackLack &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
     }
 }
 
@@ -215,7 +215,7 @@ TEST (sc, minus_exception_2) {
     try {
         calc.execute(in);
     } catch (StackExceptions::StackLack &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
     }
 }
 
@@ -226,7 +226,7 @@ TEST (sc, mul_exception) {
     try {
         calc.execute(in);
     } catch (StackExceptions::StackLack &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
     }
 }
 
@@ -238,7 +238,7 @@ TEST (sc, mul_exception_2) {
     try {
         calc.execute(in);
     } catch (StackExceptions::StackLack &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
     }
 }
 
@@ -249,7 +249,7 @@ TEST (sc, div_exception) {
     try {
         calc.execute(in);
     } catch (StackExceptions::StackLack &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
     }
 }
 
@@ -261,7 +261,7 @@ TEST (sc, div_exception_2) {
     try {
         calc.execute(in);
     } catch (StackExceptions::StackLack &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
     }
 }
 
@@ -275,6 +275,6 @@ TEST (sc, zero_division_exception) {
     try {
         calc.execute(in);
     } catch (StackExceptions::DivisionByZero &err) {
-        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Division by zero!"));
+        EXPECT_EQ(err._what(), std::string("\nStackCalc Exception: Division by zero!"));
     }
 }
