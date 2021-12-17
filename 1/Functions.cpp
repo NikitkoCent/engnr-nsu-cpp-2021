@@ -11,7 +11,7 @@ std::uint32_t adler32(std::ifstream& file)
         s2 = (s2 + s1) % 65521;
     }
 
-    return (s2 << 16) + s1;
+    return (s2 << 16) | s1;
 }
 
 
