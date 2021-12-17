@@ -12,5 +12,5 @@ target_link_libraries(calculator_tests
         gmock_main
         )
 
-#enable_testing()
-#add_test(google_test calculator_tests "../../tests/test_files/HARD_TEST")
+enable_testing()
+add_test(google_test calculator_tests)

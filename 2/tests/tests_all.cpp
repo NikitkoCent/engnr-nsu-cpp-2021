@@ -7,7 +7,6 @@ TEST(CALCULATOR1, EXAMPLE_TEST) {
     std::ifstream file;
     file.open(filepath);
     int64_t result = 220;
-    std::cout << "DDdddd" << std::endl;
     StackCalc stack;
     stack = ReadFromStream(file);
     EXPECT_EQ(stack.FindResult()["result"], result);
