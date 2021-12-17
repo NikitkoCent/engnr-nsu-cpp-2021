@@ -9,7 +9,7 @@ int main(int args, char* argv[])
 	std::string filepath;
 	std::int16_t mode = 0;
 	std::string help = "Usage: ./helper -m <mode> <filename> or ./helper <filename> -m <mode> \nMode types: adler32 or sum64";
-	std::ifstream file;
+	std::fstream file;
 
 	if (args == 2 && strcmp(argv[1], "-h") == 0) {
 		std::cout << help << std::endl;
