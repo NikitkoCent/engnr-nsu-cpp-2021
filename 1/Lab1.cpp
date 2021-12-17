@@ -2,7 +2,6 @@
 //
 #include "Lab1.h"
 
-
 int main(int argc, char* argv[])
 {
     std::string filename;
