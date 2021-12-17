@@ -7,7 +7,7 @@
 #include <iostream>
 
 namespace StackExceptions {
-    class SCException: std::exception{
+    class SCException: public std::exception{
     public:
         std::string default_error;
 
