@@ -29,15 +29,15 @@ uint64_t hashpunk::sum64(std::istream &file)
 		file.read((char*)&s, sizeof(unsigned char));
 		std::streamsize bytes = file.gcount();
 		if (!bytes) break;
+		k = (k << 8) | s;
+		g = (g + 1) % 8;
 		if (g == 7)
 		{
 			sum += k;
 			k = 0;
 		}
-		k = (k << 8) | s;
-		g = (g + 1) % 8;
 	}
-	if (g != 7)
+	if (g != 0)
 	{
 		sum += k;
 	}
