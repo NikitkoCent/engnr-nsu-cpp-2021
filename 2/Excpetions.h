@@ -25,15 +25,15 @@ namespace StackExceptions {
         virtual std::string what() override;
     };
 
-
-    class OverflowException: public SCException {
-    public:
-        std::string overflow_error;
-
-        OverflowException() : overflow_error("Overflow exception") {}
-
-        virtual std::string what() override;
-    };
+//
+//    class OverflowException: public SCException {
+//    public:
+//        std::string overflow_error;
+//
+//        OverflowException() : overflow_error("Overflow exception") {}
+//
+//        virtual std::string what() override;
+//    };
 
 
     class PushException: public InvalidArgument {

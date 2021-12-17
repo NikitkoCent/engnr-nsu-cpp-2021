@@ -12,12 +12,10 @@
 namespace SC {
     class StackCalc {
     private:
-        SafeInt<long> last;
         StackActions::Context context;
     public:
         void act(std::unique_ptr<StackActions::Action> action);
         void execute(std::istream &in);
-        SafeInt<long> get_last();
     };
 }
 

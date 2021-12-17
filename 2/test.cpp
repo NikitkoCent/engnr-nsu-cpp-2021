@@ -5,19 +5,25 @@
 #include "googletest/googletest/include/gtest/gtest.h"
 #include "StackCalc.h"
 #include <iostream>
-TEST (test1, test_1) {
+TEST (sc, test_1) {
     SC::StackCalc calc;
     std::string test = "PUSH 1\n"
                        "PUSH 2\n"
                        "PLUS\n"
-                       "PRINT";
-    long result = 3;
+                       "PRINT\n";
+
+
+    std::string result = "3\n";
     std::stringstream in(test);
+
+    testing::internal::CaptureStdout();
     calc.execute(in);
-    EXPECT_EQ(result, (long)calc.get_last());
+    std::string output = testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(result, output);
 }
 
-TEST (test1, test_2) {
+TEST (sc, test_2) {
     SC::StackCalc calc;
     std::string test = "PUSH 125\n"
                        "PUSH 25\n"
@@ -33,13 +39,15 @@ TEST (test1, test_2) {
                        "MUL\n"
                        "ABS\n"
                        "PRINT";
-    long result = 4;
+    std::string result = "4\n";
     std::stringstream in(test);
+    testing::internal::CaptureStdout();
     calc.execute(in);
-    EXPECT_EQ(result, (long)calc.get_last());
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(result, output);
 }
 
-TEST (test1, test_3) {
+TEST (sc, test_3) {
     SC::StackCalc calc;
     std::string test = "# myVar = -14 / 5\n"
                        "PUSH -14\n"
@@ -54,13 +62,15 @@ TEST (test1, test_3) {
                        "PUSH 20\n"
                        "MUL\n"
                        "PRINT";
-    long result = 220;
+    std::string result = "220\n";
     std::stringstream in(test);
+    testing::internal::CaptureStdout();
     calc.execute(in);
-    EXPECT_EQ(result, (long)calc.get_last());
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(result, output);
 }
 
-TEST (test1, test_4) {
+TEST (sc, test_4) {
     SC::StackCalc calc;
     std::string test = "PUSH 1\n"
                        "PUSH 2\n"
@@ -68,8 +78,203 @@ TEST (test1, test_4) {
                        "PUSH 5\n"
                        "MUL\n"
                        "PRINT";
-    long result = 15;
+    std::string result = "15\n";
     std::stringstream in(test);
+    testing::internal::CaptureStdout();
     calc.execute(in);
-    EXPECT_EQ(result, (long)calc.get_last());
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(result, output);
+}
+
+TEST (sc, test_spaces) {
+    SC::StackCalc calc;
+    std::string test = "PUSH 1\n"
+                       "\n"
+                       "PUSH 2\n"
+                       "PLUS\n"
+                       "\n"
+                       "PUSH 5\n"
+                       "\n"
+                       "MUL\n"
+                       "PRINT";
+    std::string result = "15\n";
+    std::stringstream in(test);
+    testing::internal::CaptureStdout();
+    calc.execute(in);
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(result, output);
+}
+
+TEST (sc, pop_exception) {
+    SC::StackCalc calc;
+    std::string test = "POP\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::StackEmpty &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack is empty!"));
+    }
+}
+
+TEST (sc, print_exception) {
+    SC::StackCalc calc;
+    std::string test = "PRINT\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::StackEmpty &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack is empty!"));
+    }
+}
+
+TEST (sc, peek_exception) {
+    SC::StackCalc calc;
+    std::string test = "PEEK\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::StackEmpty &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack is empty!"));
+    }
+}
+
+
+TEST (sc, wrong_push_exception) {
+    SC::StackCalc calc;
+    std::string test = "PUSH a\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::InvalidArgument &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Invalid argument in method PUSH (arg is not an integer or variable)!"));
+    }
+}
+
+TEST (sc, wrong_push_exception_2) {
+    SC::StackCalc calc;
+    std::string test = "PUSH 1-2\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::InvalidArgument &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Invalid argument in method PUSH (arg is not an integer or variable)!"));
+    }
+}
+
+TEST (sc, wrong_operation) {
+    SC::StackCalc calc;
+    std::string test = "PUSH 5\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::InvalidArgument &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Invalid operation!"));
+    }
+}
+
+TEST (sc, plus_exception) {
+    SC::StackCalc calc;
+    std::string test = "PLUS\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::StackLack &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+    }
+}
+
+TEST (sc, plus_exception_2) {
+    SC::StackCalc calc;
+    std::string test = "PUSH 1\n"
+                       "PLUS\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::StackLack &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+    }
+}
+
+
+TEST (sc, minus_exception) {
+    SC::StackCalc calc;
+    std::string test = "MINUS\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::StackLack &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+    }
+}
+
+TEST (sc, minus_exception_2) {
+    SC::StackCalc calc;
+    std::string test = "PUSH 1\n"
+                       "MINUS\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::StackLack &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+    }
+}
+
+TEST (sc, mul_exception) {
+    SC::StackCalc calc;
+    std::string test = "MUL\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::StackLack &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+    }
+}
+
+TEST (sc, mul_exception_2) {
+    SC::StackCalc calc;
+    std::string test = "PUSH 1\n"
+                       "MUL\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::StackLack &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+    }
+}
+
+TEST (sc, div_exception) {
+    SC::StackCalc calc;
+    std::string test = "DIV\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::StackLack &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+    }
+}
+
+TEST (sc, div_exception_2) {
+    SC::StackCalc calc;
+    std::string test = "PUSH 1\n"
+                       "DIV\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::StackLack &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Stack has less than 2 arguments!"));
+    }
+}
+
+
+TEST (sc, zero_division_exception) {
+    SC::StackCalc calc;
+    std::string test = "PUSH 1\n"
+                       "PUSH 0\n"
+                       "DIV\n";
+    std::stringstream in(test);
+    try {
+        calc.execute(in);
+    } catch (StackExceptions::DivisionByZero &err) {
+        EXPECT_EQ(err.what(), std::string("\nStackCalc Exception: Division by zero!"));
+    }
 }

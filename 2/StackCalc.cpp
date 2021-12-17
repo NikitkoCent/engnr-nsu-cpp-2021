@@ -11,17 +11,13 @@ void SC::StackCalc::act(std::unique_ptr<StackActions::Action> action) {
 void SC::StackCalc::execute(std::istream &input) {
     std::string line;
     std::unique_ptr<StackActions::Action> action;
+    std::unique_ptr<SAC::SpecificActionCreator> fabric = std::make_unique<SAC::SpecificActionCreator>();
     while (!input.eof()) {
         std::getline(input, line);
         std::istringstream action_line(line);
-//        std::stringstream action_line(line);
-        action = std::unique_ptr<StackActions::Action>(SAC::SpecificActionCreator::getAction(action_line));
+        action = fabric->getAction(action_line);
         if (action != nullptr) {
             this->act(std::move(action));
         }
     }
-}
-
-SafeInt<long> SC::StackCalc::get_last() {
-    return context.vars["0x0badc0de"];
 }

@@ -7,16 +7,17 @@
 #include <string>
 #include <sstream>
 #include <stack>
-#include <algorithm>
 #include <map>
+#include <algorithm>
+#include <cstdint>
 #include "SafeInt/SafeInt.hpp"
 #include "Excpetions.h"
 
 namespace StackActions{
-    typedef struct context {
-        std::stack<SafeInt<long>> st;
-        std::map<std::string, SafeInt<long>> vars;
-    } Context;
+    struct Context {
+        std::stack<SafeInt<int64_t>> st;
+        std::map<std::string, SafeInt<int64_t>> vars;
+    };
 
     class Action {
     protected:
@@ -31,12 +32,6 @@ namespace StackActions{
         virtual ~Action() = default;
     };
 
-    class ArithmeticAction : public Action {
-    public:
-        explicit ArithmeticAction(std::string &_args) : Action(_args) {};
-
-        static SafeInt<long> pop(std::stack<SafeInt<long>> &st);
-    };
 
     class Push : public Action {
     public:
@@ -73,37 +68,37 @@ namespace StackActions{
         void act(Context &context) override;
     };
 
-    class Abs : public ArithmeticAction {
+    class Abs : public Action {
     public:
-        explicit Abs(std::string &_args) : ArithmeticAction(_args) {};
+        explicit Abs(std::string &_args) : Action(_args) {};
 
         void act(Context &context) override;
     };
 
-    class Plus : public ArithmeticAction {
+    class Plus : public Action {
     public:
-        explicit Plus(std::string &_args) : ArithmeticAction(_args) {};
+        explicit Plus(std::string &_args) : Action(_args) {};
 
         void act(Context &context) override;
     };
 
-    class Minus : public ArithmeticAction {
+    class Minus : public Action {
     public:
-        explicit Minus(std::string &_args) : ArithmeticAction(_args) {};
+        explicit Minus(std::string &_args) : Action(_args) {};
 
         void act(Context &context) override;
     };
 
-    class Mul : public ArithmeticAction {
+    class Mul : public Action {
     public:
-        explicit Mul(std::string &_args) : ArithmeticAction(_args) {};
+        explicit Mul(std::string &_args) : Action(_args) {};
 
         void act(Context &context) override;
     };
 
-    class Div : public ArithmeticAction {
+    class Div : public Action {
     public:
-        explicit Div(std::string &_args) : ArithmeticAction(_args) {};
+        explicit Div(std::string &_args) : Action(_args) {};
 
         void act(Context &context) override;
     };

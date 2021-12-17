@@ -24,9 +24,9 @@ std::string StackExceptions::StackLack::what() {
     return default_error + lack_error;
 }
 
-std::string StackExceptions::OverflowException::what() {
-    return default_error + overflow_error;
-}
+//std::string StackExceptions::OverflowException::what() {
+//    return default_error + overflow_error;
+//}
 
 std::string StackExceptions::DivisionByZero::what() {
     return default_error + zero_error;

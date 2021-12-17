@@ -13,3 +13,6 @@ READ - read value from std::cin instead of ifstream</br>
 # Usage:</br>
 ./stack_calc - uses cin for reading commands</br>
 ./stack_cals <filename> - read commands from file
+
+# Build
+cmake . && make
