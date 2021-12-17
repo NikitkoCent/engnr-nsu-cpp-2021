@@ -15,17 +15,18 @@ int main(int args, char* argv[])
 	}
 	std::string filepath = argv[actions.file];
 	int mode = actions.mode;
-	std::fstream file;
-	std::cout << "HELLO MY DEAR FRIEND1" << mode << filepath << std::endl;
+	std::ifstream file;
+	//std::cout << "HELLO MY DEAR FRIEND1" << mode << filepath << "'" << std::endl;
+	//system("dir");
 		file.open(filepath, std::ios::binary);
 		if (!(file.is_open()))
 		{
-			std::cout << "Error is here" << std::endl;
+			//std::cout << "Error is here" << std::endl;
 			std::cerr << "Program error: file is not found" << std::endl;
 			Help();
 			return 1;
 		}
-		std::cout << "HELLO MY DEAR FRIEND3" << std::endl;
+		//std::cout << "HELLO MY DEAR FRIEND3" << std::endl;
 		try {
 			if (mode == 1)
 			{
