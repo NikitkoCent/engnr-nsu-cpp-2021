@@ -1,6 +1,6 @@
 #include "Lab1.h"
 
-std::uint16_t adler32(std::ifstream& file)
+std::uint32_t adler32(std::ifstream& file)
 {
     std::uint32_t s1 = 1;
     std::uint32_t s2 = 0;
