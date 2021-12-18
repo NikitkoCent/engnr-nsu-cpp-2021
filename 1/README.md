@@ -1,9 +1,6 @@
 Интрукция по запуску утилиты Hasher:
-
-git clone https://github.com/vlad00k/engnr-nsu-cpp-2021.git
-
-=Не получается=
-
+cmake {-G "something generator if you need"} -S <path-to-source> -B <path-to-build>
+cmake --build <path-to-build>
 Утилита может считать 2 варианта хеша:
 Adler32
 Sum64
