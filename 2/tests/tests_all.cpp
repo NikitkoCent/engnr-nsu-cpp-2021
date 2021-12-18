@@ -2,47 +2,106 @@
 #include "../src/commands/StackCalc.h"
 #include "gtest/gtest.h"
 
-//TEST(CALCULATOR1, EXAMPLE_TEST) {
-//    std::string filepath = "../tests/test_files/EXAMPLE_TEST";
-//    std::ifstream file;
-//    file.open(filepath);
-//    int64_t result = 220;
-//    StackCalc stack;
-//    stack = ReadFromStream(file);
-//    EXPECT_EQ(stack.FindResult()["result"], result);
-//}
-//
-//TEST(CALCULATOR1, EASY_TEST) {
-//    std::string filepath = "../tests/test_files/EASY_TEST";
-//    std::ifstream file;
-//    file.open(filepath);
-//    int64_t result = 0;
-//    StackCalc stack;
-//    stack = ReadFromStream(file);
-//    EXPECT_EQ(stack.FindResult()["result"], result);
-//}
-//
-//TEST(CALCULATOR1, HARD_TEST) {
-//    std::string filepath = "../tests/test_files/HARD_TEST";
-//    std::ifstream file;
-//    file.open(filepath);
-//    int64_t result = 16;
-//    StackCalc stack;
-//    stack = ReadFromStream(file);
-//    EXPECT_EQ(stack.FindResult()["result"], result);
-//}
-
-TEST(CALCULATOR1, COMMAND_LINE_TEST) {
-    std::stringstream data("PUSH 234\n"
-                           "PUSH 66\n"
-                           "PLUS\n"
-                           "PUSH 30\n"
-                           "DIV\n"
-                           "PUSH 1\n"
-                           "MUL\n"
-                           "PRINT");
-    int64_t result = 10;
+TEST(CALCULATOR1, EXAMPLE_TEST) {
+    std::stringstream data("# myVar = -14 / 5\n"
+                       "PUSH -14\n"
+                       "PUSH 5\n"
+                       "DIV\n"
+                       "PEEK myVar\n"
+                       "POP\n"
+                       "# PRINT (9 - myVar) * 20\n"
+                       "PUSH 9\n"
+                       "PUSH myVar\n"
+                       "MINUS\n"
+                       "PUSH 20\n"
+                       "MUL\n"
+                       "PRINT");
+    int64_t result = 220;
     StackCalc stack;
     stack = ReadFromStream(data);
     EXPECT_EQ(stack.FindResult()["result"], result);
+}
+
+TEST(CALCULATOR1, EASY_TEST) {
+    std::stringstream data("PUSH 1\n"
+                           "PUSH 2\n"
+                           "PUSH 3\n"
+                           "PUSH 4\n"
+                           "PLUS\n"
+                           "PLUS\n"
+                           "PLUS\n"
+                           "PUSH 10\n"
+                           "MINUS\n"
+                           "PRINT");
+    int64_t result = 0;
+    StackCalc stack;
+    stack = ReadFromStream(data);
+    EXPECT_EQ(stack.FindResult()["result"], result);
+}
+
+TEST(CALCULATOR1, HARD_TEST) {
+    std::stringstream data("PUSH 4\n"
+                           "PEEK a\n"
+                           "POP\n"
+                           "\n"
+                           "PUSH 6\n"
+                           "PEEK c\n"
+                           "POP\n"
+                           "\n"
+                           "PUSH 2\n"
+                           "PEEK d\n"
+                           "POP\n"
+                           "\n"
+                           "PUSH 36\n"
+                           "PEEK e\n"
+                           "POP\n"
+                           "\n"
+                           "PUSH 11\n"
+                           "PEEK f\n"
+                           "POP\n"
+                           "\n"
+                           "PUSH 2\n"
+                           "PEEK g\n"
+                           "POP\n"
+                           "\n"
+                           "\n"
+                           "PUSH a\n"
+                           "PUSH c\n"
+                           "\n"
+                           "PLUS\n"
+                           "\n"
+                           "PUSH d\n"
+                           "\n"
+                           "MUL\n"
+                           "\n"
+                           "PUSH e\n"
+                           "\n"
+                           "PUSH f\n"
+                           "PUSH g\n"
+                           "\n"
+                           "MINUS\n"
+                           "\n"
+                           "DIV\n"
+                           "\n"
+                           "MINUS\n"
+                           "\n"
+                           "PRINT");
+    int64_t result = 16;
+    StackCalc stack;
+    stack = ReadFromStream(data);
+    EXPECT_EQ(stack.FindResult()["result"], result);
+}
+
+TEST(CALCULATOR1, ERROR_TEST) {
+    std::stringstream data("PUSH 1\n"
+                           "PUSH 5\n"
+                           "PLUS\n"
+                           "POP\n"
+                           "POP\n");
+    std::string result = "POP operation failed.";
+    try {
+        ReadFromStream(data);
+    }catch(StackException &e){
+        EXPECT_EQ(e.what(), result);
+    }
 }
