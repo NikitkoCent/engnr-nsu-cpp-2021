@@ -52,9 +52,15 @@ int main(int argc, char *argv[]) {
         std::cerr << "file does not exist" << std::endl;
         return 1;
     }
-    if (mode == "adler32") {
-        std::cout << std::hex << adler32(file) << std::endl;
-    } else {
-        std::cout << std::hex << sum64(file) << std::endl;
+    try {
+        if (mode == "adler32") {
+            std::cout << std::hex << adler32(file) << std::endl;
+        } else {
+            std::cout << std::hex << sum64(file) << std::endl;
+        }
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return 1;
     }
+
 }
