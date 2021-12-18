@@ -9,12 +9,12 @@ int main(int argc, char *argv[])
     try
     {
         if (argc == 2)
-            proceedWithArgs(*argv);
-        if (argc == 1)
+            proceedWithArgs(argv[1]);
+        else if (argc == 1)
             proceedNoArgs(std::cin);
         else
         {
-            std::cerr << "Input name of file or not" << std::endl;
+            std::cerr << "Wrong input : enter filename or input data on your own." << std::endl;
         }
         return 0;
     }
