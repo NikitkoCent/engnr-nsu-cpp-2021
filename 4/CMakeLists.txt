@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_link_options(-pthread -v)
 
+
 include_directories(dirwalker/)
 
 add_executable(lab3 main.cpp
