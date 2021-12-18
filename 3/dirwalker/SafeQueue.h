@@ -8,6 +8,11 @@
 #include <mutex>
 #include <queue>
 
+class QueueEmptyException : public std::runtime_error {
+public:
+    explicit QueueEmptyException() : std::runtime_error("Queue is empty!") {}
+};
+
 template<typename T>
 class SafeQueue {
     std::queue<T> q;
@@ -17,7 +22,7 @@ class SafeQueue {
 public:
     void push(T &elem);
     T next();
-    bool is_empty();
+    bool empty();
     int get_length();
 };
 
@@ -29,7 +34,7 @@ public:
 template<typename T>
 void SafeQueue<T>::push(T &elem) {
     std::lock_guard<std::mutex> lock(m);
-    q.push(elem);
+    q.push(move(elem));
     this->length++;
 }
 
@@ -40,19 +45,20 @@ void SafeQueue<T>::push(T &elem) {
  */
 template<typename T>
 T SafeQueue<T>::next() {
-    T elem = nullptr;
-    m.lock();
-    if (!q.empty()) {
-        elem = q.front();
-        q.pop();
-        this->length--;
+//    T elem;
+    if (q.empty()) {
+        throw QueueEmptyException();
     }
+    m.lock();
+    auto elem = move(q.front());
+    q.pop();
+    this->length--;
     m.unlock();
     return elem;
 }
 
 template<typename T>
-bool SafeQueue<T>::is_empty() {
+bool SafeQueue<T>::empty() {
     bool empty = true;
     empty = this->q.empty();
     return empty;
