@@ -10,9 +10,14 @@ int main(int argc, char *argv[]) {
     std::string mode, file_name = "";
     std::string help = "How to use this programm: ./helper -m <mode> <filename> or ./helper <filename> -m <mode> \nModes: adler32 or sum64";
     std::ifstream file;
-    if (argc == 2 && strcmp(argv[1], "-h") == 0) {
-        std::cout << help << std::endl;
-        return 1;
+    if (argc == 2 ) {
+        if (strcmp(argv[1], "-h") == 0) {
+            std::cout << help << std::endl;
+            return 0;
+        } else {
+            std::cerr << "Wrong input, please check information" << std::endl;
+            return 1;
+        }
     } elif (argc == 4) {
         if (strcmp(argv[1], "-m") == 0) {
             if (strcmp(argv[2], "adler32") == 0) {
@@ -62,5 +67,5 @@ int main(int argc, char *argv[]) {
         std::cerr << e.what() << std::endl;
         return 1;
     }
-
+    return 0;
 }
