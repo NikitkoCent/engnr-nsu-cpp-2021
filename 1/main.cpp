@@ -57,15 +57,6 @@ int main(int argc, char *argv[]) {
         std::cerr << "file does not exist" << std::endl;
         return 1;
     }
-    if(file.peek() == EOF){
-        if(mode == "adler32"){
-            std::cout << 1 << std::endl;
-        }
-        if(mode == "sum64"){
-            std::cout << 0 << std::endl;
-        }
-        return 0;
-    }
     try {
         if (mode == "adler32") {
             std::cout << std::hex << adler32(file) << std::endl;
