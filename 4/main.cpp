@@ -29,7 +29,7 @@ namespace fs = std::filesystem;
 unsigned long long worker(ThreadPool<int> &tp, const string &file) {
     cout << "Starting worker for " << &tp << " " << file << endl;
     unsigned long long sz = 0;
-    vector<std::__1::future<int>> futs;
+    vector<std::future<int>> futs;
 
     for (auto &p: fs::recursive_directory_iterator(file)) {
         if (is_regular_file(p)) {

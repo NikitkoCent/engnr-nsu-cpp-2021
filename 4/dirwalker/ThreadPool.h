@@ -11,6 +11,7 @@
 #include <vector>
 #include <future>
 #include <iostream>
+#include <functional>
 
 //template<typename TaskT>
 //class Task {
