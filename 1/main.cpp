@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
         std::cerr << "wrong input" << std::endl;
         return 1;
     };
-    file.open(file_name, std::ios::binary);
+    file.open(file_name, std::ios_base::binary);
     if (!file.is_open()) {
         std::cerr << "file does not exist" << std::endl;
         return 1;
