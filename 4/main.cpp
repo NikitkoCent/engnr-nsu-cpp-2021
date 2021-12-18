@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <boost/filesystem.hpp>
+
 
 #include "dirwalker/SafeQueue.h"
 #include "dirwalker/ThreadPool.h"
@@ -18,7 +18,13 @@
 
 using namespace std;
 
+#ifdef USE_BOOST_FS
+#include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
+#else
+#include <filesystem>
+namespace fs = std::filesystem;
+#endif
 
 unsigned long long worker(ThreadPool<int> &tp, const string &file) {
     cout << "Starting worker for " << &tp << " " << file << endl;
