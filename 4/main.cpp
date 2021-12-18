@@ -1,6 +1,5 @@
 #include <iostream>
-
-
+#include <string>
 
 #include "dirwalker/SafeQueue.h"
 #include "dirwalker/ThreadPool.h"
