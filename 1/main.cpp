@@ -18,6 +18,7 @@ int main(int argc, char* argv[])
             if (call(fs, adler32, result) == 0) {
                 uint32_t r = (uint32_t)result;
                 std::cout << std::hex << r;
+                return 0;
             }
             else if (call(fs, adler32, result) == FILE_ERROR){
                 show_err();
@@ -33,6 +34,7 @@ int main(int argc, char* argv[])
         }else if (arg.algo == Algo::SUM64) {
             if (!call(fs, summ64, result)) {
                 std::cout << std::hex << result;
+                return 0;
             }
             else if (call(fs, summ64, result) == FILE_ERROR){
                 show_err();
