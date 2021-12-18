@@ -19,7 +19,12 @@ int main(int argc, char* argv[])
                 uint32_t r = (uint32_t)result;
                 std::cout << std::hex << r;
             }
-            else{
+            else if (call(fs, adler32, result) == FILE_ERROR){
+                show_err();
+                return FILE_ERROR;
+            }
+            else
+            {
                 show_err();
                 return ALGO_ERROR;
             }
@@ -29,7 +34,12 @@ int main(int argc, char* argv[])
             if (!call(fs, summ64, result)) {
                 std::cout << std::hex << result;
             }
-            else {
+            else if (call(fs, summ64, result) == FILE_ERROR){
+                show_err();
+                return FILE_ERROR;
+            }
+            else
+            {
                 show_err();
                 return ALGO_ERROR;
             }
