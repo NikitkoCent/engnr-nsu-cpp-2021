@@ -11,8 +11,8 @@ uint32_t adler32(std::istream &file) {
     unsigned char s;
     while (!file.eof()) {
         file.read((char *) (&s), sizeof(unsigned char));
-        std::streamsize b = file.gcount();
-        if (!b) break;
+        std::streamsize v = file.gcount();
+        if (!v) break;
         a += s % 65521;
         b += a % 65521;
     }
