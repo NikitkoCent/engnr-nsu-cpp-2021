@@ -20,9 +20,9 @@ uint32_t adler32(istream &file){
 uint64_t sum64(istream &file){
     uint64_t result = 0, block = 0;
     uint8_t size = 0;
-    unsigned char cur_byte;
+    unsigned char current_b;
     while (!file.eof()){
-        file.read((char *)&cur_byte, sizeof(cur_byte));
+        file.read((char *)&current_b, sizeof(current_b));
         if (size == 8){
             result += block;
             size = 0;
@@ -30,7 +30,7 @@ uint64_t sum64(istream &file){
 
         }
         block <<= 8u;
-        block += cur_byte;
+        block += current_b;
         size = size+1;
 
     }

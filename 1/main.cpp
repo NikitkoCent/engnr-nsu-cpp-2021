@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
     { cerr << "Error: unknown command or no arguments" << help << endl;
     }
 
-        file.open(filename, std::ios::binary);
+        file.open(filename, std::ios_base::binary);
     if (!(file.is_open())) {
         cerr << "FileNotFound Error" << help << endl;
         return 1;
