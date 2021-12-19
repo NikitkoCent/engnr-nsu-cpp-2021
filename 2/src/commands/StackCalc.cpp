@@ -5,7 +5,7 @@
 #include <iostream>
 #include <memory>
 #include <charconv>
-
+#include <algorithm>
 
 Pop::Pop(std::string &args) : Command(args) {}
 

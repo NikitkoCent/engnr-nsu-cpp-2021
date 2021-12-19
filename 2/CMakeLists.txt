@@ -18,7 +18,7 @@ if (MSVC)
             )
 else()
     target_compile_options(calculator
-#            PRIVATE -Wall
+            PRIVATE -Wall
             PRIVATE -pedantic
             )
 endif()
