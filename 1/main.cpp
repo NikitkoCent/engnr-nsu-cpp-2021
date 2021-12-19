@@ -53,6 +53,18 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    if(file.peek() == EOF){
+        if(mode == "adler32"){
+            cout << 1 << endl;
+        }
+        if(mode == "sum64"){
+            cout << 0 << endl;
+        }
+        return 0;
+    }
+
+
+
     try {
         if (mode == "adler32") {
             cout << hex << adler32(file) << endl;
