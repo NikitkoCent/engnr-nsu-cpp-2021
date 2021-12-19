@@ -36,8 +36,6 @@ public:
 
     void clear();
 
-    size_t size();
-
     template<typename F, typename...A>
     auto push(F&& f, A&&... args) {
         auto task_ptr = std::make_shared<std::packaged_task<decltype(f(args...)) ()>>(std::bind(std::forward<F>(f), std::forward<A>(args)...));

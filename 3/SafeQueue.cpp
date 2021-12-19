@@ -4,11 +4,6 @@
 
 #include "SafeQueue.h"
 
-size_t SafeQueue::size() {
-    std::unique_lock<std::mutex> lock(sq_mutex);
-    return sf_queue.size();
-}
-
 bool SafeQueue::empty() {
     std::unique_lock<std::mutex> lock(sq_mutex);
     return sf_queue.empty();

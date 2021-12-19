@@ -2,7 +2,6 @@
 #include <filesystem>
 #include <queue>
 #include <cmath>
-//#include <chrono>
 #include <cstring>
 #include <cstdlib>
 #include <string>
@@ -30,15 +29,9 @@ private:
     std::string task;
     double size;
 public:
-
     explicit Size(std::string task): task(std::move(task)), size(0) {}
     void inc(uintmax_t s) { size += static_cast<double>(s);};
     ~Size () {
-//        auto now = std::chrono::system_clock::now();
-//        auto in_time_t = std::chrono::system_clock::to_time_t(now);
-
-//        std::cout << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
-
         std::cout << "> " << task << ": " <<  HumanReadable{size} << std::endl;
     }
 };
@@ -59,31 +52,8 @@ void check_dir_threading(const std::string& start_dir, ThreadPool &pool, std::sh
     } catch(fs::filesystem_error &) {}
 }
 
-void start_task(const std::string& name, const std::string& task, ThreadPool &pool) {
-    pool.push(check_dir_threading, task, std::ref(pool), std::make_shared<Size>(name));
-}
-
-void run_test_tasks(ThreadPool &pool) {
-    std::vector<std::string> v {
-            "/Users/u53r/CLionProjects",
-            "/Users/u53r/PycharmProjects",
-            "/Users/u53r/miniforge3",
-            "/Users/u53r/Projects",
-//            "/Users/u53r/",
-            "/Users/u53r/Downloads",
-            "/Users/u53r/Documents",
-            "/Users/u53r/Applications",
-            "/Users/u53r/Desktop",
-    };
-    for (auto& task: v) {
-        start_task(task, task, pool);
-    }
-    for (auto& task: v) {
-        start_task(task, task, pool);
-    }
-    for (auto& task: v) {
-        start_task(task, task, pool);
-    }
+void start_task(const std::string& task, ThreadPool &pool) {
+    pool.push(check_dir_threading, task, std::ref(pool), std::make_shared<Size>(task));
 }
 
 int main(int argc, char **argv) {
@@ -93,13 +63,6 @@ int main(int argc, char **argv) {
 
     ThreadPool pool(threads);
     std::cout << "Using " << threads << " thread(s)!" << std::endl;
-//    auto start = std::chrono::high_resolution_clock::now();
-//
-//    auto now = std::chrono::system_clock::now();
-//    auto in_time_t = std::chrono::system_clock::to_time_t(now);
-
-//    std::cout << "Start " << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X") << std::endl;
-//    run_test_tasks(pool);
 
     std::string arg;
     while(true) {
@@ -115,7 +78,7 @@ int main(int argc, char **argv) {
         }
         else {
             std::cout << "Starting task " << arg << "!" << std::endl;
-            start_task(arg, arg, pool);
+            start_task(arg, pool);
         }
     }
 }

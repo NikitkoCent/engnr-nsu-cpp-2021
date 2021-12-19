@@ -3,7 +3,6 @@
 //
 
 #include "ThreadPool.h"
-
 void ThreadPool::thread_manager() {
     bool found_task;
     while (!stop_cmd) {
@@ -41,8 +40,4 @@ void ThreadPool::clear() {
     close();
     tp_queue.clear();
     init();
-}
-
-size_t ThreadPool::size() {
-    return tp_queue.size();
 }

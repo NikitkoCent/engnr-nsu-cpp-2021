@@ -24,6 +24,7 @@ endif()
 
 
 target_sources(DSC PRIVATE
+               main.cpp
                SafeQueue.h
                SafeQueue.h
                ThreadPool.h
