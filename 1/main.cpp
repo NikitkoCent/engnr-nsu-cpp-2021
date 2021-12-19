@@ -19,10 +19,8 @@ int main(int argc, char *argv[]) {
     ifstream file;
     string filename, mode;
     string help = "\nHow to use the program?:\nYou should enter to use it: './helper -m <mode> <filename>' or './helper <filename> -m <mode>' \nYou can choose from this types of modes: adler32 or sum64\n And you can enter: ' ./hasher -h' to print Help";
-    if (argc > 4) {
-        cerr << help << endl;
-    }
-    else if ((argc == 2) && (strcmp(argv[1], "-h") == 0)) {
+
+    if ((argc == 2) && (strcmp(argv[1], "-h") == 0)) {
         cout << help << endl;
         return 0;
     }
@@ -45,9 +43,11 @@ int main(int argc, char *argv[]) {
                     return 1;
                 }
         }
+    } else //if (argc > 4) {
+    { cerr << "Error: unknown command or no arguments" << help << endl;
     }
 
-    file.open(filename, std::ios::binary);
+        file.open(filename, std::ios::binary);
     if (!(file.is_open())) {
         cerr << "FileNotFound Error" << help << endl;
         return 1;
