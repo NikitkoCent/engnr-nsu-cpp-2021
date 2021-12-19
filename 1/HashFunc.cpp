@@ -22,7 +22,7 @@ uint64_t sum64(istream &file){
     uint8_t size = 0;
     unsigned char current_b;
     while (!file.eof()){
-        file.read((char *)&current_b, sizeof(current_b));
+        file.read((char *)&current_b, sizeof(unsigned char));
         if (size == 8){
             result += block;
             size = 0;
