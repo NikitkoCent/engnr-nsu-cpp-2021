@@ -5,6 +5,7 @@
 //#include <chrono>
 #include <cstring>
 #include <cstdlib>
+#include <string>
 #include "ThreadPool.h"
 
 #define max(a, b) a > b ? a : b
@@ -53,9 +54,9 @@ void check_dir_threading(const std::string& start_dir, ThreadPool &pool, std::sh
                 } else if (!fs::is_symlink(begin->path())){
                     size->inc(fs::file_size(begin->path()));
                 }
-            } catch (fs::filesystem_error &e) {}
+            } catch (fs::filesystem_error &) {}
         }
-    } catch(fs::filesystem_error &e) {}
+    } catch(fs::filesystem_error &) {}
 }
 
 void start_task(const std::string& name, const std::string& task, ThreadPool &pool) {
