@@ -8,7 +8,7 @@ using std:: istream;
 
 
 uint32_t adler32(istream &file){
-    uint32_t a = 1, b = 0; //from wiki
+    uint32_t a = 1, b = 0;  //from wiki
     unsigned char s;
     while (file.read((char *)(&s), sizeof(unsigned char))) {
         a = (a + s) % 65521;
