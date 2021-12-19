@@ -3,7 +3,7 @@ project(DSC)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_CXX_FLAGS "-O2")
+set(CMAKE_CXX_FLAGS "-O2 -pthread")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 
 add_executable(DSC main.cpp SafeQueue.h ThreadPool.cpp ThreadPool.h SafeQueue.cpp)
