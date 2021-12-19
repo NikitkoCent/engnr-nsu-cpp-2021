@@ -105,3 +105,51 @@ TEST(CALCULATOR1, ERROR_TEST) {
         EXPECT_EQ(e.what(), result);
     }
 }
+
+TEST(CALCULATOR1, DIVISION_BY_ZERO) {
+    std::stringstream data("PUSH 1\n"
+                           "PUSH 0\n"
+                           "DIV\n");
+    std::string result = "Division by zero happened.";
+    try {
+        ReadFromStream(data);
+    }catch(StackException &e){
+        EXPECT_EQ(e.what(), result);
+    }
+}
+
+TEST(CALCULATOR1, UNKNOWN_COMMAND) {
+    std::stringstream data("PUSH 1\n"
+                           "PUSH 2\n"
+                           "PLUS\n"
+                           "PRIN\n");
+    std::string result = "Unknown command: PRIN";
+    try {
+        ReadFromStream(data);
+    }catch(StackException &e){
+        EXPECT_EQ(e.what(), result);
+    }
+}
+
+TEST(CALCULATOR1, OVERFLOW_BY_PLUS) {
+    std::stringstream data("PUSH 9223372036854775806\n"
+                           "PUSH 9223372036854775806\n"
+                           "PLUS\n");
+    std::string result = "Overflow happened";
+    try {
+        ReadFromStream(data);
+    }catch(StackException &e){
+        EXPECT_EQ(e.what(), result);
+    }
+}
+
+TEST(CALCULATOR1, OVERFLOW_BY_ABS) {
+    std::stringstream data("PUSH -9223372036854775808\n"
+                           "ABS\n");
+    std::string result = "Overflow happened";
+    try {
+        ReadFromStream(data);
+    }catch(StackException &e){
+        EXPECT_EQ(e.what(), result);
+    }
+}

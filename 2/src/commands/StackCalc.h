@@ -40,11 +40,33 @@ public:
     FewElementError() : StackException("FewElementError") {}
 };
 
+class UnknownCommand : public StackException {
+public:
+    explicit UnknownCommand(const std::string &whatMessage) : StackException(whatMessage) {}
+    UnknownCommand() : StackException("Unknown command was found") {}
+};
 
-typedef struct context_execution {
-    std::stack<SafeInt<int64_t>> stack;
-    std::map<std::string, SafeInt<int64_t>> variables;
-} ContextExecution;
+class OverflowException : public StackException {
+public:
+    explicit OverflowException(const std::string &whatMessage) : StackException(whatMessage) {}
+    OverflowException() : StackException("Overflow happened") {}
+};
+
+class DivisionByZero : public StackException {
+public:
+    explicit DivisionByZero(const std::string &whatMessage) : StackException(whatMessage) {}
+    DivisionByZero() : StackException("DivisionByZeroError") {}
+};
+
+class CustomException : public SafeIntException{
+public:
+    static void SafeIntOnOverflow();
+};
+
+struct ContextExecution {
+    std::stack<SafeInt<int64_t, CustomException>> stack;
+    std::map<std::string, SafeInt<int64_t, CustomException>> variables;
+};
 
 
 class Command {
@@ -223,7 +245,7 @@ public:
 
     Command *read_command(std::string &command_line);
 
-    std::map<std::string, SafeInt<int64_t>> FindResult() {
+    std::map<std::string, SafeInt<int64_t, CustomException>> FindResult() {
         return context_execution.variables;
     }
 };
