@@ -29,7 +29,7 @@ uint64_t sum64(istream &file){
             block = 0;
 
         }
-        block <<= 8u;
+        block = block << 8;
         block += current_b;
         size = size+1;
 
