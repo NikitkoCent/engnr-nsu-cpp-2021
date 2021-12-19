@@ -32,7 +32,7 @@ private:
 public:
 
     explicit Size(std::string task): task(std::move(task)), size(0) {}
-    void inc(size_t s) { size += static_cast<double>(s);};
+    void inc(uintmax_t s) { size += static_cast<double>(s);};
     ~Size () {
 //        auto now = std::chrono::system_clock::now();
 //        auto in_time_t = std::chrono::system_clock::to_time_t(now);
