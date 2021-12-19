@@ -12,7 +12,7 @@ if (MSVC)
     target_compile_options(DSC
             PRIVATE /W4          # warnings level
             PRIVATE /WX          # treat all warnings as errors
-            )
+            PRIVATE /EHsc)
 else()
     target_compile_options(DSC
             PRIVATE -Wall        # basic set of warnings
