@@ -7,7 +7,7 @@
 
 #include <mutex>
 #include <queue>
-#include <iostream>
+#include <functional>
 
 class SafeQueue {
 private:
