@@ -9,9 +9,9 @@
 using std::cout;
 using std::endl;
 using std::string;
-using std:: cerr;
+using std::cerr;
 using std::ifstream;
-using std:: hex;
+using std::hex;
 using std::exception;
 
 
@@ -33,7 +33,8 @@ int main(int argc, char *argv[]) {
                 cerr << "Unknown mode!" << help << endl;
                 return 1;
             }
-            if (strcmp(argv[1], "-m") == 0) {
+        }
+        if (strcmp(argv[1], "-m") == 0) {
                 if (strcmp(argv[2], "sum64") == 0 || strcmp(argv[2], "adler32") == 0) {
                     mode = argv[2];
                     filename = argv[3];
@@ -41,7 +42,6 @@ int main(int argc, char *argv[]) {
                     cerr << "Unknown mode!" << help << endl;
                     return 1;
                 }
-            }
         }
     }
 
