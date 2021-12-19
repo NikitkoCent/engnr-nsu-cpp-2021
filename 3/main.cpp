@@ -2,7 +2,8 @@
 #include <filesystem>
 #include <queue>
 #include <cmath>
-#include <chrono>
+//#include <chrono>
+#include <cstring>
 
 #include "ThreadPool.h"
 
@@ -97,12 +98,12 @@ int main(int argc, char **argv) {
 
     ThreadPool pool(threads);
     std::cout << "Using " << threads << " thread(s)!" << std::endl;
-    auto start = std::chrono::high_resolution_clock::now();
+//    auto start = std::chrono::high_resolution_clock::now();
+//
+//    auto now = std::chrono::system_clock::now();
+//    auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
-    auto now = std::chrono::system_clock::now();
-    auto in_time_t = std::chrono::system_clock::to_time_t(now);
-
-    std::cout << "Start " << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X") << std::endl;
+//    std::cout << "Start " << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X") << std::endl;
 //    run_test_tasks(pool);
 
     std::string arg;
@@ -110,9 +111,6 @@ int main(int argc, char **argv) {
         std::cin >> arg;
         if (arg == ":exit") {
             std::cout << "Awaiting incompleted tasks!" << std::endl;
-            auto stop = std::chrono::high_resolution_clock::now();
-            auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-            std::cout << duration.count() << std::endl;
             pool.close();
             break;
         }
