@@ -1,0 +1,7 @@
+# DirectorySizeChecker
+
+# Build
+
+# Usage
+
+./DSC
