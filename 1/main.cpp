@@ -21,11 +21,13 @@ int main(int argc, char *argv[]) {
     string help = "\nHow to use the program?:\nYou should enter to use it: './helper -m <mode> <filename>' or './helper <filename> -m <mode>' \nYou can choose from this types of modes: adler32 or sum64\n And you can enter: ' ./hasher -h' to print Help";
     if (argc > 4) {
         cerr << help << endl;
-    } else if ((argc == 2) && (strcmp(argv[1], "-h") == 0)) {
+    }
+    else if ((argc == 2) && (strcmp(argv[1], "-h") == 0)) {
         cout << help << endl;
         return 0;
-    } else if (argc == 4) {
-        if (strcmp(argv[1], "-m") == 0) {
+    }
+    else if (argc == 4) {
+        if (strcmp(argv[2], "-m") == 0) {
             if ((strcmp(argv[3], "adler32") == 0) || (strcmp(argv[3], "sum64") == 0)) {
                 mode = argv[3];
                 filename = argv[1];
