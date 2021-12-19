@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-O2 -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall -Wextra")
 
-add_executable(threads main.cpp SafeQueue.h ThreadPool.cpp ThreadPool.h SafeQueue.cpp)
+add_executable(DSC main.cpp SafeQueue.h ThreadPool.cpp ThreadPool.h SafeQueue.cpp)
 
 if (MSVC)
     target_compile_options(DSC
