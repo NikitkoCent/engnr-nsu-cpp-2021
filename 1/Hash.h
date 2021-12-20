@@ -12,8 +12,8 @@
 
 class Hash {
 public:
-    static uint32_t adler32(istream &file);
-    static uint64_t sum64(istream &file);
+    static uint32_t adler32(std::istream &file);
+    static uint64_t sum64(std::istream &file);
 };
 
 
