@@ -57,6 +57,8 @@ int main(int argc, char *argv[]) {
 
     }
 
+
+
     if(argc != 4 && argc != 2){
         if(argc == 1 || argc == 3){
             cerr << "Error! Not enough arguments." << endl;
