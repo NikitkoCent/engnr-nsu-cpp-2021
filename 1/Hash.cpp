@@ -9,7 +9,7 @@
 #include <cstdint>
 
 
-uint32_t  Hash::adler32(istream &file){
+uint32_t  Hash::adler32(std::istream &file){
     uint32_t  a = 1, b = 0;
     unsigned char k;
     while( file.read((char *)(&k), sizeof(unsigned char)) ){
@@ -19,7 +19,7 @@ uint32_t  Hash::adler32(istream &file){
     return ( b << 16 ) | a;
 }
 
-uint64_t Hash::sum64(istream &file) {
+uint64_t Hash::sum64(std::istream &file) {
     unsigned char tmp;
     uint64_t sum = 0, num = 0, c = 0;
 
