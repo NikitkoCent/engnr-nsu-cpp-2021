@@ -8,18 +8,12 @@
 #include <fstream>
 #include <cstdint>
 #include <iostream>
-using namespace std;
 
 
 class Hash {
-
 public:
     static uint32_t adler32(istream &file);
     static uint64_t sum64(istream &file);
-
-private:
-    static uint64_t read_uint64(istream &file);
-
 };
 
 
