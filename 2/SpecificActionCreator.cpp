@@ -8,15 +8,16 @@ std::unique_ptr<StackActions::Action> SAC::SpecificActionCreator::getAction(std:
     std::string action;
     line >> action;
     std::string args = line.str();
-    if ((action[0] != '#') && (action.length())) {
+    if ((action.length()) && (action[0] != '#')) {
         return std::unique_ptr<StackActions::Action>(findAction(action)(args));
     }
     return nullptr;
 }
 
 std::function<StackActions::Action *(std::string)> SAC::SpecificActionCreator::findAction(const std::string& action) {
-    if (actions.count(action) == 0) {
+    try {
+        return actions.at(action);
+    } catch (std::out_of_range  &){
         throw StackExceptions::InvalidOperation();
     }
-    return actions[action];
 }
