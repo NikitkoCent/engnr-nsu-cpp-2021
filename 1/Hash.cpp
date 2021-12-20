@@ -27,7 +27,7 @@ uint64_t Hash::sum64(std::istream &file) {
         num = 0; c = 0;
         while (!file.eof() && c < sizeof(uint64_t)){
             file.read((char*)&tmp, sizeof(unsigned char));
-            streamsize bytes = file.gcount();
+            std::streamsize bytes = file.gcount();
             if (!bytes) break;
             num <<= 8;
             num |= tmp;
