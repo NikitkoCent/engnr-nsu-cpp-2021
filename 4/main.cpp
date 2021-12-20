@@ -24,6 +24,7 @@ private: friend
     }
 };
 
+
 class Size {
 private:
     std::string task;
@@ -36,13 +37,14 @@ public:
     }
 };
 
+
 void check_dir_threading(const std::string& start_dir, ThreadPool &pool, std::shared_ptr<Size> &size) {
     try {
         fs::directory_iterator begin(start_dir);
         fs::directory_iterator end;
         for (; begin != end; ++begin) {
             try {
-                if (fs::is_directory(begin->path())) {
+                if (fs::is_directory(begin->path()) && !fs::is_symlink(begin->path())) {
                     pool.push(check_dir_threading, begin->path().string(), std::ref(pool), size);
                 } else if (!fs::is_symlink(begin->path())){
                     size->inc(fs::file_size(begin->path()));
@@ -52,12 +54,14 @@ void check_dir_threading(const std::string& start_dir, ThreadPool &pool, std::sh
     } catch(fs::filesystem_error &) {}
 }
 
+
 void start_task(const std::string& task, ThreadPool &pool) {
     pool.push(check_dir_threading, task, std::ref(pool), std::make_shared<Size>(task));
 }
 
+
 int main(int argc, char **argv) {
-    int threads = 1;
+    int threads = 4;
     if ((argc == 3) && (!strcmp(argv[1], "-t") || !strcmp(argv[1], "--threads")))
         threads = max(std::stoi(argv[2]), 1);
 
@@ -69,7 +73,6 @@ int main(int argc, char **argv) {
         std::cin >> arg;
         if (arg == ":exit") {
             std::cout << "Awaiting incompleted tasks!" << std::endl;
-            pool.close();
             break;
         }
         if (arg == ":cancel") {
@@ -81,4 +84,6 @@ int main(int argc, char **argv) {
             start_task(arg, pool);
         }
     }
+    pool.close();
+    return 0;
 }
