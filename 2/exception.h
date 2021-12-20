@@ -143,12 +143,45 @@ public:
     }
 };
 
+class PushEmptyVarname : public PushException {
+public:
+    PushEmptyVarname() : PushException() {
+        text += " empty varname ";
+    }
+
+    std::string what() {
+        return text;
+    }
+};
+
+class PushIntegerOverflow : public PushException {
+public:
+    PushIntegerOverflow() : PushException() {
+        text += " integer overflow ";
+    }
+
+    std::string what() {
+        return text;
+    }
+};
+
 class PeekException : public StackException {
 public:
     PeekException() {
         text += " peek exception ";
     }
     PeekException(std::string text_);
+    std::string what() {
+        return text;
+    }
+};
+
+class PeekEmptyVarname : public PeekException {
+public:
+    PeekEmptyVarname() : PeekException() {
+        text += " empty varname ";
+    }
+
     std::string what() {
         return text;
     }

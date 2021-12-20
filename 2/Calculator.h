@@ -14,6 +14,12 @@
 #include <iterator>
 #include <string>
 #include <fstream>
+#include <charconv>
+
+struct calculator_data {
+    std::stack<SafeInt<int64_t>> values;
+    std::map<std::string, SafeInt<int64_t>> names_and_values;
+};
 
 
 bool is_number(const std::string &line) {
@@ -25,156 +31,165 @@ bool is_number(const std::string &line) {
 class Command {
 public:
     virtual void exec(const std::vector<std::string> &tokens,
-                      std::stack<SafeInt<int64_t>> &values,
-                      std::map<std::string, SafeInt<int64_t>> &names_and_values,
-                      int64_t &result, std::ifstream& in, int args) = 0;
+                      calculator_data& data,
+                      int64_t &result,int args) = 0;
     virtual ~Command() = default;
 
 };
 
 class Print final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              std::stack<SafeInt<int64_t>> &values,
-              std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, int args) override {
-        if(values.empty()) {
+              calculator_data& data,
+              int64_t &result,int args) override {
+        if(data.values.empty()) {
             throw PrintEmptyStack();
 //            std::cerr << "ERROR";
 //            throw std::runtime_error("ERROR");
         }
-        std::cout << std::to_string((int64_t)values.top()) << std::endl;
+        std::cout << std::to_string((int64_t)data.values.top()) << std::endl;
     }
 };
 
 class Plus final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              std::stack<SafeInt<int64_t>> &values,
-              std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, int args) override {
-        if (values.size() < 2) {
+              calculator_data& data,
+              int64_t &result,int args) override {
+        if (data.values.size() < 2) {
             throw PlusEmptyStack();
 //            std::cerr << "ERROR";
 //            throw std::runtime_error("ERROR");
         }
-        int64_t first_element = values.top(); values.pop();
-        int64_t second_element = values.top(); values.pop();
-        values.push(second_element + first_element);
+        int64_t first_element = data.values.top(); data.values.pop();
+        int64_t second_element = data.values.top(); data.values.pop();
+
+        int64_t operation_result;
+        SafeAdd(second_element, first_element, operation_result);
+        data.values.push(operation_result);
     }
 };
 
 class Minus : public Command {
     void exec(const std::vector<std::string> &tokens,
-              std::stack<SafeInt<int64_t>> &values,
-              std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, int args) override {
-        if (values.size() < 2) {
+              calculator_data& data,
+              int64_t &result,int args) override {
+        if (data.values.size() < 2) {
 //            std::cerr << "ERROR";
 //            throw std::runtime_error("ERROR");
             throw MinusEmptyStack();
         }
-        int64_t first_element = values.top(); values.pop();
-        int64_t second_element = values.top(); values.pop();
-        values.push(second_element - first_element);
+        int64_t first_element = data.values.top(); data.values.pop();
+        int64_t second_element = data.values.top(); data.values.pop();
+
+        int64_t operation_result;
+        SafeSubtract(second_element, first_element, operation_result);
+        data.values.push(operation_result);
     }
 };
 
 class Mul : public Command {
     void exec(const std::vector<std::string> &tokens,
-              std::stack<SafeInt<int64_t>> &values,
-              std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, int args) override {
-        if (values.size() < 2) {
+              calculator_data& data,
+              int64_t &result,int args) override {
+        if (data.values.size() < 2) {
 //            std::cerr << "ERROR";
 //            throw std::runtime_error("ERROR");
             throw MulEmptyStack();
         }
-        int64_t first_element = values.top(); values.pop();
-        int64_t second_element = values.top(); values.pop();
-        values.push(second_element * first_element);
+        int64_t first_element = data.values.top(); data.values.pop();
+        int64_t second_element = data.values.top(); data.values.pop();
+
+        int64_t operation_result;
+        SafeMultiply(second_element, first_element, operation_result);
+        data.values.push(operation_result);
     }
 };
 
 class Div : public Command {
     void exec(const std::vector<std::string> &tokens,
-              std::stack<SafeInt<int64_t>> &values,
-              std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, int args) override {
-        if (values.size() < 2) {
+              calculator_data& data,
+              int64_t &result,int args) override {
+        if (data.values.size() < 2) {
 //            std::cerr << "ERROR";
 //            throw std::runtime_error("ERROR");
             throw DivEmptyStack();
         }
-        int64_t first_element = values.top(); values.pop();
-        int64_t second_element = values.top(); values.pop();
+        int64_t first_element = data.values.top(); data.values.pop();
+        int64_t second_element = data.values.top(); data.values.pop();
         if (first_element == 0) {
             throw DivException();
 //            std::cerr << "ERROR";
 //            throw std::runtime_error("ERROR");
         }
-        values.push(second_element / first_element);
+        int64_t operation_result;
+        SafeDivide(second_element, first_element, operation_result);
+        data.values.push(operation_result);
     }
 };
 
 class Push : public Command {
     void exec(const std::vector<std::string> &tokens,
-              std::stack<SafeInt<int64_t>> &values,
-              std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, int args) override {
-        std::string varname = tokens[1];
-        if (is_number(varname)) {
-            values.push(stoi(varname));
-        } else {
-            if (names_and_values.find(varname) == names_and_values.end()) {
-                throw PushException();
+              calculator_data& data,
+              int64_t &result, int args) override {
+            std::string varname = tokens[1];
+            if(varname == "")
+                throw PushEmptyVarname();
+            if (is_number(varname)) {
+                int64_t result_64 = std::stoi(varname);
+//                std::from_chars(varname.data(), varname.data() + varname.size(), (result_64));
+                data.values.push(result_64);
+                if (!SafeAdd(result_64, result_64, result_64))
+                    throw PushIntegerOverflow();
+            } else {
+                if (data.names_and_values.find(varname) == data.names_and_values.end()) {
+                    throw PushException();
 //                std::cerr << "ERROR";
 //                throw std::runtime_error("ERROR");
+                }
+                data.values.push(data.names_and_values[varname]);
             }
-            values.push(names_and_values[varname]);
-        }
     }
 };
 
 class Peek : public Command {
     void exec(const std::vector<std::string> &tokens,
-              std::stack<SafeInt<int64_t>> &values,
-              std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, int args) override {
-        if(values.empty()) {
+              calculator_data& data,
+              int64_t &result, int args) override {
+        if(data.values.empty()) {
             throw PeekEmptyStack();
 //            std::cerr << "ERROR";
 //            throw std::runtime_error("ERROR");
         }
+        if(args < 2)
+            throw PeekEmptyVarname();
         std::string varname = tokens[1];
-        names_and_values[varname] = values.top();
+        data.names_and_values[varname] = data.values.top();
     }
 };
 
 
 class Abs : public Command {
     void exec(const std::vector<std::string> &tokens,
-              std::stack<SafeInt<int64_t>> &values,
-              std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, int args) override {
-        if(values.empty()) {
+              calculator_data& data,
+              int64_t &result, int args) override {
+        if(data.values.empty()) {
             throw AbsStackEmpty();
 //            std::cerr << "ERROR";
 //            throw std::runtime_error("ERROR");
         }
-        int64_t value = values.top();
-        values.pop();
+        int64_t value = data.values.top();
+        data.values.pop();
         value = value > 0 ? value : -value;
-        values.push(value);
+        data.values.push(value);
     }
 };
 
 
 class Pop : public Command {
     void exec(const std::vector<std::string> &tokens,
-              std::stack<SafeInt<int64_t>> &values,
-              std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, int args) override {
-        if (!values.empty())
-            values.pop();
+              calculator_data& data,
+              int64_t &result,int args) override {
+        if (!data.values.empty())
+            data.values.pop();
         else {
             throw PopStackEmpty();
 //            std::cerr << "ERROR";
@@ -186,19 +201,19 @@ class Pop : public Command {
 
 class Read : public Command {
     void exec(const std::vector<std::string> &tokens,
-              std::stack<SafeInt<int64_t>> &values,
-              std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, int args) override {
-        int value = std::stoi(tokens[1]);
-        values.push(value);
+              calculator_data& data,
+              int64_t &result,int args) override {
+        std::string varname = tokens[1];
+        int64_t result_;
+        std::from_chars(varname.data(), varname.data() + varname.size(), result_);
+        data.values.push(result_);
     }
 };
 
 class Comment : public Command {
     void exec(const std::vector<std::string> &tokens,
-              std::stack<SafeInt<int64_t>> &values,
-              std::map<std::string, SafeInt<int64_t>> &names_and_values,
-              int64_t &result, std::ifstream& in, int args) override {
+              calculator_data& data,
+              int64_t &result,int args) override {
         //nothing
     }
 };

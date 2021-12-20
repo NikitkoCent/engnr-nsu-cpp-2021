@@ -12,6 +12,7 @@
 
 void command_processing(std::stringstream& in_s, std::ifstream& in, int args) {
     CommandCreator creator;
+    calculator_data data;
     std::vector<std::string> words;
     std::string word;
     Command *c;
@@ -29,7 +30,7 @@ void command_processing(std::stringstream& in_s, std::ifstream& in, int args) {
                 words.push_back(word);
             }
             c = creator.factoryMethod(words);
-            c->exec(words, values, names_and_values, result, in, args);
+            c->exec(words, data, result, args);
             words.clear();
             delete c;
         }
@@ -42,7 +43,7 @@ void command_processing(std::stringstream& in_s, std::ifstream& in, int args) {
                 words.push_back(word);
             }
             c = creator.factoryMethod(words);
-            c->exec(words, values, names_and_values, result, in, args);
+            c->exec(words, data, result, args);
             words.clear();
             delete c;
         }
@@ -55,7 +56,7 @@ void command_processing(std::stringstream& in_s, std::ifstream& in, int args) {
                 words.push_back(word);
             }
             c = creator.factoryMethod(words);
-            c->exec(words, values, names_and_values, result, in, args);
+            c->exec(words, data, result, args);
             words.clear();
             delete c;
         }
