@@ -14,13 +14,11 @@
 #include <iterator>
 #include <string>
 #include <fstream>
-#include <charconv>
 
 struct calculator_data {
     std::stack<SafeInt<int64_t>> values;
     std::map<std::string, SafeInt<int64_t>> names_and_values;
 };
-
 
 bool is_number(const std::string &line) {
     char *p;
@@ -41,12 +39,12 @@ class Print final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
               int64_t &result,int args) override {
-        if(data.values.empty()) {
+        if (data.values.empty()) {
             throw PrintEmptyStack();
 //            std::cerr << "ERROR";
 //            throw std::runtime_error("ERROR");
         }
-        std::cout << std::to_string((int64_t)data.values.top()) << std::endl;
+        std::cout << std::to_string((int64_t) data.values.top()) << std::endl;
     }
 };
 
@@ -129,16 +127,14 @@ class Div : public Command {
 class Push : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result, int args) override {
+              int64_t &result,int args) override {
             std::string varname = tokens[1];
             if(varname == "")
                 throw PushEmptyVarname();
             if (is_number(varname)) {
-                int64_t result_64 = std::stoi(varname);
-//                std::from_chars(varname.data(), varname.data() + varname.size(), (result_64));
-                data.values.push(result_64);
-                if (!SafeAdd(result_64, result_64, result_64))
-                    throw PushIntegerOverflow();
+                data.values.push(std::stoll(varname));
+//                if (!SafeAdd(result_64, result_64, result_64))
+//                    throw PushIntegerOverflow();
             } else {
                 if (data.names_and_values.find(varname) == data.names_and_values.end()) {
                     throw PushException();
@@ -153,7 +149,7 @@ class Push : public Command {
 class Peek : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result, int args) override {
+              int64_t &result,int args) override {
         if(data.values.empty()) {
             throw PeekEmptyStack();
 //            std::cerr << "ERROR";
@@ -170,7 +166,7 @@ class Peek : public Command {
 class Abs : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result, int args) override {
+              int64_t &result,int args) override {
         if(data.values.empty()) {
             throw AbsStackEmpty();
 //            std::cerr << "ERROR";
@@ -204,9 +200,7 @@ class Read : public Command {
               calculator_data& data,
               int64_t &result,int args) override {
         std::string varname = tokens[1];
-        int64_t result_;
-        std::from_chars(varname.data(), varname.data() + varname.size(), result_);
-        data.values.push(result_);
+        data.values.push(std::stoll(varname));
     }
 };
 
