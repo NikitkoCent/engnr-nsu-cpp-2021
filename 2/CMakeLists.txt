@@ -9,19 +9,22 @@ add_subdirectory(tests)
 
 enable_testing()
 
+include_directories(libs/googletest/googletest/include)
+include_directories(libs/SafeInt/Test)
+
 add_executable(2lab main.cpp Calculator.h command_processing.h exception.h exception.cpp Calculator.cpp)
 target_link_libraries(2lab)
 
 
-#if (MSVC)
-#    target_compile_options(2lab
-#            PRIVATE /W4
-#            #            PRIVATE /WX
-#            )
-#else()
-#    target_compile_options(2lab
-#            PRIVATE -Wall
-#            PRIVATE -pedantic
-#            )
-#endif()
+if (MSVC)
+    target_compile_options(2lab
+            PRIVATE /W4
+            #            PRIVATE /WX
+            )
+else()
+    target_compile_options(2lab
+            PRIVATE -Wall
+            PRIVATE -pedantic
+            )
+endif()
 

@@ -41,8 +41,6 @@ class Print final : public Command {
               int64_t &result,int args) override {
         if (data.values.empty()) {
             throw PrintEmptyStack();
-//            std::cerr << "ERROR";
-//            throw std::runtime_error("ERROR");
         }
         std::cout << std::to_string((int64_t)data.values.top()) << std::endl;
     }
@@ -54,8 +52,6 @@ class Plus final : public Command {
               int64_t &result,int args) override {
         if (data.values.size() < 2) {
             throw PlusEmptyStack();
-//            std::cerr << "ERROR";
-//            throw std::runtime_error("ERROR");
         }
         int64_t first_element = data.values.top(); data.values.pop();
         int64_t second_element = data.values.top(); data.values.pop();
@@ -71,8 +67,6 @@ class Minus : public Command {
               calculator_data& data,
               int64_t &result,int args) override {
         if (data.values.size() < 2) {
-//            std::cerr << "ERROR";
-//            throw std::runtime_error("ERROR");
             throw MinusEmptyStack();
         }
         int64_t first_element = data.values.top(); data.values.pop();
@@ -89,8 +83,6 @@ class Mul : public Command {
               calculator_data& data,
               int64_t &result,int args) override {
         if (data.values.size() < 2) {
-//            std::cerr << "ERROR";
-//            throw std::runtime_error("ERROR");
             throw MulEmptyStack();
         }
         int64_t first_element = data.values.top(); data.values.pop();
@@ -107,16 +99,12 @@ class Div : public Command {
               calculator_data& data,
               int64_t &result,int args) override {
         if (data.values.size() < 2) {
-//            std::cerr << "ERROR";
-//            throw std::runtime_error("ERROR");
             throw DivEmptyStack();
         }
         int64_t first_element = data.values.top(); data.values.pop();
         int64_t second_element = data.values.top(); data.values.pop();
         if (first_element == 0) {
             throw DivException();
-//            std::cerr << "ERROR";
-//            throw std::runtime_error("ERROR");
         }
         int64_t operation_result;
         SafeDivide(second_element, first_element, operation_result);
@@ -133,13 +121,9 @@ class Push : public Command {
                 throw PushEmptyVarname();
             if (is_number(varname)) {
                 data.values.push(std::stoll(varname));
-//                if (!SafeAdd(result_64, result_64, result_64))
-//                    throw PushIntegerOverflow();
             } else {
                 if (data.names_and_values.find(varname) == data.names_and_values.end()) {
                     throw PushException();
-//                std::cerr << "ERROR";
-//                throw std::runtime_error("ERROR");
                 }
                 data.values.push(data.names_and_values[varname]);
             }
@@ -152,8 +136,6 @@ class Peek : public Command {
               int64_t &result,int args) override {
         if(data.values.empty()) {
             throw PeekEmptyStack();
-//            std::cerr << "ERROR";
-//            throw std::runtime_error("ERROR");
         }
         if(args < 2)
             throw PeekEmptyVarname();
@@ -169,8 +151,6 @@ class Abs : public Command {
               int64_t &result,int args) override {
         if(data.values.empty()) {
             throw AbsStackEmpty();
-//            std::cerr << "ERROR";
-//            throw std::runtime_error("ERROR");
         }
         int64_t value = data.values.top();
         data.values.pop();
@@ -188,8 +168,6 @@ class Pop : public Command {
             data.values.pop();
         else {
             throw PopStackEmpty();
-//            std::cerr << "ERROR";
-//            throw std::runtime_error("ERROR");
         }
     }
 };
@@ -250,8 +228,6 @@ public:
             return new Pop();
         } else {
             throw CommandException();
-//            std::cerr << "ERROR";
-//            throw std::runtime_error("ERROR");
         }
     }
 };
