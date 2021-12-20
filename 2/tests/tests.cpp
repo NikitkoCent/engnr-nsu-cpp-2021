@@ -143,6 +143,49 @@ TEST(test5, test_5) {
     EXPECT_EQ(output, result);
 }
 
+TEST(test6, test_6) {
+    std::string test = "PUSH -90\n"
+                       "PRINT\n"
+                       "\n"
+                       "PUSH 1\n"
+                       "PRINT\n"
+                       "\n"
+                       "MUL\n"
+                       "PRINT\n"
+                       "\n"
+                       "ABS\n"
+                       "PRINT\n"
+                       "\n"
+                       "PEEK myVar\n"
+                       "PRINT\n"
+                       "\n"
+                       "POP\n"
+                       "\n"
+                       "PUSH myVar\n"
+                       "PRINT\n"
+                       "\n"
+                       "PUSH 45\n"
+                       "PRINT\n"
+                       "\n"
+                       "DIV\n"
+                       "PRINT";
+    testing::internal::CaptureStdout();
+    std::stringstream in_s(test);
+    std::ifstream in;
+    std::string result = "-90\n"
+                         "1\n"
+                         "-90\n"
+                         "90\n"
+                         "90\n"
+                         "90\n"
+                         "45\n"
+                         "2\n";
+    command_processing(in_s, in, 3);
+    std::string output = testing::internal::GetCapturedStdout();
+    std::cout << output;
+    EXPECT_EQ(output, result);
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

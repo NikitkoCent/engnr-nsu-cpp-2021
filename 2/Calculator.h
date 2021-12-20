@@ -44,7 +44,7 @@ class Print final : public Command {
 //            std::cerr << "ERROR";
 //            throw std::runtime_error("ERROR");
         }
-        std::cout << std::to_string((int64_t) data.values.top()) << std::endl;
+        std::cout << std::to_string((int64_t)data.values.top()) << std::endl;
     }
 };
 
@@ -129,7 +129,7 @@ class Push : public Command {
               calculator_data& data,
               int64_t &result,int args) override {
             std::string varname = tokens[1];
-            if(varname == "")
+            if(varname.empty())
                 throw PushEmptyVarname();
             if (is_number(varname)) {
                 data.values.push(std::stoll(varname));
