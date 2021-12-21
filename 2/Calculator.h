@@ -1,8 +1,14 @@
+//
+// Created by kiril on 21.12.2021.
+//
+
+#ifndef INC_2LAB_CALCULATOR_H
+#define INC_2LAB_CALCULATOR_H
+
 #pragma once
 
 #include "libs/SafeInt/SafeInt.hpp"
 #include "exception.h"
-#include "Calculator.h"
 
 #include <stack>
 #include <sstream>
@@ -30,50 +36,52 @@ class Command {
 public:
     virtual void exec(const std::vector<std::string> &tokens,
                       calculator_data& data,
-                      int64_t &result, int args) = 0;
+                      int args) = 0;
     virtual ~Command() = default;
 
 };
 
-class Print final : public Command {
+class Print : public Command {
     void exec(const std::vector<std::string> &tokens,
-              calculator_data& data,
-              int64_t &result, int args) override {
+                     calculator_data &data,
+                     int args) override {
         if (data.values.empty()) {
             throw PrintEmptyStack();
         }
-        std::cout << std::to_string((int64_t)data.values.top()) << std::endl;
+        std::cout << std::to_string((int64_t) data.values.top()) << std::endl;
     }
 };
 
 class Plus final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result, int args) override {
+              int args) override  {
         if (data.values.size() < 2) {
             throw PlusEmptyStack();
         }
-        int64_t first_element = data.values.top(); data.values.pop();
-        int64_t second_element = data.values.top(); data.values.pop();
+        int64_t first_element = data.values.top();
+        data.values.pop();
+        int64_t second_element = data.values.top();
+        data.values.pop();
 
-        int64_t operation_result = second_element + first_element;
-//        SafeAdd(second_element, first_element, operation_result);
+        int64_t operation_result;
+        SafeAdd(second_element, first_element, operation_result);
         data.values.push(operation_result);
     }
 };
 
-class Minus : public Command {
+class Minus final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result,int args) override {
+              int args) override {
         if (data.values.size() < 2) {
             throw MinusEmptyStack();
         }
         int64_t first_element = data.values.top(); data.values.pop();
         int64_t second_element = data.values.top(); data.values.pop();
 
-        int64_t operation_result = second_element - first_element;
-//        SafeSubtract(second_element, first_element, operation_result);
+        int64_t operation_result;
+        SafeSubtract(second_element, first_element, operation_result);
         data.values.push(operation_result);
     }
 };
@@ -81,15 +89,15 @@ class Minus : public Command {
 class Mul : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result,int args) override {
+              int args) override {
         if (data.values.size() < 2) {
             throw MulEmptyStack();
         }
         int64_t first_element = data.values.top(); data.values.pop();
         int64_t second_element = data.values.top(); data.values.pop();
 
-        int64_t operation_result = second_element * first_element;
-//        SafeMultiply(second_element, first_element, operation_result);
+        int64_t operation_result;
+        SafeMultiply(second_element, first_element, operation_result);
         data.values.push(operation_result);
     }
 };
@@ -97,7 +105,7 @@ class Mul : public Command {
 class Div : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result,int args) override {
+              int args) override {
         if (data.values.size() < 2) {
             throw DivEmptyStack();
         }
@@ -106,8 +114,8 @@ class Div : public Command {
         if (first_element == 0) {
             throw DivException();
         }
-        int64_t operation_result = second_element / first_element;
-//        SafeDivide(second_element, first_element, operation_result);
+        int64_t operation_result;
+        SafeDivide(second_element, first_element, operation_result);
         data.values.push(operation_result);
     }
 };
@@ -115,32 +123,30 @@ class Div : public Command {
 class Push : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result, int args) override {
-            std::string varname = tokens[1];
-            if(varname.empty())
-                throw PushEmptyVarname();
-            if (is_number(varname)) {
-                data.values.push(std::stoll(varname));
-            } else {
-                if (data.names_and_values.find(varname) == data.names_and_values.end()) {
-                    throw PushException();
-                }
-                data.values.push(data.names_and_values[varname]);
+              int args) override {
+        std::string varname = tokens[1];
+        if(varname.empty())
+            throw PushEmptyVarname();
+        if (is_number(varname)) {
+            data.values.push(std::stoll(varname));
+        } else {
+            if (data.names_and_values.find(varname) == data.names_and_values.end()) {
+                throw PushException();
             }
+            data.values.push(data.names_and_values[varname]);
+        }
     }
 };
 
 class Peek : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result, int args) override {
+              int args) override {
         if(data.values.empty()) {
             throw PeekEmptyStack();
         }
-//        if(args < 2)
-//            throw PeekEmptyVarname();
         std::string varname = tokens[1];
-        if(varname.empty())
+        if(tokens.size() < 2)
             throw PeekEmptyStack();
         data.names_and_values[varname] = data.values.top();
     }
@@ -150,7 +156,7 @@ class Peek : public Command {
 class Abs : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result,int args) override {
+              int args) override {
         if(data.values.empty()) {
             throw AbsStackEmpty();
         }
@@ -165,7 +171,7 @@ class Abs : public Command {
 class Pop : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result,int args) override {
+              int args) override {
         if (!data.values.empty())
             data.values.pop();
         else {
@@ -178,7 +184,7 @@ class Pop : public Command {
 class Read : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result,int args) override {
+              int args) override {
         std::string varname = tokens[1];
         data.values.push(std::stoll(varname));
     }
@@ -187,7 +193,7 @@ class Read : public Command {
 class Comment : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result, int args) override {
+              int args) override {
         //nothing
     }
 };
@@ -233,3 +239,6 @@ public:
         }
     }
 };
+
+
+#endif //INC_2LAB_CALCULATOR_H

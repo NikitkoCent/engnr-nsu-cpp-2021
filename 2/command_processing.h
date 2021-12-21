@@ -19,8 +19,6 @@ void command_processing(std::stringstream& in_s, std::ifstream& in, int args) {
 
     Command *c;
 
-    int64_t result = 0;
-
     std::string command;
     std::string cmd_s;
 
@@ -33,7 +31,7 @@ void command_processing(std::stringstream& in_s, std::ifstream& in, int args) {
                 words.push_back(word);
             }
             c = creator.factoryMethod(words);
-            c->exec(words, data, result, args);
+            c->exec(words, data, args);
             words.clear();
             delete c;
         }
@@ -46,7 +44,7 @@ void command_processing(std::stringstream& in_s, std::ifstream& in, int args) {
                 words.push_back(word);
             }
             c = creator.factoryMethod(words);
-            c->exec(words, data, result, args);
+            c->exec(words, data, args);
             words.clear();
             delete c;
         }
@@ -59,7 +57,7 @@ void command_processing(std::stringstream& in_s, std::ifstream& in, int args) {
                 words.push_back(word);
             }
             c = creator.factoryMethod(words);
-            c->exec(words, data, result, args);
+            c->exec(words, data, args);
             words.clear();
             delete c;
         }

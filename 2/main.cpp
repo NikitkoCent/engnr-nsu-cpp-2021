@@ -2,14 +2,12 @@
 
 int main(int argc, char *argv[]) {
     try {
-//        argc = 2;
         std::ifstream file;
         const char *filepath;
         std::stringstream in_s;
         if (argc > 2 || argc == 0)
             return 1;
         if (argc == 2) {
-//            filepath = "input.txt";
             filepath = argv[1];
             file.open(filepath);
             if (!file.is_open())
