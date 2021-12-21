@@ -27,7 +27,6 @@ void StackActions::Push::act(Context &context) {
         } else {
             throw StackExceptions::PushException();
         }
-        context.st.push(result);
     } else {
         if (context.vars.count(value) == 0) {
             throw StackExceptions::PushException();
