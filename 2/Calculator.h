@@ -120,7 +120,7 @@ class Push : public Command {
             if(varname.empty())
                 throw PushEmptyVarname();
             if (is_number(varname)) {
-                data.values.push(std::stoll(varname));
+                data.values.push(std::stoi(varname));
             } else {
                 if (data.names_and_values.find(varname) == data.names_and_values.end()) {
                     throw PushException();
@@ -178,14 +178,14 @@ class Read : public Command {
               calculator_data& data,
               int64_t &result,int args) override {
         std::string varname = tokens[1];
-        data.values.push(std::stoll(varname));
+        data.values.push(std::stoi(varname));
     }
 };
 
 class Comment : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int64_t &result,int args) override {
+              int64_t &result, int args) override {
         //nothing
     }
 };

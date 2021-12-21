@@ -13,14 +13,17 @@
 void command_processing(std::stringstream& in_s, std::ifstream& in, int args) {
     CommandCreator creator;
     calculator_data data;
+
     std::vector<std::string> words;
     std::string word;
+
     Command *c;
-    std::stack<SafeInt<int64_t>> values;
-    std::map<std::string, SafeInt<int64_t>> names_and_values;
+
     int64_t result = 0;
+
     std::string command;
     std::string cmd_s;
+
     if(args == 2) {
         while (getline(in, cmd_s, '\n')) {
             if(cmd_s.empty())
