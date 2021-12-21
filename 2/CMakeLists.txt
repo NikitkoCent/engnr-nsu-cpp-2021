@@ -16,15 +16,3 @@ add_executable(2lab main.cpp Calculator.h command_processing.h exception.h excep
 target_link_libraries(2lab)
 
 
-if (MSVC)
-    target_compile_options(2lab
-            PRIVATE /W4
-            #            PRIVATE /WX
-            )
-else()
-    target_compile_options(2lab
-            PRIVATE -Wall
-            PRIVATE -pedantic
-            )
-endif()
-
