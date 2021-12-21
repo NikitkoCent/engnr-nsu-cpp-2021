@@ -13,7 +13,7 @@ StackActions::Action::Action(std::string &_args) {
 
 bool StackActions::Action::is_number(const std::string &s) {
     return !s.empty() && (std::all_of(s.begin(), s.end(), [](char c) {return ::isdigit(c);}) ||
-                (s[0] == '-' && std::all_of(s.begin()+1, s.end(), [](char c) {return ::isdigit(c);})));
+                          (s[0] == '-' && std::all_of(s.begin()+1, s.end(), [](char c) {return ::isdigit(c);})));
 }
 
 void StackActions::Push::act(Context &context) {
@@ -21,7 +21,12 @@ void StackActions::Push::act(Context &context) {
     args >> value;
     if (is_number(value)) {
         int64_t result{};
-        std::from_chars(value.data(), value.data() + value.size(), result);
+        auto [ptr, ec] {std::from_chars(value.data(), value.data() + value.size(), result)};
+        if (ec == std::errc()) {
+            context.st.push(result);
+        } else {
+            throw StackExceptions::PushException();
+        }
         context.st.push(result);
     } else {
         if (context.vars.count(value) == 0) {
@@ -57,12 +62,14 @@ void StackActions::Print::act(Context &context)  {
 void StackActions::Read::act(Context &context) {
     std::string value;
     std::cin >> value;
-    if (!is_number(value)) {
+    int64_t result{};
+    auto [ptr, ec] {std::from_chars(value.data(), value.data() + value.size(), result)};
+    if (ec == std::errc()) {
+        context.st.push(result);
+    } else {
         throw StackExceptions::ReadException();
     }
-    int64_t result{};
-    std::from_chars(value.data(), value.data() + value.size(), result);
-    context.st.push(result);
+
 }
 
 void StackActions::Abs::act(Context &context) {
