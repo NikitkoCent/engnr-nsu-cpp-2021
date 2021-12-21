@@ -131,7 +131,7 @@ Division::command(ContextExecution &context_execution) {
             context_execution.stack.pop();
             context_execution.stack.push((int64_t) val2 / (int64_t) val1);
         }else{
-            throw DivisionException("Division by zero happened.");
+            throw DivisionByZero();
         }
     } else {
         throw DivisionException();
