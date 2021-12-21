@@ -70,7 +70,6 @@ int main(int argc, char* argv[])
         std::cerr << "File error" << std::endl;
         return 1;
     }
-    in.close();
     
 
     return 0;
