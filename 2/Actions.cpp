@@ -60,7 +60,9 @@ void StackActions::Read::act(Context &context) {
     if (!is_number(value)) {
         throw StackExceptions::ReadException();
     }
-    context.st.push(std::stol(value));
+    int64_t result{};
+    std::from_chars(value.data(), value.data() + value.size(), result);
+    context.st.push(result);
 }
 
 void StackActions::Abs::act(Context &context) {
