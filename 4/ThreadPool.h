@@ -22,7 +22,6 @@ private:
     SafeQueue tp_queue;
     std::vector<std::thread> tp_threads;
     std::mutex tp_mutex;
-    std::condition_variable tp_cond;
 
 public:
     explicit ThreadPool(const int n_threads): tp_threads(std::vector<std::thread>(n_threads)) {init();}
@@ -36,12 +35,13 @@ public:
 
     void clear();
 
+    bool empty();
+
     template<typename F, typename...A>
     auto push(F&& f, A&&... args) {
         auto task_ptr = std::make_shared<std::packaged_task<decltype(f(args...)) ()>>(std::bind(std::forward<F>(f), std::forward<A>(args)...));
         std::function<void()> wrapped = [task_ptr](){(*task_ptr)();};
         tp_queue.push(wrapped);
-        tp_cond.notify_one();
         return task_ptr->get_future();
     }
 };

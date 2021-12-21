@@ -7,7 +7,6 @@
 #include <string>
 #include "ThreadPool.h"
 
-#define max(a, b) a > b ? a : b
 
 namespace fs = std::filesystem;
 
@@ -27,7 +26,7 @@ private: friend
 
 class Size {
 private:
-    std::string task;
+    fs::path task;
     double size;
 public:
     explicit Size(std::string task): task(std::move(task)), size(0) {}
@@ -63,7 +62,7 @@ void start_task(const std::string& task, ThreadPool &pool) {
 int main(int argc, char **argv) {
     int threads = 4;
     if ((argc == 3) && (!strcmp(argv[1], "-t") || !strcmp(argv[1], "--threads")))
-        threads = max(std::stoi(argv[2]), 1);
+        threads = std::max(std::stoi(argv[2]), 1);
 
     ThreadPool pool(threads);
     std::cout << "Using " << threads << " thread(s)!" << std::endl;
@@ -84,6 +83,7 @@ int main(int argc, char **argv) {
             start_task(arg, pool);
         }
     }
+    while (!pool.empty()) {}
     pool.close();
     return 0;
 }

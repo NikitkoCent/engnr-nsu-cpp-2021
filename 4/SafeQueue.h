@@ -17,8 +17,6 @@ public:
     SafeQueue() = default;
     ~SafeQueue() = default;
 
-    size_t size();
-
     bool empty();
 
     void push(std::function<void()>& task);

@@ -8,12 +8,8 @@ void ThreadPool::thread_manager() {
     while (!stop_cmd) {
         std::function<void()> func;
         std::unique_lock<std::mutex> lock(tp_mutex);
-        if (tp_queue.empty()) {
-            tp_cond.wait(lock);
-        }
         found_task = tp_queue.pop(func);
         lock.unlock();
-
         if (found_task)
             func();
     }
@@ -26,7 +22,6 @@ void ThreadPool::init() {
 }
 
 void ThreadPool::join() {
-    tp_cond.notify_all();
     for (auto & thread : tp_threads)
         thread.join();
 }
@@ -37,7 +32,9 @@ void ThreadPool::close() {
 }
 
 void ThreadPool::clear() {
-    close();
     tp_queue.clear();
-    init();
+}
+
+bool ThreadPool::empty() {
+    return tp_queue.empty();
 }
