@@ -28,6 +28,7 @@ namespace fs = std::filesystem;
 unsigned long long worker(ThreadPool<int> &tp, const string &file) {
     cout << "Starting worker for " << &tp << " " << file << endl;
     unsigned long long sz = 0;
+    int cnt = 0;
     vector<std::future<int>> futs;
 
     for (auto &p: fs::recursive_directory_iterator(file)) {
@@ -39,9 +40,12 @@ unsigned long long worker(ThreadPool<int> &tp, const string &file) {
                 return sz;
             }));
             futs.emplace_back(move(task_fut));
+            cout << "\rFiles: " << cnt <<"           ";
+            cnt++;
         }
     }
-    cout << "Waiting for tasks to finish..." << endl;
+
+    cout << endl << "Waiting for tasks to finish..." << endl;
 
     for (auto &fut : futs) {
         sz += fut.get();
