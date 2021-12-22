@@ -3,6 +3,7 @@ add_executable(calculator_tests
         )
 
 target_link_libraries(calculator_tests
+        calculator_lib
         gtest
         gmock_main
         )

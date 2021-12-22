@@ -26,11 +26,7 @@ struct calculator_data {
     std::map<std::string, SafeInt<int64_t>> names_and_values;
 };
 
-bool is_number(const std::string &line) {
-    char *p;
-    strtol(line.c_str(), &p, 10);
-    return *p == 0;
-}
+bool is_number(const std::string &line);
 
 class Command {
 public:
@@ -44,158 +40,70 @@ public:
 class Print : public Command {
     void exec(const std::vector<std::string> &tokens,
                      calculator_data &data,
-                     int args) override {
-        if (data.values.empty()) {
-            throw PrintEmptyStack();
-        }
-        std::cout << std::to_string((int64_t) data.values.top()) << std::endl;
-    }
+                     int args) override;
 };
 
 class Plus final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int args) override  {
-        if (data.values.size() < 2) {
-            throw PlusEmptyStack();
-        }
-        int64_t first_element = data.values.top();
-        data.values.pop();
-        int64_t second_element = data.values.top();
-        data.values.pop();
-
-        int64_t operation_result;
-        SafeAdd(second_element, first_element, operation_result);
-        data.values.push(operation_result);
-    }
+              int args) override;
 };
 
 class Minus final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int args) override {
-        if (data.values.size() < 2) {
-            throw MinusEmptyStack();
-        }
-        int64_t first_element = data.values.top(); data.values.pop();
-        int64_t second_element = data.values.top(); data.values.pop();
-
-        int64_t operation_result;
-        SafeSubtract(second_element, first_element, operation_result);
-        data.values.push(operation_result);
-    }
+              int args) override;
 };
 
-class Mul : public Command {
+class Mul final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int args) override {
-        if (data.values.size() < 2) {
-            throw MulEmptyStack();
-        }
-        int64_t first_element = data.values.top(); data.values.pop();
-        int64_t second_element = data.values.top(); data.values.pop();
-
-        int64_t operation_result;
-        SafeMultiply(second_element, first_element, operation_result);
-        data.values.push(operation_result);
-    }
+              int args) override;
 };
 
-class Div : public Command {
+class Div final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int args) override {
-        if (data.values.size() < 2) {
-            throw DivEmptyStack();
-        }
-        int64_t first_element = data.values.top(); data.values.pop();
-        int64_t second_element = data.values.top(); data.values.pop();
-        if (first_element == 0) {
-            throw DivException();
-        }
-        int64_t operation_result;
-        SafeDivide(second_element, first_element, operation_result);
-        data.values.push(operation_result);
-    }
+              int args) override;
 };
 
-class Push : public Command {
+class Push final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int args) override {
-        std::string varname = tokens[1];
-        if(varname.empty())
-            throw PushEmptyVarname();
-        if (is_number(varname)) {
-            data.values.push(std::stoll(varname));
-        } else {
-            if (data.names_and_values.find(varname) == data.names_and_values.end()) {
-                throw PushException();
-            }
-            data.values.push(data.names_and_values[varname]);
-        }
-    }
+              int args) override;
 };
 
-class Peek : public Command {
+class Peek final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int args) override {
-        if(data.values.empty()) {
-            throw PeekEmptyStack();
-        }
-        std::string varname = tokens[1];
-        if(tokens.size() < 2)
-            throw PeekEmptyStack();
-        data.names_and_values[varname] = data.values.top();
-    }
+              int args) override;
 };
 
 
-class Abs : public Command {
+class Abs final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int args) override {
-        if(data.values.empty()) {
-            throw AbsStackEmpty();
-        }
-        int64_t value = data.values.top();
-        data.values.pop();
-        value = value > 0 ? value : -value;
-        data.values.push(value);
-    }
+              int args) override;
 };
 
 
-class Pop : public Command {
+class Pop final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int args) override {
-        if (!data.values.empty())
-            data.values.pop();
-        else {
-            throw PopStackEmpty();
-        }
-    }
+              int args) override;
 };
 
 
-class Read : public Command {
+class Read final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int args) override {
-        std::string varname = tokens[1];
-        data.values.push(std::stoll(varname));
-    }
+              int args) override;
 };
 
-class Comment : public Command {
+class Comment final : public Command {
     void exec(const std::vector<std::string> &tokens,
               calculator_data& data,
-              int args) override {
-        //nothing
-    }
+              int args) override;
 };
 
 class Calculator {
