@@ -138,8 +138,8 @@ void Read::exec(const std::vector<std::string> &tokens,
     data.values.push(std::stoll(varname));
 }
 
-void Command::exec(const std::vector<std::string> &tokens,
+void Comment::exec(const std::vector<std::string> &tokens,
           calculator_data& data,
-          int args) override {
+          int args) {
 //nothing
 }
