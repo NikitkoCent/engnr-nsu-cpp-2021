@@ -196,6 +196,15 @@ TEST(test7, test_7) {
     EXPECT_THROW(command_processing(in_s, in, 3), SafeIntException);
 }
 
+TEST(test8, test_8) {
+    std::string test = "PUSH -9223372036854775808\n"
+                       "PEEK\n"
+                       "PRINT";
+    std::stringstream in_s(test);
+    std::ifstream in;
+    EXPECT_THROW(command_processing(in_s, in, 3), PeekEmptyStack);
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
