@@ -12,7 +12,7 @@
 
 class CommandFactory {
 public:
-    static Command* parseCmd(stringstream &cmd);
+    static std::unique_ptr<Command> parseCmd(stringstream &cmd);
 };
 
 #endif //CPP_LABS_COMMANDFACTORY_H

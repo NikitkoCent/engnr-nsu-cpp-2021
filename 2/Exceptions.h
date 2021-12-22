@@ -24,4 +24,9 @@ public:
     InvalidArgumentsException() : StackCalculatorException("Command has invalid args!") {}
 };
 
+class OverflowException : public StackCalculatorException {
+public:
+    OverflowException() : StackCalculatorException("Number overflows int64_t!") {}
+};
+
 #endif //CPP_LABS_EXCEPTIONS_H

@@ -35,21 +35,21 @@ add_test(google_test cpp_labs_2_test)
 if (MSVC)
     target_compile_options(cpp_labs_2
             PRIVATE /W4          # warnings level
-            #			PRIVATE /WX          # treat all warnings as errors
+            PRIVATE /WX          # treat all warnings as errors
             )
     target_compile_options(cpp_labs_2_test
             PRIVATE /W4          # warnings level
-            #			PRIVATE /WX          # treat all warnings as errors
+            PRIVATE /WX          # treat all warnings as errors
             )
 else ()
     target_compile_options(cpp_labs_2
             PRIVATE -Wall        # basic set of warnings
-            PRIVATE -pedantic    # modern C++ inspections
-            #			PRIVATE -Werror      # treat all warnings as errors
+#            PRIVATE -pedantic    # modern C++ inspections
+            PRIVATE -Werror      # treat all warnings as errors
             )
     target_compile_options(cpp_labs_2_test
             PRIVATE -Wall        # basic set of warnings
-            PRIVATE -pedantic    # modern C++ inspections
-            #			PRIVATE -Werror      # treat all warnings as errors
+#            PRIVATE -pedantic    # modern C++ inspections
+            PRIVATE -Werror      # treat all warnings as errors
             )
 endif ()

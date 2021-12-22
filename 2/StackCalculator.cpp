@@ -16,9 +16,9 @@ void StackCalculator::parse_stream(std::istream &in) {
         if (line.empty()) continue; // don't parse empty line
 
         stringstream ls(line);
-        std::unique_ptr<Command> shit(CommandFactory::parseCmd(ls));
-        if (shit != nullptr)
-            this->exec(std::move(shit));
+        std::unique_ptr<Command> tmp = CommandFactory::parseCmd(ls);
+        if (tmp != nullptr)
+            this->exec(std::move(tmp));
     }
 }
 

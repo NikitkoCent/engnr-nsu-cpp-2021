@@ -4,7 +4,7 @@
 
 #include "CommandFactory.h"
 
-Command* CommandFactory::parseCmd(stringstream &cmd){
+std::unique_ptr<Command> CommandFactory::parseCmd(stringstream &cmd){
     string cmd_name;
     cmd >> cmd_name;
     string ass = cmd.str();
@@ -13,26 +13,26 @@ Command* CommandFactory::parseCmd(stringstream &cmd){
         return nullptr;
 
     if (cmd_name == "PUSH") {
-        return new Push(ass);
+        return std::unique_ptr<Command>(new Push(ass));
     } else if (cmd_name == "PEEK"){
-        return new Peek(ass);
+        return std::unique_ptr<Command>(new Peek(ass));
     } else if (cmd_name == "ABS"){
-        return new Abs(ass);
+        return std::unique_ptr<Command>(new Abs(ass));
     } else if (cmd_name == "PLUS"){
-        return new Plus(ass);
+        return std::unique_ptr<Command>(new Plus(ass));
     } else if (cmd_name == "MINUS"){
-        return new Minus(ass);
+        return std::unique_ptr<Command>(new Minus(ass));
     } else if (cmd_name == "DIV"){
-        return new Div(ass);
+        return std::unique_ptr<Command>(new Div(ass));
     } else if (cmd_name == "MUL"){
-        return new Mul(ass);
+        return std::unique_ptr<Command>(new Mul(ass));
     } else if (cmd_name == "PRINT"){
-        return new Print(ass);
+        return std::unique_ptr<Command>(new Print(ass));
     } else if (cmd_name == "READ"){
-        return new Read(ass);
+        return std::unique_ptr<Command>(new Read(ass));
     } else if (cmd_name == "POP"){
-        return new Pop(ass);
+        return std::unique_ptr<Command>(new Pop(ass));
     } else {
-        throw std::runtime_error("Invalid command!");
+        throw InvalidArgumentsException();
     }
 }

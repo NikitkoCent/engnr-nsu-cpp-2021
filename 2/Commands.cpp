@@ -4,6 +4,8 @@
 
 #include "Commands.h"
 
+#include <charconv>
+
 bool Push::is_number(const std::string &line) {
     char *p;
     strtol(line.c_str(), &p, 10);
@@ -14,6 +16,11 @@ void Push::exec(StackCalculatorContext &ctx) {
     string varname;
     args >> varname;
     if (is_number(varname)) {
+        int64_t converted_num;
+        auto res =  std::from_chars(varname.data(), varname.data() + varname.size(), converted_num);
+        if (res.ec == std::errc::result_out_of_range){
+            throw OverflowException();
+        }
         ctx.get_stack().push(std::stoi(varname));
     } else {
         if (ctx.get_map().count(varname) == 0)
