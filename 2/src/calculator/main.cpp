@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
             }
             ReadFromStream(file);
         }
-    }  catch (StackException &e) {
+    }  catch (const StackException &e) {
         std::cerr << e.what() << std::endl;
         return 1;
     }  catch (SafeIntException &e) {
