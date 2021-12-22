@@ -9,10 +9,8 @@
 #include "StackCalculator.hpp"
 #include "CommandFactory.h"
 
-using namespace std;
-
 int main(int argc, char** argv){
-    ifstream in;
+    std::ifstream in;
     vector<Command*> cmds;
     StackCalculator stackCalculator;
     try {
@@ -23,10 +21,10 @@ int main(int argc, char** argv){
             stackCalculator.parse_stream(cin);
         }
     } catch (std::exception &e) {
-        cerr << e.what() << endl;
+        std::cerr << e.what() << endl;
         return 1;
     } catch (std::runtime_error &e) {
-        cerr << e.what() << endl;
+        std::cerr << e.what() << endl;
         return 1;
     }
     return 0;
