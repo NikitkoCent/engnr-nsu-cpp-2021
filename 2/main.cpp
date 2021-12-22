@@ -2,7 +2,6 @@
 
 int main(int argc, char *argv[]) {
     try {
-        argc = 1;
         std::ifstream file;
         const char *filepath;
         std::stringstream in_s;
