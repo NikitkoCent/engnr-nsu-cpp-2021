@@ -13,8 +13,11 @@ class SafeQueue {
 private:
     std::queue<std::function<void()>> sf_queue;
     std::mutex sq_mutex;
+    std::condition_variable cond;
+    std::mutex wait_mutex;
+    bool stop_cmd;
 public:
-    SafeQueue() = default;
+    SafeQueue(): stop_cmd(false) {}
     ~SafeQueue() = default;
 
     bool empty();
@@ -24,6 +27,8 @@ public:
     bool pop(std::function<void()>& task);
 
     void clear();
+
+    void close();
 };
 
 

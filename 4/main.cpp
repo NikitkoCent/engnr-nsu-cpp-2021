@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
             start_task(arg, pool);
         }
     }
-    while (!pool.empty()) {}
+    while (!pool.empty()) {std::cout << "loh";}
     pool.close();
     return 0;
 }

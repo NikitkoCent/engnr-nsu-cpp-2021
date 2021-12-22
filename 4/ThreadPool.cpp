@@ -28,6 +28,7 @@ void ThreadPool::join() {
 
 void ThreadPool::close() {
     stop_cmd = true;
+    tp_queue.close();
     join();
 }
 
