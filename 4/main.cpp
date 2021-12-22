@@ -1,21 +1,10 @@
 #include <iostream>
 #include <string>
-
-#include "dirwalker/SafeQueue.h"
-#include "dirwalker/ThreadPool.h"
-
-#ifdef _WIN32
-#include <Windows.h>
-#else
-
-#include <unistd.h>
-
-#endif
-
 #include <iostream>
 #include <cstdlib>
 
-using namespace std;
+#include "dirwalker/SafeQueue.h"
+#include "dirwalker/ThreadPool.h"
 
 #ifdef USE_BOOST_FS
 #include <boost/filesystem.hpp>
@@ -24,6 +13,13 @@ namespace fs = boost::filesystem;
 #include <filesystem>
 namespace fs = std::filesystem;
 #endif
+
+using std::string;
+using std::vector;
+using std::cout;
+using std::cin;
+using std::endl;
+using std::move;
 
 unsigned long long worker(ThreadPool<int> &tp, const string &file) {
     cout << "Starting worker for " << &tp << " " << file << endl;
@@ -64,23 +60,7 @@ int main() {
 
     cout << &subtask_pool << endl;
 
-//    auto future = tp.submit([]{ return 228;});
-
-//    cout << future.get() << endl;
-
-//    int cnt = 10;
-//
-//    vector<std::__1::future<int>> futs(cnt);
-//
-//    for (int i = 0; i < cnt; ++i) {
-////        cout << "Submit " << i << endl;
-//        futs[i] = tp.submit(move([i]{ std::this_thread::sleep_for(std::chrono::seconds(5)); return i; }));
-//    }
     cout << "Wait till tasks done!" << endl;
-
-//    for (auto &fut : futs) {
-//        cout << fut.get() << endl;
-//    }
 
     while (true) {
         cout << "> ";
@@ -102,17 +82,6 @@ int main() {
     }
 
     cout << "Tasks done!" << endl;
-
-//    for (auto &fut : futs) {
-//        cout << fut.get() << " ";
-//    }
-
-
-//    Task<int> t1([a=228]{ return a; });
-
-//    SafeQueue<int> a;
-//    int b = 2;
-//    a.push(b);
 
     std::cout << std::endl;
     return 0;

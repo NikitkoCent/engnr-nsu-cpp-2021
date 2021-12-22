@@ -17,7 +17,7 @@ template<typename T>
 class SafeQueue {
     std::queue<T> q;
     std::mutex m;
-    int length = 0;
+//    int length = 0;
 
 public:
     void push(T &elem);
@@ -35,7 +35,7 @@ template<typename T>
 void SafeQueue<T>::push(T &elem) {
     std::lock_guard<std::mutex> lock(m);
     q.push(move(elem));
-    this->length++;
+//    this->length++;
 }
 
 /**
@@ -45,20 +45,20 @@ void SafeQueue<T>::push(T &elem) {
  */
 template<typename T>
 T SafeQueue<T>::next() {
+    std::lock_guard<std::mutex> lock(m);
 //    T elem;
     if (q.empty()) {
         throw QueueEmptyException();
     }
-    m.lock();
     auto elem = move(q.front());
     q.pop();
-    this->length--;
-    m.unlock();
+//    this->length--;
     return elem;
 }
 
 template<typename T>
 bool SafeQueue<T>::empty() {
+    std::lock_guard<std::mutex> lock(m);
     bool empty = true;
     empty = this->q.empty();
     return empty;
@@ -66,6 +66,7 @@ bool SafeQueue<T>::empty() {
 
 template<typename T>
 int SafeQueue<T>::get_length() {
+    std::lock_guard<std::mutex> lock(m);
     return this->q.size();
 }
 

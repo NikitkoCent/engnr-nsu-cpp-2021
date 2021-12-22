@@ -13,39 +13,26 @@
 #include <iostream>
 #include <functional>
 
+
 //template<typename TaskT>
 //class Task {
-//    std::function<TaskT> task;
+//    std::function<TaskT()> task;
 //
 //public:
-//    explicit Task(std::function<TaskT> &t){
-//        task = t;
-//    }
-//
-//    TaskT run() {
-//        return TaskT.call();
-//    }
+//    Task() = default;
+//    explicit Task(std::function<TaskT()> &&t);
+//    TaskT run();
 //};
-
-template<typename TaskT>
-class Task {
-    std::function<TaskT()> task;
-
-public:
-    Task() = default;
-    explicit Task(std::function<TaskT()> &&t);
-    TaskT run();
-};
-
-template<typename T>
-Task<T>::Task(std::function<T()> &&t) {
-    task = t;
-}
-
-template<typename T>
-T Task<T>::run() {
-    return task();
-}
+//
+//template<typename T>
+//Task<T>::Task(std::function<T()> &&t) {
+//    task = move(t);
+//}
+//
+//template<typename T>
+//T Task<T>::run() {
+//    return task();
+//}
 
 
 template<typename TaskT>

@@ -49,7 +49,6 @@ jobs:
             ${{ env.LAB_INDEX }}/build/x86_64/**/*.dll
             ${{ env.LAB_INDEX }}/build/x86_64/**/*.lib
             ${{ env.LAB_INDEX }}/build/x86_64/**/*.pdb
-
   linux:
     name: "Ubuntu (GCC + Make)"
     runs-on: ubuntu-latest
@@ -82,7 +81,6 @@ jobs:
           path: |
             ${{ env.LAB_INDEX }}/build/debug/
             ${{ env.LAB_INDEX }}/build/release/
-
   macos:
     name: "macOS (Clang + Ninja)"
     runs-on: macos-latest

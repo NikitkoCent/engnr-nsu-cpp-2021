@@ -11,8 +11,6 @@ add_link_options(-pthread -v)
 include_directories(dirwalker/)
 
 add_executable(lab3 main.cpp
-        dirwalker/SafeQueue.cpp
-        dirwalker/ThreadPool.cpp
         dirwalker/SafeQueue.h
         dirwalker/ThreadPool.h)
 
