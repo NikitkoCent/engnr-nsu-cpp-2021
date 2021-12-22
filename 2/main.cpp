@@ -3,15 +3,12 @@
 //
 
 #include <iostream>
-#include <sstream>
 #include <fstream>
 
 #include "StackCalculator.hpp"
-#include "CommandFactory.h"
 
 int main(int argc, char** argv){
     std::ifstream in;
-    vector<Command*> cmds;
     StackCalculator stackCalculator;
     try {
         if (argc > 1) {
