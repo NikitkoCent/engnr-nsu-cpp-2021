@@ -1,6 +1,6 @@
 #include "../command_processing.h"
 #include "gtest/gtest.h"
-
+#include "../exception.h"
 
 #include <sstream>
 
@@ -184,6 +184,16 @@ TEST(test6, test_6) {
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output;
     EXPECT_EQ(output, result);
+}
+
+
+TEST(test7, test_7) {
+    std::string test = "PUSH -9223372036854775808\n"
+                       "ABS\n"
+                       "PRINT";
+    std::stringstream in_s(test);
+    std::ifstream in;
+    EXPECT_THROW(command_processing(in_s, in, 3), SafeIntException);
 }
 
 int main(int argc, char **argv) {

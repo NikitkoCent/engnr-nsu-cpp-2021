@@ -118,34 +118,7 @@ public:
 
 class CommandCreator : Calculator {
 public:
-    Command *factoryMethod(const std::vector<std::string> &commands) override {
-        std::string tag = commands[0];
-        if (tag == "#") {
-            return new Comment();
-        } else if (tag == "PRINT") {
-            return new Print();
-        } else if (tag == "PLUS") {
-            return new Plus();
-        } else if (tag == "DIV") {
-            return new Div();
-        } else if (tag == "MINUS") {
-            return new Minus();
-        } else if (tag == "MUL") {
-            return new Mul();
-        } else if (tag == "READ") {
-            return new Read();
-        } else if (tag == "PUSH") {
-            return new Push();
-        } else if (tag == "PEEK") {
-            return new Peek();
-        } else if (tag == "ABS") {
-            return new Abs();
-        } else if (tag == "POP") {
-            return new Pop();
-        } else {
-            throw CommandException();
-        }
-    }
+    Command *factoryMethod(const std::vector<std::string> &commands) override;
 };
 
 

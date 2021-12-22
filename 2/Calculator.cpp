@@ -90,10 +90,11 @@ void Push::exec(const std::vector<std::string> &tokens,
     if (is_number(varname)) {
         data.values.push(std::stoll(varname));
     } else {
-        if (data.names_and_values.find(varname) == data.names_and_values.end()) {
+        auto it = data.names_and_values.find(varname);
+        if (it == data.names_and_values.end()) {
             throw PushException();
         }
-        data.values.push(data.names_and_values[varname]);
+        data.values.push(it->second);
     }
 }
 
@@ -103,9 +104,9 @@ void Peek::exec(const std::vector<std::string> &tokens,
     if (data.values.empty()) {
         throw PeekEmptyStack();
     }
-    std::string varname = tokens[1];
     if (tokens.size() < 2)
         throw PeekEmptyStack();
+    std::string varname = tokens[1];
     data.names_and_values[varname] = data.values.top();
 }
 
@@ -139,7 +140,36 @@ void Read::exec(const std::vector<std::string> &tokens,
 }
 
 void Comment::exec(const std::vector<std::string> &tokens,
-          calculator_data& data,
-          int args) {
+                   calculator_data &data,
+                   int args) {
 //nothing
+}
+
+Command *CommandCreator::factoryMethod(const std::vector<std::string> &commands) {
+    std::string tag = commands[0];
+    if (tag == "#") {
+        return new Comment();
+    } else if (tag == "PRINT") {
+        return new Print();
+    } else if (tag == "PLUS") {
+        return new Plus();
+    } else if (tag == "DIV") {
+        return new Div();
+    } else if (tag == "MINUS") {
+        return new Minus();
+    } else if (tag == "MUL") {
+        return new Mul();
+    } else if (tag == "READ") {
+        return new Read();
+    } else if (tag == "PUSH") {
+        return new Push();
+    } else if (tag == "PEEK") {
+        return new Peek();
+    } else if (tag == "ABS") {
+        return new Abs();
+    } else if (tag == "POP") {
+        return new Pop();
+    } else {
+        throw CommandException();
+    }
 }
