@@ -1,6 +1,4 @@
 #include "../command_processing.h"
-#include "gtest/gtest.h"
-#include "../exception.h"
 
 #include <sstream>
 

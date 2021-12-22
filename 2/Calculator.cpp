@@ -7,8 +7,8 @@ bool is_number(const std::string &line) {
 }
 
 void Plus::exec(const std::vector<std::string> &tokens,
-                calculator_data &data,
-                int args) {
+                calculator_data &data
+                ) {
     if (data.values.size() < 2) {
         throw PlusEmptyStack();
     }
@@ -23,8 +23,8 @@ void Plus::exec(const std::vector<std::string> &tokens,
 }
 
 void Print::exec(const std::vector<std::string> &tokens,
-                 calculator_data &data,
-                 int args) {
+                 calculator_data &data
+                 ) {
     if (data.values.empty()) {
         throw PrintEmptyStack();
     }
@@ -32,8 +32,8 @@ void Print::exec(const std::vector<std::string> &tokens,
 }
 
 void Minus::exec(const std::vector<std::string> &tokens,
-                 calculator_data &data,
-                 int args) {
+                 calculator_data &data
+                 ) {
     if (data.values.size() < 2) {
         throw MinusEmptyStack();
     }
@@ -48,8 +48,8 @@ void Minus::exec(const std::vector<std::string> &tokens,
 }
 
 void Mul::exec(const std::vector<std::string> &tokens,
-               calculator_data &data,
-               int args) {
+               calculator_data &data
+               ) {
     if (data.values.size() < 2) {
         throw MulEmptyStack();
     }
@@ -64,8 +64,8 @@ void Mul::exec(const std::vector<std::string> &tokens,
 }
 
 void Div::exec(const std::vector<std::string> &tokens,
-               calculator_data &data,
-               int args) {
+               calculator_data &data
+               ) {
     if (data.values.size() < 2) {
         throw DivEmptyStack();
     }
@@ -82,8 +82,8 @@ void Div::exec(const std::vector<std::string> &tokens,
 }
 
 void Push::exec(const std::vector<std::string> &tokens,
-                calculator_data &data,
-                int args) {
+                calculator_data &data
+                ) {
     std::string varname = tokens[1];
     if (varname.empty())
         throw PushEmptyVarname();
@@ -99,8 +99,8 @@ void Push::exec(const std::vector<std::string> &tokens,
 }
 
 void Peek::exec(const std::vector<std::string> &tokens,
-                calculator_data &data,
-                int args) {
+                calculator_data &data
+                ) {
     if (data.values.empty()) {
         throw PeekEmptyStack();
     }
@@ -111,8 +111,8 @@ void Peek::exec(const std::vector<std::string> &tokens,
 }
 
 void Abs::exec(const std::vector<std::string> &tokens,
-               calculator_data &data,
-               int args) {
+               calculator_data &data
+               ) {
     if (data.values.empty()) {
         throw AbsStackEmpty();
     }
@@ -123,8 +123,8 @@ void Abs::exec(const std::vector<std::string> &tokens,
 }
 
 void Pop::exec(const std::vector<std::string> &tokens,
-               calculator_data &data,
-               int args) {
+               calculator_data &data
+               ) {
     if (!data.values.empty())
         data.values.pop();
     else {
@@ -133,15 +133,15 @@ void Pop::exec(const std::vector<std::string> &tokens,
 }
 
 void Read::exec(const std::vector<std::string> &tokens,
-                calculator_data &data,
-                int args) {
+                calculator_data &data
+                ) {
     std::string varname = tokens[1];
     data.values.push(std::stoll(varname));
 }
 
 void Comment::exec(const std::vector<std::string> &tokens,
-                   calculator_data &data,
-                   int args) {
+                   calculator_data &data
+                   ) {
 //nothing
 }
 

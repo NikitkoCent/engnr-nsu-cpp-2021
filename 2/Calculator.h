@@ -31,79 +31,79 @@ bool is_number(const std::string &line);
 class Command {
 public:
     virtual void exec(const std::vector<std::string> &tokens,
-                      calculator_data& data,
-                      int args) = 0;
+                      calculator_data& data
+                      ) = 0;
     virtual ~Command() = default;
 
 };
 
 class Print : public Command {
     void exec(const std::vector<std::string> &tokens,
-                     calculator_data &data,
-                     int args) override;
+                     calculator_data &data
+                     ) override;
 };
 
 class Plus final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              calculator_data& data,
-              int args) override;
+              calculator_data& data
+              ) override;
 };
 
 class Minus final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              calculator_data& data,
-              int args) override;
+              calculator_data& data
+              ) override;
 };
 
 class Mul final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              calculator_data& data,
-              int args) override;
+              calculator_data& data
+              ) override;
 };
 
 class Div final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              calculator_data& data,
-              int args) override;
+              calculator_data& data
+              ) override;
 };
 
 class Push final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              calculator_data& data,
-              int args) override;
+              calculator_data& data
+              ) override;
 };
 
 class Peek final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              calculator_data& data,
-              int args) override;
+              calculator_data& data
+              ) override;
 };
 
 
 class Abs final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              calculator_data& data,
-              int args) override;
+              calculator_data& data
+              ) override;
 };
 
 
 class Pop final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              calculator_data& data,
-              int args) override;
+              calculator_data& data
+              ) override;
 };
 
 
 class Read final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              calculator_data& data,
-              int args) override;
+              calculator_data& data
+              ) override;
 };
 
 class Comment final : public Command {
     void exec(const std::vector<std::string> &tokens,
-              calculator_data& data,
-              int args) override;
+              calculator_data& data
+              ) override;
 };
 
 class Calculator {

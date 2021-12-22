@@ -12,7 +12,7 @@ enable_testing()
 include_directories(libs/googletest/googletest/include)
 include_directories(libs/SafeInt/Test)
 
-add_library(calculator_lib STATIC command_processing.h exception.h exception.cpp Calculator.cpp Calculator.h)
+add_library(calculator_lib STATIC command_processing.h exception.h exception.cpp Calculator.cpp Calculator.h command_processing.cpp)
 
 add_executable(2lab main.cpp)
 
