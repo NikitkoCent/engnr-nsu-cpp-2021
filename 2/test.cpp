@@ -22,7 +22,7 @@ TEST(test, test_1){
                     "MUL\n"
                     "PRINT");
     stackCalculator.parse_stream(ss);
-    EXPECT_EQ(220, (int64_t)stackCalculator.getM()["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"]);
+    EXPECT_EQ(220, (int64_t)stackCalculator.get_ctx().get_map()["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"]);
 }
 
 TEST(test, test_2){
@@ -40,7 +40,7 @@ TEST(test, test_2){
                     "DIV\n"
                     "PRINT");
     stackCalculator.parse_stream(ss);
-    EXPECT_EQ(2, (int64_t)stackCalculator.getM()["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"]);
+    EXPECT_EQ(2, (int64_t)stackCalculator.get_ctx().get_map()["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"]);
 }
 
 
@@ -77,7 +77,7 @@ TEST(test, test_3){
                     "MINUS\n"
                     "PRINT");
     stackCalculator.parse_stream(ss);
-    EXPECT_EQ(16, (int64_t)stackCalculator.getM()["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"]);
+    EXPECT_EQ(16, (int64_t)stackCalculator.get_ctx().get_map()["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"]);
 }
 
 

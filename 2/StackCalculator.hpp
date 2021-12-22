@@ -21,31 +21,12 @@ using std::vector;
 using std::map;
 
 class StackCalculator {
-    stack<SafeInt<int64_t>> _stack;
-    map<string, SafeInt<int64_t>> m;
+    StackCalculatorContext ctx;
+
 public:
-    void exec(std::unique_ptr<Command> cmd) {
-        cmd->exec(_stack, m);
-    }
-
-    void parse_stream(std::istream &in){
-        string line;
-        while (!in.eof() && !in.bad() && !in.fail()) {
-//            cin >> line;
-            getline(in, line);
-
-//            cout << "Read line: \""<< line << "\"" << in.eof() << endl;
-
-            if (line.empty()) continue; // don't parse empty line
-
-            stringstream ls(line);
-            std::unique_ptr<Command> shit(CommandFactory::parseCmd(ls));
-            if (shit != nullptr)
-                this->exec(std::move(shit));
-        }
-    }
-
-    map<string, SafeInt<int64_t>> getM() { return m; }
+    void exec(std::unique_ptr<Command> cmd);
+    void parse_stream(std::istream &in);
+    StackCalculatorContext& get_ctx();
 };
 
 #endif //CPP_LABS_STACKCALCULATOR_H
