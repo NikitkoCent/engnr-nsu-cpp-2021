@@ -5,6 +5,7 @@
 #ifndef CPP_LABS_COMMANDFACTORY_H
 #define CPP_LABS_COMMANDFACTORY_H
 
+#include <memory>
 #include <sstream>
 #include <string>
 
