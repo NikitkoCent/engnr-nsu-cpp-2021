@@ -1,13 +1,18 @@
-## lab-1
-# Инструкция и описание.
-Утилита принимает имя файла и вид расчета хеша как аргументы. Утилита запускается из командной строки.  
-Для того, чтобы запустить утилиту нужно:  
 
+## Description
+This is a console utility that reads the hash from a file.
+
+## Quick start:
+On command line, type in the following commands:
 `mkdir build`  
 `cd build`  
 `cmake ..`  
 `make`  
 
-Запуск утилиты:  
-`./hasher -m <mode> <filename>` или `./hasher <filename> -m <mode>`  
-<mode> adler32 или sum64 - варианты расчета хеша.
+After that:
+'./hasher -h' - display help information about the usage and exit;
+'./hasher <filename> -m <mode>' - calculate the transmitted hash type of the input file;
+'./hasher -m <mode> <filename>' - calculate the transmitted hash type of the input file.
+
+The utility supports the following types of hash '<mode> ∈ { adler32, sum64 }'.
+
