@@ -21,7 +21,7 @@ void Push::exec(StackCalculatorContext &ctx) {
         if (res.ec == std::errc::result_out_of_range){
             throw OverflowException();
         }
-        ctx.get_stack().push(std::stoi(varname));
+        ctx.get_stack().push(converted_num);
     } else {
         if (ctx.get_map().count(varname) == 0)
             throw InvalidArgumentsException();
@@ -50,10 +50,14 @@ void Abs::exec(StackCalculatorContext &ctx) {
     auto t = ctx.get_stack().top();
 //        cout << "Abs " << (int64_t)t << endl;
     ctx.get_stack().pop();
-    if (t < 0)
-        ctx.get_stack().push(-t);
-    else
-        ctx.get_stack().push(t);
+    try {
+        if (t < 0)
+            ctx.get_stack().push(-t);
+        else
+            ctx.get_stack().push(t);
+    } catch (SafeIntException &) {
+        throw OverflowException();
+    }
 }
 
 void Plus::exec(StackCalculatorContext &ctx) {

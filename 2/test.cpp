@@ -80,5 +80,15 @@ TEST(test, test_3){
     EXPECT_EQ(16, (int64_t)stackCalculator.get_ctx().get_map()["last_print_don_t_use_me_as_variable_name_pleeeeezzzzzzzzz"]);
 }
 
+TEST(test, test_4){
+    StackCalculator stackCalculator;
+    stringstream ss("# myVar = 90 \n"
+                    "PUSH -9223372036854775808\n"
+                    "ABS\n"
+                    "PRINT");
+//    stackCalculator.parse_stream(ss);
+    EXPECT_THROW(stackCalculator.parse_stream(ss), OverflowException);
+}
+
 
 

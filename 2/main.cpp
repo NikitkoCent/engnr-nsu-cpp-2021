@@ -20,6 +20,9 @@ int main(int argc, char** argv){
     } catch (std::exception &e) {
         std::cerr << e.what() << endl;
         return 1;
+    } catch (Safe &e) {
+        std::cerr << e.what() << endl;
+        return 1;
     }
     return 0;
 }
