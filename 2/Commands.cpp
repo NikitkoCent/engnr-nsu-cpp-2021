@@ -16,7 +16,7 @@ void Push::exec(StackCalculatorContext &ctx) {
     string varname;
     args >> varname;
     if (is_number(varname)) {
-        int64_t converted_num;
+        int64_t converted_num = 0;
         auto res =  std::from_chars(varname.data(), varname.data() + varname.size(), converted_num);
         if (res.ec == std::errc::result_out_of_range){
             throw OverflowException();
