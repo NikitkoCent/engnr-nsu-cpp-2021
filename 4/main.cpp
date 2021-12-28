@@ -6,33 +6,20 @@
 #include <cstdlib>
 #include <string>
 #include "ThreadPool.h"
-
+#include <atomic>
 
 namespace fs = std::filesystem;
-
-struct [[maybe_unused]] HumanReadable {
-    double size{};
-private: friend
-    std::ostream& operator<<(std::ostream& os, HumanReadable hr) {
-        int i{};
-        double mantissa = hr.size;
-        for (; mantissa >= 1024.; mantissa /= 1024., ++i) { }
-        mantissa = std::ceil(mantissa * 10.) / 10.;
-        os << mantissa << "BKMGTPE"[i];
-        return i == 0 ? os : os << "B (" << (uint64_t)hr.size << " B)";
-    }
-};
 
 
 class Size {
 private:
     fs::path task;
-    double size;
+    std::atomic<uintmax_t> size;
 public:
     explicit Size(std::string task): task(std::move(task)), size(0) {}
-    void inc(uintmax_t s) { size += static_cast<double>(s);};
+    void inc(uintmax_t s) { size += s; };
     ~Size () {
-        std::cout << "> " << task << ": " <<  HumanReadable{size} << std::endl;
+        std::cout << "> " << task << ": " <<  size << std::endl;
     }
 };
 
@@ -63,6 +50,28 @@ int main(int argc, char **argv) {
     int threads = 1;
     if ((argc == 3) && (!strcmp(argv[1], "-t") || !strcmp(argv[1], "--threads")))
         threads = std::max(std::stoi(argv[2]), 1);
+
+//    /Users/u53r
+//    /Users/u53r/Downloads
+//    /Users/u53r/Projects
+//    /Users/u53r/CLionProjects
+//    /Users/u53r/PyCharmProjects
+//    /Users/u53r/Documents
+//    /Users/u53r/miniforge3
+//    /Users/u53r/Projects/economy
+//    /Users/u53r/Projects/huawei-geo-app
+//    /Users/u53r/Projects/recommendations
+//    /Users/u53r/Projects/discovery-proxy
+//    /Users/u53r/Projects/Misc
+//    /Users/u53r/Projects/ML
+//    /Users/u53r/Projects/Disco
+//    /Users/u53r/Projects/discovery-rpc
+//    /Users/u53r/miniforge3/lib
+//    /Users/u53r/miniforge3/bin
+//    /Users/u53r/miniforge3/conda-meta
+//    /Users/u53r/miniforge3/etc
+//    /Users/u53r/miniforge3/include
+
 
     ThreadPool pool(threads);
     std::cout << "Using " << threads << " thread(s)!" << std::endl;

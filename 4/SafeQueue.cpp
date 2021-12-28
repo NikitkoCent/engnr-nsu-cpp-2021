@@ -18,7 +18,7 @@ void SafeQueue::push(std::function<void()>& task) {
 bool SafeQueue::pop(std::function<void()>& task) {
     std::unique_lock<std::mutex> lock(sq_mutex);
     if (!stop_cmd) {
-        while (sf_queue.empty() && stop_cmd) {
+        while (sf_queue.empty() && !stop_cmd) {
             cond.wait(lock);
         }
         if (!sf_queue.empty()) {
@@ -38,6 +38,7 @@ void SafeQueue::clear() {
 }
 
 void SafeQueue::close() {
+    std::unique_lock<std::mutex> lock(sq_mutex);
     stop_cmd = true;
     cond.notify_all();
     clear();
