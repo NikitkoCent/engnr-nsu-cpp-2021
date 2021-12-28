@@ -55,11 +55,6 @@ int main(int argc, char **argv) {
         }
     }
 
-    if ((mode != "adler32") && (mode != "sum64")) {
-        cerr << "ERROR: invalid mode. Correct modes are {adler32, sum64}" << endl;
-        cerr << help;
-        return 1;
-    }
     if ((isHelp) && (mode.empty() || filename.empty())) {
         cerr << "ERROR: invalid help option" << endl;
         cerr << help;
@@ -69,6 +64,12 @@ int main(int argc, char **argv) {
     	cout << help;
     	return 0;
     }
+    if ((mode != "adler32") && (mode != "sum64")) {
+        cerr << "ERROR: invalid mode. Correct modes are {adler32, sum64}" << endl;
+        cerr << help;
+        return 1;
+    }
+    
 
     in.open(filename, ios::binary);
 
