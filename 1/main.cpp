@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    if ((isHelp) && (mode.empty() || filename.empty())) {
+    if ((isHelp) && (!mode.empty() || !filename.empty())) {
         cerr << "ERROR: invalid help option" << endl;
         cerr << help;
         return 1;
