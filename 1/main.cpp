@@ -82,5 +82,5 @@ int main(int argc, char **argv) {
         cout << hex << sum64(in);
     }
     
-    return 1;
+    return 0;
 }
