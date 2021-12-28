@@ -64,6 +64,10 @@ int main(int argc, char **argv) {
         cerr << "ERROR: invalid help option" << endl;
         cerr << help;
         return 1;
+    } else if (isHelp){
+    	
+    	cout << help;
+    	return 0;
     }
 
     in.open(filename, ios::binary);
