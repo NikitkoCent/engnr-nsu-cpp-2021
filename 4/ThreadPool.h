@@ -18,7 +18,7 @@ class ThreadPool {
 private:
     void thread_manager();
 
-    bool stop_cmd{};
+    std::atomic<bool> stop_cmd{};
     SafeQueue tp_queue;
     std::vector<std::thread> tp_threads;
     std::mutex tp_mutex;

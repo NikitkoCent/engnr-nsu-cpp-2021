@@ -60,7 +60,7 @@ void start_task(const std::string& task, ThreadPool &pool) {
 
 
 int main(int argc, char **argv) {
-    int threads = 4;
+    int threads = 1;
     if ((argc == 3) && (!strcmp(argv[1], "-t") || !strcmp(argv[1], "--threads")))
         threads = std::max(std::stoi(argv[2]), 1);
 
@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
             start_task(arg, pool);
         }
     }
-    while (!pool.empty()) {std::cout << "loh";}
+    while (!pool.empty()) {}
     pool.close();
     return 0;
 }
