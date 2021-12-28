@@ -16,7 +16,6 @@ private:
     std::queue<std::function<void()>> sf_queue;
     std::mutex sq_mutex;
     std::condition_variable cond;
-    std::mutex wait_mutex;
     std::atomic<bool> stop_cmd;
 public:
     SafeQueue(): stop_cmd(false) {}
