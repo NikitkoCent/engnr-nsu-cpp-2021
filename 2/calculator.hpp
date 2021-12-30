@@ -11,7 +11,7 @@
 #include <fstream>
 #include <algorithm>
 #include "exception.hpp"
-#include "C:\projects\engnr-nsu-cpp-2021\2\SafeInt\SafeInt.hpp"
+#include "SafeInt/SafeInt.hpp"
 //#include "C:\projects\engnr-nsu-cpp-2021\2\googletest\googletest\include\gtest\gtest.h"
 struct Context{
     std::stack<SafeInt<int64_t>> mystack;
