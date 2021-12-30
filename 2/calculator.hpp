@@ -12,7 +12,7 @@
 #include <algorithm>
 #include "exception.hpp"
 #include "C:\projects\engnr-nsu-cpp-2021\2\SafeInt\SafeInt.hpp"
-#include "C:\projects\engnr-nsu-cpp-2021\2\googletest\googletest\include\gtest\gtest.h"
+//#include "C:\projects\engnr-nsu-cpp-2021\2\googletest\googletest\include\gtest\gtest.h"
 struct Context{
     std::stack<SafeInt<int64_t>> mystack;
     std::map<std::string, SafeInt<int64_t>> mp;
@@ -64,3 +64,4 @@ class Cmdcreate : calc{
 public:
     Command *Fmethod(std::vector<std::string> vec) override;
 };
+void Preprocessing(std::stringstream& input1, std::ifstream& input2, int flag);

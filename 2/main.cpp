@@ -1,7 +1,6 @@
 #include <iostream>
 #include <sstream>
-#include <fstream>
-#include "CommandPreprocessing.cpp"
+#include "calculator.hpp"
 #define ERROR 1;
 int main(int flag, char *argv[]){
     try{
@@ -22,7 +21,7 @@ int main(int flag, char *argv[]){
         Preprocessing(input,fl,flag);
 
     } catch(...){
-        std::cerr<<"ERROR: wrong usage";
+        std::cerr<<"ERROR: wrong usage"<<std::endl;
         return ERROR;
     }
     return 0;
