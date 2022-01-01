@@ -14,12 +14,12 @@ namespace ns_LLIST
     {
     public:
         using value_type = T;
-        using size_type = std::int16_t;
+        using size_type = std::uint32_t;
         using difference_type = std::ptrdiff_t;
-        using reference = BaseNode<T> &;
-        using const_reference = const BaseNode<T> &;
-        using pointer = BaseNode<T> *;
-        using const_pointer = const BaseNode<T> *;
+        using reference = T &;
+        using const_reference = const T &;
+        using pointer = T *;
+        using const_pointer = const T *;
 
         using iterator = Iterator<T, false>;
         using const_iterator = ConstIterator<T, false>;
@@ -27,7 +27,7 @@ namespace ns_LLIST
         using const_reverse_iterator = ConstIterator<T, true>;
 
     private:
-        std::int16_t count;
+        size_type count;
         BaseNode<T> *head;
         BaseNode<T> *tail;
 
@@ -40,14 +40,12 @@ namespace ns_LLIST
 
         LinkedList(const LinkedList &other) : LinkedList<T>()
         {
-            for (auto item : other)
+            for (const auto &item : other)
                 push_back(item);
-        };
+        }
 
         LinkedList(LinkedList &&other)
         {
-            if (&other == this)
-                return;
 
             this->count = other.count;
             other.count = 0;
@@ -72,16 +70,21 @@ namespace ns_LLIST
         template <typename InputIt>
         LinkedList(InputIt first, InputIt last) : LinkedList<T>()
         {
-            for (; first != last; first++)
+            for (; first != last; ++first)
                 push_back(*first);
         }
 
         LinkedList(std::initializer_list<T> init) : LinkedList<T>()
         {
-            for (auto item : init)
+            for (const auto &item : init)
                 push_back(item);
         }
-        ~LinkedList() { clear(); delete(head); delete(tail);}
+        ~LinkedList()
+        {
+            clear();
+            delete (head);
+            delete (tail);
+        }
 
     public:
         LinkedList &operator=(const LinkedList &other);
@@ -94,43 +97,43 @@ namespace ns_LLIST
         void assign(std::initializer_list<T> ilist);
 
     public:
-        reference front() { return *(head); }
+        reference front() { return head->next->getData(); }
 
-        const_reference front() const { return *(head); }
+        const_reference front() const { return *head->next->getData(); }
 
-        reference back() { return *(tail); }
+        reference back() { return tail->prev->getData(); }
 
-        const_reference back() const { return *(tail); }
-
-    public:
-        iterator begin() noexcept { return iterator(*(front().next)); }
-
-        const_iterator begin() const noexcept { return const_iterator(*(front().next)); }
-
-        const_iterator cbegin() const noexcept { return const_iterator(*(front().next)); }
-
-        iterator end() noexcept { return iterator(back()); }
-
-        const_iterator end() const noexcept { return const_iterator(back()); }
-
-        const_iterator cend() const noexcept { return const_iterator(back()); }
+        const_reference back() const { return tail->prev->getData(); }
 
     public:
-        reverse_iterator rbegin() noexcept { return reverse_iterator(back().prev); }
+        iterator begin() noexcept { return iterator(*head->next); }
 
-        const_reverse_iterator rbegin() const noexcept { return const_reverse_iterator(back().prev); }
+        const_iterator begin() const noexcept { return const_iterator(*head->next); }
 
-        const_reverse_iterator crbegin() const noexcept { return const_reverse_iterator(back().prev); }
+        const_iterator cbegin() const noexcept { return const_iterator(*head->next); }
 
-        reverse_iterator rend() noexcept { return reverse_iterator(front()); }
+        iterator end() noexcept { return iterator(*tail); }
 
-        const_reverse_iterator rend() const noexcept { return const_reverse_iterator(front()); }
+        const_iterator end() const noexcept { return const_iterator(*tail); }
 
-        const_reverse_iterator crend() const noexcept { return const_reverse_iterator(front()); }
+        const_iterator cend() const noexcept { return const_iterator(*tail); }
+
+    public:
+        reverse_iterator rbegin() noexcept { return reverse_iterator(*tail->prev); }
+
+        const_reverse_iterator rbegin() const noexcept { return const_reverse_iterator(*tail->prev); }
+
+        const_reverse_iterator crbegin() const noexcept { return const_reverse_iterator(*tail->prev); }
+
+        reverse_iterator rend() noexcept { return reverse_iterator(*head); }
+
+        const_reverse_iterator rend() const noexcept { return const_reverse_iterator(*head); }
+
+        const_reverse_iterator crend() const noexcept { return const_reverse_iterator(*head); }
 
     public:
         size_type size() const noexcept;
-        [[nodiscard]] bool empty() const;
+        bool empty() const noexcept;
 
     public:
         iterator insert(const_iterator pos, const T &value);
@@ -143,11 +146,13 @@ namespace ns_LLIST
 
         void push_front(const T &value);
         void push_front(T &&value);
-        void push_front();
 
         void push_back(const T &value);
         void push_back(T &&value);
+
+    private:
         void push_back();
+        void push_front();
 
     public:
         iterator erase(const_iterator pos);
@@ -157,10 +162,23 @@ namespace ns_LLIST
         void pop_front();
 
     public:
+        bool operator==(const LinkedList &);
+        bool operator!=(const LinkedList &);
+
+    public:
         void sort();
         template <typename Compare>
         void sort(Compare comp);
 
+    private:
+        template <typename InputIt, typename Compare>
+        void merge_sort(InputIt beg, InputIt end, Compare comp);
+
+        template <typename InputIt, typename Compare>
+        void merge(InputIt beg, InputIt mid,
+                   InputIt end, Compare comp);
+
+    public:
         size_type unique();
         template <typename BinaryPredicate>
         size_type unique(BinaryPredicate p);
@@ -172,9 +190,8 @@ namespace ns_LLIST
         size_type remove_if(UnaryPredicate p);
 
     public:
-        void print() const noexcept;
-        bool operator==(const LinkedList&);
-        void clear() noexcept;
+        void print() const;
+        void clear();
 
         void resize(size_type _count, const value_type &value);
         void resize(size_type _count);

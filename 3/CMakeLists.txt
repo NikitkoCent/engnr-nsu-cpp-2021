@@ -1,11 +1,7 @@
-cmake_minimum_required(VERSION 3.0.0)
-project(Lab_3 VERSION 0.1.0)
-set(CMAKE_CXX_STANDARD 17)
+cmake_minimum_required(VERSION 3.2.0)
+project(Lab_3 VERSION 1.0.0)
+
 set(CMAKE_CXX_STANDARD_REQUIRED on)
-
-set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
-set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
-
 add_executable(${PROJECT_NAME} main.cpp)
 
 include(FetchContent)
@@ -43,6 +39,17 @@ target_link_libraries(
     gtest_main
 )
 
+if (NOT MSVC)
+    target_compile_options(LinkedList_tests PUBLIC  
+    -fno-omit-frame-pointer -fsanitize=address)
+
+    target_link_options(LinkedList_tests PUBLIC  
+    -fno-omit-frame-pointer -fsanitize=address)
+endif()
+
 include(GoogleTest)
 gtest_discover_tests(LinkedList_tests)
 
+target_compile_options(${PROJECT_NAME} PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-std=c++17>)
+
+target_compile_options(LinkedList_tests PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-std=c++17>)

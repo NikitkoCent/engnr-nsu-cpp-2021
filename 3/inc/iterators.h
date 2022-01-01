@@ -11,7 +11,7 @@ namespace ns_LLIST
     {
     public:
         using difference_type = ptrdiff_t;
-        using iterator_category = std::forward_iterator_tag;
+        using iterator_category = std::bidirectional_iterator_tag;
         using value_type = T;
         using pointer = T*;
         using reference = T&;
@@ -28,30 +28,20 @@ namespace ns_LLIST
     public:
         bool operator!=(const RawIterator<T> &it)
         {
-            return !(_curr_ptr == it._curr_ptr);
+            return !(*this == it);
         }
 
         bool operator==(const RawIterator<T> &it)
         {
-            return !(*this != it);
-        }
-
-        bool operator>(const RawIterator<T> &it)
-        {
-            return (_curr_ptr->getData() > it._curr_ptr->getData());
-        }
-
-        bool operator<(const RawIterator<T> &it)
-        {
-            return (_curr_ptr->getData() < it._curr_ptr->getData());
+            return (_curr_ptr == it._curr_ptr);
         }
 
     public:
         void swap(const RawIterator& it)
         {
-            T temp = std::move(it._curr_ptr->getData());
-            it._curr_ptr->getData() = std::move(this->_curr_ptr->getData());
-            this->_curr_ptr->getData() = std::move(temp);
+            T temp = it._curr_ptr->getData();
+            it._curr_ptr->getData() = _curr_ptr->getData();
+            _curr_ptr->getData() = temp;
         }
     };
 
@@ -67,16 +57,16 @@ namespace ns_LLIST
         operator++()
         {
             _curr_ptr = _curr_ptr->next;
-            return dynamic_cast<It &>(*this);
+            return static_cast<It &>(*this);
         }
 
         template <bool _isRvrs = isRvrs>
-        typename std::enable_if_t<!_isRvrs, It &>
+        typename std::enable_if_t<!_isRvrs, It>
         operator++(int)
         {
-            It* result = new It(*(this->_curr_ptr));
+            It result = It(*this->_curr_ptr);
             _curr_ptr = _curr_ptr->next;
-            return *result;
+            return result;
         }
 
         template <bool _isRvrs = isRvrs>
@@ -84,16 +74,16 @@ namespace ns_LLIST
         operator--()
         {
             _curr_ptr = _curr_ptr->prev;
-            return dynamic_cast<It &>(*this);
+            return static_cast<It &>(*this);
         }
 
         template <bool _isRvrs = isRvrs>
-        typename std::enable_if_t<!_isRvrs, It &>
+        typename std::enable_if_t<!_isRvrs, It>
         operator--(int)
         {
-            It* result = new It(*(this->_curr_ptr));
+            It result = It(*(this->_curr_ptr));
             _curr_ptr = _curr_ptr->prev;
-            return *result;
+            return result;
         }
         //End Forward Iterator
 
@@ -104,16 +94,16 @@ namespace ns_LLIST
         operator++()
         {
             _curr_ptr = _curr_ptr->prev;
-            return dynamic_cast<It &>(*this);
+            return static_cast<It &>(*this);
         }
 
         template <bool _isRvrs = isRvrs>
-        typename std::enable_if_t<_isRvrs, It &>
+        typename std::enable_if_t<_isRvrs, It>
         operator++(int)
         {
-            It* result = new It(*(this->_curr_ptr));
+            It* result = It(*(this->_curr_ptr));
             _curr_ptr = _curr_ptr->prev;
-            return *result;
+            return result;
         }
 
         template <bool _isRvrs = isRvrs>
@@ -121,30 +111,30 @@ namespace ns_LLIST
         operator--()
         {
             _curr_ptr = _curr_ptr->next;
-            return dynamic_cast<It &>(*this);
+            return static_cast<It &>(*this);
         }
 
         template <bool _isRvrs = isRvrs>
-        typename std::enable_if_t<_isRvrs, It &>
+        typename std::enable_if_t<_isRvrs, It>
         operator--(int)
         {
-            It* result = new It(*(this->_curr_ptr));
+            It result = It(*(this->_curr_ptr));
             _curr_ptr = _curr_ptr->next;
-            return *result;
+            return result;
         }
         //End Reverse Iterator
 
-        It& operator=(RawIterator<T>& other)
+        It& operator=(const RawIterator<T>& other)
         {
             _curr_ptr = other._curr_ptr;
-            return dynamic_cast<It&>(*this);
+            return static_cast<It&>(*this);
         }
 
-        It& operator=(RawIterator<T>&& other)
+        It& operator=(const RawIterator<T>&& other)
         {
             _curr_ptr = other._curr_ptr;
             other._curr_ptr = nullptr;
-            return dynamic_cast<It&>(*this);
+            return static_cast<It&>(*this);
         }
 
     public:

@@ -32,7 +32,7 @@ namespace ns_LLIST
 
     public:
         explicit Node(const T &_data) : BaseNode<T>{}, data(_data) {}
-        explicit Node(T &&_data) : BaseNode<T>{}, data(std::forward<T &&>(_data)) {}
+        explicit Node(T &&_data) : BaseNode<T>{}, data(std::move(_data)) {}
 
     public:
         virtual T &getData() override
