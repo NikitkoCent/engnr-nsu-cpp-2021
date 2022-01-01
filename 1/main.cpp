@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include "hasher.h"
+#include "hasher_func.h"
 
 using namespace std;
 

@@ -3,8 +3,8 @@ project(hasher)
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_executable(lab1 main.cpp hasher_fucn.h hasher_func.cpp)
 add_executable(hasher main.cpp)
-add_executable(lab1 main.cpp hasher.h hasher.cpp)
 
 if (MSVC)
 	target_compile_options(hasher
