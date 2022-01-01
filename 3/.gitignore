@@ -1,2 +1,7 @@
 .vscode
 build/
+_deps/
+bin/
+CMakeFiles/
+LinkedList_tests[1]_include.cmake
+CMakeCache.txt
