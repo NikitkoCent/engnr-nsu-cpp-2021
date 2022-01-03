@@ -6,6 +6,72 @@
 #include <algorithm>
 
 using namespace ns_LLIST;
+
+/* #region Ctors  */
+template <typename T>
+LinkedList<T>::LinkedList() : count(0), head(new BaseNode<T>()), tail(new BaseNode<T>())
+{
+    head->next = tail;
+    tail->prev = head;
+}
+
+template <typename T>
+LinkedList<T>::LinkedList(const LinkedList &other) : LinkedList<T>()
+{
+    for (const auto &item : other)
+        push_back(item);
+}
+
+template <typename T>
+LinkedList<T>::LinkedList(LinkedList &&other)
+{
+
+    this->count = other.count;
+    other.count = 0;
+    head = other.head;
+    tail = other.tail;
+    other.head = nullptr;
+    other.tail = nullptr;
+}
+
+template <typename T>
+LinkedList<T>::LinkedList(size_type _count, const T &value) : LinkedList<T>()
+{
+    for (size_type i = 0; i <= count; i++)
+        push_back(value);
+}
+
+template <typename T>
+LinkedList<T>::LinkedList(size_type _count) : LinkedList<T>()
+{
+    for (size_type i = 0; i <= _count; i++)
+        push_back();
+}
+
+template <typename T>
+template <typename InputIt>
+LinkedList<T>::LinkedList(InputIt first, InputIt last) : LinkedList<T>()
+{
+    for (; first != last; ++first)
+        push_back(*first);
+}
+
+template <typename T>
+LinkedList<T>::LinkedList(std::initializer_list<T> init) : LinkedList<T>()
+{
+    for (const auto &item : init)
+        push_back(item);
+}
+/* #endregion */
+
+template <typename T>
+LinkedList<T>::~LinkedList()
+{
+    clear();
+    delete (head);
+    delete (tail);
+}
+
 /* #region Assigments  */
 template <typename T>
 LinkedList<T> &LinkedList<T>::operator=(const LinkedList<T> &other)
@@ -319,27 +385,27 @@ void LinkedList<T>::sort()
 
 template <typename T>
 template <typename Compare>
-void LinkedList<T>::sort(Compare comp) //merge sort
+void LinkedList<T>::sort(Compare comp) // merge sort
 {
-    merge_sort(begin(),end(), comp);
+    merge_sort(begin(), end(), comp);
 }
 
 template <typename T>
-template<typename InputIt, typename Compare>
+template <typename InputIt, typename Compare>
 void LinkedList<T>::merge_sort(InputIt beg, InputIt end, Compare comp)
 {
     size_type size = std::distance(beg, end);
     if (size <= 1)
         return;
 
-    auto mid = std::next(beg, size/2);
+    auto mid = std::next(beg, size / 2);
     merge_sort(beg, mid, comp);
     merge_sort(mid, end, comp);
     merge(beg, mid, end, comp);
 }
 
 template <typename T>
-template<typename InputIt, typename Compare>
+template <typename InputIt, typename Compare>
 void LinkedList<T>::merge(InputIt beg, InputIt mid, InputIt end, Compare comp)
 {
     std::vector<value_type> temp;
@@ -355,7 +421,7 @@ void LinkedList<T>::merge(InputIt beg, InputIt mid, InputIt end, Compare comp)
             temp.emplace_back(*left++);
     }
     temp.insert(temp.end(), left, mid);
-    temp.insert(temp.end(),right, end);
+    temp.insert(temp.end(), right, end);
 
     std::move(temp.begin(), temp.end(), beg);
 }
@@ -400,7 +466,7 @@ typename LinkedList<T>::size_type LinkedList<T>::unique(BinaryPredicate p)
 template <typename T>
 typename LinkedList<T>::size_type LinkedList<T>::remove(const T &value)
 {
-    return remove_if([value](auto &item)
+    return remove_if([&value](auto &item)
                      { return item == value; });
 }
 

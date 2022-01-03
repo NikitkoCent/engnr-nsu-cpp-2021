@@ -306,3 +306,14 @@ TEST(LL_Test, Post_Prefix_It_Inc)
     ASSERT_EQ(*it1 == 8, true);
     ASSERT_EQ(*it2 == 5, true);
 }
+
+TEST(LL_TEST, Swap_Iters)
+{
+    LinkedList<int> list = {1,2};
+    auto it1 = list.begin();
+    auto it2 = it1++;
+    it1.swap(it2);
+
+    ASSERT_EQ(*it2 == 2 ,true);
+    ASSERT_EQ(*it1 == 1 ,true);
+}

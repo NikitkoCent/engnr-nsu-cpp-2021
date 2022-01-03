@@ -32,60 +32,18 @@ namespace ns_LLIST
         BaseNode<T> *tail;
 
     public:
-        LinkedList() : count(0), head(new BaseNode<T>()), tail(new BaseNode<T>())
-        {
-            head->next = tail;
-            tail->prev = head;
-        }
-
-        LinkedList(const LinkedList &other) : LinkedList<T>()
-        {
-            for (const auto &item : other)
-                push_back(item);
-        }
-
-        LinkedList(LinkedList &&other)
-        {
-
-            this->count = other.count;
-            other.count = 0;
-            head = other.head;
-            tail = other.tail;
-            other.head = nullptr;
-            other.tail = nullptr;
-        }
-
-        LinkedList(size_type _count, const T &value) : LinkedList<T>()
-        {
-            for (int i = 0; i <= count; i++)
-                push_back(value);
-        }
-
-        explicit LinkedList(size_type _count) : LinkedList<T>()
-        {
-            for (int i = 0; i <= _count; i++)
-                push_back();
-        }
+        LinkedList<T>();
+        LinkedList(const LinkedList &other);
+        LinkedList(LinkedList &&other);
+        LinkedList(size_type _count, const T &value);
+        explicit LinkedList(size_type _count);
 
         template <typename InputIt>
-        LinkedList(InputIt first, InputIt last) : LinkedList<T>()
-        {
-            for (; first != last; ++first)
-                push_back(*first);
-        }
+        LinkedList(InputIt first, InputIt last);
 
-        LinkedList(std::initializer_list<T> init) : LinkedList<T>()
-        {
-            for (const auto &item : init)
-                push_back(item);
-        }
-        ~LinkedList()
-        {
-            clear();
-            delete (head);
-            delete (tail);
-        }
-
+        LinkedList(std::initializer_list<T> init);
+        ~LinkedList();
+        
     public:
         LinkedList &operator=(const LinkedList &other);
         LinkedList &operator=(LinkedList &&other);

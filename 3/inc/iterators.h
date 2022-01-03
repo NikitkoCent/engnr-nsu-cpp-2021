@@ -37,11 +37,11 @@ namespace ns_LLIST
         }
 
     public:
-        void swap(const RawIterator& it)
+        void swap(RawIterator& it)
         {
-            T temp = it._curr_ptr->getData();
-            it._curr_ptr->getData() = _curr_ptr->getData();
-            _curr_ptr->getData() = temp;
+            T& data1 = it._curr_ptr->getData();
+            T& data2 = this->_curr_ptr->getData();
+            std::swap(data1,data2);
         }
     };
 
