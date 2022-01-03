@@ -99,6 +99,8 @@ void div_cmd::execute(CalcContext &_calc)
 {
     if (_calc.m_stack.size() < 2)
         throw std::runtime_error("Number of elements less than 2");
+    if (_calc.m_stack.top() == 0)
+        throw std::runtime_error("Division by zero");
     else
     {
         auto p = GetTwoElements(_calc);
