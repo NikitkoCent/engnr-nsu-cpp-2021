@@ -20,8 +20,8 @@ int main(int flag, char *argv[]){
         }
         Preprocessing(input,fl,flag);
 
-    } catch(...){
-        std::cerr<<"ERROR: wrong usage"<<std::endl;
+    } catch (default_error &e) {
+        std::cerr << e.what() << std::endl;
         return ERROR;
     }
     return 0;

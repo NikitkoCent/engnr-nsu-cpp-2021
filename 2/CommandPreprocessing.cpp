@@ -1,15 +1,15 @@
 #include "calculator.hpp"
 
-void Preprocessing(std::stringstream &input1, std::ifstream &input2, int flag){
+    void Preprocessing(std::stringstream &input1, std::ifstream &input2, int flag){
     Command *command;
     Context DATA;
     Cmdcreate created;
     std::string str;
     std::vector<std::string> delim_words;
     std::string one_word;
-    if (flag == 2)
+    if (flag == 1)
     {
-        while(std::getline(input1, str, '\n')){
+        while(std::getline(std::cin, str, '\n')){
             if(str.empty())
                 continue;
             std::stringstream str_new(str);
@@ -21,8 +21,8 @@ void Preprocessing(std::stringstream &input1, std::ifstream &input2, int flag){
             delete command;
         }
     }
-    else if (flag == 1) {
-        while (std::getline(std::cin, str, '\n')) {
+    else if (flag == 2) {
+        while (std::getline(input1, str, '\n')) {
             if (str.empty())
                 continue;
             std::stringstream str_new(str);

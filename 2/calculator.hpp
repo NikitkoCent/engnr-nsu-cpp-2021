@@ -9,10 +9,11 @@
 #include <iterator>
 #include <string>
 #include <fstream>
+#include <sstream>
 #include <algorithm>
 #include "exception.hpp"
 #include "SafeInt/SafeInt.hpp"
-//#include "C:\projects\engnr-nsu-cpp-2021\2\googletest\googletest\include\gtest\gtest.h"
+#include "googletest/googletest/include/gtest/gtest.h"
 struct Context{
     std::stack<SafeInt<int64_t>> mystack;
     std::map<std::string, SafeInt<int64_t>> mp;
@@ -49,7 +50,7 @@ class peek final: public Command{
 class abss final: public Command{
     void cmd(Context& context, std::vector<std::string> str) override;
 };
-class read final: public Command{
+class readd final: public Command{
     void cmd(Context& context, std::vector<std::string> str) override;
 };
 class com final: public Command{
