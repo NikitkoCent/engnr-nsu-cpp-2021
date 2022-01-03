@@ -1,6 +1,3 @@
-﻿// Lab_2.h : Include file for standard system include files,
-// or project specific include files.
-
 #pragma once
 
 #include <iostream>
@@ -11,8 +8,17 @@
 #include <map>
 #include <cmath>
 #include <fstream>
-using namespace std;
-void split(vector<string>& result, const string& s, char delim);
+using std::cout;
+using std::cin;
+using std::string;
+using std::stack;
+using std::vector;
+using std::map;
+using std::ifstream;
+using std::stringstream;
+using std::invalid_argument;
+using std::endl;
+void split(std::vector<std::string>& result, const std::string& s, char delim);
 bool strToInteger(const string& s);
-void stack_case(const vector<string>& s, stack<double>& str, map<string, double>& mp);
-// TODO: Reference additional headers your program requires here.
+bool check(const vector<string>& s);
+

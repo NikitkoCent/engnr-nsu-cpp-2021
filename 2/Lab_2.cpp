@@ -1,50 +1,79 @@
-﻿#include "Lab_2.h"
-
+#include "Lab_2.h"
+#include "Operation.cpp"
 int main(int argc, char* argv[]) {
 
-    string s;
-    stack <double> st;
+    std::string s;
+    stack <int64_t> st;
     vector<string> result;
-    map<string, double>variables;
+    map<string, int64_t>variables;
     string filename;
     string line;
-    if (argc >= 2) 
+    OperationsFactory create_stack;
+    Operations *cmd_stack;
+    if (argc >= 2)
     {
         filename = argv[1];
     }
     ifstream in(filename);
     if (in.is_open())
     {
-        std::cout << filename << std::endl;
+        //        std::cout << filename << std::endl;
         while (getline(in, line))
         {
 
             split(result, line, ' ');
-            if (size(result) >= 1) 
+            if (result.size() >= 1)
             {
-                stack_case(result, st, variables);
+                
+                try {
+                    if (check(result)){
+                        cmd_stack = create_stack.Create(result);
+                        cmd_stack->execute(result, st, variables);
+                    }
+                }
+                catch (Exception &expn){
+                    std::cerr << expn.what();
+                    return 1;
+                }
+                catch (const char* exceptions) {
+                    std::cerr << exceptions;
+                    return 1;
+                }
                 result.clear();
             }
         }
-
-        in.close();
     }
-    else if (argc >= 2 && in.is_open() == 0)
+    else if (argc >= 2 && in.is_open() == 1)
     {
-        cout << "File not found" << endl;
+        std::cerr << "File not found" << endl;
+        return 1;
     }
-    else 
+    else
     {
         while (getline(cin, line))
         {
             split(result, line, ' ');
-            if (size(result) >= 1) {
-                stack_case(result, st, variables);
+            if (result.size() >= 1)
+            {
+
+                try {
+                    if (check(result)){
+                        cmd_stack = create_stack.Create(result);
+                        cmd_stack->execute(result, st, variables);
+                    }
+                }
+                catch (Exception &expn) {
+                    std::cerr << expn.what();
+                    return 1;
+                }
+                catch (const char* exceptions) {
+                    std::cerr << exceptions;
+                    return 1;
+                }
                 result.clear();
             }
         }
     }
-
 
     return 0;
 }
