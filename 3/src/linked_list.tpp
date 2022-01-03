@@ -413,7 +413,7 @@ void LinkedList<T>::merge(InputIt beg, InputIt mid, InputIt end, Compare comp)
     InputIt left = beg;
     InputIt right = mid;
 
-    while (left != mid and right != end)
+    while (left != mid && right != end)
     {
         if (comp(*right, *left))
             temp.emplace_back(*right++);
