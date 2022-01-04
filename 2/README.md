@@ -23,3 +23,5 @@
 10) DIV;
 11) PRINT;
 12) READ;
+Для запуска тестов необходимо перейти в папку tests и запустить файл calc_tests.cpp:  
+`cd tests` `./calc_tests`
