@@ -15,7 +15,7 @@ TEST(test1, test_1) {
     testing::internal::CaptureStdout();
     std::ifstream in;
     std::string result = "200\n";
-    Preprocessing(test, in, 2);
+    Preprocessing(test, in, 3);
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output;
     EXPECT_EQ(output, result);
@@ -30,7 +30,7 @@ TEST(test2, test_2) {
     testing::internal::CaptureStdout();
     std::ifstream in;
     std::string result = "105\n";
-    Preprocessing(test, in, 2);
+    Preprocessing(test, in, 3);
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output;
     EXPECT_EQ(output, result);
@@ -47,7 +47,7 @@ TEST(test3, test_3) {
     testing::internal::CaptureStdout();
     std::ifstream in;
     std::string result = "55\n";
-    Preprocessing(test, in, 2);
+    Preprocessing(test, in, 3);
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output;
     EXPECT_EQ(output, result);
@@ -63,7 +63,7 @@ TEST(test4, test_4) {
     testing::internal::CaptureStdout();
     std::ifstream in;
     std::string result = "1\n";
-    Preprocessing(test, in, 2);
+    Preprocessing(test, in, 3);
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output;
     EXPECT_EQ(output, result);
@@ -83,7 +83,7 @@ TEST(test5, test_5) {
     testing::internal::CaptureStdout();
     std::ifstream in;
     std::string result = "15\n";
-    Preprocessing(test, in, 2);
+    Preprocessing(test, in, 3);
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output;
     EXPECT_EQ(output, result);
