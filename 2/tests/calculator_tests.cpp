@@ -52,13 +52,14 @@ TEST(Calc_Test, DivByZero)
         {
             proceedNoArgs(test);
         }
-        catch( const CalcRuntimeExc& e )
+        catch (const CalcRuntimeExc &e)
         {
             // and this tests that it has the correct message
-            EXPECT_STREQ("Runtime Error was occured in line 3\nDivision by zero\n", e.what() );
+            EXPECT_STREQ("Runtime Error was occured in line 3\nDivision by zero\n", e.what());
             throw;
         }
-    },  CalcRuntimeExc); 
+    },
+                 CalcRuntimeExc);
 }
 
 TEST(Calc_Test, Empty_File)
@@ -76,11 +77,31 @@ TEST(Calc_Test, Tokens_3)
         {
             proceedNoArgs(test);
         }
-        catch( const CalcInputExc& e )
+        catch (const CalcInputExc &e)
         {
             // and this tests that it has the correct message
-            EXPECT_STREQ("Input error was occured in line 1\nError line : PUSH 23 extratoken\nRequired 2 arguements\n", e.what() );
+            EXPECT_STREQ("Input error was occured in line 1\nError line : PUSH 23 extratoken\nRequired 2 arguements\n", e.what());
             throw;
         }
-    },  CalcInputExc); 
+    },
+                 CalcInputExc);
+}
+
+TEST(Calc_Test, ABS_Overflow)
+{
+    std::stringstream test("PUSH -9223372036854775808\n"
+                           "ABS\n"
+                           "PRINT\n");
+    EXPECT_THROW({
+        try
+        {
+            proceedNoArgs(test);
+        }
+        catch (const CalcRuntimeExc &e)
+        {
+            EXPECT_STREQ("Runtime Error was occured in line 2\nInvalid absolute value\n", e.what());
+            throw;
+        }
+    },
+                 CalcRuntimeExc);
 }

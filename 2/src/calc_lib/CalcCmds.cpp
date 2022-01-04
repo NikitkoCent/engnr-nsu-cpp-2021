@@ -43,6 +43,8 @@ void abs_cmd::execute(CalcContext &_calc)
     {
         auto item = _calc.m_stack.top();
         _calc.m_stack.pop();
+        if (item.Ref() == -9223372036854775808)
+            throw std::runtime_error("Invalid absolute value");
         if (item.Ref() >= 0)
             _calc.m_stack.push(item);
         else
@@ -139,7 +141,7 @@ std::unique_ptr<abstract_command> CreateAbstCmd(std::string &command)
             throw std::runtime_error("Required 2 arguements");
         if (std::isdigit(static_cast<unsigned char>(tokens[1][0])) || tokens[1][0] == '-')
         {
-            return std::unique_ptr<push_num_cmd>{new push_num_cmd(SafeInt<int64_t>(std::stoi(tokens[1])))};
+            return std::unique_ptr<push_num_cmd>{new push_num_cmd(SafeInt<int64_t>(std::stoll(tokens[1])))};
         }
         else
         {
