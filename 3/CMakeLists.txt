@@ -36,15 +36,6 @@ target_link_libraries(
     gtest_main
 )
 
-if(MSVC)
-    target_compile_options(LinkedList_tests PUBLIC
-    -fsanitize=address)
-
-    target_link_options(LinkedList_tests PUBLIC  
-    -fsanitize=address)
-
-endif()
-
 if (NOT MSVC)
     target_compile_options(LinkedList_tests PUBLIC  
     -fno-omit-frame-pointer -fsanitize=address)
