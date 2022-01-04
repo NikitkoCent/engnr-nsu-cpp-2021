@@ -68,3 +68,23 @@ TEST(test4, test_4) {
     std::cout << output;
     EXPECT_EQ(output, result);
 }
+
+TEST(test5, test_5) {
+    std::stringstream test (
+            "PUSH 1\n"
+            "\n"
+            "PUSH 2\n"
+            "PLUS\n"
+            "\n"
+            "PUSH 5\n"
+            "\n"
+            "MUL\n"
+            "PRINT");
+    testing::internal::CaptureStdout();
+    std::ifstream in;
+    std::string result = "15\n";
+    Preprocessing(test, in, 2);
+    std::string output = testing::internal::GetCapturedStdout();
+    std::cout << output;
+    EXPECT_EQ(output, result);
+}
