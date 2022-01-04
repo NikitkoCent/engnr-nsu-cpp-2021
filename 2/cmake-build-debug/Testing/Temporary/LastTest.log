@@ -1,10 +1,10 @@
-Start testing: Jan 04 16:12 +07
+Start testing: Jan 04 16:43 +07
 ----------------------------------------------------------
 1/1 Testing: googletest
 1/1 Test: googletest
 Command: "/Users/artemsmakov/engnr-nsu-cpp-2021/2/cmake-build-debug/tests/calculator_tests"
 Directory: /Users/artemsmakov/engnr-nsu-cpp-2021/2/cmake-build-debug/tests
-"googletest" start time: Jan 04 16:12 +07
+"googletest" start time: Jan 04 16:43 +07
 Output:
 ----------------------------------------------------------
 [==========] Running 5 tests from 5 test suites.
@@ -35,8 +35,8 @@ Output:
 [----------] 1 test from test6 (0 ms total)
 
 [----------] 1 test from test7
-[ RUN      ] test7.test_7
-[       OK ] test7.test_7 (0 ms)
+[ RUN      ] test7.very_big_grem
+[       OK ] test7.very_big_grem (0 ms)
 [----------] 1 test from test7 (0 ms total)
 
 [----------] 1 test from test8
@@ -45,14 +45,14 @@ Output:
 [----------] 1 test from test8 (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 5 tests from 5 test suites ran. (1 ms total)
+[==========] 5 tests from 5 test suites ran. (2 ms total)
 [  PASSED  ] 5 tests.
 <end of output>
-Test time =   0.22 sec
+Test time =   0.42 sec
 ----------------------------------------------------------
 Test Passed.
-"googletest" end time: Jan 04 16:12 +07
+"googletest" end time: Jan 04 16:43 +07
 "googletest" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jan 04 16:12 +07
+End testing: Jan 04 16:43 +07

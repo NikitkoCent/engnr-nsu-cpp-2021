@@ -1,5 +1,9 @@
 #include <iostream>
 #include "calc.h"
+namespace std
+{
+#include <cstdlib>
+};
 
 int main(int argc, char *argv[]) {
     try {

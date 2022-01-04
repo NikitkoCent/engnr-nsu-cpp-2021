@@ -126,7 +126,7 @@ EXPECT_EQ(output, result);
 }
 
 
-TEST(test7, test_7) {
+TEST(test7, very_big_grem) {
 std::string test = "PUSH -9223372036854775808\n"
                    "ABS\n"
                    "PRINT";
