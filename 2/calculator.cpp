@@ -30,6 +30,7 @@ void plus::cmd(Context &context, std::vector<std::string> str) {
     int64_t v1 = context.mystack.top();
     context.mystack.pop();
     int64_t v2 = context.mystack.top();
+    context.mystack.pop();
     int64_t res;
     SafeAdd(v2, v1, res);
     context.mystack.push(res);
@@ -41,6 +42,7 @@ void minus::cmd(Context &context, std::vector<std::string> str) {
     int64_t v1 = context.mystack.top();
     context.mystack.pop();
     int64_t v2 = context.mystack.top();
+    context.mystack.pop();
     int64_t res;
     SafeSubtract(v2, v1, res);
     context.mystack.push(res);
@@ -52,6 +54,7 @@ void mul::cmd(Context &context, std::vector<std::string> str) {
     int64_t v1 = context.mystack.top();
     context.mystack.pop();
     int64_t v2 = context.mystack.top();
+    context.mystack.pop();
     int64_t res;
     SafeMultiply(v2, v1, res);
     context.mystack.push(res);
@@ -63,7 +66,8 @@ void divn::cmd(Context &context, std::vector<std::string> str) {
     int64_t v1 = context.mystack.top();
     context.mystack.pop();
     int64_t v2 = context.mystack.top();
-    if (v2 == 0) {
+    context.mystack.pop();
+    if (v1 == 0) {
         throw DivideByZero();
     }
     int64_t res;
