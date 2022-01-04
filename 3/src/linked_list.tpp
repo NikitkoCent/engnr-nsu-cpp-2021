@@ -76,6 +76,10 @@ LinkedList<T>::~LinkedList()
 template <typename T>
 LinkedList<T> &LinkedList<T>::operator=(const LinkedList<T> &other)
 {
+    if (&other == this)
+        return (*this);
+
+
     clear();
 
     for (const auto &item : other)
@@ -198,7 +202,7 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, const
     pos._curr_ptr->prev->next = _node;
     pos._curr_ptr->prev = _node;
     count++;
-    return iterator(*(pos._curr_ptr));
+    return iterator(*_node);
 }
 
 template <typename T>
@@ -213,7 +217,7 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, T &&v
     pos._curr_ptr->prev->next = _node;
     pos._curr_ptr->prev = _node;
     count++;
-    return iterator(*(pos._curr_ptr));
+    return iterator(*_node);
 }
 
 template <typename T>
@@ -224,7 +228,7 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, size_
         insert(pos, value);
         --pos;
     }
-    return iterator(*(pos._curr_ptr));
+    return iterator(*(pos._curr_ptr->next));
 }
 
 template <typename T>
@@ -236,7 +240,7 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, Input
         insert(pos, *last);
         --pos;
     }
-    return iterator(*(pos._curr_ptr));
+    return iterator(*(pos._curr_ptr->next));
 }
 
 template <typename T>
@@ -247,7 +251,7 @@ typename LinkedList<T>::iterator LinkedList<T>::insert(const_iterator pos, std::
         insert(pos, std::move(*it));
         --pos;
     }
-    return iterator(*(pos._curr_ptr));
+    return iterator(*(pos._curr_ptr->next));
 }
 /* #endregion */
 
@@ -439,6 +443,7 @@ template <typename T>
 template <typename BinaryPredicate>
 typename LinkedList<T>::size_type LinkedList<T>::unique(BinaryPredicate p)
 {
+    size_type init_cnt = count;
     auto first = cbegin();
     if (first == cend())
         return count;
@@ -458,7 +463,7 @@ typename LinkedList<T>::size_type LinkedList<T>::unique(BinaryPredicate p)
             ++second;
         }
     }
-    return count;
+    return init_cnt - count;
 }
 /* #endregion */
 

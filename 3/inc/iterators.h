@@ -39,9 +39,7 @@ namespace ns_LLIST
     public:
         void swap(RawIterator& it)
         {
-            T& data1 = it._curr_ptr->getData();
-            T& data2 = this->_curr_ptr->getData();
-            std::swap(data1,data2);
+            std::swap(_curr_ptr, it._curr_ptr);
         }
     };
 

@@ -39,6 +39,10 @@ target_link_libraries(
 if(MSVC)
     target_compile_options(LinkedList_tests PUBLIC
     /fsanitize=address)
+
+    target_link_options(LinkedList_tests PUBLIC  
+    /fsanitize=address)
+
 endif()
 
 if (NOT MSVC)
