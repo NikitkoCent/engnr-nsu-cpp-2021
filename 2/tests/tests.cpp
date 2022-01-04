@@ -42,6 +42,8 @@ TEST(test3, test_3) {
             "PUSH 5\n"
             "PLUS\n"
             "PEEK var2\n"
+            "PUSH var1\n"
+            "PUSH var2\n"
             "PLUS\n"
             "PRINT");
     testing::internal::CaptureStdout();
@@ -55,14 +57,15 @@ TEST(test3, test_3) {
 TEST(test4, test_4) {
     std::stringstream test (
             "PUSH 1\n"
+            "PEEK var\n"
             "PUSH -2\n"
             "MUL\n"
+            "PUSH var\n"
             "DIV\n"
-            "POP\n"
             "PRINT");
     testing::internal::CaptureStdout();
     std::ifstream in;
-    std::string result = "1\n";
+    std::string result = "-2\n";
     Preprocessing(test, in, 3);
     std::string output = testing::internal::GetCapturedStdout();
     std::cout << output;
