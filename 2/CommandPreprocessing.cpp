@@ -7,7 +7,7 @@
     std::string str;
     std::vector<std::string> delim_words;
     std::string one_word;
-    if (flag == 2)
+    if (flag == 1)
     {
         while(std::getline(std::cin, str, '\n')){
             if(str.empty())
@@ -21,7 +21,7 @@
             delete command;
         }
     }
-    else if (flag == 1) {
+    else if (flag == 2) {
         while (std::getline(input2, str, '\n')) {
             if (str.empty())
                 continue;
