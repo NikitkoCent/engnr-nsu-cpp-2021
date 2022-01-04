@@ -326,10 +326,10 @@ googletest/googletest/CMakeFiles/gtest_main.dir/clean:
 # Target rules for target tests/CMakeFiles/calculator_tests.dir
 
 # All Build rule for target.
+tests/CMakeFiles/calculator_tests.dir/all: CMakeFiles/calculator_lib.dir/all
 tests/CMakeFiles/calculator_tests.dir/all: googletest/googlemock/CMakeFiles/gmock.dir/all
 tests/CMakeFiles/calculator_tests.dir/all: googletest/googlemock/CMakeFiles/gmock_main.dir/all
 tests/CMakeFiles/calculator_tests.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
-tests/CMakeFiles/calculator_tests.dir/all: CMakeFiles/calculator_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/calculator_tests.dir/build.make tests/CMakeFiles/calculator_tests.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/calculator_tests.dir/build.make tests/CMakeFiles/calculator_tests.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/artemsmakov/engnr-nsu-cpp-2021/2/sborka/CMakeFiles --progress-num=6,7 "Built target calculator_tests"

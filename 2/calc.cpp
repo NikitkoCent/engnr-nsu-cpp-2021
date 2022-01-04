@@ -24,6 +24,9 @@ void Plus::rep(const std::vector<std::string> &command_str,
                calculator_data &data
 ) {
     if (data.values.size() < 2) { // проверка на то, что у нас есть два слагаемых
+        throw CalcExceptions::StackEmpty();
+    }
+    elif (data.values.size() < 2) { // проверка на то, что у нас есть два слагаемых
         throw CalcExceptions::StackDeficit();
     } else {
         int64_t first_summand = data.values.top();
@@ -40,7 +43,10 @@ void Plus::rep(const std::vector<std::string> &command_str,
 void Minus::rep(const std::vector<std::string> &command_str,
                 calculator_data &data
 ) {
-    if (data.values.size() < 2) {
+    if (data.values.size() == 0) {
+        throw CalcExceptions::StackEmpty();
+    }
+    elif (data.values.size() < 2) {
         throw CalcExceptions::StackDeficit();
     } else {
         int64_t first_min = data.values.top();
@@ -67,7 +73,10 @@ void Print::rep(const std::vector<std::string> &command_str,
 void Mul::rep(const std::vector<std::string> &command_str,
               calculator_data &data
 ) {
-    if (data.values.size() < 2) {
+    if (data.values.size() == 0) {
+        throw CalcExceptions::StackEmpty();
+    }
+    elif (data.values.size() < 2) {
         throw CalcExceptions::StackDeficit();
     } else {
         int64_t first_mul = data.values.top();
@@ -85,6 +94,9 @@ void Mul::rep(const std::vector<std::string> &command_str,
 void Div::rep(const std::vector<std::string> &command_str,
               calculator_data &data
 ) {
+    if (data.values.size() == 0) {
+        throw CalcExceptions::StackEmpty();
+    }
     if (data.values.size() < 2) {
         throw CalcExceptions::StackDeficit();
     } else {
