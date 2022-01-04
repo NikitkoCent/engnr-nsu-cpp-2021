@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/Users/artemsmakov/engnr-nsu-cpp-2021/2/tests/../libs/googletest/googletest/include -isystem /Users/artemsmakov/engnr-nsu-cpp-2021/2/googletest/googletest/include -isystem /Users/artemsmakov/engnr-nsu-cpp-2021/2/googletest/googletest -isystem /Users/artemsmakov/engnr-nsu-cpp-2021/2/googletest/googlemock/include -isystem /Users/artemsmakov/engnr-nsu-cpp-2021/2/googletest/googlemock
 
-CXX_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -mmacosx-version-min=11.6 -std=gnu++17
+CXX_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -mmacosx-version-min=11.6 -std=gnu++2a
 
