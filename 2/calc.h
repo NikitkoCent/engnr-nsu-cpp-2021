@@ -33,7 +33,7 @@ public:
     virtual void rep(const std::vector<std::string> &command_str,
                       calculator_data& data
     ) = 0;
-    virtual ~Command() = default; // деструктор
+    virtual ~Command() = default;
 
 };
 

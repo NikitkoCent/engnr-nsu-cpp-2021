@@ -58,7 +58,7 @@ namespace CalcExceptions {
     public:
         std::string name_error;
 
-        EmptyName() : name_error("Where is name of file, stupid user?") {}
+        EmptyName() : name_error("Where is name of file, user?") {}
 
         std::string _what() override;
     };

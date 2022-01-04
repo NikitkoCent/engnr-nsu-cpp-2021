@@ -1,6 +1,7 @@
 #include <iostream>
 #include "calc.h"
 #include <string>
+#define elif else if
 namespace std
 {
 #include <cstdlib>
@@ -9,17 +10,17 @@ namespace std
 int main(int argc, char *argv[]) {
     try {
         std::ifstream file;
-        const char *filepath;
+        const char *filename;
         std::stringstream in_s;
         if (argc > 2 || argc == 0)
             return 1;
         if (argc == 2) {
-            filepath = argv[1];
-            file.open(filepath);
+            filename = argv[1];
+            file.open(filename);
             if (!file.is_open()) {
                 return 1;
             }
-            else if (file.peek() == EOF)
+            elif (file.peek() == EOF)
                 return 0;
         }
         calc_work(in_s, file, argc);

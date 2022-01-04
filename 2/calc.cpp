@@ -23,7 +23,7 @@ void Pop::rep(const std::vector<std::string> &command_str,
 void Plus::rep(const std::vector<std::string> &command_str,
                calculator_data &data
 ) {
-    if (data.values.size() < 2) { // проверка на то, что у нас есть два слагаемых
+    if (data.values.size() == 0) {
         throw CalcExceptions::StackEmpty();
     }
     elif (data.values.size() < 2) { // проверка на то, что у нас есть два слагаемых
@@ -128,7 +128,7 @@ void Push::rep(const std::vector<std::string> &command_str,
         if (find_count == data.compare_names.end()) {
             throw CalcExceptions::InvalidInput();
         }
-        data.values.push(find_count->second);// че такое second????//////////////////////////////
+        data.values.push(find_count->second);
     }
 }
 
@@ -211,12 +211,9 @@ Command *CommandCreator::factoryMethod(const std::vector<std::string> &commands)
 void calc_work(std::stringstream &test_str, std::ifstream &file, int args) {
     CommandCreator creator;
     calculator_data data;
-
     std::vector<std::string> phrase;
     std::string word;
-
     Command *calc_command;
-
     std::string command;
     std::string cmd_s;
     if (args == 2) { // считывание из файла (есть название)
@@ -225,7 +222,7 @@ void calc_work(std::stringstream &test_str, std::ifstream &file, int args) {
             if (cmd_s.empty()) // пропуск пустых строк
                 continue;
             std::stringstream ss(cmd_s);
-            while (getline(ss, word, ' ')) {
+            while (std:: getline(ss, word, ' ')) {
                 phrase.push_back(word);
             }
             calc_command = creator.factoryMethod(phrase);
@@ -247,11 +244,11 @@ void calc_work(std::stringstream &test_str, std::ifstream &file, int args) {
             delete calc_command;
         }
     } elif (args == 3) {
-        while (getline(test_str, cmd_s, '\n')) {
+        while (std::getline(test_str, cmd_s, '\n')) {
             if (cmd_s.empty())
                 continue;
             std::stringstream ss(cmd_s);
-            while (getline(ss, word, ' ')) {
+            while (std::getline(ss, word, ' ')) {
                 phrase.push_back(word);
             }
             calc_command = creator.factoryMethod(phrase);
