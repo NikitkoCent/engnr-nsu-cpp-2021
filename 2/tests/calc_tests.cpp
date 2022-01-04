@@ -1,6 +1,6 @@
 #include <sstream>
 #include "../calc.h"
-
+#include <string>
 TEST(test1, base_test) {
 std::string test = "# myVar = -14 / 5\n"
                    "PUSH -14\n"

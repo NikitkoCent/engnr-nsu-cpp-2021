@@ -1,6 +1,6 @@
 #include "calc.h"
 #define elif else if
-
+#include <string>
 
 bool is_number(const std::string &str) {
     return !str.empty() && (std::all_of(str.begin(), str.end(), [](char c) { return ::isdigit(c); }) ||

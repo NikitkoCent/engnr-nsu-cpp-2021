@@ -339,11 +339,15 @@ acxx_demangle.h
 /Users/artemsmakov/engnr-nsu-cpp-2021/2/Exeptions.cpp
 iostream
 -
+string
+-
 Exeptions.h
 /Users/artemsmakov/engnr-nsu-cpp-2021/2/Exeptions.h
 
 /Users/artemsmakov/engnr-nsu-cpp-2021/2/Exeptions.h
 iostream
+-
+string
 -
 
 /Users/artemsmakov/engnr-nsu-cpp-2021/2/SafeInt/SafeInt.hpp
@@ -367,6 +371,8 @@ stdlib.h
 /Users/artemsmakov/engnr-nsu-cpp-2021/2/calc.cpp
 calc.h
 /Users/artemsmakov/engnr-nsu-cpp-2021/2/calc.h
+string
+-
 
 /Users/artemsmakov/engnr-nsu-cpp-2021/2/calc.h
 SafeInt/SafeInt.hpp

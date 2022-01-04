@@ -339,6 +339,8 @@ acxx_demangle.h
 /Users/artemsmakov/engnr-nsu-cpp-2021/2/Exeptions.h
 iostream
 -
+string
+-
 
 /Users/artemsmakov/engnr-nsu-cpp-2021/2/SafeInt/SafeInt.hpp
 cstdint
@@ -429,4 +431,6 @@ sstream
 -
 ../calc.h
 /Users/artemsmakov/engnr-nsu-cpp-2021/2/calc.h
+string
+-
 

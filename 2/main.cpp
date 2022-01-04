@@ -1,5 +1,6 @@
 #include <iostream>
 #include "calc.h"
+#include <string>
 namespace std
 {
 #include <cstdlib>

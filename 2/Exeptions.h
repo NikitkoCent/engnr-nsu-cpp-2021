@@ -4,6 +4,7 @@
 
 #pragma once
 #include <iostream>
+#include <string>
 
 namespace CalcExceptions {
     class BaseEx : public std::exception {

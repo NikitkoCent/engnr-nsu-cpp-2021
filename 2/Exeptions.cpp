@@ -1,7 +1,7 @@
 #define INC_2_EXEPTIONS_H
 
 #include <iostream>
-
+#include <string>
 #include "Exeptions.h"
 
 
