@@ -148,7 +148,7 @@ void readd::cmd(Context &context, std::vector<std::string> &str) {
 void com::cmd(Context &context, std::vector<std::string> &str) {
 //     (0_0)
 //    --=|=--
-//      / \
+//     _/ \_
 
 }
 
