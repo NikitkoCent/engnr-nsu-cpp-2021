@@ -118,3 +118,13 @@ TEST(test8, test_8) {
     std::ifstream in;
     EXPECT_THROW(Preprocessing(test, in, 3),  FatalErr);
 }
+TEST(test, test_9) {
+    std::stringstream test (
+            "PUSH 5\n"
+            "PUSH 0\n"
+            "DIV\n"
+            "PRINT"
+    );
+    std::ifstream in;
+    EXPECT_THROW(Preprocessing(test, in, 3),  DivideByZero);
+}

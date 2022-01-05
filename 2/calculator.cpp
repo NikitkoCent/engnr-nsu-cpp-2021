@@ -29,80 +29,60 @@ void push::cmd(Context &context, std::vector<std::string> &str) {
 void plus::cmd(Context &context, std::vector<std::string> &str) {
     if (context.mystack.size() < 2)
         throw plusexc();
-    try {
-        int64_t v1 = context.mystack.top();
-        context.mystack.pop();
-        int64_t v2 = context.mystack.top();
-        context.mystack.pop();
-        int64_t res;
-        if (v2+v1 != (long int)v2+(long int) v1){
-            throw FatalErr();
-        }
-        SafeAdd(v2, v1, res);
-        context.mystack.push(res);
-    }catch(...){
+    int64_t v1 = context.mystack.top();
+    context.mystack.pop();
+    int64_t v2 = context.mystack.top();
+    context.mystack.pop();
+    int64_t res;
+    SafeAdd(v2, v1, res);
+    if (SafeAdd(v2, v1, res) == 0)
         throw FatalErr();
-    }
+    context.mystack.push(res);
 }
 
 void minus::cmd(Context &context, std::vector<std::string> &str) {
     if (context.mystack.size() < 2)
         throw minusexc();
-    try {
-        int64_t v1 = context.mystack.top();
-        context.mystack.pop();
-        int64_t v2 = context.mystack.top();
-        context.mystack.pop();
-        int64_t res;
-        if (v2-v1 != (long int)v2-(long int) v1){
-            throw FatalErr();
-        }
-        SafeSubtract(v2, v1, res);
-        context.mystack.push(res);
-    }catch(...){
+    int64_t v1 = context.mystack.top();
+    context.mystack.pop();
+    int64_t v2 = context.mystack.top();
+    context.mystack.pop();
+    int64_t res;
+    SafeSubtract(v2, v1, res);
+    if (SafeSubtract(v2, v1, res) == 0)
         throw FatalErr();
-    }
+    context.mystack.push(res);
 }
 
 void mul::cmd(Context &context, std::vector<std::string> &str) {
     if (context.mystack.size() < 2)
         throw mulexc();
-    try {
-        int64_t v1 = context.mystack.top();
-        context.mystack.pop();
-        int64_t v2 = context.mystack.top();
-        context.mystack.pop();
-        int64_t res;
-        if (v2*v1 != (long int)v2*(long int) v1){
-            throw FatalErr();
-        }
-        SafeMultiply(v2, v1, res);
-        context.mystack.push(res);
-    }catch(...){
+    int64_t v1 = context.mystack.top();
+    context.mystack.pop();
+    int64_t v2 = context.mystack.top();
+    context.mystack.pop();
+    int64_t res;
+    SafeMultiply(v2, v1, res);
+    if (SafeMultiply(v2, v1, res) == 0)
         throw FatalErr();
-    }
+    context.mystack.push(res);
 }
 
 void divn::cmd(Context &context, std::vector<std::string> &str) {
     if (context.mystack.size() < 2)
         throw divexc();
-    try {
-        int64_t v1 = context.mystack.top();
-        context.mystack.pop();
-        int64_t v2 = context.mystack.top();
-        context.mystack.pop();
-        if (v1 == 0) {
-            throw DivideByZero();
-        }
-        int64_t res;
-        if (v2/v1 != (long int)v2/(long int) v1){
-            throw FatalErr();
-        }
-        SafeDivide(v2, v1, res);
-        context.mystack.push(res);
-    }catch(...){
-        throw FatalErr();
+    int64_t v1 = context.mystack.top();
+    context.mystack.pop();
+    int64_t v2 = context.mystack.top();
+    context.mystack.pop();
+    if (v1 == 0) {
+        throw DivideByZero();
     }
+    int64_t res;
+    SafeDivide(v2, v1, res);
+    if (SafeDivide(v2, v1, res) == 0)
+        throw FatalErr();
+    context.mystack.push(res);
 }
 
 void print::cmd(Context &context, std::vector<std::string> &str) {
