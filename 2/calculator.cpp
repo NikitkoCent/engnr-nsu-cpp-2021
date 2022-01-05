@@ -35,7 +35,7 @@ void plus::cmd(Context &context, std::vector<std::string> &str) {
         int64_t v2 = context.mystack.top();
         context.mystack.pop();
         int64_t res;
-        if (v2+v1 != (long long int)v2+(long long int) v1){
+        if (v2+v1 != (long int)v2+(long int) v1){
             throw FatalErr();
         }
         SafeAdd(v2, v1, res);
@@ -54,7 +54,7 @@ void minus::cmd(Context &context, std::vector<std::string> &str) {
         int64_t v2 = context.mystack.top();
         context.mystack.pop();
         int64_t res;
-        if (v2-v1 != (long long int)v2-(long long int) v1){
+        if (v2-v1 != (long int)v2-(long int) v1){
             throw FatalErr();
         }
         SafeSubtract(v2, v1, res);
@@ -73,7 +73,7 @@ void mul::cmd(Context &context, std::vector<std::string> &str) {
         int64_t v2 = context.mystack.top();
         context.mystack.pop();
         int64_t res;
-        if (v2*v1 != (long long int)v2*(long long int) v1){
+        if (v2*v1 != (long int)v2*(long int) v1){
             throw FatalErr();
         }
         SafeMultiply(v2, v1, res);
@@ -95,7 +95,7 @@ void divn::cmd(Context &context, std::vector<std::string> &str) {
             throw DivideByZero();
         }
         int64_t res;
-        if (v2/v1 != (long long int)v2/(long long int) v1){
+        if (v2/v1 != (long int)v2/(long int) v1){
             throw FatalErr();
         }
         SafeDivide(v2, v1, res);
