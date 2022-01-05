@@ -5,103 +5,137 @@ bool is_number(const std::string &s) {
                           (s[0] == '-' && std::all_of(s.begin() + 1, s.end(), [](char c) { return ::isdigit(c); })));
 }
 
-void pop::cmd(Context &context, std::vector<std::string> str) {
+void pop::cmd(Context &context, std::vector<std::string> &str) {
     if (!context.mystack.empty()) {
         context.mystack.pop();
     } else
         throw popexc();
 }
 
-void push::cmd(Context &context, std::vector<std::string> str) {
+void push::cmd(Context &context, std::vector<std::string> &str) {
     if (str.size() < 2)
         throw noargsexc();
-    if (is_number(str[1])) {
-        context.mystack.push(std::stoll(str[1]));
-    } else if (!is_number(str[1])) {
-        context.mystack.push(context.mp[str[1]]);
-    } else
+    try {
+        if (is_number(str[1])) {
+            context.mystack.push(std::stoll(str[1]));
+        } else if (!is_number(str[1])) {
+            context.mystack.push(context.mp[str[1]]);
+        }
+    }  catch (...) {
         throw pushexc();
-
+    }
 }
 
-void plus::cmd(Context &context, std::vector<std::string> str) {
+void plus::cmd(Context &context, std::vector<std::string> &str) {
     if (context.mystack.size() < 2)
         throw plusexc();
-    int64_t v1 = context.mystack.top();
-    context.mystack.pop();
-    int64_t v2 = context.mystack.top();
-    context.mystack.pop();
-    int64_t res;
-    SafeAdd(v2, v1, res);
-    context.mystack.push(res);
+    try {
+        int64_t v1 = context.mystack.top();
+        context.mystack.pop();
+        int64_t v2 = context.mystack.top();
+        context.mystack.pop();
+        int64_t res;
+        if (abs(v2) + abs(v1)< 0){
+            throw FatalErr();
+        }
+        SafeAdd(v2, v1, res);
+        context.mystack.push(res);
+    }catch(...){
+        throw FatalErr();
+    }
 }
 
-void minus::cmd(Context &context, std::vector<std::string> str) {
+void minus::cmd(Context &context, std::vector<std::string> &str) {
     if (context.mystack.size() < 2)
         throw minusexc();
-    int64_t v1 = context.mystack.top();
-    context.mystack.pop();
-    int64_t v2 = context.mystack.top();
-    context.mystack.pop();
-    int64_t res;
-    SafeSubtract(v2, v1, res);
-    context.mystack.push(res);
+    try {
+        int64_t v1 = context.mystack.top();
+        context.mystack.pop();
+        int64_t v2 = context.mystack.top();
+        context.mystack.pop();
+        int64_t res;
+        if (abs(v2) - abs(v1)< 0){
+            throw FatalErr();
+        }
+        SafeSubtract(v2, v1, res);
+        context.mystack.push(res);
+    }catch(...){
+        throw FatalErr();
+    }
 }
 
-void mul::cmd(Context &context, std::vector<std::string> str) {
+void mul::cmd(Context &context, std::vector<std::string> &str) {
     if (context.mystack.size() < 2)
         throw mulexc();
-    int64_t v1 = context.mystack.top();
-    context.mystack.pop();
-    int64_t v2 = context.mystack.top();
-    context.mystack.pop();
-    int64_t res;
-    SafeMultiply(v2, v1, res);
-    context.mystack.push(res);
+    try {
+        int64_t v1 = context.mystack.top();
+        context.mystack.pop();
+        int64_t v2 = context.mystack.top();
+        context.mystack.pop();
+        int64_t res;
+        if (abs(v2) * abs(v1)< 0){
+            throw FatalErr();
+        }
+        SafeMultiply(v2, v1, res);
+        context.mystack.push(res);
+    }catch(...){
+        throw FatalErr();
+    }
 }
 
-void divn::cmd(Context &context, std::vector<std::string> str) {
+void divn::cmd(Context &context, std::vector<std::string> &str) {
     if (context.mystack.size() < 2)
         throw divexc();
-    int64_t v1 = context.mystack.top();
-    context.mystack.pop();
-    int64_t v2 = context.mystack.top();
-    context.mystack.pop();
-    if (v1 == 0) {
-        throw DivideByZero();
+    try {
+        int64_t v1 = context.mystack.top();
+        context.mystack.pop();
+        int64_t v2 = context.mystack.top();
+        context.mystack.pop();
+        if (v1 == 0) {
+            throw DivideByZero();
+        }
+        int64_t res;
+        if (abs(v2) / abs(v1)< 0){
+            throw FatalErr();
+        }
+        SafeDivide(v2, v1, res);
+        context.mystack.push(res);
+    }catch(...){
+        throw FatalErr();
     }
-    int64_t res;
-    SafeDivide(v2, v1, res);
-    context.mystack.push(res);
 }
 
-void print::cmd(Context &context, std::vector<std::string> str) {
+void print::cmd(Context &context, std::vector<std::string> &str) {
     if (str.size() > 1)
         throw manyargsexc();
     if (!context.mystack.empty()) {
-        std::cout << std::to_string((int64_t) context.mystack.top()) << std::endl;
+        std::cout << (int64_t) context.mystack.top() << std::endl;
     } else
         throw printexc();
 }
 
-void peek::cmd(Context &context, std::vector<std::string> str) {
+void peek::cmd(Context &context, std::vector<std::string> &str) {
     if (context.mystack.empty() || str.size() < 2) {
         throw peekexc();
     } else
         context.mp[str[1]] = context.mystack.top();
 }
 
-void abss::cmd(Context &context, std::vector<std::string> str) {
-    if (!context.mystack.empty() && str.size() == 1) {
-        SafeInt<int64_t> val = context.mystack.top();
-        context.mystack.pop();
-        val = val > 0 ? val : -val;
-        context.mystack.push(val);
-    } else
-        throw absexc();
+void abss::cmd(Context &context, std::vector<std::string> &str) {
+    try {
+        if (!context.mystack.empty() && str.size() == 1) {
+            SafeInt<int64_t> val = context.mystack.top();
+            context.mystack.pop();
+            val = val > 0 ? val : -val;
+            context.mystack.push(val);
+        } else
+            throw absexc();
+    }catch(...){
+        throw FatalErr();
+    }
 }
 
-void readd::cmd(Context &context, std::vector<std::string> str) {
+void readd::cmd(Context &context, std::vector<std::string> &str) {
     if (str.size() < 2)
         throw noargsexc();
     try {
@@ -111,14 +145,14 @@ void readd::cmd(Context &context, std::vector<std::string> str) {
     }
 }
 
-void com::cmd(Context &context, std::vector<std::string> str) {
+void com::cmd(Context &context, std::vector<std::string> &str) {
 //     (0_0)
 //    --=|=--
 //      / \
 
 }
 
-Command *Cmdcreate::Fmethod(std::vector<std::string> vec) {
+Command *Cmdcreate::Fmethod(std::vector<std::string> &vec) {
     if (vec[0] == "#") {
         return new com();
     } else if (vec[0] == "MUL") {

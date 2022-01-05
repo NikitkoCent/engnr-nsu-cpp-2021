@@ -20,49 +20,49 @@ struct Context{
 };
 class Command{
 public:
-    virtual void cmd(Context& context,  std::vector<std::string> str)=0;
+    virtual void cmd(Context& context,  std::vector<std::string> &str)=0;
     virtual ~Command() =default;
 };
 class pop final: public Command{
-    void cmd(Context& context,  std::vector<std::string> str) override;
+    void cmd(Context& context,  std::vector<std::string> &str) override;
 };
 class push final: public Command{
-    void cmd(Context& context, std::vector<std::string> str) override;
+    void cmd(Context& context, std::vector<std::string> &str) override;
 };
 class plus final: public Command{
-    void cmd(Context& context, std::vector<std::string> str) override;
+    void cmd(Context& context, std::vector<std::string> &str) override;
 };
 class minus final: public Command{
-    void cmd(Context& context, std::vector<std::string> str) override;
+    void cmd(Context& context, std::vector<std::string> &str) override;
 };
 class mul final: public Command{
-    void cmd(Context& context, std::vector<std::string> str) override;
+    void cmd(Context& context, std::vector<std::string> &str) override;
 };
 class divn final: public Command{
-    void cmd(Context& context, std::vector<std::string> str) override;
+    void cmd(Context& context, std::vector<std::string> &str) override;
 };
 class print final: public Command{
-    void cmd(Context& context, std::vector<std::string> str) override;
+    void cmd(Context& context, std::vector<std::string> &str) override;
 };
 class peek final: public Command{
-    void cmd(Context& context, std::vector<std::string> str) override;
+    void cmd(Context& context, std::vector<std::string> &str) override;
 };
 class abss final: public Command{
-    void cmd(Context& context, std::vector<std::string> str) override;
+    void cmd(Context& context, std::vector<std::string> &str) override;
 };
 class readd final: public Command{
-    void cmd(Context& context, std::vector<std::string> str) override;
+    void cmd(Context& context, std::vector<std::string> &str) override;
 };
 class com final: public Command{
-    void cmd(Context& context, std::vector<std::string> str) override;
+    void cmd(Context& context, std::vector<std::string> &str) override;
 };
 class calc {
 public:
     calc() = default;
-    virtual  Command *Fmethod(std::vector<std::string> vec) = 0;
+    virtual  Command *Fmethod(std::vector<std::string> &vec) = 0;
 };
 class Cmdcreate : calc{
 public:
-    Command *Fmethod(std::vector<std::string> vec) override;
+    Command *Fmethod(std::vector<std::string> &vec) override;
 };
 void Preprocessing(std::stringstream& input1, std::ifstream& input2, int flag);

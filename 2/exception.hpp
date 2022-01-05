@@ -53,7 +53,7 @@ public:
 class pushexc: public default_error {
 public:
     pushexc(){
-        text = "ERROR: PUSH_fatal_error";
+        text = "ERROR: PUSH_fatal_error(out of range or something else)";
     }
     std::string what() override {
         return text;
@@ -62,7 +62,7 @@ public:
 class DivideByZero: public default_error {
 public:
     DivideByZero(){
-        text = "ERROR: Divide by zero";
+        text = "ERROR: Divided by zero";
     }
     std::string what() override {
         return text;
@@ -131,3 +131,13 @@ public:
         return text;
     }
 };
+class FatalErr: public default_error {
+public:
+    FatalErr(){
+        text = "ERROR: fatal error (out of range or something else)";
+    }
+    std::string what() override {
+        return text;
+    }
+};
+

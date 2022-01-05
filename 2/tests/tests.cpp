@@ -91,3 +91,30 @@ TEST(test5, test_5) {
     std::cout << output;
     EXPECT_EQ(output, result);
 }
+TEST(test6, test_6) {
+    std::stringstream test (
+            "PUSH 10000000000000000000\n"
+            "PRINT\n"
+            );
+    std::ifstream in;
+    EXPECT_THROW(Preprocessing(test, in, 3),  pushexc);
+}
+TEST(test7, test_7) {
+    std::stringstream test (
+    "PUSH 853373436854\n"
+    "PUSH 20898131\n"
+    "MUL\n"
+    "PRINT\n"
+    );
+    std::ifstream in;
+    EXPECT_THROW(Preprocessing(test, in, 3),  FatalErr);
+}
+TEST(test8, test_8) {
+    std::stringstream test (
+            "PUSH -9223372036854775808\n"
+            "ABS\n"
+            "PRINT"
+    );
+    std::ifstream in;
+    EXPECT_THROW(Preprocessing(test, in, 3),  FatalErr);
+}
