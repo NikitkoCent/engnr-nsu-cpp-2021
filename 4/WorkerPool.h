@@ -12,7 +12,7 @@ class WorkerPool
 private:
 	std::queue<Worker*> freeWorkers;
 	Worker** workers;
-	int count;
+	size_t count;
 
 	std::queue<Task*> tasks;
 	UserInterface* ui;
@@ -24,7 +24,7 @@ private:
 	void BackToWork(Worker* worker, WorkerResult* result);
 	size_t AddTask(Task* task);
 public:
-	WorkerPool(int count);
+	WorkerPool(size_t count);
 	void SetUI(UserInterface* ui);
 
 	bool Start();
