@@ -10,12 +10,12 @@ class Hasher
 private:
 	fstream* file;
 	bool metod_;
-	uint32_t out_;
+	uint64_t out_;
 public:
 	Hasher(fstream* name, bool metod);
 	void Sum64();
 	void Adler32();
-	uint32_t Hash();
+	uint64_t Hash();
 
 };
 
