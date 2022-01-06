@@ -18,7 +18,7 @@ BattleShipController::BattleShipController(BattleShipModel *bs_model, BaseGamer 
     gamers.push_back(g2);
     model->update_player_status(0, g1->is_bot);
     model->update_player_status(1, g2->is_bot);
-};
+}
 
 
 void BattleShipController::start(int c) {
