@@ -1,5 +1,5 @@
 {
-  "name": "battleShipGame",
+  "name": "battleshipgame",
   "version-string": "1.0",
   "dependencies": [
     "cxxopts"
