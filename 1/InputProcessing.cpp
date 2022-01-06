@@ -11,35 +11,30 @@ InputProcessing::InputProcessing(int argc, char* argv[])
 
 int InputProcessing::checkInput()
 {
-	if (strcmp(argv_[1], "./hasher"))
-	{
-		Help::print(1);
-			return 1;
-	}
 	std::string name;
 	char* mode;
-	if (argc_ == 2 && strcmp(argv_[1],"-h")) //проверка на запрос help
+	if (argc_ == 2 && strcmp(argv_[1],"-h")) //РїСЂРѕРІРµСЂРєР° РЅР° Р·Р°РїСЂРѕСЃ help
 	{
 		Help::print(-1);
 		return -1;
 	}
-	if (argc_ != 5) //проверка на кол-во элементов запроса
+	if (argc_ != 4) //РїСЂРѕРІРµСЂРєР° РЅР° РєРѕР»-РІРѕ СЌР»РµРјРµРЅС‚РѕРІ Р·Р°РїСЂРѕСЃР°
 	{
 		Help::print(1);
 		return 1;
 	}
-	//разбиение на адрес и метод
-	if (!strcmp(argv_[2],"-m"))
+	//СЂР°Р·Р±РёРµРЅРёРµ РЅР° Р°РґСЂРµСЃ Рё РјРµС‚РѕРґ
+	if (!strcmp(argv_[1],"-m"))
 	{
+		mode = argv_[2];
+		name = argv_[3];
+	}
+	else if (!strcmp(argv_[2],"-m"))
+	{
+		name = argv_[1];
 		mode = argv_[3];
-		name = argv_[4];
 	}
-	else if (!strcmp(argv_[3],"-m"))
-	{
-		name = argv_[2];
-		mode = argv_[4];
-	}
-	//если нет метода
+	//РµСЃР»Рё РЅРµС‚ РјРµС‚РѕРґР°
 	else
 	{
 		Help::print(1);
