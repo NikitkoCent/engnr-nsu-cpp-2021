@@ -3,4 +3,4 @@
 2)mingw32-make
 
 После чего:
-2 <file path>
+# 2 <file path>
