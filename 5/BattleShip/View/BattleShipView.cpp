@@ -40,7 +40,7 @@ void show_board_line(std::array<std::array<char, 10>, 10> board, size_t line) {
     for (int j = 0; j < BOARD_SIZE; j++) {
         if (board[line][j] == SHIP) set_output_color(GREEN);
         else if (board[line][j] == HITTED_SHIP) set_output_color(RED);
-        else if (board[line][j] == MISS) set_output_color(YELLOW);
+        else if (board[line][j] == MISS) set_output_color(BLUE);
 
         std::cout << board[line][j];
         set_output_color(RESET);
@@ -98,6 +98,7 @@ void show_board(std::array<std::array<std::array<char, 10>, 10>, 2> boards, cons
 
 
 void BattleShipView::update() const {
+    clear_screen();
     std::cout << "Board for player " << model->get_current_player()+1 << "    Turn: " << model->get_turn_number() << std::endl;
     show_board(get_array_from_tuple(model->get_boards()), "ABCDEFGHIJ");
     std::cout << "\n" << std::endl;

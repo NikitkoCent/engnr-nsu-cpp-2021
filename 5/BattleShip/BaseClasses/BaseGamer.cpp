@@ -12,7 +12,7 @@ bool check_second_random(int first, int second, int length) {
 }
 
 
-std::vector<std::string> BaseBot::random_generate_next_turn(size_t args_count) {
+std::vector<std::string> BaseBot::random_generate_next_turn() {
     int length = model->get_awaiting_ship();
     std::vector<std::string> v;
     if (length == -1) { // attack stage
@@ -20,12 +20,14 @@ std::vector<std::string> BaseBot::random_generate_next_turn(size_t args_count) {
             v.clear();
             v.push_back(alphabet[get_engine()() % 10] + std::to_string(get_engine()() % 10));
         } while (model->check_cell_to_hit(v[0]));
+        v.push_back(v[0]);
     }
     else if (length == 0) { // 1-cell ships
         do {
             v.clear();
             v.push_back(alphabet[get_engine()() % 10] + std::to_string(get_engine()() % 10));
         } while (!model->check_possibility_to_set(v[0], v[0]));
+        v.push_back(v[0]);
     }
     else { // 2-4 cell ships
         bool possible;

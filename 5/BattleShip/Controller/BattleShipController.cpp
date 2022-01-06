@@ -17,27 +17,19 @@ void BattleShipController::start() {
     std::vector<std::string> v;
     for(auto &g: gamers) {
         for (int turn = 0; turn < 10; turn++) {
-            if (turn < 6) {
-                v = g->turn_set_stage(2);
-                while (model->set(v[0], v[1]) == 0) {
-                    v = g->turn_set_stage(2);
-                }
-            } else {
-                v = g->turn_set_stage(1);
-                while (model->set(v[0]) == 0) {
-                    v = g->turn_set_stage(1);
-                }
-            }
+            do {
+                v = g->turn_set_stage();
+            } while (model->set(v[0], v[1]) == 0);
         }
     }
     //stage 2 - attack
     int ans;
     while (model->get_winner() == 0) {
-        v = gamers[model->get_current_player()]->turn_attack_stage(1);
+        v = gamers[model->get_current_player()]->turn_attack_stage();
         ans = model->hit(v[0]);
 
         while ((ans == -1 || ans == 0) && model->get_winner() == 0) {
-            v = gamers[model->get_current_player()]->turn_attack_stage(1);
+            v = gamers[model->get_current_player()]->turn_attack_stage();
             ans = model->hit(v[0]);
         }
 
