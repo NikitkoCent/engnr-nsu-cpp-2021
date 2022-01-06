@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <filesystem>
 
 #include "../Model/BattleShipModel.h"
 #include "../BaseClasses/BaseGamer.h"
