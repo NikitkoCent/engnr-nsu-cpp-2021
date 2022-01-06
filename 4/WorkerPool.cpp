@@ -6,7 +6,7 @@ WorkerPool::WorkerPool(size_t count)
 {
 	this->count = count;
 	workers = (Worker**)malloc(sizeof(Worker*) * count);
-	for (int i = 0; i < count; i++)
+	for (size_t i = 0; i < count; i++)
 	{
 		workers[i] = new Worker(this, CommitResult);
 		freeWorkers.push(workers[i]);
@@ -96,8 +96,7 @@ void WorkerPool::Wait()
 		mut.lock();
 		bool key = freeWorkers.size() == count;
 		mut.unlock();
-		if (key)
-			return;
+		if (key) return;
 	}
 }
 
@@ -109,7 +108,7 @@ void WorkerPool::Cancel(WorkerPool* pool)
 void WorkerPool::Cancel()
 {
 	std::lock_guard<std::mutex> lock(mut);
-	for (int i = 0; i < count; i++)
+	for (size_t i = 0; i < count; i++)
 		workers[i]->Cancel();
 }
 
@@ -122,12 +121,12 @@ WorkerPool::~WorkerPool()
 {
 	stopped = true;
 	mut.lock();
-	for (int i = 0; i < count; i++)
+	for (size_t i = 0; i < count; i++)
 		workers[i]->Stop();
 	mut.unlock();
 	Wait();
 	mut.lock();
-	for (int i = 0; i < count; i++)
+	for (size_t i = 0; i < count; i++)
 		delete workers[i];
 	mut.unlock();
 	free(workers);
