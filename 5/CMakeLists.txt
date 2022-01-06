@@ -8,10 +8,43 @@ project(BattleShipGame)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(BattleShip/)
+include_directories(BattleShip)
+add_executable(BattleShipGame main.cpp
+        BattleShip/View/BattleShipView.cpp
+        BattleShip/View/BattleShipView.h
+        BattleShip/Model/BattleShipModel.cpp
+        BattleShip/Model/BattleShipModel.h
+        BattleShip/Controller/BattleShipController.cpp
+        BattleShip/Controller/BattleShipController.h
+        BattleShip/BaseClasses/BaseView.h
+        BattleShip/BaseClasses/BaseGamer.cpp
+        BattleShip/BaseClasses/BaseGamer.h
+        BattleShip/Gamers/ConsoleGamer.cpp
+        BattleShip/Gamers/ConsoleGamer.h
+        BattleShip/Gamers/RandomGamer.cpp
+        BattleShip/Gamers/RandomGamer.h
+        BattleShip/Gamers/OptimalGamer.cpp
+        BattleShip/Gamers/OptimalGamer.h
+        BattleShip/Controller/ScenarioViewer.cpp
+        BattleShip/Controller/ScenarioViewer.h)
 
 
-add_executable(BattleShipGame main.cpp BattleShip/View/BattleShipView.cpp BattleShip/View/BattleShipView.h BattleShip/Model/BattleShipModel.cpp BattleShip/Model/BattleShipModel.h BattleShip/Controller/BattleShipController.cpp BattleShip/Controller/BattleShipController.h BattleShip/BaseClasses/BaseView.h BattleShip/BaseClasses/BaseGamer.cpp BattleShip/BaseClasses/BaseGamer.h BattleShip/Gamers/ConsoleGamer.cpp BattleShip/Gamers/ConsoleGamer.h BattleShip/Gamers/RandomGamer.cpp BattleShip/Gamers/RandomGamer.h BattleShip/Gamers/OptimalGamer.cpp BattleShip/Gamers/OptimalGamer.h BattleShip/Controller/ScenarioViewer.cpp BattleShip/Controller/ScenarioViewer.h)
+if (MSVC)
+    target_compile_options(BattleShipGame
+            PRIVATE /W4          # warnings level
+            PRIVATE /WX          # treat all warnings as errors
+            PRIVATE /EHsc
+            )
+else()
+    set(CMAKE_CXX_FLAGS "-pthread")
+    target_compile_options(BattleShipGame
+            PRIVATE -Wall        # basic set of warnings
+            PRIVATE -Werror      # treat all warnings as errors
+            PRIVATE -pedantic
+            )
+endif()
+
+
 
 
 find_package(cxxopts CONFIG REQUIRED)
