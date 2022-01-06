@@ -33,7 +33,7 @@ private:
     bool            current_player{false};      // 0 or 1
     std::string     game_message{};
     size_t          turn_number{0};
-    int          awaiting_ship{3};           // awaiting len - 1, exactly YY - XX
+    int             awaiting_ship{3};           // awaiting len - 1, exactly YY - XX
     bool            is_bot[2]{};
 
     void mark_halos_around_destroyed_ship(size_t board_number, size_t enemy_board_number, int x, int y); // x, y - one pair of points that the ship contains

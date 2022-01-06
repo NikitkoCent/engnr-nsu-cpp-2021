@@ -80,7 +80,7 @@ int BattleShipModel::check_cell_to_hit(const string &c) const {
     return 0;
 }
 
-#include <iostream>
+
 int BattleShipModel::hit(const std::string& c) {
     int status = check_cell_to_hit(c);
     if (status) {
@@ -108,14 +108,15 @@ int BattleShipModel::hit(const std::string& c) {
             mark_halos_around_destroyed_ship(can_see_board_number, enemy_board_number, x, y);
         }
         player_scores[1-current_player]--;
+        check_winner();
         update_view();
         turn_number++;
-        check_winner();
         return 0;
     } else {
         boards[enemy_board_number][x][y]   = MISS;
         boards[can_see_board_number][x][y] = MISS;
         current_player = 1-current_player;
+        check_winner();
         update_view();
         game_message = "";
         turn_number++;

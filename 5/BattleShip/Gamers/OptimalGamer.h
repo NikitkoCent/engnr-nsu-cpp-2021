@@ -5,6 +5,7 @@
 #ifndef LAB4_OPTIMALGAMER_H
 #define LAB4_OPTIMALGAMER_H
 #include <BaseClasses/BaseGamer.h>
+#include <climits>
 
 class OptimalGamer: public BaseBot {
 private:

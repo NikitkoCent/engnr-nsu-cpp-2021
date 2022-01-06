@@ -27,7 +27,7 @@ void clear_screen()
 
 void set_output_color(const std::string& color) {
 #if defined _WIN32
-    system(color)
+    system(color.c_str());
 #elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__) || defined (__APPLE__)
     std::cout << color;
 #endif
@@ -111,7 +111,7 @@ void BattleShipView::update() const {
 
 
 void BattleShipView::show_win_message() const {
-    std::cout << "Player " << (1-model->get_current_player())+1 << " win!" << std::endl;
+    std::cout << "Player " << model->get_winner() << " win!" << std::endl;
 }
 
 
