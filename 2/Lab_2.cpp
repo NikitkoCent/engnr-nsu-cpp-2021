@@ -1,11 +1,10 @@
 #include "Lab_2.h"
 #include "Operation.cpp"
+
 int main(int argc, char* argv[]) {
 
     std::string s;
-    stack <int64_t> st;
-    vector<string> result;
-    map<string, int64_t>variables;
+    Param p;
     string filename;
     string line;
     OperationsFactory create_stack;
@@ -21,15 +20,16 @@ int main(int argc, char* argv[]) {
         while (getline(in, line))
         {
 
-            split(result, line, ' ');
-            if (result.size() >= 1)
+            split(p, line, ' ');
+            if (p.vst.size() >= 1)
             {
                 
                 try {
-                    if (check(result)){
-                        cmd_stack = create_stack.Create(result);
-                        cmd_stack->execute(result, st, variables);
+                    if (check(p)){
+                        cmd_stack = create_stack.Create(p);
+                        cmd_stack->execute(p);
                     }
+                    p.vst.clear();
                 }
                 catch (Exception &expn){
                     std::cerr << expn.what();
@@ -39,7 +39,6 @@ int main(int argc, char* argv[]) {
                     std::cerr << exceptions;
                     return 1;
                 }
-                result.clear();
             }
         }
     }
@@ -52,15 +51,16 @@ int main(int argc, char* argv[]) {
     {
         while (getline(cin, line))
         {
-            split(result, line, ' ');
-            if (result.size() >= 1)
+            split(p, line, ' ');
+            if (p.vst.size() >= 1)
             {
 
                 try {
-                    if (check(result)){
-                        cmd_stack = create_stack.Create(result);
-                        cmd_stack->execute(result, st, variables);
+                    if (check(p)){
+                        cmd_stack = create_stack.Create(p);
+                        cmd_stack->execute(p);
                     }
+                    p.vst.clear();
                 }
                 catch (Exception &expn) {
                     std::cerr << expn.what();
@@ -70,7 +70,6 @@ int main(int argc, char* argv[]) {
                     std::cerr << exceptions;
                     return 1;
                 }
-                result.clear();
             }
         }
     }
