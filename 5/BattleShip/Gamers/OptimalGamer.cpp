@@ -20,11 +20,11 @@ void OptimalGamer::set_halo_around_ship(int (*halos)[10], int x, int y) {
 
 void OptimalGamer::evaluate_point(int halos[10][10], int x, int y) {
     // calc halo sums around the point (max intersection with halos -> max free cells for enemy)
-    halos[x][y] = 9 - ((x-1 < 0) + (x+1 > 9) + (y-1 < 0) + (y+1 > 9) -
-                       ((x-1 < 0) & (y-1 < 0) +
-                                    (x+1 > 9) & (y-1 < 0) +
-                                                (x-1 < 0) & (y+1 > 9) +
-                                                            (x+1 > 9) & (y+1 > 9)));
+    halos[x][y] = 9 - ((int)(x-1 < 0) + (int)(x+1 > 9) + (int)(y-1 < 0) + (int)(y+1 > 9) -
+                       ((int)(x-1 < 0) & (y-1 < 0) +
+                       (int)(x+1 > 9) & (y-1 < 0) +
+                       (int)(x-1 < 0) & (y+1 > 9) +
+                       (int)(x+1 > 9) & (y+1 > 9)));
 
     for (int i = x-1; i <= x+1; i++) {
         for (int j=y-1; j <= y+1; j++) {
