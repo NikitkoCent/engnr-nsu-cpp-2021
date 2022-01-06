@@ -59,10 +59,10 @@ class com final: public Command{
 class calc {
 public:
     calc() = default;
-    virtual  Command *Fmethod(std::vector<std::string> &vec) = 0;
+    virtual  std::unique_ptr<Command> Fmethod(std::vector<std::string> &vec) = 0;
 };
 class Cmdcreate : calc{
 public:
-    Command *Fmethod(std::vector<std::string> &vec) override;
+    std::unique_ptr<Command> Fmethod(std::vector<std::string> &vec) override;
 };
 void Preprocessing(std::stringstream& input1, std::ifstream& input2, int flag);

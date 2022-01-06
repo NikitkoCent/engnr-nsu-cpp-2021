@@ -132,29 +132,29 @@ void com::cmd(Context &context, std::vector<std::string> &str) {
 
 }
 
-Command *Cmdcreate::Fmethod(std::vector<std::string> &vec) {
+std::unique_ptr<Command>Cmdcreate::Fmethod(std::vector<std::string> &vec) {
     if (vec[0] == "#") {
-        return new com();
+        return  std::make_unique<com>();
     } else if (vec[0] == "MUL") {
-        return new mul();
+        return  std::make_unique<mul>();
     } else if (vec[0] == "MINUS") {
-        return new minus();
+        return  std::make_unique<minus>();
     } else if (vec[0] == "PLUS") {
-        return new plus();
+        return  std::make_unique<plus>();
     } else if (vec[0] == "DIV") {
-        return new divn();
+        return  std::make_unique<divn>();
     } else if (vec[0] == "PUSH") {
-        return new push();
+        return  std::make_unique<push>();
     } else if (vec[0] == "POP") {
-        return new pop();
+        return  std::make_unique<pop>();
     } else if (vec[0] == "PRINT") {
-        return new print();
+        return  std::make_unique<print>();
     } else if (vec[0] == "PEEK") {
-        return new peek();
+        return  std::make_unique<peek>();
     } else if (vec[0] == "READ") {
-        return new readd();
+        return  std::make_unique<readd>();
     } else if (vec[0] == "ABS") {
-        return new abss();
+        return  std::make_unique<abss>();
     } else
         throw commandexc();
 

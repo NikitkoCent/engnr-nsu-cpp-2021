@@ -1,7 +1,8 @@
 #include "calculator.hpp"
+#include <memory>
 void preprocess_func(std::istream &in) {
 
-    Command *command;
+    std::unique_ptr<Command> command;
     Context DATA;
     Cmdcreate created;
     std::string str;
@@ -16,7 +17,6 @@ void preprocess_func(std::istream &in) {
         command = created.Fmethod(delim_words);
         command->cmd(DATA, delim_words);
         delim_words.clear();
-        delete command;
     }
 
 
