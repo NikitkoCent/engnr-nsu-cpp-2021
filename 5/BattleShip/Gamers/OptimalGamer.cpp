@@ -68,7 +68,7 @@ std::vector<std::string> OptimalGamer::turn_set_stage() {
     }
     int board_halos[10][10]{};
     evaluate_board(board, board_halos);
-    int x0, y0, x1, y1, loc_sum, max_s=INT_MAX;
+    int x0=0, y0=0, x1=0, y1=0, loc_sum, max_s=INT_MAX;
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             if (i+length <= 9) {

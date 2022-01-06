@@ -52,7 +52,7 @@ void show_board_line(std::array<std::array<char, 10>, 10> board, size_t line) {
 }
 
 
-void show_board_div_line(size_t current_table) {
+void show_board_div_line(int current_table) {
     for (int j = 0 ; j < BOARD_SIZE + current_table; j++) {
         std::cout << "-+- ";
     }
