@@ -1,4 +1,5 @@
 #include "UserInterface.h"
+#include "WorkerPool.h"
 #include <iostream>
 #include <string>
 
@@ -17,15 +18,8 @@ int mcmp(const char* x_, const char* y_)
 		return -1;
 }
 
-UserInterface::UserInterface()
+UserInterface::UserInterface(WorkerPool* pool)
 {
-	pool = NULL;
-}
-
-void UserInterface::SetPool(WorkerPool* pool, size_t (*newTask) (WorkerPool* pool, Task* task), void (*cancel) (WorkerPool* pool))
-{
-	this->newTask = newTask;
-	this->cancel = cancel;
 	this->pool = pool;
 }
 
@@ -45,20 +39,21 @@ void UserInterface::Work()
 	char* input = new char[1024];
 	while (true)
 	{
-		/*
-		mut.lock();
+		//getchar();
+		//mut.lock();
+		//std::cout << "=> ";
 		std::cin >> input;
-		mut.unlock();
-		*/
+		//mut.unlock();
+
 		if (!mcmp(input, ":exit"))
 		{
 			delete[] input;
 			return;
 		}
 		else if (!mcmp(input, ":cancel"))
-			cancel(pool);
+			pool->Cancel();
 		else
-			newTask(pool, new std::string(input));
+			pool->AddTask(new std::string(input));
 		std::cin.seekg(std::cin.end);
 	}
 }

@@ -1,4 +1,5 @@
 #include "Worker.h"
+#include "WorkerPool.h"
 #include <chrono>
 
 namespace sf = std::filesystem;
@@ -6,9 +7,8 @@ namespace sf = std::filesystem;
 constexpr auto FILE_NOT_FOUND = -1;
 constexpr auto PROCESS_CANCELED = -2;
 
-Worker::Worker(WorkerPool* pool, void (*commit) (WorkerPool*, Worker*, WorkerResult*))
+Worker::Worker(WorkerPool* pool)
 {
-	this->commit = commit;
 	this->pool = pool;
 	isWork = true;
 	stopped = false;
@@ -89,7 +89,7 @@ bool Worker::FinishWork()
 void Worker::FinishWorkWithResult(WorkerResult* result)
 {
 	if (FinishWork())
-		commit(pool, this, result);
+		pool->BackToWork(this, result);
 }
 
 void Worker::FreeTask()

@@ -20,22 +20,19 @@ private:
 	volatile bool stopped;
 	std::mutex mut;
 
-	static void CommitResult(WorkerPool* pool, Worker* worker, WorkerResult* result);
-	void BackToWork(Worker* worker, WorkerResult* result);
-	size_t AddTask(Task* task);
 public:
 	WorkerPool(size_t count);
 	void SetUI(UserInterface* ui);
 
 	bool Start();
-	static size_t AddTask(WorkerPool* pool, Task* task);
+	size_t AddTask(Task* task);
+	void BackToWork(Worker* worker, WorkerResult* result);
 
 	bool IsWorking();
 	void Wait();
 
 	void Stop();
 	void Cancel();
-	static void Cancel(WorkerPool* pool);
 
 	~WorkerPool();
 };

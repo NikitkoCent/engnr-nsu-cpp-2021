@@ -12,7 +12,6 @@ class Worker
 {
 private:
 	WorkerPool* pool;
-	void (*commit) (WorkerPool*, Worker*, WorkerResult*);
 	volatile bool isWork;
 	volatile bool stopped;
 	std::thread myThread;
@@ -29,10 +28,11 @@ private:
 
 	long long DirSize(std::filesystem::path path);
 public:
-	Worker(WorkerPool* pool, void (*commit) (WorkerPool*, Worker*, WorkerResult*));
+	Worker(WorkerPool* pool);
 	bool GiveTask(Task* task);
 	bool IsWork();
 	void Cancel();
 	void Stop();
 	~Worker();
 };
+

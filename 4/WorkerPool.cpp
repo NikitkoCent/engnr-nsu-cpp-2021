@@ -8,7 +8,7 @@ WorkerPool::WorkerPool(size_t count)
 	workers = (Worker**)malloc(sizeof(Worker*) * count);
 	for (size_t i = 0; i < count; i++)
 	{
-		workers[i] = new Worker(this, CommitResult);
+		workers[i] = new Worker(this);
 		freeWorkers.push(workers[i]);
 	}
 
@@ -37,11 +37,6 @@ bool WorkerPool::Start()
 	return true;
 }
 
-void WorkerPool::CommitResult(WorkerPool* pool, Worker* worker, WorkerResult* result)
-{
-	pool->BackToWork(worker, result);
-}
-
 void WorkerPool::BackToWork(Worker* worker, WorkerResult* result)
 {
 	ui->TakeResult(result);
@@ -55,11 +50,6 @@ void WorkerPool::BackToWork(Worker* worker, WorkerResult* result)
 	}
 	else
 		freeWorkers.push(worker);
-}
-
-size_t WorkerPool::AddTask(WorkerPool* pool, Task* task)
-{
-	return pool->AddTask(task);
 }
 
 size_t WorkerPool::AddTask(Task* task)
@@ -96,13 +86,9 @@ void WorkerPool::Wait()
 		mut.lock();
 		bool key = freeWorkers.size() == count;
 		mut.unlock();
-		if (key) return;
+		if (key)
+			return;
 	}
-}
-
-void WorkerPool::Cancel(WorkerPool* pool)
-{
-	pool->Cancel();
 }
 
 void WorkerPool::Cancel()

@@ -8,10 +8,9 @@
 int main()
 {
 	WorkerPool pool(10);
-	UserInterface ui = UserInterface();
+	UserInterface ui = UserInterface(&pool);
 	pool.SetUI(&ui);
 	pool.Start();
-	ui.SetPool(&pool, WorkerPool::AddTask, WorkerPool::Cancel);
 	ui.Work();
 	pool.Stop();
 }
