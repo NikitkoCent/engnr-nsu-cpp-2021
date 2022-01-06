@@ -15,7 +15,7 @@ public:
 	Hasher(fstream* name, bool metod);
 	void Sum64();
 	void Adler32();
-	uint64_t Hash();
+	uint32_t Hash();
 
 };
 
