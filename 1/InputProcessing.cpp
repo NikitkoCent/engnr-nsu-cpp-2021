@@ -2,6 +2,21 @@
 #include <string>
 using namespace std;
 
+int mcmp(const char* x_, const char* y_)
+{
+	auto x = x_;
+	auto y = y_;
+	for (; x[0] != '\0'; x++)
+		if (y[0] == '\0' || y[0] != x[0])
+			return -1;
+		else
+			y++;
+	if (y[0] == '\0')
+		return 0;
+	else
+		return -1;
+}
+
 InputProcessing::InputProcessing(int argc, char* argv[])
 {
 	argc_ = argc;
@@ -13,7 +28,7 @@ int InputProcessing::checkInput()
 {
 	std::string name;
 	char* mode;
-	if (argc_ == 2 && !strcmp(argv_[1],"-h")) //проверка на запрос help
+	if (argc_ == 2 && !mcmp(argv_[1], "-h")) //проверка на запрос help
 	{
 		Help::print(-1);
 		return -1;
@@ -24,12 +39,12 @@ int InputProcessing::checkInput()
 		return 1;
 	}
 	//разбиение на адрес и метод
-	if (!strcmp(argv_[1],"-m"))
+	if (!mcmp(argv_[1],"-m"))
 	{
 		mode = argv_[2];
 		name = argv_[3];
 	}
-	else if (!strcmp(argv_[2],"-m"))
+	else if (!mcmp(argv_[2],"-m"))
 	{
 		name = argv_[1];
 		mode = argv_[3];
@@ -44,12 +59,12 @@ int InputProcessing::checkInput()
 	file.open(name, std::ios::binary | std::ios::in);
 	if (!file.is_open())
 	{
-		Help::print(1);
-		return 1;
+		Help::print(2);
+		return 2;
 	}
-	if ((!strcmp(mode,"adler32") || !strcmp(mode,"Adler32")))
+	if ((!mcmp(mode,"adler32") || !mcmp(mode,"Adler32")))
 		metod_ = true;
-	else if (!strcmp(mode,"sum64") || !strcmp(mode,"Sum64"))
+	else if (!mcmp(mode,"sum64") || !mcmp(mode,"Sum64"))
 		metod_ = false;
 	else
 	{
