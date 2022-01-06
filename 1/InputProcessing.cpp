@@ -59,8 +59,8 @@ int InputProcessing::checkInput()
 	file.open(name, std::ios::binary | std::ios::in);
 	if (!file.is_open())
 	{
-		Help::print(2);
-		return 2;
+		Help::print(1);
+		return 1;
 	}
 	if ((!mcmp(mode,"adler32") || !mcmp(mode,"Adler32")))
 		metod_ = true;
