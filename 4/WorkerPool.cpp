@@ -2,7 +2,7 @@
 #include <chrono>
 #include <thread>
 
-WorkerPool::WorkerPool(int count)
+WorkerPool::WorkerPool(size_t count)
 {
 	this->count = count;
 	workers = (Worker**)malloc(sizeof(Worker*) * count);
