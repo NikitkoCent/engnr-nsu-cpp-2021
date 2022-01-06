@@ -2,7 +2,7 @@
 #include <vector>
 #include "BattleShip/View/BattleShipView.h"
 #include "BattleShip/Controller/BattleShipController.h"
-
+#include <climits>
 
 class RandomGamer: public BaseBot {
 public:
@@ -78,7 +78,7 @@ private:
         }
     }
 
-    static void mark_halos(char** board, int halo[10][10]) {
+    static void mark_halos(std::array<std::array<char, 10>, 10> board, int halo[10][10]) {
         for (int i=0; i < 10; i++) {
             for (int j=0; j < 10; j++) {
                 if (board[i][j] == SHIP)

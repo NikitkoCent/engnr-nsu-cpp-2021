@@ -12,9 +12,7 @@ auto parse_coords(const std::string& coords) {
 
 BattleShipModel::BattleShipModel(): current_player(false) {
     for (auto & board : boards) {
-        board = new char *[BOARD_SIZE];
         for (int i = 0; i < BOARD_SIZE; i++) {
-            board[i] = new char[BOARD_SIZE];
             for (int j = 0; j < BOARD_SIZE; j++) {
                 board[i][j] = EMPTY_CELL;
             }
@@ -30,7 +28,7 @@ BattleShipModel::BattleShipModel(): current_player(false) {
 
 
 int BattleShipModel::hit(const std::string& c) {
-    try {
+    try { // for catching some errors connected with wrong coordinates
         auto[x, y] = parse_coords(c);
         size_t can_see_board_number = 2;
         size_t enemy_board_number = 1;
@@ -51,6 +49,7 @@ int BattleShipModel::hit(const std::string& c) {
             boards[enemy_board_number][x][y] = MISS;
             boards[can_see_board_number][x][y] = MISS;
         }
+
         is_end();
         game_message = "Player " + std::to_string(current_player + 1) + " hitted cell " + c + "!";
         current_player = 1-current_player;
@@ -194,7 +193,7 @@ std::string BattleShipModel::get_game_message() const {
 }
 
 
-std::tuple<char**, char**> BattleShipModel::get_boards() const {
+std::tuple<std::array<std::array<char, 10>, 10>, std::array<std::array<char, 10>, 10>> BattleShipModel::get_boards() const {
     if (current_player == 0) {
         return std::make_tuple(boards[0], boards[2]);
     }
