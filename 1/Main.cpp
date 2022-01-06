@@ -1,6 +1,7 @@
 #include <iostream>
 #include "InputProcessing.h"
 #include "Hasher.h"
+#include <string.h>
 
 int main(int argc, char *argv[])
 {
