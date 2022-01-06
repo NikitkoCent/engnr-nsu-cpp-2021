@@ -7,7 +7,7 @@ Hasher::Hasher(fstream* name, bool metod)
     out_ = 0;
 }
 
-uint64_t Hasher::Hash()
+uint32_t Hasher::Hash()
 {
     if (metod_)
         Adler32();
@@ -19,7 +19,7 @@ uint64_t Hasher::Hash()
 void Hasher::Sum64() 
 {
     unsigned char curr;
-    uint64_t result = 0, block = 0;
+    uint32_t result = 0, block = 0;
     uint32_t cnt = 0;
     while (!(file->eof()))
     {
