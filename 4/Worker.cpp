@@ -14,7 +14,7 @@ Worker::Worker(WorkerPool* pool)
 	stopped = false;
 	canceled = false;
 	task = NULL;
-	myThread = std::thread([=] { Work(); });
+	myThread = std::thread(SWork, this);
 }
 
 long long Worker::DirSize(sf::path path)
@@ -38,6 +38,11 @@ long long Worker::DirSize(sf::path path)
 	return size;
 }
 
+void Worker::SWork(Worker* worker)
+{
+	worker->Work();
+}
+
 void Worker::Work()
 {
 	while (true)
@@ -47,12 +52,13 @@ void Worker::Work()
 		while (true)
 		{
 			std::this_thread::sleep_for(std::chrono::microseconds(250));
-			std::lock_guard<std::mutex> lock(taskMut);
-			if (task != NULL)
-			{
-				it = std::string(*task);
-				break;
-			}
+
+			taskMut.lock();
+			bool key = task;
+			if (key) it = std::string(*task);
+			taskMut.unlock();
+
+			if (key) break;
 			if (stopped) return;
 		}
 

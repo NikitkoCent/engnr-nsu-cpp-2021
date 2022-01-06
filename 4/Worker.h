@@ -20,6 +20,7 @@ private:
 	bool canceled;
 	std::mutex taskMut;
 
+	static void SWork(Worker* worker);
 	void Work();
 	bool FinishWork();
 	void FinishWorkWithResult(WorkerResult* result);
