@@ -1,6 +1,7 @@
 #include "calc.h"
 #define elif else if
 #include <string>
+#include <memory>
 
 bool is_number(const std::string &str) {
     return !str.empty() && (std::all_of(str.begin(), str.end(), [](char c) { return ::isdigit(c); }) ||
@@ -178,30 +179,30 @@ void Comment::rep(const std::vector<std::string> &command_str,
     //provotorov_the_best.ru
 }
 
-Command *CommandCreator::factoryMethod(const std::vector<std::string> &commands) {
+std::unique_ptr <Command> CommandCreator::factoryMethod(const std::vector<std::string> &commands) {
     std::string tag = commands[0];
     if (tag == "#" || tag == " ") {
-        return new Comment();
+        return  std::make_unique<Comment>();
     } elif (tag == "POP") {
-        return new Pop();
+        return  std::make_unique<Pop>();
     } elif (tag == "PUSH") {
-        return new Push();
+        return  std::make_unique<Push>();
     } elif (tag == "PEEK") {
-        return new Peek();
+        return std::make_unique<Peek>();
     } elif (tag == "ABS") {
-        return new Abs();
+        return std::make_unique<Abs>();
     } elif (tag == "PLUS") {
-        return new Plus();
+        return std::make_unique<Plus>();
     } elif (tag == "MINUS") {
-        return new Minus();
+        return std::make_unique<Minus>();
     } elif (tag == "MUL") {
-        return new Mul();
+        return std::make_unique<Mul>();
     } elif (tag == "DIV") {
-        return new Div();
+        return std::make_unique<Div>();
     } elif (tag == "PRINT") {
-        return new Print();
+        return std::make_unique<Print>();
     } elif (tag == "READ") {
-        return new Read();
+        return std::make_unique<Read>();
     } else {
         throw CalcExceptions::InvalidOperation();
     }
@@ -213,7 +214,7 @@ void calc_work(std::stringstream &test_str, std::ifstream &file, int args) {
     calculator_data data;
     std::vector<std::string> phrase;
     std::string word;
-    Command *calc_command;
+    std::unique_ptr <Command> calc_command;
     std::string command;
     std::string cmd_s;
     if (args == 2) { // считывание из файла (есть название)
@@ -228,7 +229,6 @@ void calc_work(std::stringstream &test_str, std::ifstream &file, int args) {
             calc_command = creator.factoryMethod(phrase);
             calc_command->rep(phrase, data);
             phrase.clear();
-            delete calc_command;
         }
     } elif (args == 1) {
         while (std::getline(std::cin, cmd_s, '\n')) {
@@ -241,7 +241,6 @@ void calc_work(std::stringstream &test_str, std::ifstream &file, int args) {
             calc_command = creator.factoryMethod(phrase);
             calc_command->rep(phrase, data);
             phrase.clear();
-            delete calc_command;
         }
     } elif (args == 3) {
         while (std::getline(test_str, cmd_s, '\n')) {
@@ -254,7 +253,6 @@ void calc_work(std::stringstream &test_str, std::ifstream &file, int args) {
             calc_command = creator.factoryMethod(phrase);
             calc_command->rep(phrase, data);
             phrase.clear();
-            delete calc_command;
         }
     }
 }

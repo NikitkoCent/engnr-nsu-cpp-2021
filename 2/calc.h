@@ -111,14 +111,14 @@ public:
 
     Calculator() = default;
 
-    virtual Command *factoryMethod(const std::vector<std::string> &commands) = 0;
+    virtual std::unique_ptr<Command> factoryMethod(const std::vector<std::string> &commands) = 0;
 
 };
 
 
 class CommandCreator : Calculator {
 public:
-    Command *factoryMethod(const std::vector<std::string> &commands) override;
+    std::unique_ptr<Command> factoryMethod(const std::vector<std::string> &commands) override;
 };
 
 void calc_work(std::stringstream& in_s, std::ifstream& in, int args);
