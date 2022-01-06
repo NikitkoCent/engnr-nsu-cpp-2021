@@ -60,3 +60,27 @@ public:
         return "Command not found";
     }
 };
+
+class SafeIntExceptionStack : public Exception
+{
+public:
+    virtual const string GetError()
+    {
+        return "SafeIngter number overflow";
+    }
+};
+
+class IntOverflow : public SafeIntException
+{
+public:
+    static void SafeIntOnOverflow(){
+        throw SafeIntExceptionStack();
+    }
+};
+
+
+//class IntOverflow : public SafeIntException
+//{
+//public:
+//    static void SafeIntOnOverflow();
+//};

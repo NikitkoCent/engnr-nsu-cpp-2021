@@ -1,7 +1,6 @@
 #include "Lab_2.h"
 #include "Exceptions.cpp"
 
-
 class Operations {
 public:
     virtual void execute(Param &p) = 0;
@@ -70,15 +69,15 @@ public:
 class plus_cmd : public Operations {
 public:
     void execute(Param &p) {
-        int64_t val1 = 0;
-        int64_t val2 = 0;
+        //int64_t val1 = 0;
+        //int64_t val2 = 0;
         if (!p.stk.empty()) {
-            val1 = p.stk.top();
+            SafeInt<int64_t> val1(p.stk.top());
             p.stk.pop();
             if (!p.stk.empty()) {
-                val2 = p.stk.top();
+                SafeInt<int64_t> val2(p.stk.top());
                 p.stk.pop();
-                p.stk.push(val1 + val2);
+                p.stk.push(val1+val2);
             }
             else {
                 p.stk.push(val1);
@@ -94,14 +93,14 @@ public:
 class  mul_cmd : public Operations {
 public:
     void execute(Param &p)  {
-        int64_t val1 = 0;
-        int64_t val2 = 0;
+        //int64_t val1 = 0;
+        //int64_t val2 = 0;
         if (!p.stk.empty()) {
 
-            val1 = p.stk.top();
+            SafeInt<int64_t,IntOverflow> val1(p.stk.top());
             p.stk.pop();
             if (!p.stk.empty()) {
-                val2 = p.stk.top();
+                SafeInt<int64_t,IntOverflow> val2(p.stk.top());
                 p.stk.pop();
                 p.stk.push(val1 * val2);
             }
@@ -119,13 +118,13 @@ public:
 class  minus_cmd : public Operations {
 public:
     void execute(Param &p)  {
-        int64_t val1 = 0;
-        int64_t val2 = 0;
+        //int64_t val1 = 0;
+        //int64_t val2 = 0;
         if (!p.stk.empty()) {
-            val1 = p.stk.top();
+            SafeInt<int64_t,IntOverflow> val1(p.stk.top());
             p.stk.pop();
             if (!p.stk.empty()) {
-                val2 = p.stk.top();
+                SafeInt<int64_t,IntOverflow> val2(p.stk.top());
                 p.stk.pop();
                 p.stk.push(val2 - val1);
             }
@@ -143,15 +142,15 @@ public:
 class  div_cmd : public Operations {
 public:
     void execute(Param &p)  {
-        int64_t val1 = 0;
-        int64_t val2 = 0;
+        //int64_t val1 = 0;
+        //int64_t val2 = 0;
         if (!p.stk.empty()) {
-            val1 = p.stk.top();
+            SafeInt<int64_t,IntOverflow> val1(p.stk.top());
             p.stk.pop();
             if (!p.stk.empty() && p.stk.top() != 0) {
-                val2 = p.stk.top();
+                SafeInt<int64_t,IntOverflow> val2(p.stk.top());
                 p.stk.pop();
-                p.stk.push(val2 / val1);
+                p.stk.push((int64_t)val2/(int64_t)val1);
             }
             else if (p.stk.top() == 0) {
                 throw divByZero();
@@ -184,7 +183,7 @@ public:
     void execute(Param &p)  {
         int64_t enterval = 0;
         cin >> enterval;
-        p.stk.push(enterval);
+        p.stk.push((SafeInt<int64_t, IntOverflow>) enterval);
     }
 };
 
