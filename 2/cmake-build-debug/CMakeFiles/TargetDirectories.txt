@@ -1,0 +1,4 @@
+C:/projects/engnr-nsu-cpp-2021/2/cmake-build-debug/CMakeFiles/cpp_labs_2.dir
+C:/projects/engnr-nsu-cpp-2021/2/cmake-build-debug/CMakeFiles/commands.dir
+C:/projects/engnr-nsu-cpp-2021/2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/projects/engnr-nsu-cpp-2021/2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

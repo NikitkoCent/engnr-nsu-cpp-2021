@@ -1,0 +1,2 @@
+C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\ar.exe qc libcommands.a CMakeFiles/commands.dir/Commands.cpp.obj CMakeFiles/commands.dir/Operations.cpp.obj CMakeFiles/commands.dir/Errors.cpp.obj
+C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\ranlib.exe libcommands.a
