@@ -3,6 +3,15 @@
 //
 
 #include "BattleShipController.h"
+
+
+std::size_t number_of_files_in_directory(const std::filesystem::path& path)
+{
+    using std::filesystem::directory_iterator;
+    return std::distance(directory_iterator(path), directory_iterator{});
+}
+
+
 BattleShipController::BattleShipController(BattleShipModel *bs_model, BaseGamer *g1, BaseGamer *g2) {
     model = bs_model;
     gamers.push_back(g1);
@@ -12,22 +21,37 @@ BattleShipController::BattleShipController(BattleShipModel *bs_model, BaseGamer 
 };
 
 
-void BattleShipController::start() {
+void BattleShipController::start(size_t c) {
     int ans;
-    //stage 1 - placement
+    int cur_sess = 0;
     std::vector<std::string> v;
-    for(auto &g: gamers) {
-        for (int turn = 0; turn < 10; turn++) {
-            do {
-                v = g->turn_set_stage();
-            } while (model->set(v[0], v[1]) == 0);
+    std::fstream fs;
+    std::string path_to_log_dir = "../Scenario";
+    while (cur_sess != c) {
+        model->reset();
+        path_to_log = path_to_log_dir + '/' + "game_log_" + std::to_string(number_of_files_in_directory(path_to_log_dir)) + ".txt";
+        log = "";
+        //stage 1 - placement
+        for (auto &g: gamers) {
+            for (int turn = 0; turn < 10; turn++) {
+                do {
+                    v = g->turn_set_stage();
+                    log += v[0] + " " + v[1] + "\n";
+                } while (model->set(v[0], v[1]) == 0);
+
+            }
         }
-    }
-    //stage 2 - attack
-    while (model->get_winner() == 0) {
-        do {
-            v = gamers[model->get_current_player()]->turn_attack_stage();
-            ans = model->hit(v[0]);
-        } while ((ans == -1 || ans == 0) && model->get_winner() == 0);
+        //stage 2 - attack
+        while (model->get_winner() == 0) {
+            do {
+                v = gamers[model->get_current_player()]->turn_attack_stage();
+                ans = model->hit(v[0]);
+                log += v[0] + "\n";
+            } while ((ans == -1 || ans == 0) && model->get_winner() == 0);
+        }
+        cur_sess += 1;
+        fs.open(path_to_log, std::fstream::out);
+        fs << log;
+        fs.close();
     }
 }

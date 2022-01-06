@@ -4,18 +4,25 @@
 
 #ifndef LAB4_BATTLESHIPCONTROLLER_H
 #define LAB4_BATTLESHIPCONTROLLER_H
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+
 #include "../Model/BattleShipModel.h"
 #include "../BaseClasses/BaseGamer.h"
 
 class BattleShipController {
-private:
+protected:
     BattleShipModel *model;
     std::vector<BaseGamer*> gamers;
+    std::string path_to_log;
+    std::string log;
 public:
     explicit BattleShipController(BattleShipModel *bs_model, BaseGamer *g1, BaseGamer *g2);
     ~BattleShipController() = default;
 
-    void start();
+    void start(size_t c);
 };
 
 

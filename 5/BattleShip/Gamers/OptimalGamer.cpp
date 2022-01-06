@@ -63,6 +63,9 @@ std::vector<std::string> OptimalGamer::turn_set_stage() {
     std::vector<std::string> v;
     auto board = std::get<0>(model->get_boards());
     int length = model->get_awaiting_ship();
+    if (length == 1) {
+        return random_generate_next_turn();
+    }
     int board_halos[10][10]{0};
     evaluate_board(board, board_halos);
     int x0, y0, x1, y1, loc_sum, max_s=INT_MAX;

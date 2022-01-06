@@ -79,7 +79,7 @@ void show_div_line() {
 }
 
 
-void show_board(std::array<std::array<std::array<char, 10>, 10>, 2> boards, const std::string &alphabet) {
+void BattleShipView::show_board(std::array<std::array<std::array<char, 10>, 10>, 2> boards, const std::string &alphabet) {
     std::cout << "     ";
     for (int i = 0; i < 2; i++) { // show letters
         for (int j = 0; j < BOARD_SIZE; j++)
