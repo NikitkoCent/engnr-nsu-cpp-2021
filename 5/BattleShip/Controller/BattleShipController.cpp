@@ -21,7 +21,7 @@ BattleShipController::BattleShipController(BattleShipModel *bs_model, BaseGamer 
 };
 
 
-void BattleShipController::start(size_t c) {
+void BattleShipController::start(int c) {
     int ans;
     int cur_sess = 0;
     std::vector<std::string> v;

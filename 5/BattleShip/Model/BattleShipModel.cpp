@@ -281,6 +281,6 @@ int BattleShipModel::get_awaiting_ship() const {
 
 
 void BattleShipModel::update_view() {
-    if (!is_bot[current_player] || is_bot[current_player] && is_bot[1-current_player])
+    if (!is_bot[current_player] || (is_bot[current_player] && is_bot[1-current_player]))
         view->update();
 }

@@ -23,7 +23,7 @@ public:
     explicit BattleShipController(BattleShipModel *bs_model, BaseGamer *g1, BaseGamer *g2);
     ~BattleShipController() = default;
 
-    void start(size_t c);
+    void start(int c);
 };
 
 

@@ -16,7 +16,7 @@ protected:
     const BattleShipModel *model;
 public:
     bool is_bot;
-    explicit BaseGamer(const BattleShipModel *m): model(m), alphabet("ABCDEFGHIJ"), is_bot(false) {}
+    explicit BaseGamer(const BattleShipModel *m): alphabet("ABCDEFGHIJ"), model(m), is_bot(false) {}
     virtual std::vector<std::string> turn_set_stage() {return std::vector<std::string>{"A0", "A0"};}
     virtual std::vector<std::string> turn_attack_stage() {return std::vector<std::string>{"A0", "A0"};}
 };
@@ -27,7 +27,7 @@ protected:
     std::vector<std::string> random_generate_next_turn();
     static std::mt19937& get_engine();
 public:
-    explicit BaseBot(BattleShipModel *m): BaseGamer(m) {get_engine().seed(std::time(nullptr)); is_bot = true;}
+    explicit BaseBot(BattleShipModel *m): BaseGamer(m) {get_engine().seed((unsigned int)std::time(nullptr)); is_bot = true;}
 };
 
 

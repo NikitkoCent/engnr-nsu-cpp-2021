@@ -66,20 +66,20 @@ std::vector<std::string> OptimalGamer::turn_set_stage() {
     if (length == 1) {
         return random_generate_next_turn();
     }
-    int board_halos[10][10]{0};
+    int board_halos[10][10]{};
     evaluate_board(board, board_halos);
     int x0, y0, x1, y1, loc_sum, max_s=INT_MAX;
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             if (i+length <= 9) {
                 loc_sum = evaluate_ship_coords(board_halos, i, j, i + length, j);
-                if (loc_sum < max_s || loc_sum == max_s && get_engine()()%2) {
+                if (loc_sum < max_s || (loc_sum == max_s && get_engine()()%2)) {
                     max_s = loc_sum; y0 = i; x0 = j; y1=i+length; x1=j;
                 }
             }
             if (j+length <= 9) {
                 loc_sum = evaluate_ship_coords(board_halos, i, j, i, j + length);
-                if (loc_sum < max_s || loc_sum == max_s && get_engine()()%2) {
+                if (loc_sum < max_s || (loc_sum == max_s && get_engine()()%2)) {
                     max_s = loc_sum; y0 = i; x0 = j; y1=i; x1=j+length;
                 }
             }
