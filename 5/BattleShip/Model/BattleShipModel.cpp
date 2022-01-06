@@ -10,7 +10,20 @@ auto parse_coords(const std::string& coords) {
 }
 
 
-BattleShipModel::BattleShipModel(): current_player(false) {
+BattleShipModel::BattleShipModel() {
+    reset();
+    is_bot[0] = is_bot[1] = false;
+}
+
+
+void BattleShipModel::reset() {
+    current_player = false;
+    winner = 0;
+    turn_number = 0;
+    awaiting_ship = 3;
+    player_scores[0] = player_scores[1] = 20;
+    next_place_message();
+
     for (auto & board : boards) {
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -23,51 +36,99 @@ BattleShipModel::BattleShipModel(): current_player(false) {
             set[j] = 4 - j;
         }
     }
-    player_scores[0] = player_scores[1] = 20;
 }
 
 
-int BattleShipModel::hit(const std::string& c) {
-    try { // for catching some errors connected with wrong coordinates
+void BattleShipModel::mark_halos_around_destroyed_ship(size_t board_number, size_t enemy_board_number, int x, int y) {
+    for (int i = std::max(x-1, 0); i <= std::min(x+1, 9); i++) {
+        for (int j = std::max(y-1, 0); j <= std::min(y+1, 9); j++) {
+            if (boards[enemy_board_number][i][j] == EMPTY_CELL) boards[board_number][i][j] = MISS;
+            else if (boards[enemy_board_number][i][j] == HITTED_SHIP) {
+                boards[enemy_board_number][i][j] = PROCESSING_CELL;
+                mark_halos_around_destroyed_ship(board_number, enemy_board_number, i, j);
+                boards[enemy_board_number][i][j] = HITTED_SHIP;
+            }
+        }
+    }
+}
+
+
+bool BattleShipModel::check_ship_destroyed(size_t board_number, int x, int y) {
+    if (boards[board_number][x][y] == SHIP) return false;
+    if (boards[board_number][x][y] == MISS || boards[board_number][x][y] == EMPTY_CELL || boards[board_number][x][y] == PROCESSING_CELL) return true;
+    boards[board_number][x][y] = PROCESSING_CELL;
+    bool destroyed = true;
+    for (int i = std::max(x-1, 0); i <= std::min(x+1, 9); i++) {
+        for (int j = std::max(y-1, 0); j <= std::min(y+1, 9); j++) {
+            destroyed &= check_ship_destroyed(board_number, i, j);
+        }
+    }
+    boards[board_number][x][y] = HITTED_SHIP;
+    return destroyed;
+}
+
+
+int BattleShipModel::check_cell_to_hit(const string &c) const {
+    try {
         auto[x, y] = parse_coords(c);
-        size_t can_see_board_number = 2;
-        size_t enemy_board_number = 1;
-        if (current_player == 1)  {
-            can_see_board_number = 3;
-            enemy_board_number = 0;
-        }
+        if (x < 0 || x > 9 || y < 0 || y > 9) return 1; // wrong coords
+        size_t can_see_board_number = (current_player == 0) ? 2 : 3; // current player can see this enemy board
+        if (boards[can_see_board_number][x][y] == MISS || boards[can_see_board_number][x][y] == HITTED_SHIP) return 2; // cell already opened
+    } catch (...) {
+        return 1; // wrong coords
+    }
+    return 0;
+}
 
-        if (boards[enemy_board_number][x][y] == SHIP) {
-            boards[enemy_board_number][x][y] = HITTED_SHIP;
-            boards[can_see_board_number][x][y] = HITTED_SHIP;
-            player_scores[1-current_player]--;
-        } else if ((boards[enemy_board_number][x][y] == MISS) or (boards[enemy_board_number][x][y] == HITTED_SHIP)) {
-            game_message = "This cell is already opened!";
-            view->update();
-            return -1;
-        } else {
-            boards[enemy_board_number][x][y] = MISS;
-            boards[can_see_board_number][x][y] = MISS;
-        }
-
-        is_end();
-        game_message = "Player " + std::to_string(current_player + 1) + " hitted cell " + c + "!";
-        current_player = 1-current_player;
-        view->update();
-        turn_number++;
-        return winner;
-    } catch(...) {
-        game_message = "Please, enter right coordinates!";
-        view->update();
+#include <iostream>
+int BattleShipModel::hit(const std::string& c) {
+    int status = check_cell_to_hit(c);
+    if (status) {
+        game_message = status == 1 ? "Please, enter right coordinates!" :  "This cell is already opened!";
+        update_view();
+        game_message = "";
         return -1;
     }
+
+    auto[x, y] = parse_coords(c);
+
+    size_t can_see_board_number = 2; // current player can see this enemy board
+    size_t enemy_board_number   = 1; // real enemy board
+    if (current_player == 1)  {
+        can_see_board_number = 3;
+        enemy_board_number   = 0;
+    }
+
+    game_message += "\nPlayer " + std::to_string(current_player + 1) + " hitted cell " + c + "!";
+
+    if (boards[enemy_board_number][x][y] == SHIP) {
+        boards[enemy_board_number][x][y]   = HITTED_SHIP;
+        boards[can_see_board_number][x][y] = HITTED_SHIP;
+        if (check_ship_destroyed(enemy_board_number, x, y)) {
+            mark_halos_around_destroyed_ship(can_see_board_number, enemy_board_number, x, y);
+        }
+        player_scores[1-current_player]--;
+        update_view();
+        turn_number++;
+        check_winner();
+        return 0;
+    } else {
+        boards[enemy_board_number][x][y]   = MISS;
+        boards[can_see_board_number][x][y] = MISS;
+        current_player = 1-current_player;
+        update_view();
+        game_message = "";
+        turn_number++;
+        return 1;
+    }
+
 }
 
 
 bool BattleShipModel::set(const std::string& c0, const std::string& c1) {
     if (check_possibility_to_set(c0, c1) == 0 || turn_number > 20) {
         game_message = "You can't place this ship here!";
-        view->update();
+        update_view();
         return false;
     }
     auto [x0, y0] = parse_coords(c0);
@@ -78,7 +139,7 @@ bool BattleShipModel::set(const std::string& c0, const std::string& c1) {
     int length = std::max(abs(x1 - x0), abs(y1 - y0));
     if (length != awaiting_ship || (sets[current_player][length] <= 0)) {
         game_message = "You can't place this type of ships!";
-        view->update();
+        update_view();
         return false;
     }
     sets[current_player][length]--;
@@ -93,20 +154,33 @@ bool BattleShipModel::set(const std::string& c0, const std::string& c1) {
     }
     turn_number++;
     next_place_message();
-//    view->update();
     if (cond_to_change_player) {
         current_player = 1 - current_player;
         awaiting_ship = 3;
         if (current_player == 0) {
             game_message = "Game Starts!";
+            awaiting_ship = -1;
         }
     }
-    view->update();
+    update_view();
+    game_message = "";
     return true;
 }
 
 
-bool BattleShipModel::check_possibility_to_set(const std::string& c0, const std::string& c1) {
+bool BattleShipModel::check_neighbour_ships(int x, int y) const {
+    for (int i1 = std::max(x-1, 0); i1 <= std::min(x+1, 9); i1++) {
+        for (int j1 = std::max(y-1, 0); j1 <= std::min(y+1, 9); j1++) {
+            if (boards[current_player][i1][j1] == SHIP) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+bool BattleShipModel::check_possibility_to_set(const std::string& c0, const std::string& c1) const {
     try {
         auto[x0, y0] = parse_coords(c0);
         auto[x1, y1] = parse_coords(c1);
@@ -122,14 +196,7 @@ bool BattleShipModel::check_possibility_to_set(const std::string& c0, const std:
 
         for (int i = x0; i <= x1; i++) {
             for (int j = y0; j <= y1; j++) {
-                if (i - 1 >= 0 && boards[current_player][i - 1][j] == SHIP ||
-                    i + 1 <= 9 && boards[current_player][i + 1][j] == SHIP ||
-                    j - 1 >= 0 && boards[current_player][i][j - 1] == SHIP ||
-                    j + 1 <= 9 && boards[current_player][i][j + 1] == SHIP ||
-                    j - 1 >= 0 && i - 1 >= 0 && boards[current_player][i - 1][j - 1] == SHIP ||
-                    j + 1 <= 9 && i + 1 <= 9 && boards[current_player][i + 1][j + 1] == SHIP ||
-                    j - 1 >= 0 && i + 1 <= 9 && boards[current_player][i + 1][j - 1] == SHIP ||
-                    j + 1 <= 9 && i - 1 >= 0 && boards[current_player][i - 1][j + 1] == SHIP) {
+                if (check_neighbour_ships(i, j)) {
                     return false;
                 }
             }
@@ -162,14 +229,14 @@ void BattleShipModel::next_place_message() {
 }
 
 
-void BattleShipModel::is_end() {
-    if (player_scores[0] == 0) winner = 2;
-    else if (player_scores[1] == 0) winner = 1;
+void BattleShipModel::update_player_status(int player, bool bot) {
+    is_bot[player] = bot;
 }
 
 
-void BattleShipModel::set_current_player(bool player) {
-    current_player = player;
+void BattleShipModel::check_winner() {
+    if (player_scores[0] == 0) winner = 2;
+    else if (player_scores[1] == 0) winner = 1;
 }
 
 
@@ -203,9 +270,16 @@ std::tuple<std::array<std::array<char, 10>, 10>, std::array<std::array<char, 10>
 
 void BattleShipModel::add_view(BaseView *bs_view) {
     view = bs_view;
-    view->update();
+    update_view();
 }
 
-size_t BattleShipModel::get_awaiting_ship() const {
+
+int BattleShipModel::get_awaiting_ship() const {
     return awaiting_ship;
+}
+
+
+void BattleShipModel::update_view() {
+    if (!is_bot[current_player] || is_bot[current_player] && is_bot[1-current_player])
+        view->update();
 }

@@ -3,6 +3,7 @@
 //
 
 #include "BattleShipView.h"
+
 #define SPACE_SIZE_BETWEEN_BOARDS 10
 #define BOARD_SIZE 10
 
@@ -14,10 +15,36 @@ constexpr auto get_array_from_tuple(tuple_t&& tuple) {
 }
 
 
+void clear_screen()
+{
+#if defined _WIN32
+    system("cls");
+#elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__) || defined (__APPLE__)
+    system("clear");
+#endif
+}
+
+
+void set_output_color(const std::string& color) {
+#if defined _WIN32
+    system(color)
+#elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__) || defined (__APPLE__)
+    std::cout << color;
+#endif
+
+}
+
+
 void show_board_line(std::array<std::array<char, 10>, 10> board, size_t line) {
     std::cout << " | ";
     for (int j = 0; j < BOARD_SIZE; j++) {
-        std::cout << board[line][j] << " | ";
+        if (board[line][j] == SHIP) set_output_color(GREEN);
+        else if (board[line][j] == HITTED_SHIP) set_output_color(RED);
+        else if (board[line][j] == MISS) set_output_color(YELLOW);
+
+        std::cout << board[line][j];
+        set_output_color(RESET);
+        std::cout << " | ";
     }
     for (int j = 0; j < SPACE_SIZE_BETWEEN_BOARDS; j++) {
         std::cout << " ";
@@ -75,6 +102,7 @@ void BattleShipView::update() const {
     show_board(get_array_from_tuple(model->get_boards()), "ABCDEFGHIJ");
     std::cout << "\n" << std::endl;
     show_game_message();
+    std::cout << std::endl;
     if (model->get_winner()) {
         show_win_message();
     }
@@ -94,4 +122,5 @@ void BattleShipView::show_game_message() const {
 BattleShipView::BattleShipView(BattleShipModel *bs_model) {
     model = bs_model;
     model->add_view(this);
+    this->update();
 }

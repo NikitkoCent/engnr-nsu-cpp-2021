@@ -11,6 +11,18 @@
 #include "../BaseClasses/BaseView.h"
 #include "../Model/BattleShipModel.h"
 
+#if defined _WIN32
+#include <windows.h>
+#define RED "Color 04"
+#define GREEN "Color 02"
+#define YELLOW "Color 06"
+#define RESET "Color 07"
+#else
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#endif
 
 class BattleShipView: BaseView {
 private:

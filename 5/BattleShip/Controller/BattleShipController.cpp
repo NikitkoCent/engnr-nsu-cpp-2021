@@ -7,10 +7,12 @@ BattleShipController::BattleShipController(BattleShipModel *bs_model, BaseGamer 
     model = bs_model;
     gamers.push_back(g1);
     gamers.push_back(g2);
+    model->update_player_status(0, g1->is_bot);
+    model->update_player_status(1, g2->is_bot);
 };
-#include <iostream>
+
+
 void BattleShipController::start() {
-    model->set_current_player(0);
     //stage 1 - placement
     std::vector<std::string> v;
     for(auto &g: gamers) {
@@ -29,14 +31,16 @@ void BattleShipController::start() {
         }
     }
     //stage 2 - attack
-    int ans = 0;
-    while (ans <= 0) {
+    int ans;
+    while (model->get_winner() == 0) {
         v = gamers[model->get_current_player()]->turn_attack_stage(1);
         ans = model->hit(v[0]);
-        while (ans == -1) {
+
+        while ((ans == -1 || ans == 0) && model->get_winner() == 0) {
             v = gamers[model->get_current_player()]->turn_attack_stage(1);
             ans = model->hit(v[0]);
         }
+
     }
 
 }

@@ -6,10 +6,8 @@
 
 class RandomGamer: public BaseBot {
 public:
-    explicit RandomGamer(BattleShipModel *m): BaseBot(m) {
-        get_engine().seed(std::time(nullptr));
-        alphabet = "ABCDEFGHIJ";
-    }
+    explicit RandomGamer(BattleShipModel *m): BaseBot(m) {}
+
     std::vector<std::string> turn_set_stage(size_t args_count) override {
         return random_generate_next_turn(args_count);
     }
@@ -23,12 +21,19 @@ public:
 class ConsoleGamer: public BaseGamer {
 public:
     explicit ConsoleGamer(BattleShipModel *m): BaseGamer(m) {}
+
     std::vector<std::string> turn_set_stage(size_t args_count) override {
         std::string s;
         std::vector<std::string> v;
-        for (int i = 0; i < args_count; i++) {
+        int length = model->get_awaiting_ship();
+        if (length == -1 || length == 1) { // attack stage or 1-cell ship
             std::cin >> s;
             v.push_back(s);
+        } else { // 2-4 cells ships
+            for (int i = 0; i < 2; i++) {
+                std::cin >> s;
+                v.push_back(s);
+            }
         }
         return v;
     }
@@ -144,8 +149,10 @@ public:
 int main() {
     BattleShipModel model;
     BattleShipView view(&model);
-    OptimalGamer g1(&model);
-    ConsoleGamer g2(&model);
+    RandomGamer g1(&model);
+    RandomGamer g2(&model);
     BattleShipController controller(&model, &g1, &g2);
     controller.start();
+    //A0 A3 C0 E0 G0 I0 J2 J3 J5 J6 J8 J9 D4 F6 A9 F8
+
 }

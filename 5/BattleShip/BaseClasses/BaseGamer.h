@@ -5,16 +5,20 @@
 #ifndef LAB4_BASEGAMER_H
 #define LAB4_BASEGAMER_H
 #include <random>
+#include <ctime>
+
 #include "../Model/BattleShipModel.h"
+
+
 class BaseGamer {
 protected:
     std::string alphabet;
     const BattleShipModel *model;
 public:
-    bool show_board{true};
-    explicit BaseGamer(const BattleShipModel *m): model(m), alphabet("ABCDEFGHIJ") {}
-    virtual std::vector<std::string> turn_set_stage(size_t args_count) {}
-    virtual std::vector<std::string> turn_attack_stage(size_t args_count) {}
+    bool is_bot;
+    explicit BaseGamer(const BattleShipModel *m): model(m), alphabet("ABCDEFGHIJ"), is_bot(false) {}
+    virtual std::vector<std::string> turn_set_stage(size_t args_count) {return std::vector<std::string>{"A0", "A0"};}
+    virtual std::vector<std::string> turn_attack_stage(size_t args_count) {return std::vector<std::string>{"A0", "A0"};}
 };
 
 
@@ -23,8 +27,7 @@ protected:
     std::vector<std::string> random_generate_next_turn(size_t args_count);
     static std::mt19937& get_engine();
 public:
-    bool show_board{false};
-    explicit BaseBot(BattleShipModel *m): BaseGamer(m) {}
+    explicit BaseBot(BattleShipModel *m): BaseGamer(m) {get_engine().seed(std::time(nullptr)); is_bot = true;}
 };
 
 
