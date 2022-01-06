@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.20)
 project(css_task4)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS "-pthread")
 
 add_executable(css_task4 Program.cpp Task.h UserInterface.cpp UserInterface.h Worker.cpp Worker.h WorkerPool.cpp WorkerPool.h WorkerResult.cpp WorkerResult.h)
 
