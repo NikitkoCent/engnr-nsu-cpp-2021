@@ -25,7 +25,7 @@ public:
 	void SetUI(UserInterface* ui);
 
 	bool Start();
-	size_t AddTask(Task* task);
+	long long AddTask(Task* task);
 	void BackToWork(Worker* worker, WorkerResult* result);
 
 	bool IsWorking();

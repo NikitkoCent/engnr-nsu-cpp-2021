@@ -5,7 +5,7 @@
 WorkerPool::WorkerPool(size_t count)
 {
 	this->count = count;
-	workers = (Worker**)malloc(sizeof(Worker*) * count);
+	workers = new Worker*[count];
 	for (size_t i = 0; i < count; i++)
 	{
 		workers[i] = new Worker(this);
@@ -17,9 +17,9 @@ WorkerPool::WorkerPool(size_t count)
 	stopped = false;
 }
 
-void WorkerPool::SetUI(UserInterface* ui)
+void WorkerPool::SetUI(UserInterface* ui_)
 {
-	this->ui = ui;
+	ui = ui_;
 }
 
 bool WorkerPool::Start()
@@ -52,7 +52,7 @@ void WorkerPool::BackToWork(Worker* worker, WorkerResult* result)
 		freeWorkers.push(worker);
 }
 
-size_t WorkerPool::AddTask(Task* task)
+long long WorkerPool::AddTask(Task* task)
 {
 	std::lock_guard<std::mutex> lock(mut);
 	if (stopped)
@@ -115,5 +115,5 @@ WorkerPool::~WorkerPool()
 	for (size_t i = 0; i < count; i++)
 		delete workers[i];
 	mut.unlock();
-	free(workers);
+	delete workers;
 }

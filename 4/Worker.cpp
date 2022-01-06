@@ -48,13 +48,12 @@ void Worker::Work()
 		{
 			std::this_thread::sleep_for(std::chrono::microseconds(250));
 			std::lock_guard<std::mutex> lock(taskMut);
-			if (task)
+			if (task != NULL)
 			{
 				it = std::string(*task);
 				break;
 			}
-			if (stopped)
-				return;
+			if (stopped) return;
 		}
 
 		auto size = DirSize(it);
@@ -112,12 +111,12 @@ bool Worker::CheckCancel()
 	return true;
 }
 
-bool Worker::GiveTask(Task* task)
+bool Worker::GiveTask(Task* task_)
 {
 	std::lock_guard<std::mutex> lock(taskMut);
-	if (this->task || stopped || !isWork)
+	if (task || stopped || !isWork)
 		return false;
-	this->task = task;
+	task = task_;
 	return true;
 }
 
