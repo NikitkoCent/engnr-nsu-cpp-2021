@@ -13,7 +13,7 @@ int InputProcessing::checkInput()
 {
 	std::string name;
 	char* mode;
-	if (argc_ == 2 && strcmp(argv_[1],"-h")) //проверка на запрос help
+	if (argc_ == 2 && !strcmp(argv_[1],"-h")) //проверка на запрос help
 	{
 		Help::print(-1);
 		return -1;
