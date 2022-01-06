@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 		if (resultCheck > 0)
 			return resultCheck;
 	Hasher* hash = new Hasher(date->File(), date->Metod());
-	std::cout << std::hex << hash->Hash() << std::endl;
+	std::cout << std::hex << hash->Hash() << "\n";
 	delete(date);
 	delete(hash);
 	return 0;
