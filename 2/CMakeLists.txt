@@ -30,7 +30,6 @@ add_executable(
   tests
   tests.cpp
   Lab_2.h
-  Functions.cpp 
   Fabric.h 
   Exceptions.h 
   Operation.h
