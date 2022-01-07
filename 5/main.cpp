@@ -9,7 +9,7 @@
 #include "BattleShip/Gamers/ConsoleGamer.h"
 #include "BattleShip/Gamers/RandomGamer.h"
 #include "BattleShip/Controller/ScenarioViewer.h"
-#include "BattleShip/Gamers/Ubivtsa.h"
+#include "BattleShip/Gamers/ImbalancedGamer.h"
 
 void clear()
 {
@@ -101,7 +101,7 @@ int main(int argc, char** argv) {
     } else if (result["f"].as<std::string>() == "optimal") {
         g1 = new OptimalGamer(&model);
     } else if(result["f"].as<std::string>() == "imbalance") {
-        g1 = new Ubivtsa(&model);
+        g1 = new ImbalancedGamer(&model);
     } else {
         std::cerr << "Wrong --first argument!";
         return 1;
@@ -114,7 +114,7 @@ int main(int argc, char** argv) {
     } else if (result["s"].as<std::string>() == "optimal") {
         g2 = new OptimalGamer(&model);
     } else if(result["s"].as<std::string>() == "imbalance") {
-        g2 = new Ubivtsa(&model);
+        g2 = new ImbalancedGamer(&model);
     } else {
         std::cerr << "Wrong --second argument!";
         return 1;

@@ -2,31 +2,31 @@
 // Created by Mikhail Okan on 07.01.2022.
 //
 
-#include "Ubivtsa.h"
+#include "ImbalancedGamer.h"
 
 
-std::string Ubivtsa::coord_to_str(int x, int y) {
+std::string ImbalancedGamer::coord_to_str(int x, int y) {
     return std::string() + alphabet[x] + std::to_string(y);
 }
 
-bool Ubivtsa::strategy1_formula_for_4(int x, int y) {
+bool ImbalancedGamer::strategy1_formula_for_4(int x, int y) {
     return (bool)((x+y+1)%4);
 }
 
-bool Ubivtsa::strategy2_formula_for_4(int x, int y) {
+bool ImbalancedGamer::strategy2_formula_for_4(int x, int y) {
     return (bool)((x-y-2)%4);
 }
 
-bool Ubivtsa::strategy1_formula_for_2(int x, int y) {
+bool ImbalancedGamer::strategy1_formula_for_2(int x, int y) {
     return (bool)((x+y+3)%4);
 }
 
-bool Ubivtsa::strategy2_formula_for_2(int x, int y) {
+bool ImbalancedGamer::strategy2_formula_for_2(int x, int y) {
     return (bool)((x-y-4)%4);
 }
 
 
-std::vector<std::string> Ubivtsa::turn_attack_stage() {
+std::vector<std::string> ImbalancedGamer::turn_attack_stage() {
     std::vector<std::string> res;
     auto free_diag_4 = std::make_unique<std::vector<std::string>>();
     auto free_diag_2 = std::make_unique<std::vector<std::string>>();

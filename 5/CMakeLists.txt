@@ -26,7 +26,9 @@ add_executable(BattleShipGame main.cpp
         BattleShip/Gamers/OptimalGamer.cpp
         BattleShip/Gamers/OptimalGamer.h
         BattleShip/Controller/ScenarioViewer.cpp
-        BattleShip/Controller/ScenarioViewer.h BattleShip/Gamers/Ubivtsa.cpp BattleShip/Gamers/Ubivtsa.h)
+        BattleShip/Controller/ScenarioViewer.h
+        BattleShip/Gamers/ImbalancedGamer.cpp
+        BattleShip/Gamers/ImbalancedGamer.h)
 
 
 if (MSVC)
