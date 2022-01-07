@@ -83,8 +83,6 @@ int main(int argc, char** argv) {
             ("f,first", "First model", cxxopts::value<std::string>())
             ("s,second", "Second model", cxxopts::value<std::string>())
             ("h,help", "Print help", cxxopts::value<bool>()->default_value("false"))
-
-//            ("p2,password2", "Password for player 2", cxxopts::value<std::string>()->default_value("a"))
             ("c,count", "Session count", cxxopts::value<int>()->default_value("1"))
             ("p,password", "Password for player", cxxopts::value<std::vector<std::string>>());
 

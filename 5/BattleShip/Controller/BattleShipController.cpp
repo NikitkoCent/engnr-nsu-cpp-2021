@@ -35,7 +35,7 @@ void BattleShipController::start(int c) {
         log = "";
         //stage 1 - placement
         for (auto &g: gamers) {
-            while (!model->check_password(g->show_pass())) {}
+            while (model->get_awaiting_password()) {model->check_password(g->show_pass());}
             for (int turn = 0; turn < 10; turn++) {
                 do {
                     v = g->turn_set_stage();
@@ -46,8 +46,7 @@ void BattleShipController::start(int c) {
         }
         //stage 2 - attack
         while (model->get_winner() == 0) {
-            while (!model->check_password(gamers[model->get_current_player()]->show_pass())) {}
-
+            while (model->get_awaiting_password()) {model->check_password(gamers[model->get_current_player()]->show_pass());}
             do {
                 v = gamers[model->get_current_player()]->turn_attack_stage();
                 ans = model->hit(v[0]);
@@ -58,5 +57,6 @@ void BattleShipController::start(int c) {
         fs.open(path_to_log, std::fstream::out);
         fs << log;
         fs.close();
+        getchar();
     }
 }

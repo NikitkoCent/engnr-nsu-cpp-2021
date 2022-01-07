@@ -123,7 +123,8 @@ int BattleShipModel::hit(const std::string& c) {
         lock();
         check_winner();
         update_view();
-        game_message = "";
+        if (!awaiting_password)
+            game_message = "";
         turn_number++;
         return 1;
     }
@@ -297,6 +298,7 @@ bool BattleShipModel::check_password(const std::string& pass) {
     if (!awaiting_password || (pass == passwords[current_player])) {
         awaiting_password = false;
         update_view();
+        game_message = "";
         return true;
     }
     return false;
@@ -311,6 +313,6 @@ bool BattleShipModel::get_awaiting_password() const {
 }
 
 void BattleShipModel::lock() {
-    if (!is_bot[current_player] || !(is_bot[current_player] && is_bot[1-current_player]))
+    if (is_bot[current_player] && is_bot[1-current_player])
         awaiting_password = true;
 }
