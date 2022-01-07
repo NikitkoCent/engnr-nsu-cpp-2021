@@ -3,13 +3,13 @@ add_executable(tests
               test.cpp
               )
 target_link_libraries(tests
-              2
+              #2
               gtest
               )
 target_include_directories(googletest
               PRIVATE "./googletest/googletest/include/gtest"
               )
-enable_testing()
+#enable_testing()
 add_test(NAME googletest COMMAND tests)
 include(GoogleTest)
 gtest_discover_tests(tests)
