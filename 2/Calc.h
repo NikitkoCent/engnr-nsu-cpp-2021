@@ -237,6 +237,17 @@ public:
     }
 };
 
+class SIException : public StackException {
+public:
+    SIException() {
+        text += " Overflow! ";
+    }
+    std::string what() {
+        return text;
+    }
+};
+
+
 //---------------------------------------------------------------------------------------
 class Calculator {
 public:
@@ -251,7 +262,8 @@ public:
     Commands *factoryMethod(std::vector<std::string> &commands) override;
 };
 
-void counting(std::stringstream& in_s, std::ifstream& in, int args);
+void countingg(std::istream &is);
+void counting(std::ifstream& in, int args);
 
 bool is_number(std::string &str);
 

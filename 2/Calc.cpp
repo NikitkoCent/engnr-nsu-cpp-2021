@@ -76,6 +76,10 @@ void Plus::ct(type &tp, std::vector<std::string> str) {
     tp.stack_.pop();
     int64_t sum;
     SafeAdd(se, fe, sum);
+    if(SafeAdd(se, fe, sum) == 0){
+        throw SIException();
+    }
+
     tp.stack_.push(sum);
 }
 
@@ -89,6 +93,9 @@ void Minus::ct(type &tp, std::vector<std::string> str){
     tp.stack_.pop();
     int64_t razn;
     SafeSubtract(se, fe, razn);
+    if(SafeSubtract(se, fe, razn) == 0){
+        throw SIException();
+    }
     tp.stack_.push(razn);
 }
 
@@ -102,6 +109,9 @@ void Mul::ct(type &tp, std::vector<std::string> str){
     tp.stack_.pop();
     int64_t mull;
     SafeMultiply(se, fe, mull);
+    if(SafeMultiply(se, fe, mull) == 0){
+        throw SIException();
+    }
     tp.stack_.push(mull);
 }
 
@@ -118,6 +128,9 @@ void Div::ct(type &tp, std::vector<std::string> str){
     }
     int64_t divv;
     SafeDivide(se, fe, divv);
+    if(SafeDivide(se, fe, divv) == 0){
+        throw SIException();
+    }
     tp.stack_.push(divv);
 }
 
@@ -136,41 +149,33 @@ void Read::ct(type &tp, std::vector<std::string> str){
 
 
 
-void counting(std::stringstream &test_str, std::ifstream &file, int args) {
+void countingg(std::istream &is) {
     Create_Command creator;
     type tp;
     std::vector<std::string> words;
     std::string word, stroka;
     Commands *command;
 
-    if (args == 2) {
-        while (getline(file, stroka, '\n')) {
-            if (stroka.empty()) continue;
-            std::stringstream st(stroka);
-            while (getline(st, word, ' ')) {
-                words.push_back(word);
-            }
-            command = creator.factoryMethod(words);
-            command->ct(tp, words);
-            words.clear();
-            delete command;
+    while (getline(is, stroka, '\n')) {
+        if (stroka.empty()) continue;
+        std::stringstream st(stroka);
+        while (getline(st, word, ' ')) {
+            words.push_back(word);
         }
-    }
-    else{
-        while (getline(std::cin, stroka, '\n')) {
-            if (stroka.empty()) continue;
-            std::stringstream ss(stroka);
-            while (getline(ss, word, ' ')) {
-                words.push_back(word);
-            }
-            command = creator.factoryMethod(words);
-            command->ct(tp, words);
-            words.clear();
-            delete command;
-        }
+        command = creator.factoryMethod(words);
+        command->ct(tp, words);
+        words.clear();
+        delete command;
     }
 
 }
+
+void counting(std::ifstream &file, int args){
+    if(args == 2){ countingg(file);}
+    else { countingg(std::cin);}
+}
+
+
 
 Commands *Create_Command::factoryMethod(std::vector<std::string> &commands) {
     std::string word = commands[0];
