@@ -8,7 +8,7 @@ project ("Lab_2_fabric")
 set(CMAKE_CXX_STANDARD 17)
 
 # Add source to this project's executable.
-add_executable (Lab_2_fabric "Lab_2.cpp" "Lab_2.h" "Functions.h" "Fabric.h" "Exceptions.h" "Operation.h")
+add_executable (Lab_2_fabric "Lab_2.cpp" "Lab_2.h" "Functions.cpp" "Fabric.h" "Exceptions.h" "Operation.h")
 
 add_subdirectory(SafeInt)
 add_subdirectory(googletest)
