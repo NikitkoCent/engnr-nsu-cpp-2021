@@ -1,6 +1,11 @@
 #include "gtest/gtest.h"
 #include "Lab_2.h" 
 //#include "Lab_2.cpp"
+#include"Lab_2.h"
+#include"Functions.cpp"
+#include"Fabric.h"
+#include"Exceptions.h" 
+#include"Operation.h
 #include <sstream>
 #include <iostream>
 #include <sstream>
