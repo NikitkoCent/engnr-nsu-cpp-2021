@@ -19,7 +19,7 @@ C++ implementation of a battleship game in terminal
     interactive - play from terminal
     random - random bot
     optimal - optimal bot, optimal placement
-    imbalance - imbalanced bot, optimal placement + optimal attacks
+    imbalanced - imbalanced bot, optimal placement + optimal attacks
 
 # Gameplay
 The game allows two users (bots) to play the classic game of Battleship with a 10x10 board.

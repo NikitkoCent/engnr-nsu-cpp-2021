@@ -31,13 +31,16 @@ void BattleShipController::start(int c) {
     std::string path_to_log_dir = "../Scenario";
     while (cur_sess != c) {
         model->reset();
+        path_to_log.clear();
+        log.clear();
+
         path_to_log = path_to_log_dir + '/' + "game_log_" + std::to_string(number_of_files_in_directory(path_to_log_dir)) + ".txt";
-        log = "";
         //stage 1 - placement
         for (auto &g: gamers) {
             while (model->get_awaiting_password()) {model->check_password(g->show_pass());}
             for (int turn = 0; turn < 10; turn++) {
                 do {
+                    v.clear();
                     v = g->turn_set_stage();
                     log += v[0] + " " + v[1] + "\n";
                 } while (model->set(v[0], v[1]) == 0);
@@ -47,6 +50,7 @@ void BattleShipController::start(int c) {
         while (model->get_winner() == 0) {
             while (model->get_awaiting_password()) {model->check_password(gamers[model->get_current_player()]->show_pass());}
             do {
+                v.clear();
                 v = gamers[model->get_current_player()]->turn_attack_stage();
                 ans = model->hit(v[0]);
                 log += v[0] + "\n";

@@ -11,8 +11,7 @@
 #include "BattleShip/Controller/ScenarioViewer.h"
 #include "BattleShip/Gamers/ImbalancedGamer.h"
 
-void clear()
-{
+void clear() {
 #if defined _WIN32
     system("cls");
 #elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__) || defined (__APPLE__)
@@ -73,7 +72,7 @@ void print_help() {
         start_tutorial();
     } else {
         std::cout << "Usage: ./BattleShipGame -f [first player model] -s [second player model] -c [session count] -p [password1] -p [password2]" << std::endl;
-        std::cout << "Player models: interactive - play from console, random - random bot, optimal - optimal bot, imbalance - hard bot" << std::endl;
+        std::cout << "Player models: interactive - play from console, random - random bot, optimal - optimal bot, imbalanced - hard bot" << std::endl;
     }
 }
 
@@ -100,7 +99,7 @@ int main(int argc, char** argv) {
         g1 = new RandomGamer(&model);
     } else if (result["f"].as<std::string>() == "optimal") {
         g1 = new OptimalGamer(&model);
-    } else if(result["f"].as<std::string>() == "imbalance") {
+    } else if(result["f"].as<std::string>() == "imbalanced") {
         g1 = new ImbalancedGamer(&model);
     } else {
         std::cerr << "Wrong --first argument!";
@@ -113,7 +112,7 @@ int main(int argc, char** argv) {
         g2 = new RandomGamer(&model);
     } else if (result["s"].as<std::string>() == "optimal") {
         g2 = new OptimalGamer(&model);
-    } else if(result["s"].as<std::string>() == "imbalance") {
+    } else if(result["s"].as<std::string>() == "imbalanced") {
         g2 = new ImbalancedGamer(&model);
     } else {
         std::cerr << "Wrong --second argument!";
