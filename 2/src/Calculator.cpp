@@ -5,6 +5,7 @@
 #include "Calculator.h"
 #include "commands.h"
 #include <sstream>
+#include <memory>
 
 
 void Calculator::perform(const std::string &raw_command)
@@ -15,6 +16,6 @@ void Calculator::perform(const std::string &raw_command)
     ss >> command;
     ss >> arg;
     if (command.empty()) return;
-    Command &prepared_command = *make_command(*this, command, arg);
-    prepared_command.run();
+    std::unique_ptr<Command> prepared_command(make_command(*this, command, arg));
+    prepared_command -> run();
 }

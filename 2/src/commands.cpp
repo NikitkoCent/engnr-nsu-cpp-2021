@@ -3,6 +3,9 @@
 #include "exceptions.h"
 #include "SafeInt.hpp"
 
+
+Command::~Command() = default;
+
 Command::Command(Calculator &ctx) : _ctx{ctx}
 {
 }
@@ -13,6 +16,7 @@ Comment::Comment(Calculator &ctx) : Command{ctx}
 void Comment::run()
 {
 }
+
 
 
 Pop::Pop(Calculator &ctx) : Command{ctx}
@@ -55,7 +59,7 @@ void Push::run()
         {
             _ctx.stack.push(std::stoll(_arg));
         }
-        catch (std::out_of_range)
+        catch (std::out_of_range&)
         {
             throw IntOverflow();
         }
@@ -159,7 +163,7 @@ void Read::run()
         {
             _ctx.stack.push(std::stoll(temp));
         }
-        catch (std::out_of_range)
+        catch (std::out_of_range&)
         {
             throw IntOverflow();
         }

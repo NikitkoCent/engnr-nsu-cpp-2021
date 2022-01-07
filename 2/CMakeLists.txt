@@ -40,12 +40,12 @@ target_link_libraries(main calculator)
 if (MSVC)
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
     target_compile_options(calculator
-            PRIVATE /W4          # warnings level
+            PRIVATE /W3          # warnings level
             )
 else()
     target_compile_options(calculator
             PRIVATE -Wall        # basic set of warnings
-            PRIVATE -pedantic    # modern C++ inspections
+            PRIVATE -Werror
             )
 endif()
 

@@ -10,6 +10,7 @@ protected:
     explicit Command(Calculator &ctx);
 public:
     virtual void run() = 0;
+    virtual ~Command();
 };
 
 
