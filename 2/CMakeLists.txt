@@ -4,7 +4,7 @@ project(calc CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(libs/SafeInt)
-add_executable(calc main.cpp src/Command.cpp src/Command.h)
+add_executable(calc main.cpp src/Command.cpp src/Command.h src/Exceptions.cpp src/Exceptions.h)
 
 
 

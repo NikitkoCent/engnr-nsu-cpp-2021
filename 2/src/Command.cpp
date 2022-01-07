@@ -6,7 +6,7 @@
 #include <exception>
 #include <iostream>
 #include <algorithm>
-
+#include "Exceptions.h"
 
 int64_t Context::pop() {
     auto first = top();
@@ -16,7 +16,7 @@ int64_t Context::pop() {
 
 int64_t Context::top() {
     if (calc_stack_avokado.empty())
-        throw std::runtime_error("empty");
+        throw EmptyStack();
     auto first = calc_stack_avokado.top();
     return first;
 }
@@ -27,9 +27,8 @@ void Context::set_variable(string &name, int64_t &value) {
 
 int64_t Context::get_variable(string &name) {
     auto el = variables.find(name);
-    //TODO: exception
     if (el == variables.end())
-        throw runtime_error("dd");
+        throw WrongArgument();
     return el->second;
 }
 
@@ -48,8 +47,10 @@ void BinaryArithmeticalCommand::eval() {
 BinaryArithmeticalCommand::BinaryArithmeticalCommand(Context &curContext) : ArithmeticalCommand(curContext) {}
 
 int64_t Div::command(SafeInt<int64_t> first, SafeInt<int64_t> second) {
-    //TODO: Division by zero
+
     int64_t a = first, b = second, res;
+    if (a == 0)
+        throw DivideByZero();
     SafeDivide(b, a, res);
     return res;
 }
@@ -71,8 +72,7 @@ void Read::eval() {
         int64_t value = stoi(val);
         context.push(value);
     } catch (invalid_argument &e) {
-        // TODO: exceptions
-        throw e;
+        throw WrongArgument();
     }
 
 }

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <memory>
 #include "src/Command.h"
+#include "src/Exceptions.h"
 
 using namespace std;
 
@@ -31,7 +32,7 @@ shared_ptr<Command> get_command_by_string(string &cur_string, Context &context) 
         operation = shared_ptr<Command>(new Read(context));
     } else {
         if (cur_string != "#") {
-            throw runtime_error("Unknown command: " + cur_string);
+            throw UnknownArgument("Unknown command: " + cur_string);
         } else {
             operation = shared_ptr<Command>(new Comment(context));
         }
@@ -40,43 +41,65 @@ shared_ptr<Command> get_command_by_string(string &cur_string, Context &context) 
 }
 
 
-void parse_stream(istream &stream, Context &context) {
+void parse_stream(istream &stream) {
+    Context context;
     while (!stream.eof()) {
         string strCommand;
         stream >> strCommand;
         shared_ptr<Command> command = get_command_by_string(strCommand, context);
-        if (auto argsCommand = dynamic_pointer_cast<ArgsCommand> (command)){
+        if (auto argsCommand = dynamic_pointer_cast<ArgsCommand>(command)) {
             string args;
             getline(stream, args);
             argsCommand->eval(args);
-        } else if (auto nonArgsCommand = dynamic_pointer_cast<NonArgsCommand> (command)){
+        } else if (auto nonArgsCommand = dynamic_pointer_cast<NonArgsCommand>(command)) {
             nonArgsCommand->eval();
         }
 
     }
 }
 
-int main(int argc, char **argv) {
 
-    if (argc > 2){
+int main(int argc, char **argv) {
+    string help = "Usage: ./Calculator <filepath?>\n"
+                  "Available commands: #, POP, PUSH <number>, PUSH <varname>, PEEK <varname>, ABS, PLUS, MINUS, MUL, DIV, PRINT, READ.";
+    if (argc > 2) {
         cerr << "HELP";
         return 1;
     }
 
-    if (argc == 2){
+    if (argc == 2) {
         string filename = argv[1];
         ifstream file(filename);
-        if (file.is_open())
-        {
-            Context a;
-            parse_stream(file, a);
-        }else
-        {
+        if (!file.is_open()) {
+            cerr << "File not found!" << endl << help;
+            return 1;
+
+        }
+        try {
+            parse_stream(file);
+        } catch (const BaseException &e) {
+            std::cerr << e.what() << std::endl;
+            return 1;
+        } catch (SafeIntException &e) {
+            return 1;
+        } catch (std::runtime_error &e) {
+            std::cerr << e.what() << std::endl;
             return 1;
         }
+
     }
-    Context a;
-    parse_stream(cin, a);
+
+    try {
+        parse_stream(cin);
+    } catch (const BaseException &e) {
+        std::cerr << e.what() << std::endl;
+        return 1;
+    } catch (SafeIntException &e) {
+        return 1;
+    } catch (std::runtime_error &e) {
+        std::cerr << e.what() << std::endl;
+        return 1;
+    }
     return 0;
 }
 
