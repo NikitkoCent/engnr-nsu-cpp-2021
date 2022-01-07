@@ -150,7 +150,7 @@ def run_all_tests(tests: List[ExecutableTest], executable_path: str, working_dir
         except Exception:
             result += 1
             print(f'The test "{test.name}" failed.\n'
-                  f'Command line: {test.get_exe_full_command()}.\n'
+                  f'Operation line: {test.get_exe_full_command()}.\n'
                   f'Working dir: "{test.get_working_dir()}".\n'
                   f'Caused by:', file=sys.stderr)
 

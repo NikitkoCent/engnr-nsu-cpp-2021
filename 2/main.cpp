@@ -3,14 +3,14 @@
 //
 #include "Commands.h"
 #include <iostream>
-#include <fstream>
 #include <string>
-#include <sstream>
-#include <cstring>
-//#include "../../libs/SafeInt/SafeInt.hpp"
-#include <stdexcept>
+
+using std:: istream;
 
 using std:: string;
+using std:: cerr;
+using std:: endl;
+using std:: ifstream;
 
 int main(int argc, char *argv[]) {
     try {
@@ -22,31 +22,29 @@ int main(int argc, char *argv[]) {
             if (argc == 2) {
                 filepath = argv[1];
             } else {
-                std::cerr << "Wrong usage." << std::endl;
+                cerr << "Please, enter file path or arithmetic operations" << endl;
                 return 1;
             }
         }
 
         if (flag) {
-            ReadLine();
+            ReadLine(std::cin);
         } else {
-            std::ifstream file;
+            ifstream file;
             file.open(filepath);
             if (!file.is_open()) {
-                std::cerr << "FileNotFoundError" << std::endl;
+                cerr << "FileNotFoundError" << endl;
                 return 1;
             } else if (file.peek() == EOF) {
                 return 0;
             }
-            ReadFromFile(file);
+
+            ReadLine(file);
         }
     }  catch (const StackException &e) {
-        std::cerr << e.what() << std::endl;
+        cerr << e.what() << endl;
         return 1;
     }  catch (SafeIntException &e) {
-        return 1;
-    }  catch (std::runtime_error &e) {
-        std::cerr << e.what() << std::endl;
         return 1;
     }
     return 0;

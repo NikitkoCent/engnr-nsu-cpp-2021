@@ -3,29 +3,22 @@
 //
 
 #include "Commands.h"
-//#include "StackCalc.h"
-#include <fstream>
 #include <string>
-#include <sstream>
 #include <iostream>
 #include <memory>
 #include <charconv>
 #include <algorithm>
 
-
-
-void StackCalc::command(std::unique_ptr<Command> cmd) {
-    cmd->command(context_execution);
+void StackCalc::command(std::unique_ptr<Operation> cmd) {
+    cmd->command(memory);
 }
 
-Command *StackCalc::read_command(std::string &command_line) {
-    std::string help = "Usage: ./Calculator <filepath> or ./Calculator"
-                       "Commands: #, POP, PUSH <number>, PUSH <varname>, PEEK <varname>, ABS, PLUS, MINUS, MUL, DIV, PRINT, READ.";
+Operation *StackCalc::read_command(std::string &command_line) {
     std::string command;
     std::stringstream x;
     x << command_line;
     x >> command;
-    Command *operation;
+    Operation *operation;
     if (command.empty()) {
         return nullptr;
     } else if (command == "POP") {
@@ -60,15 +53,15 @@ Command *StackCalc::read_command(std::string &command_line) {
     return operation;
 }
 
-StackCalc ReadLine() {
+StackCalc ReadLine(std::istream &cin1) {
 try {
     StackCalc calculator;
     std::string command_line = "1";
-    while (!std::cin.eof()) {
-        getline(std::cin, command_line);
+    while (!cin1.eof()) {
+        getline(cin1, command_line);
         if (command_line.empty()) continue;
 
-        std::unique_ptr<Command> cmd(calculator.read_command(command_line));
+        std::unique_ptr<Operation> cmd(calculator.read_command(command_line));
         if (cmd == nullptr) {
             continue;
         }
@@ -88,7 +81,7 @@ StackCalc ReadFromFile(std::istream &file) {
     while (!file.eof()) {
         std::getline(file, command_line);
 
-        std::unique_ptr<Command> cmd(calculator.read_command(command_line));
+        std::unique_ptr<Operation> cmd(calculator.read_command(command_line));
         if (cmd == nullptr) {
             continue;
         }
@@ -96,4 +89,8 @@ StackCalc ReadFromFile(std::istream &file) {
 
     }
     return calculator;
+}
+bool is_number(const std::string &s) {
+    return !s.empty() && (std::all_of(s.begin(), s.end(), [](char c) { return ::isdigit(c); }) ||
+                          (s[0] == '-' && std::all_of(s.begin() + 1, s.end(), [](char c) { return ::isdigit(c); })));
 }

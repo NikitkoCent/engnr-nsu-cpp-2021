@@ -12,37 +12,22 @@
 #include <memory>
 #include <map>
 
-struct ContextExecution {
-    std::stack<SafeInt<int64_t, CustomException>> stack;
-    std::max<std::string, SafeInt<int64_t, CustomException>> variables;
-};
-
-
-class Command {
-public:
-    explicit Command(std::string &args) { params = args; }
-
-    virtual void
-    command(ContextExecution &context_execution) = 0;
-
-    virtual ~Command() = default ;
-
-protected:
-    std::string params;
-};
-
 class StackCalc {
-    ContextExecution context_execution;
+    Memory memory;
 public:
-    void command(std::unique_ptr<Command> cmd);
+    void command(std::unique_ptr<Operation> cmd);
 
-    Command *read_command(std::string &command_line);
+    static Operation *read_command(std::string &command_line);
 
     std::map<std::string, SafeInt<int64_t, CustomException>> FindResult() {
-        return context_execution.variables;
+        return memory.variables;
     }
 };
-StackCalc ReadLine();
-StackCalc ReadFromFile(std::istream &file);
+
+StackCalc ReadLine(std::istream &cin1);
+
+//StackCalc ReadFromFile(std::istream &file);
+
+bool is_number(const std::string &s);
 
 #endif //CPP_LABS_COMMANDS_H

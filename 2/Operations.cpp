@@ -2,181 +2,137 @@
 // Created by Дарья on 06.01.2022.
 //
 #include "Commands.h"
-#include "Operations.h"
 
-#include <fstream>
 #include <string>
-#include <sstream>
 #include <iostream>
-#include <memory>
 #include <charconv>
-#include <algorithm>
 
-Pop::Pop(std::string &args) : Command(args) {}
-
-void Pop::command(ContextExecution &context_execution) {
-    if (!context_execution.stack.empty()) {
-        context_execution.stack.pop();
+void Pop::command(Memory &memory) {
+    if (!memory.stack.empty()) {
+        memory.stack.pop();
     } else {
-        throw PopException();
+        throw EmptyStack();
     }
 }
 
-bool is_number(const std::string &s) {
-    return !s.empty() && (std::all_of(s.begin(), s.end(), [](char c) { return ::isdigit(c); }) ||
-                          (s[0] == '-' && std::all_of(s.begin() + 1, s.end(), [](char c) { return ::isdigit(c); })));
-}
-
-
-Push::Push(std::string &args) : Command(args) {}
-
-void Push::command(ContextExecution &context_execution) {
+void Push::command(Memory &memory) {
     if (is_number(params)) {
         int64_t result{};
         auto[ptr, ec]{std::from_chars(params.data(), params.data() + params.size(), result)};
         if (ec == std::errc::result_out_of_range) {
             throw OverflowException();
         }
-        context_execution.stack.push(result);
+        memory.stack.push(result);
     } else {
-        auto elem = context_execution.variables.find(params);
-        if (elem == context_execution.variables.end()) {
-            throw PushException();
-        } else context_execution.stack.push(elem->second);
+        auto elem = memory.variables.find(params);
+        if (elem == memory.variables.end()) {
+            throw WrongArgument();
+        } else memory.stack.push(elem->second);
     }
 }
 
-
-Peek::Peek(std::string &args) : Command(args) {}
-
-void Peek::command(ContextExecution &context_execution) {
-    if (!context_execution.stack.empty()) {
-        context_execution.variables[params] = context_execution.stack.top();
+void Peek::command(Memory &memory) {
+    if (!memory.stack.empty()) {
+        memory.variables[params] = memory.stack.top();
     } else {
-        throw PeekException();
+        throw EmptyStack();
     }
 }
 
-
-Abs::Abs(std::string &args) : Command(args) {}
-
-void Abs::command(ContextExecution &context_execution) {
-    if (!context_execution.stack.empty()) {
-        SafeInt<int64_t, CustomException> val = context_execution.stack.top();
-        context_execution.stack.pop();
+void Abs::command(Memory &memory) {
+    if (!memory.stack.empty()) {
+        SafeInt<int64_t, CustomException> val = memory.stack.top();
+        memory.stack.pop();
         if (val < 0) {
             SafeInt<int64_t, CustomException> result = -val;
-            context_execution.stack.push(result);
+            memory.stack.push(result);
         } else {
             SafeInt<int64_t, CustomException> result = val;
-            context_execution.stack.push(result);
+            memory.stack.push(result);
         }
     } else {
-        throw AbsException();
+        throw EmptyStack();
     }
 }
 
-
-Plus::Plus(std::string &args) : Command(args) {}
-
-void Plus::command(ContextExecution &context_execution) {
-    if (context_execution.stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
-        context_execution.stack.pop();
-        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
-        context_execution.stack.pop();
+void Plus::command(Memory &memory) {
+    if (memory.stack.size() >= 2) {
+        SafeInt<int64_t, CustomException> val1 = memory.stack.top();
+        memory.stack.pop();
+        SafeInt<int64_t, CustomException> val2 = memory.stack.top();
+        memory.stack.pop();
         SafeInt<int64_t, CustomException> result = val1 + val2;
-        context_execution.stack.push(result);
+        memory.stack.push(result);
     } else {
-        throw PlusException();
+        throw EmptyStack();
     }
 }
 
-Minus::Minus(std::string &args) : Command(args) {}
-
-void Minus::command(ContextExecution &context_execution) {
-    if (context_execution.stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
-        context_execution.stack.pop();
-        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
-        context_execution.stack.pop();
+void Minus::command(Memory &memory) {
+    if (memory.stack.size() >= 2) {
+        SafeInt<int64_t, CustomException> val1 = memory.stack.top();
+        memory.stack.pop();
+        SafeInt<int64_t, CustomException> val2 = memory.stack.top();
+        memory.stack.pop();
         SafeInt<int64_t, CustomException> result = val2 - val1;
-        context_execution.stack.push(result);
+        memory.stack.push(result);
     } else {
-        throw MinusException();
+        throw EmptyStack();
     }
 }
 
-
-Multiply::Multiply(std::string &args) : Command(args) {}
-
-void
-Multiply::command(ContextExecution &context_execution) {
-    if (context_execution.stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
-        context_execution.stack.pop();
-        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
-        context_execution.stack.pop();
+void Multiply::command(Memory &memory) {
+    if (memory.stack.size() >= 2) {
+        SafeInt<int64_t, CustomException> val1 = memory.stack.top();
+        memory.stack.pop();
+        SafeInt<int64_t, CustomException> val2 = memory.stack.top();
+        memory.stack.pop();
         SafeInt<int64_t, CustomException> result = val1 * val2;
-        context_execution.stack.push(result);
+        memory.stack.push(result);
     } else {
-        throw MultiplyException();
+        throw EmptyStack();
     }
 }
 
-
-Division::Division(std::string &args) : Command(args) {}
-
-void
-Division::command(ContextExecution &context_execution) {
-    if (context_execution.stack.size() >= 2) {
-//        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
-        int64_t val1 = context_execution.stack.top();
-        context_execution.stack.pop();
-//        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
-        int64_t val2 = context_execution.stack.top();
+void Division::command(Memory &memory) {
+    if (memory.stack.size() >= 2) {
+        int64_t val1 = memory.stack.top();
+        memory.stack.pop();
+        int64_t val2 = memory.stack.top();
         if (val1 != 0) {
-            context_execution.stack.pop();
+            memory.stack.pop();
             int64_t res;
             SafeDivide(val2, val1, res);
-            context_execution.stack.push(res);
+            memory.stack.push(res);
         } else {
             throw DivisionByZero();
         }
     } else {
-        throw DivisionException();
+        throw EmptyStack();
 
     }
 }
-Print::Print(std::string &args) : Command(args) {}
 
-void Print::command(ContextExecution &context_execution) {
-    if (!context_execution.stack.empty()) {
-        SafeInt<int64_t, CustomException> val = context_execution.stack.top();
-        context_execution.variables["result"] = val;
+void Print::command(Memory &memory) {
+    if (!memory.stack.empty()) {
+        SafeInt<int64_t, CustomException> val = memory.stack.top();
+        memory.variables["result"] = val;
         std::cout << (int64_t) val << std::endl;
     } else {
-        throw PrintException();
+        throw EmptyStack();
     }
 }
 
-
-Read::Read(std::string &args) : Command(args) {}
-
-void Read::command(ContextExecution &context_execution) {
-//    try {
+void Read::command(Memory &memory) {
     std::string val;
     std::cin >> val;
     if (is_number(val)) {
         int64_t result{};
         std::from_chars(val.data(), val.data() + val.size(), result);
-        context_execution.stack.push(result);
+        memory.stack.push(result);
     } else {
-        throw ReadException();
+        throw EmptyStack();
     }
 }
 
-Comment::Comment(std::string &args) : Command(args) {}
-
-void
-Comment::command(ContextExecution &context_execution) {}
+void Comment::command(Memory &memory) {}

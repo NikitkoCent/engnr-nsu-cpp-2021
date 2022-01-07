@@ -12,103 +12,114 @@
 #include <cmath>
 #include <iostream>
 #include <utility>
-//#include "../../libs/SafeInt/SafeInt.hpp"
+#include "lib/safeint/SafeInt.hpp"
+#include "Commands.h"
+#include "Errors.h"
 #include <memory>
 
 
-class Pop : public Command {
+
+struct Memory {
+    std::stack<SafeInt<int64_t, CustomException>> stack;
+    std::map<std::string, SafeInt<int64_t, CustomException>> variables;
+};
+
+class Operation {
+public:
+    explicit Operation(std::string &args) { params = args; }
+
+    virtual void
+    command (Memory &memory) = 0;
+
+    virtual ~Operation() = default ;
+
+protected:
+    std::string params;
+};
+
+class Pop : public Operation {
 public:
     explicit Pop(std::string &args);
 
-    void
-    command(ContextExecution &context_execution) override;
-
+    void command(Memory &memory) override;
 };
 
-
-class Push : public Command {
+class Push : public Operation {
 public:
     explicit Push(std::string &args);
 
     void
-    command(ContextExecution &context_execution) override;
+    command(Memory &memory) override;
 };
 
-class Peek : public Command {
+class Peek : public Operation {
 public:
     explicit Peek(std::string &args);
 
     void
-    command(ContextExecution &context_execution) override;
+    command(Memory &memory) override;
 };
 
-
-class Abs : public Command {
+class Abs : public Operation {
 public:
     explicit Abs(std::string &args);
 
     void
-    command(ContextExecution &context_execution) override;
+    command(Memory &memory) override;
 };
 
-
-class Plus : public Command {
+class Plus : public Operation {
 public:
     explicit Plus(std::string &args);
 
     void
-    command(ContextExecution &context_execution) override;
+    command(Memory &memory) override;
 };
 
-
-class Minus : public Command {
+class Minus : public Operation {
 public:
     explicit Minus(std::string &args);
 
     void
-    command(ContextExecution &context_execution) override;
+    command(Memory &memory) override;
 };
 
-
-class Multiply : public Command {
+class Multiply : public Operation {
 public:
     explicit Multiply(std::string &args);
 
     void
-    command(ContextExecution &context_execution) override;
+    command(Memory &memory) override;
 };
 
-
-class Division : public Command {
+class Division : public Operation {
 public:
     explicit Division(std::string &args);
 
     void
-    command(ContextExecution &context_execution) override;
+    command(Memory &memory) override;
 };
 
-
-class Print : public Command {
+class Print : public Operation {
 public:
     explicit Print(std::string &args);
 
     void
-    command(ContextExecution &context_execution) override;
+    command(Memory &memory) override;
 };
 
-
-class Read : public Command {
+class Read : public Operation {
 public:
     explicit Read(std::string &args);
 
-    void command(ContextExecution &context_execution) override;
+    void command(Memory &memory) override;
 };
 
-class Comment : public Command {
+class Comment : public Operation {
 public:
     explicit Comment(std::string &args);
 
-    void command(ContextExecution &context_execution) override;
+    void command(Memory &memory) override;
 };
 
 #endif //CPP_LABS_OPERATIONS_H

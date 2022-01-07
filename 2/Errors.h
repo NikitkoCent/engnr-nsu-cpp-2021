@@ -7,7 +7,7 @@
 
 #include "Commands.h"
 #include "Operations.h"
-
+#include "lib/safeint/SafeInt.hpp"
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -16,64 +16,54 @@
 #include <charconv>
 #include <algorithm>
 
-class WrongArgument : public StackException {
-public:
-    explicit WrongArgument(const std::string &whatMessage) : StackException(whatMessage) {}
-    WrongArgument() : StackException("WrongArg") {}
-};
-
-class StackException : public std::runtime_error {
-    std::string what_message = "Error: ";
-public:
-    explicit StackException(const std::string &whatMessage) : runtime_error(whatMessage),
-                                                              what_message(whatMessage) {};
-    const char *what() const noexcept override {
-        return what_message.c_str();
-    }
-};
-
-
-
-class EmptyStack : public StackException {
-public:
-    explicit EmptyStack(const std::string &whatMessage) : StackException(whatMessage) {}
-    EmptyStack() : StackException("Stack is Empty") {}
-};
-
-class FewElementError : public StackException {
-public:
-    explicit FewElementError(const std::string &whatMessage) : StackException(whatMessage) {}
-    FewElementError() : StackException("FewElementError") {}
-};
-
-class UnknownCommand : public StackException {
-public:
-    explicit UnknownCommand(const std::string &whatMessage) : StackException(whatMessage) {}
-    UnknownCommand() : StackException("Unknown command was found") {}
-};
-
-class OverflowException : public StackException {
-public:
-    explicit OverflowException(const std::string &whatMessage) : StackException(whatMessage) {}
-    OverflowException() : StackException("Overflow happened") {}
-};
-
-class DivisionByZero : public StackException {
-public:
-    explicit DivisionByZero(const std::string &whatMessage) : StackException(whatMessage) {}
-    DivisionByZero() : StackException("DivisionByZeroError") {}
-};
 
 class CustomException : public SafeIntException{
 public:
     static void SafeIntOnOverflow();
 };
 
-
-class PopException : public EmptyStack {
+class StackException : public std::runtime_error {
+    std::string message = "Error: ";
 public:
-    explicit PopException(const std::string &whatMessage) : EmptyStack(whatMessage) {}
-    PopException() : EmptyStack("POP operation failed.") {}
+    explicit StackException(const std::string &Message) : runtime_error(Message),
+                                                              message(Message) {};
+    const char *what() const noexcept override {
+        return message.c_str();
+    }
 };
+
+class WrongArgument : public StackException {
+public:
+    explicit WrongArgument(const std::string &Message) : StackException(Message) {}
+    WrongArgument() : StackException("WrongArg") {}
+};
+
+class EmptyStack : public StackException {
+public:
+    explicit EmptyStack(const std::string &Message) : StackException(Message) {}
+    EmptyStack() : StackException("Stack is Empty") {}
+};
+
+class UnknownCommand : public StackException {
+public:
+    explicit UnknownCommand(const std::string &Message) : StackException(Message) {}
+    UnknownCommand() : StackException("Unknown command!") {}
+};
+
+class OverflowException : public StackException {
+public:
+    explicit OverflowException(const std::string &Message) : StackException(Message) {}
+    OverflowException() : StackException("Overflow Exception") {}
+};
+
+class DivisionByZero : public StackException {
+public:
+    explicit DivisionByZero(const std::string &Message) : StackException(Message) {}
+    DivisionByZero() : StackException("DivisionByZero Error") {}
+};
+
+void CustomException::SafeIntOnOverflow() {
+    throw OverflowException();
+}
 
 #endif //CPP_LABS_ERRORS_H
