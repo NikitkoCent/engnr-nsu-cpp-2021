@@ -6,6 +6,7 @@
 #include <exception>
 #include <iostream>
 #include <algorithm>
+#include <memory>
 #include "Exceptions.h"
 
 int64_t Context::pop() {
