@@ -1,5 +1,5 @@
 #include "Lab_2.h"
-#include "Operation.cpp"
+#include "Operation.h"
 
 int main(int argc, char* argv[]) {
 
