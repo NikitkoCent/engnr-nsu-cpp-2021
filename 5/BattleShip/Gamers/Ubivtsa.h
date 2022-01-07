@@ -4,6 +4,7 @@
 
 #ifndef BATTLESHIPGAME_UBIVTSA_H
 #define BATTLESHIPGAME_UBIVTSA_H
+#include <memory>
 #include "OptimalGamer.h"
 
 class Ubivtsa: public OptimalGamer {
