@@ -11,13 +11,12 @@ add_executable(calc main.cpp src/Command.cpp src/Command.h)
 #target_link_libraries(calc SafeInt)
 if (MSVC)
     target_compile_options(calc
-            PRIVATE /W4          # warnings level
-#            PRIVATE /WX          # treat all warnings as errors
+            PRIVATE /W4
+            #            PRIVATE /WX
             )
 else()
     target_compile_options(calc
-            PRIVATE -Wall        # basic set of warnings
-            PRIVATE -pedantic    # modern C++ inspections
-#            PRIVATE -Werror      # treat all warnings as errors
+            PRIVATE -Wall
+            PRIVATE -pedantic
             )
 endif()
