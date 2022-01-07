@@ -1,5 +1,5 @@
 #include "Lab_2.h"
-#include "Exceptions.cpp"
+#include "Exceptions.h"
 
 class Operations {
 public:

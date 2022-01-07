@@ -1,5 +1,5 @@
 #include "Lab_2.h"
-#include "Fabric.cpp"
+#include "Fabric.h"
 
 class Factory {
 public:
