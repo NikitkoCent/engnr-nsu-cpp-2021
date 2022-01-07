@@ -1,5 +1,7 @@
 #include "calc.h"
+
 #define elif else if
+
 #include <string>
 #include <memory>
 
@@ -26,17 +28,18 @@ void Plus::rep(const std::vector<std::string> &command_str,
 ) {
     if (data.values.size() == 0) {
         throw CalcExceptions::StackEmpty();
-    }
-    elif (data.values.size() < 2) { // проверка на то, что у нас есть два слагаемых
+    } elif (data.values.size() < 2) { // проверка на то, что у нас есть два слагаемых
         throw CalcExceptions::StackDeficit();
     } else {
         int64_t first_summand = data.values.top();
         data.values.pop();
         int64_t second_summand = data.values.top();
         data.values.pop();
-
         int64_t result;
         SafeAdd(first_summand, second_summand, result);
+        if (SafeAdd(first_summand, second_summand, result) == false) {
+            throw CalcExceptions::my_overflow();
+        }
         data.values.push(result);
     }
 }
@@ -46,8 +49,7 @@ void Minus::rep(const std::vector<std::string> &command_str,
 ) {
     if (data.values.size() == 0) {
         throw CalcExceptions::StackEmpty();
-    }
-    elif (data.values.size() < 2) {
+    } elif (data.values.size() < 2) {
         throw CalcExceptions::StackDeficit();
     } else {
         int64_t first_min = data.values.top();
@@ -57,6 +59,9 @@ void Minus::rep(const std::vector<std::string> &command_str,
 
         int64_t result;
         SafeSubtract(second_min, first_min, result);
+        if (SafeSubtract(second_min, first_min, result) == false) {
+            throw CalcExceptions::my_overflow();
+        }
         data.values.push(result);
     }
 }
@@ -76,8 +81,7 @@ void Mul::rep(const std::vector<std::string> &command_str,
 ) {
     if (data.values.size() == 0) {
         throw CalcExceptions::StackEmpty();
-    }
-    elif (data.values.size() < 2) {
+    } elif (data.values.size() < 2) {
         throw CalcExceptions::StackDeficit();
     } else {
         int64_t first_mul = data.values.top();
@@ -87,6 +91,9 @@ void Mul::rep(const std::vector<std::string> &command_str,
 
         int64_t result;
         SafeMultiply(first_mul, second_mul, result);
+        if (SafeMultiply(first_mul, second_mul, result) == false) {
+            throw CalcExceptions::my_overflow();
+        }
         data.values.push(result);
     }
 
@@ -110,6 +117,9 @@ void Div::rep(const std::vector<std::string> &command_str,
         }
         int64_t result;
         SafeDivide(second_del, first_del, result);
+        if (SafeDivide(second_del, first_del, result) == false) {
+            throw CalcExceptions::my_overflow();
+        }
         data.values.push(result);
     }
 
@@ -118,18 +128,22 @@ void Div::rep(const std::vector<std::string> &command_str,
 void Push::rep(const std::vector<std::string> &command_str,
                calculator_data &data
 ) {
-    std::string name = command_str[1];
-
-    if (name.empty())
-        throw CalcExceptions::EmptyVarName();
-    if (is_number(name)) { // положить число на стек
-        data.values.push(std::stoll(name));
-    } else { // положить число, хранящееся в переменной
-        auto find_count = data.compare_names.find(name);
-        if (find_count == data.compare_names.end()) {
-            throw CalcExceptions::InvalidInput();
+    try {
+        std::string name = command_str[1];
+        if (name.empty())
+            throw CalcExceptions::EmptyVarName();
+        if (is_number(name)) { // положить число на стек
+            data.values.push(std::stoll(name));
+        } else { // положить число, хранящееся в переменной
+            auto find_count = data.compare_names.find(name);
+            if (find_count == data.compare_names.end()) {
+                throw CalcExceptions::InvalidInput();
+            }
+            data.values.push(find_count->second);
         }
-        data.values.push(find_count->second);
+    }
+    catch (std::out_of_range) {
+        throw CalcExceptions::PushException();
     }
 }
 
@@ -179,14 +193,15 @@ void Comment::rep(const std::vector<std::string> &command_str,
     //provotorov_the_best.ru
 }
 
-std::unique_ptr <Command> CommandCreator::factoryMethod(const std::vector<std::string> &commands) {
+std::unique_ptr<Command> CommandCreator::factoryMethod(const std::vector<std::string> &commands) {
     std::string tag = commands[0];
     if (tag == "#" || tag == " ") {
-        return  std::make_unique<Comment>();
+        return std::make_unique<Comment>();
     } elif (tag == "POP") {
-        return  std::make_unique<Pop>();
+        return std::make_unique<Pop>();
     } elif (tag == "PUSH") {
-        return  std::make_unique<Push>();
+
+        return std::make_unique<Push>();
     } elif (tag == "PEEK") {
         return std::make_unique<Peek>();
     } elif (tag == "ABS") {
@@ -208,51 +223,33 @@ std::unique_ptr <Command> CommandCreator::factoryMethod(const std::vector<std::s
     }
 }
 
-
-void calc_work(std::stringstream &test_str, std::ifstream &file, int args) {
+void almost_calc_work(std::istream &str) {
     CommandCreator creator;
     calculator_data data;
     std::vector<std::string> phrase;
     std::string word;
-    std::unique_ptr <Command> calc_command;
+    std::unique_ptr<Command> calc_command;
     std::string command;
     std::string cmd_s;
-    if (args == 2) { // считывание из файла (есть название)
+    while (getline(str, cmd_s, '\n')) {
+        if (cmd_s.empty()) // пропуск пустых строк
+            continue;
+        std::stringstream ss(cmd_s);
+        while (std::getline(ss, word, ' ')) {
+            phrase.push_back(word);
+        }
+        calc_command = creator.factoryMethod(phrase);
+        calc_command->rep(phrase, data);
+        phrase.clear();
+    }
+}
 
-        while (getline(file, cmd_s, '\n')) {
-            if (cmd_s.empty()) // пропуск пустых строк
-                continue;
-            std::stringstream ss(cmd_s);
-            while (std:: getline(ss, word, ' ')) {
-                phrase.push_back(word);
-            }
-            calc_command = creator.factoryMethod(phrase);
-            calc_command->rep(phrase, data);
-            phrase.clear();
-        }
+void calc_work(std::stringstream &test_str, std::ifstream &file, int args) {
+    if (args == 2) { // считывание из файла (есть название)
+        almost_calc_work(file);
     } elif (args == 1) {
-        while (std::getline(std::cin, cmd_s, '\n')) {
-            if (cmd_s.empty())
-                continue;
-            std::stringstream ss(cmd_s);
-            while (getline(ss, word, ' ')) {
-                phrase.push_back(word);
-            }
-            calc_command = creator.factoryMethod(phrase);
-            calc_command->rep(phrase, data);
-            phrase.clear();
-        }
+        almost_calc_work(std::cin);
     } elif (args == 3) {
-        while (std::getline(test_str, cmd_s, '\n')) {
-            if (cmd_s.empty())
-                continue;
-            std::stringstream ss(cmd_s);
-            while (std::getline(ss, word, ' ')) {
-                phrase.push_back(word);
-            }
-            calc_command = creator.factoryMethod(phrase);
-            calc_command->rep(phrase, data);
-            phrase.clear();
-        }
+        almost_calc_work(test_str);
     }
 }

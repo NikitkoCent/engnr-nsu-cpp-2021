@@ -49,3 +49,7 @@ std::string CalcExceptions::DivisionByZero::_what() {
 std::string CalcExceptions::InvalidOperation::_what() {
     return base_error + operation_error;
 }
+
+std::string CalcExceptions::my_overflow::_what() {
+    return base_error + over_error;
+}

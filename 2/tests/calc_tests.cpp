@@ -149,6 +149,34 @@ TEST(test9, very_big_grem) {
     EXPECT_THROW(calc_work(in_s, in, 3), SafeIntException);
 }
 
+TEST(test10, very_big_number_for_push) {
+    std::string test = "PUSH 10000000000000000000\n"
+                       "PRINT";
+    std::stringstream in_s(test);
+    std::ifstream in;
+    EXPECT_THROW(calc_work(in_s, in, 3), CalcExceptions::PushException);
+}
+
+TEST(test11, very_big_number_for_mull) {
+    std::string test = "PUSH 853373436854\n"
+                       "PUSH 20898131\n"
+                       "MUL\n"
+                       "PRINT";
+    std::stringstream in_s(test);
+    std::ifstream in;
+    EXPECT_THROW(calc_work(in_s, in, 3), CalcExceptions::my_overflow);
+}
+
+TEST(test12, very_big_number_for_abs) {
+    std::string test = "PUSH -9223372036854775808\n"
+                       "ABS\n"
+                       "PRINT";
+    std::stringstream in_s(test);
+    std::ifstream in;
+    EXPECT_THROW(calc_work(in_s, in, 3), SafeIntException);
+}
+
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

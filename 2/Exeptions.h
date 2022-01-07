@@ -113,6 +113,16 @@ namespace CalcExceptions {
         std::string _what() override;
     };
 
+
+    class my_overflow : public BaseEx {
+    public:
+        std::string over_error;
+
+        explicit my_overflow() : over_error("Vse perepolnilos`") {}
+
+        std::string _what() override;
+    };
+
     class PopException : public BaseEx {
     public:
         std::string pop_error;
