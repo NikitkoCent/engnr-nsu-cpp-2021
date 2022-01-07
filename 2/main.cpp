@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <memory>
 #include "src/Command.h"
 
 using namespace std;
