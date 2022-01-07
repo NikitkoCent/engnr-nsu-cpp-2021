@@ -1,15 +1,10 @@
 #include "Lab_2.h"
-#include "Fabric.cpp"
+#include "Fabric.h"
+#include "Operations.h"
 
-class Factory {
-public:
-    virtual Operations* Create(Param s) = 0;
-    virtual ~Factory() {}
-};
 
-class OperationsFactory: public Factory {
-public:
-    Operations* Create(Param s) {
+Operations* OperationsFactory::Create(Param s) 
+{
         if (s.vst[0] == "POP") {
             return new pop_cmd();
         }
@@ -43,6 +38,6 @@ public:
         else {
             return nullptr;
         }
-    }
+    
 };
 

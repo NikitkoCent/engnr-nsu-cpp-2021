@@ -1,27 +1,17 @@
 #include "Lab_2.h"
-#include "Exceptions.cpp"
+#include "Fabric.h"
+#include "Exceptions.h"
 
-class Operations {
-public:
-    virtual void execute(Param &p) = 0;
-    virtual ~Operations() {}
-};
-
-class pop_cmd : public Operations {
-public:
-    void execute(Param &p) {
+void pop_cmd::execute(Param &p) {
         if (!p.stk.empty()) {
             p.stk.pop();
         }
         else {
             throw EmptyStack();
-        }
-    }
+        }  
 };
 
-class push_cmd : public Operations {
-public:
-    void execute(Param &p) {
+void push_cmd::execute(Param& p) {
         if (strToInteger(p) && p.vst.size() >= 2) {
             p.stk.push(std::stoll(p.vst[1]));
         }
@@ -32,13 +22,11 @@ public:
             else {
                 throw VarNotFound();
             }                        
-        }
+        
     }
 };
 
-class peek_cmd : public Operations {
-public:
-     void execute(Param &p) {
+void peek_cmd::execute(Param& p) {   
         if (!p.stk.empty() && p.vst.size() >= 2) {
             p.var[p.vst[1]] = p.stk.top();
         }
@@ -47,13 +35,10 @@ public:
         }
         else {
             throw ArgNotEntered();
-        }
-    }
+        }   
 };
 
-class abs_cmd : public Operations {
-public:
-    void execute(Param &p)  {
+void abs_cmd::execute(Param& p) {
         int64_t absvar = 0;
         if (!p.stk.empty()) {
             absvar = abs(p.stk.top());
@@ -63,12 +48,10 @@ public:
         else {
             throw EmptyStack();
         }
-    }
 };
 
-class plus_cmd : public Operations {
-public:
-    void execute(Param &p) {
+void plus_cmd::execute(Param& p)
+ {
         //int64_t val1 = 0;
         //int64_t val2 = 0;
         if (!p.stk.empty()) {
@@ -87,12 +70,10 @@ public:
         else {
             throw EmptyStack();
         }
-    }
-};
+ };
 
-class  mul_cmd : public Operations {
-public:
-    void execute(Param &p)  {
+void mul_cmd::execute(Param& p)
+ {
         //int64_t val1 = 0;
         //int64_t val2 = 0;
         if (!p.stk.empty()) {
@@ -112,12 +93,8 @@ public:
         else {
             throw EmptyStack();
         }
-    }
-};
-
-class  minus_cmd : public Operations {
-public:
-    void execute(Param &p)  {
+ };
+void minus_cmd::execute(Param& p) {
         //int64_t val1 = 0;
         //int64_t val2 = 0;
         if (!p.stk.empty()) {
@@ -136,12 +113,9 @@ public:
         else {
             throw EmptyStack();
         }
-    }
 };
 
-class  div_cmd : public Operations {
-public:
-    void execute(Param &p)  {
+void div_cmd::execute(Param& p) {
         //int64_t val1 = 0;
         //int64_t val2 = 0;
         if (!p.stk.empty()) {
@@ -163,27 +137,22 @@ public:
         else {
             throw EmptyStack();
         }
-    }
+    
 };
 
-class  print_cmd : public Operations {
-public:
-    void execute(Param &p)  {
+
+void print_cmd::execute(Param& p){
         if (!p.stk.empty()) {
             cout << p.stk.top() << endl;
         }
         else {
             throw EmptyStack();
         }
-    }
 };
 
-class  read_cmd : public Operations {
-public:
-    void execute(Param &p)  {
+void read_cmd::execute(Param& p){
         int64_t enterval = 0;
         cin >> enterval;
         p.stk.push((SafeInt<int64_t, IntOverflow>) enterval);
-    }
-};
+ };
 

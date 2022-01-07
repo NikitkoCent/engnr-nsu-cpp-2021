@@ -1,5 +1,4 @@
 #include "Lab_2.h"
-#include "Fabric.cpp"
 
 void split(Param &p, const string& s, char delim) {
     stringstream ss(s);

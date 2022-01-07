@@ -1,81 +1,45 @@
 #include "Lab_2.h"
+#include "Exceptions.h"
 
-class Exception: public std::exception
-{
-public:
-    virtual const string GetError() = 0;
-};
-
-
-class EmptyStack : public Exception
-{
-public:
-    virtual const string GetError()
+const string EmptyStack::GetError()
     {
         return "Error: Empty Stack";
     }
-};
 
-class VarNotFound : public Exception
-{
-public:
-    virtual const string GetError()
-    {
-        return "Error: Variable Not Found"; 
-    }
-};
 
-class OneArgumentStack : public Exception
+const string VarNotFound::GetError()
 {
-public:
-    virtual const string GetError()
-    {
-        return "Error: Only 1 argument in the stack";
-    }
-};
+    return "Error: Empty Stack";
+}
 
-class divByZero : public Exception
+const string OneArgumentStack::GetError()
 {
-public:
-    virtual const string GetError()
-    {
-        return "Error: Division by 0";
-    }
-};
+    return "Error: Empty Stack";
+}
 
-class ArgNotEntered : public Exception
+const string divByZero::GetError()
 {
-public:
-    virtual const string GetError()
-    {
-        return "Argument was not entered";
-    }
-};
+    return "Error: Empty Stack";
+}
 
-class NoCommand : public Exception
+const string ArgNotEntered::GetError()
 {
-public:
-    virtual const string GetError()
-    {
-        return "Command not found";
-    }
-};
+    return "Error: Empty Stack";
+}
 
-class SafeIntExceptionStack : public Exception
+const string NoCommand::GetError()
 {
-public:
-    virtual const string GetError()
-    {
-        return "SafeIngter number overflow";
-    }
-};
+    return "Error: Empty Stack";
+}
 
-class IntOverflow : public SafeIntException
+const string SafeIntExceptionStack::GetError()
 {
-public:
-    static void SafeIntOnOverflow(){
-        throw SafeIntExceptionStack();
-    }
-};
+    return "Error: Empty Stack";
+}
+
+void IntOverflow::SafeIntOnOverflow() {
+    throw SafeIntExceptionStack();
+}
+
 
 
