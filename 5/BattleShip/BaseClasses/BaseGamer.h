@@ -21,8 +21,8 @@ public:
     std::string pass; // da, da, password v pablike, i 4to?
 
     BaseGamer(const BattleShipModel *m, std::string p): alphabet("ABCDEFGHIJ"), model(m), is_bot(false), pass(std::move(p)) {}
-    virtual std::vector<std::string> turn_set_stage() {return std::vector<std::string>{"A0", "A0"};}
-    virtual std::vector<std::string> turn_attack_stage() {return std::vector<std::string>{"A0", "A0"};}
+    virtual std::vector<std::string> turn_set_stage() = 0;
+    virtual std::vector<std::string> turn_attack_stage() = 0;
     virtual std::string show_pass() {return pass;}
 };
 
