@@ -79,8 +79,3 @@ public:
 };
 
 
-//class IntOverflow : public SafeIntException
-//{
-//public:
-//    static void SafeIntOnOverflow();
-//};
