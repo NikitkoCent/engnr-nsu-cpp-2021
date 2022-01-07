@@ -66,4 +66,5 @@ void CustomException::SafeIntOnOverflow() {
     throw OverflowException();
 }
 
+
 #endif //CPP_LABS_ERRORS_H
