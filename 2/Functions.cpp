@@ -12,7 +12,7 @@ void split(Param &p, const string& s, char delim) {
 bool strToInteger(Param p) {
     int64_t number = 0;
     try {
-        number = std::stoull(p.vst[1]);
+        number = std::stoll(p.vst[1]);
         if (number - number == 0){
             return true;
         }

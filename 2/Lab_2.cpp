@@ -28,6 +28,7 @@ int main(int argc, char* argv[]) {
                     if (check(p)){
                         cmd_stack = create_stack.Create(p);
                         cmd_stack->execute(p);
+                        delete cmd_stack;
                     }
                     p.vst.clear();
                 }
@@ -59,6 +60,7 @@ int main(int argc, char* argv[]) {
                     if (check(p)){
                         cmd_stack = create_stack.Create(p);
                         cmd_stack->execute(p);
+                        delete cmd_stack;
                     }
                     p.vst.clear();
                 }

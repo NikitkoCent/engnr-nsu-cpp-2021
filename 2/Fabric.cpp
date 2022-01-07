@@ -23,7 +23,7 @@ class push_cmd : public Operations {
 public:
     void execute(Param &p) {
         if (strToInteger(p) && p.vst.size() >= 2) {
-            p.stk.push(std::stoull(p.vst[1]));
+            p.stk.push(std::stoll(p.vst[1]));
         }
         else {
             if (p.var.count(p.vst[1])) {
