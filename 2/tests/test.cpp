@@ -1,4 +1,4 @@
-#include "2\googletest\googletest\include\gtest\gtest.h"
+#include "D:\Server\gitlab\Git\engnr-nsu-cpp-2021\2\googletest\googletest\include\gtest\gtest.h"
 #include "Lab_2.h" 
 #include "Lab_2.cpp"
 
