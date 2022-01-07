@@ -1,2 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libcalculator_lib.a CMakeFiles/calculator_lib.dir/Exeptions.cpp.o CMakeFiles/calculator_lib.dir/calc.cpp.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libcalculator_lib.a
