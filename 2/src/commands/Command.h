@@ -9,6 +9,7 @@
 #include <stack>
 #include <string>
 #include <iostream>
+#include <memory>
 #include "../../libs/SafeInt/SafeInt.hpp"
 
 using namespace std;
