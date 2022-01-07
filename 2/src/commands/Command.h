@@ -8,7 +8,8 @@
 #include <map>
 #include <stack>
 #include <string>
-#include "../libs/SafeInt/SafeInt.hpp"
+#include <iostream>
+#include "../../libs/SafeInt/SafeInt.hpp"
 
 using namespace std;
 
@@ -16,7 +17,13 @@ class Context {
 private:
     map<string, int64_t> variables;
     stack<int64_t> calc_stack_avokado;
+
 public:
+    ostream &output;
+
+    Context(ostream &output);
+
+
     int64_t pop();
 
     int64_t top();
@@ -173,4 +180,8 @@ public:
     void eval(string &args) override;
 };
 //endregion
+
+
+shared_ptr<Command> get_command_by_string(string &cur_string, Context &context);
+void parse_stream(istream &stream, Context &context);
 #endif //CALC_COMMAND_H
