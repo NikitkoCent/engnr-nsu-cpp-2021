@@ -18,4 +18,4 @@ If you play versus bot, you won't see it's board, if you play with your another 
 you will need to enter a password, which is set by the -p argument for this player.
 
 # Screenshot
-![plot](images/bs_demo.jpeg)
+![screenshot](https://github.com/okm-lab/engnr-nsu-cpp-2021/blob/lab5/5/images/bs_demo.jpeg?raw=true)
