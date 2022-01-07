@@ -82,6 +82,10 @@ int BattleShipModel::check_cell_to_hit(const string &c) const {
 
 
 int BattleShipModel::hit(const std::string& c) {
+    if (awaiting_password) {
+        update_view();
+        return -1;
+    }
     int status = check_cell_to_hit(c);
     if (status) {
         game_message = status == 1 ? "Please, enter right coordinates!" :  "This cell is already opened!";
@@ -116,6 +120,7 @@ int BattleShipModel::hit(const std::string& c) {
         boards[enemy_board_number][x][y]   = MISS;
         boards[can_see_board_number][x][y] = MISS;
         current_player = 1-current_player;
+        lock();
         check_winner();
         update_view();
         game_message = "";
@@ -127,6 +132,9 @@ int BattleShipModel::hit(const std::string& c) {
 
 
 bool BattleShipModel::set(const std::string& c0, const std::string& c1) {
+    if (awaiting_password) {
+        return false;
+    }
     if (check_possibility_to_set(c0, c1) == 0 || turn_number > 20) {
         game_message = "You can't place this ship here!";
         update_view();
@@ -162,9 +170,9 @@ bool BattleShipModel::set(const std::string& c0, const std::string& c1) {
             game_message = "Game Starts!";
             awaiting_ship = -1;
         }
+        lock();
     }
     update_view();
-    game_message = "";
     return true;
 }
 
@@ -283,4 +291,26 @@ int BattleShipModel::get_awaiting_ship() const {
 void BattleShipModel::update_view() {
     if (!is_bot[current_player] || (is_bot[current_player] && is_bot[1-current_player]))
         view->update();
+}
+
+bool BattleShipModel::check_password(const std::string& pass) {
+    if (!awaiting_password || (pass == passwords[current_player])) {
+        awaiting_password = false;
+        update_view();
+        return true;
+    }
+    return false;
+}
+
+void BattleShipModel::set_password(int player, const std::string &pass) {
+    passwords[player] = pass;
+}
+
+bool BattleShipModel::get_awaiting_password() const {
+    return awaiting_password;
+}
+
+void BattleShipModel::lock() {
+    if (!is_bot[current_player] || !(is_bot[current_player] && is_bot[1-current_player]))
+        awaiting_password = true;
 }

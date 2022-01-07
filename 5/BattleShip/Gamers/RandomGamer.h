@@ -7,6 +7,8 @@
 
 #include <BaseClasses/BaseGamer.h>
 
+#include <utility>
+
 class RandomGamer: public BaseBot {
 public:
     explicit RandomGamer(BattleShipModel *m): BaseBot(m) {}

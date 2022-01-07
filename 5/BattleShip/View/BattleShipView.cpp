@@ -79,7 +79,7 @@ void show_div_line() {
 }
 
 
-void BattleShipView::show_board(std::array<std::array<std::array<char, 10>, 10>, 2> boards, const std::string &alphabet) {
+void BattleShipView::show_board(std::array<std::array<std::array<char, 10>, 10>, 2> boards) const {
     std::cout << "     ";
     for (int i = 0; i < 2; i++) { // show letters
         for (int j = 0; j < BOARD_SIZE; j++)
@@ -99,13 +99,18 @@ void BattleShipView::show_board(std::array<std::array<std::array<char, 10>, 10>,
 
 void BattleShipView::update() const {
     clear_screen();
-    std::cout << "Board for player " << model->get_current_player()+1 << "    Turn: " << model->get_turn_number() << std::endl;
-    show_board(get_array_from_tuple(model->get_boards()), "ABCDEFGHIJ");
-    std::cout << "\n" << std::endl;
-    show_game_message();
-    std::cout << std::endl;
-    if (model->get_winner()) {
-        show_win_message();
+    if (model->get_awaiting_password()) {
+        show_pass_requirement();
+    }
+    else {
+        std::cout << "Board for player " << model->get_current_player() + 1 << "    Turn: " << model->get_turn_number() << std::endl;
+        show_board(get_array_from_tuple(model->get_boards()));
+        std::cout << "\n" << std::endl;
+        show_game_message();
+        std::cout << std::endl;
+        if (model->get_winner()) {
+            show_win_message();
+        }
     }
 }
 
@@ -122,6 +127,11 @@ void BattleShipView::show_game_message() const {
 
 BattleShipView::BattleShipView(BattleShipModel *bs_model) {
     model = bs_model;
+    alphabet = "ABCDEFGHIJ";
     model->add_view(this);
     this->update();
+}
+
+void BattleShipView::show_pass_requirement() const {
+    std::cout << "Please, enter password for player " << model->get_current_player() << ": ";
 }

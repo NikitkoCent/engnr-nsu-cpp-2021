@@ -28,15 +28,18 @@
 class BattleShipView: BaseView {
 private:
     BattleShipModel *model;
+    std::string alphabet;
 public:
 
     explicit BattleShipView(BattleShipModel *bs_model);
 
     ~BattleShipView() = default;
 
-    static void show_board(std::array<std::array<std::array<char, 10>, 10>, 2> boards, const std::string &alphabet);
+    void show_board(std::array<std::array<std::array<char, 10>, 10>, 2> boards) const;
 
     void update() const override;
+
+    void show_pass_requirement() const;
 
     void show_win_message() const;
 

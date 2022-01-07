@@ -6,13 +6,14 @@
 #define LAB4_CONSOLEGAMER_H
 #include "BaseClasses/BaseGamer.h"
 #include <iostream>
+#include <utility>
 
 class ConsoleGamer: public BaseGamer {
 public:
-    explicit ConsoleGamer(BattleShipModel *m): BaseGamer(m) {}
+    explicit ConsoleGamer(BattleShipModel *m, std::string p): BaseGamer(m, std::move(p)) {}
 
     std::vector<std::string> turn_set_stage() override;
-
+    std::string show_pass() override;
     std::vector<std::string> turn_attack_stage() override;
 };
 

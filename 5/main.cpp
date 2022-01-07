@@ -71,7 +71,7 @@ void print_help() {
     if (arg == '1') {
         start_tutorial();
     } else {
-        std::cout << "Usage: ./BattleShipGame -f [first player model] -s [second player model] -c [session count]" << std::endl;
+        std::cout << "Usage: ./BattleShipGame -f [first player model] -s [second player model] -c [session count] -p [password1] -p [password2]" << std::endl;
         std::cout << "Player models: interactive - play from console, random - random bot, optimal - optimal bot" << std::endl;
     }
 }
@@ -83,7 +83,10 @@ int main(int argc, char** argv) {
             ("f,first", "First model", cxxopts::value<std::string>())
             ("s,second", "Second model", cxxopts::value<std::string>())
             ("h,help", "Print help", cxxopts::value<bool>()->default_value("false"))
-            ("c,count", "Session count", cxxopts::value<int>()->default_value("1"));
+
+//            ("p2,password2", "Password for player 2", cxxopts::value<std::string>()->default_value("a"))
+            ("c,count", "Session count", cxxopts::value<int>()->default_value("1"))
+            ("p,password", "Password for player", cxxopts::value<std::vector<std::string>>());
 
     auto result = options.parse(argc, argv);
     if (result["h"].as<bool>()) {
@@ -93,7 +96,7 @@ int main(int argc, char** argv) {
     BattleShipModel model;
     BaseGamer *g1, *g2;
     if (result["f"].as<std::string>() == "interactive") {
-        g1 = new ConsoleGamer(&model);
+        g1 = new ConsoleGamer(&model, result["p"].as<std::vector<std::string>>()[0]);
     } else if (result["f"].as<std::string>() == "random") {
         g1 = new RandomGamer(&model);
     } else if (result["f"].as<std::string>() == "optimal") {
@@ -104,7 +107,7 @@ int main(int argc, char** argv) {
     }
 
     if (result["s"].as<std::string>() == "interactive") {
-        g2 = new ConsoleGamer(&model);
+        g2 = new ConsoleGamer(&model, result["p"].as<std::vector<std::string>>()[1]);
     } else if (result["s"].as<std::string>() == "random") {
         g2 = new RandomGamer(&model);
     } else if (result["s"].as<std::string>() == "optimal") {

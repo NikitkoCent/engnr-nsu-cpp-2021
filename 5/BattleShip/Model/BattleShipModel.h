@@ -31,10 +31,13 @@ private:
     int             sets[2][4]{};               // sets of ships for 1st and 2nd player
     int             player_scores[2]{};         // 20 - default, 4*1+3*2+2*3+1*4, 0 = lose
     bool            current_player{false};      // 0 or 1
+    bool            awaiting_password{false};
+    int             awaiting_ship{3};           // awaiting len - 1, exactly YY - XX
     std::string     game_message{};
     size_t          turn_number{0};
-    int             awaiting_ship{3};           // awaiting len - 1, exactly YY - XX
+    std::string     passwords[2]{};
     bool            is_bot[2]{};
+
 
     void mark_halos_around_destroyed_ship(size_t board_number, size_t enemy_board_number, int x, int y); // x, y - one pair of points that the ship contains
     bool check_ship_destroyed(size_t board_number, int x, int y);
@@ -46,14 +49,17 @@ public:
     BattleShipModel();
     ~BattleShipModel() = default;
 
+    void reset();
     void add_view(BaseView *bs_view);
     void update_player_status(int player, bool bot);
+    bool check_password(const std::string& pass);
+    void set_password(int player, const std::string& pass);
 
     int  hit(const std::string& c);
     bool set(const std::string& c) {return set(c, c);}
     bool set(const std::string& c0, const std::string& c1);
 
-    void reset();
+    void lock();
 
     [[nodiscard]] std::tuple<btype, btype>    get_boards()                                                    const;
     [[nodiscard]] int                         get_winner()                                                    const;
@@ -61,9 +67,11 @@ public:
     [[nodiscard]] std::string                 get_game_message()                                              const;
     [[nodiscard]] int                         get_awaiting_ship()                                             const;
     [[nodiscard]] bool                        get_current_player()                                            const;
+    [[nodiscard]] bool                        get_awaiting_password()                                         const;
     [[nodiscard]] bool                        check_neighbour_ships(int x, int y)                             const;
     [[nodiscard]] int                         check_cell_to_hit(const string& c)                              const;
     [[nodiscard]] bool                        check_possibility_to_set(const string& c0, const string& c1)    const;
+
 };
 
 

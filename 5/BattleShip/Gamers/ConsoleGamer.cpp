@@ -8,7 +8,7 @@ std::vector<std::string> ConsoleGamer::turn_set_stage() {
     std::string s;
     std::vector<std::string> v;
     int length = model->get_awaiting_ship();
-    if (length == -1 || length == 1) { // attack stage or 1-cell ship
+    if (length == -1 || length == 0) { // attack stage or 1-cell ship
         std::cin >> s;
         v.push_back(s);
         v.push_back(s);
@@ -23,4 +23,10 @@ std::vector<std::string> ConsoleGamer::turn_set_stage() {
 
 std::vector<std::string> ConsoleGamer::turn_attack_stage() {
     return turn_set_stage();
+}
+
+std::string ConsoleGamer::show_pass() {
+    std::string p;
+    std::cin >> p;
+    return p;
 }

@@ -6,6 +6,7 @@
 #define LAB4_OPTIMALGAMER_H
 #include <BaseClasses/BaseGamer.h>
 #include <climits>
+#include <utility>
 
 class OptimalGamer: public BaseBot {
 private:
