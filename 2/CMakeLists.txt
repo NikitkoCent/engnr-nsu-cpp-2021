@@ -12,7 +12,6 @@ add_executable (Lab_2_fabric "Lab_2.cpp" "Lab_2.h" "Functions.cpp" "Fabric.cpp" 
 
 add_subdirectory(SafeInt)
 add_subdirectory(googletest)
-#add_subdirectory(tests)
 # TODO: Add tests and install targets if needed.
 if (MSVC)
     target_compile_options( Lab_2_fabric
@@ -24,3 +23,23 @@ else()
            PRIVATE -Wall        # basic set of warnings
     )
 endif()
+
+enable_testing()
+
+add_executable(
+  tests
+  tests.cpp
+  Lab_2.h
+  Functions.cpp 
+  Fabric.cpp 
+  Exceptions.cpp 
+  Operation.cpp
+  
+)
+target_link_libraries(
+  tests
+  gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(tests)
