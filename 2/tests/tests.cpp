@@ -69,11 +69,7 @@ TEST(CALCULATOR1, DIVISION_BY_ZERO) {
 }
 
 TEST(CALCULATOR1, UNKNOWN_COMMAND) {
-    std::stringstream data("PUSH 1\n"
-                           "PUSH 0\n"
-                           "DIV\n"
-                           "PLUS\n"
-                           "DEV");
+    std::stringstream data("DEV");
     std::ostringstream oss;
     Context context(oss);
     EXPECT_THROW(parse_stream(data, context), UnknownArgument);
