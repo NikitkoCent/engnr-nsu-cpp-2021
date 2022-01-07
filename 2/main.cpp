@@ -44,11 +44,11 @@ void parse_stream(istream &stream, Context &context) {
         string strCommand;
         stream >> strCommand;
         shared_ptr<Command> command = get_command_by_string(strCommand, context);
-        if (auto argsCommand = dynamic_pointer_cast<ArgsCommand, Command> (command)){
+        if (auto argsCommand = dynamic_pointer_cast<ArgsCommand> (command)){
             string args;
             getline(stream, args);
             argsCommand->eval(args);
-        } else if (auto nonArgsCommand = dynamic_pointer_cast<NonArgsCommand, Command> (command)){
+        } else if (auto nonArgsCommand = dynamic_pointer_cast<NonArgsCommand> (command)){
             nonArgsCommand->eval();
         }
 
