@@ -4,7 +4,6 @@ project(css_task4)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(css_task4 Program.cpp Task.h UserInterface.cpp UserInterface.h Worker.cpp Worker.h WorkerPool.cpp WorkerPool.h WorkerResult.cpp WorkerResult.h)
-add_compile_options(-pthread)
 
 target_compile_features(css_task4 PRIVATE cxx_std_17)
 
@@ -14,6 +13,7 @@ if (MSVC)
 			PRIVATE /WX          # treat all warnings as errors
 			)
 else()
+	set(CMAKE_CXX_FLAGS "-pthread")
 	target_compile_options(css_task4 
 			PRIVATE -Wall        # basic set of warnings
 			PRIVATE -pedantic    # modern C++ inspections
