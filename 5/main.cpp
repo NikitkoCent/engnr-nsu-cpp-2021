@@ -9,6 +9,7 @@
 #include "BattleShip/Gamers/ConsoleGamer.h"
 #include "BattleShip/Gamers/RandomGamer.h"
 #include "BattleShip/Controller/ScenarioViewer.h"
+#include "BattleShip/Gamers/Ubivtsa.h"
 
 void clear()
 {
@@ -72,7 +73,7 @@ void print_help() {
         start_tutorial();
     } else {
         std::cout << "Usage: ./BattleShipGame -f [first player model] -s [second player model] -c [session count] -p [password1] -p [password2]" << std::endl;
-        std::cout << "Player models: interactive - play from console, random - random bot, optimal - optimal bot" << std::endl;
+        std::cout << "Player models: interactive - play from console, random - random bot, optimal - optimal bot, imbalance - hard bot" << std::endl;
     }
 }
 
@@ -99,6 +100,8 @@ int main(int argc, char** argv) {
         g1 = new RandomGamer(&model);
     } else if (result["f"].as<std::string>() == "optimal") {
         g1 = new OptimalGamer(&model);
+    } else if(result["f"].as<std::string>() == "imbalance") {
+        g1 = new Ubivtsa(&model);
     } else {
         std::cerr << "Wrong --first argument!";
         return 1;
@@ -110,13 +113,17 @@ int main(int argc, char** argv) {
         g2 = new RandomGamer(&model);
     } else if (result["s"].as<std::string>() == "optimal") {
         g2 = new OptimalGamer(&model);
+    } else if(result["s"].as<std::string>() == "imbalance") {
+        g2 = new Ubivtsa(&model);
     } else {
         std::cerr << "Wrong --second argument!";
         return 1;
     }
 
+
     BattleShipView view(&model);
     BattleShipController controller(&model, g1, g2);
     controller.start(result["c"].as<int>());
-
 }
+
+// A0 A3 C0 C2 E0 E2 G0 G1 I0 I1 J3 J4 H5 E6 I8 C8

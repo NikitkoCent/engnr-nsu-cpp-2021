@@ -6,16 +6,20 @@ C++ implementation of a battleship game in terminal
     cd build && cmake .. && make
 # Launch settings
     ./BattleShipGame -f [str] -s [str] -c [int] -p [str] -p [str] 
+
     Important arguments:
     -f   --first      model for first player
-    -s   --secomd     model for second player
+    -s   --second     model for second player
     -c   --count      sessions count
     -p   --password   password for first/second player
 
-    Player models: interactive - play from terminal, random - random bot, optimal - optimal bot
-    
     Optional arguments:
     -h --help print help/tutorial
+# Player models: 
+    interactive - play from terminal
+    random - random bot
+    optimal - optimal bot, optimal placement
+    imbalance - imbalanced bot, optimal placement + optimal attacks
 
 # Gameplay
 The game allows two users (bots) to play the classic game of Battleship with a 10x10 board.

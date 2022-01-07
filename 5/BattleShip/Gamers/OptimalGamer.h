@@ -9,7 +9,7 @@
 #include <utility>
 
 class OptimalGamer: public BaseBot {
-private:
+protected:
     static bool is_halo(int halos[10][10], int x, int y);
 
     static void set_halo_around_ship(int halos[10][10], int x, int y);

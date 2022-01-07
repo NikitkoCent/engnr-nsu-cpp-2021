@@ -41,7 +41,6 @@ void BattleShipController::start(int c) {
                     v = g->turn_set_stage();
                     log += v[0] + " " + v[1] + "\n";
                 } while (model->set(v[0], v[1]) == 0);
-
             }
         }
         //stage 2 - attack

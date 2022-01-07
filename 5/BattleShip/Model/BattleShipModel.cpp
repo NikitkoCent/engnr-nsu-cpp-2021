@@ -18,6 +18,7 @@ BattleShipModel::BattleShipModel() {
 
 void BattleShipModel::reset() {
     current_player = false;
+    awaiting_password = false;
     winner = 0;
     turn_number = 0;
     awaiting_ship = 3;
