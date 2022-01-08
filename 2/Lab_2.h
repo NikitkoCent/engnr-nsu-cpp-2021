@@ -80,7 +80,7 @@ class Param {
 public:
     stack<SafeInt<int64_t, IntOverflow>> stk;
     vector<string> vst;
-    map<string, SafeInt<int64_t>> var;
+    map<string, SafeInt<int64_t, IntOverflow>> var;
 
     ~Param() {
         vst.clear();
