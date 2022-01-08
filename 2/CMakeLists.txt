@@ -24,3 +24,24 @@ else()
            PRIVATE -Wall        # basic set of warnings
     )
 endif()
+
+
+enable_testing()
+
+add_executable(
+
+  tests
+  tests.cpp
+  Lab_2.h
+  Fabric.h
+  Operations.h
+  Exceptions.h
+)
+
+target_link_libraries(
+  tests
+  gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(tests)
