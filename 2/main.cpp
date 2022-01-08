@@ -2,10 +2,6 @@
 #include "calc.h"
 #include <string>
 #define elif else if
-namespace std
-{
-#include <cstdlib>
-};
 
 int main(int argc, char *argv[]) {
     try {
