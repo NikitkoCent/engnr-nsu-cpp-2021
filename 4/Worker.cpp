@@ -54,7 +54,7 @@ void Worker::Work()
 			std::this_thread::sleep_for(std::chrono::microseconds(250));
 
 			taskMut.lock();
-			bool key = task;
+			bool key = (task != NULL);
 			if (key) it = std::string(*task);
 			taskMut.unlock();
 

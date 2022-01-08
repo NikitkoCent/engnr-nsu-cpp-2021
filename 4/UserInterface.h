@@ -17,3 +17,4 @@ public:
 	void Work();
 };
 
+int mcmp(const char* x_, const char* y_);

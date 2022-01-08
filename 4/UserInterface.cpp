@@ -27,9 +27,9 @@ void UserInterface::TakeResult(WorkerResult* result)
 {
 	mut.lock();
 	if (result->IsError())
-		std::cerr << result->Dir() << " " << result->GetError() << std::endl;
+		std::cerr << result->Dir() << " : " << result->GetError() << std::endl;
 	else
-		std::cout << result->Dir() << " " << result->Size() << std::endl;
+		std::cout << result->Dir() << " : " << result->Size() << std::endl;
 	mut.unlock();
 	delete result;
 }
@@ -57,9 +57,9 @@ void UserInterface::Work()
 			auto key = pool->AddTask(new std::string(input));
 			mut.lock();
 			if (key < 0)
-				std::cerr << input << " process stopped before accepting task" << std::endl;
+				std::cerr << input << " : process stopped before accepting task" << std::endl;
 			else
-				std::cout << input << "task accepted, " << key << " position in queue" << std::endl;
+				std::cout << input << " : task accepted, " << key << " position in queue" << std::endl;
 			mut.unlock();
 		}
 		std::cin.seekg(std::cin.end);
