@@ -65,15 +65,12 @@ void Abs::ct(type &tp, std::vector<std::string> str) {
     if (tp.stack_.empty()) {
         throw AbsException(); //e.s.
     }
-    try{
+
         SafeInt<int64_t> value = tp.stack_.top();
         tp.stack_.pop();
         if(value < 0) {value = (-1)*value;}
         tp.stack_.push(value);
-    }
-    catch(...){
-        throw SIException();
-    }
+
 }
 
 void Plus::ct(type &tp, std::vector<std::string> str) {
