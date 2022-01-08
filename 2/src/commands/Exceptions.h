@@ -42,6 +42,11 @@ public:
 class DivideByZero : public BaseException {
 public:
     explicit DivideByZero(const std::string &whatMessage) : BaseException(whatMessage) {}
-    DivideByZero() : BaseException("Stack is Empty") {}
+    DivideByZero() : BaseException("Divide by zero") {}
+};
+class ArithmeticalError : public BaseException {
+public:
+    explicit ArithmeticalError(const std::string &whatMessage) : BaseException(whatMessage) {}
+    ArithmeticalError() : BaseException("Arithmetical error") {}
 };
 #endif //CALC_EXCEPTIONS_H

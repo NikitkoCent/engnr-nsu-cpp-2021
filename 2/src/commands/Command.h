@@ -45,18 +45,21 @@ public:
     explicit Command(Context &cur_context) : context(cur_context) {};
 
     virtual ~Command() = default;
+
+    virtual void eval(string &args) = 0;
 };
 
 class ArgsCommand : public Command {
 public:
     explicit ArgsCommand(Context &curContext) : Command(curContext) {};
 
-    virtual void eval(string &args) = 0;
 };
 
 class NonArgsCommand : public Command {
 public:
     explicit NonArgsCommand(Context &curContext) : Command(curContext) {};
+
+    void eval(string &args) override { eval(); }
 
     virtual void eval() = 0;
 };
@@ -184,5 +187,7 @@ public:
 
 
 shared_ptr<Command> get_command_by_string(string &cur_string, Context &context);
+
 void parse_stream(istream &stream, Context &context);
+
 #endif //CALC_COMMAND_H

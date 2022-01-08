@@ -1,4 +1,3 @@
-#include <fstream>
 #include "../src/commands/Command.h"
 #include "../src/commands/Exceptions.h"
 #include "gtest/gtest.h"
@@ -94,4 +93,41 @@ TEST(CALCULATOR1, WrongArgument) {
     Context context(oss);
     EXPECT_THROW(parse_stream(data, context), WrongArgument);
 
+}
+
+TEST(CALCULATOR1, ArithmeticalOverflow1) {
+    std::stringstream data("PUSH 853373436854\n"
+                           "PUSH 20898131\n"
+                           "MUL\n"
+                           "PRINT");
+    std::ostringstream oss;
+    Context context(oss);
+    EXPECT_THROW(parse_stream(data, context), SafeIntException);
+}
+
+TEST(CALCULATOR1, ArithmeticalOverflow2) {
+    std::stringstream data("PUSH -9223372036854775808\n"
+                           "ABS\n"
+                           "PRINT");
+    std::ostringstream oss;
+    Context context(oss);
+    EXPECT_THROW(parse_stream(data, context), SafeIntException);
+}
+
+TEST(CALCULATOR1, ArithmeticalOverflow3) {
+    std::stringstream data("PUSH 10000000000000000000\n"
+                           "PRINT");
+    std::ostringstream oss;
+    Context context(oss);
+    EXPECT_THROW(parse_stream(data, context), WrongArgument);
+}
+
+TEST(CALCULATOR1, ArithmeticalOverflow4) {
+    std::stringstream data("PUSH -9223372036854775808\n"
+                           "PUSH -1\n"
+                           "DIV\n"
+                           "PRINT");
+    std::ostringstream oss;
+    Context context(oss);
+    EXPECT_THROW(parse_stream(data, context), ArithmeticalError);
 }

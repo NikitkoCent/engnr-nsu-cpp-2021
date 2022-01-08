@@ -40,8 +40,6 @@ void Context::push(int64_t val) {
 Context::Context(ostream &output) : output(output) {}
 
 
-
-
 void BinaryArithmeticalCommand::eval() {
     SafeInt<int64_t> first = context.pop();
     SafeInt<int64_t> second = context.pop();
@@ -56,7 +54,10 @@ int64_t Div::command(SafeInt<int64_t> first, SafeInt<int64_t> second) {
     int64_t a = first, b = second, res;
     if (a == 0)
         throw DivideByZero();
-    SafeDivide(b, a, res);
+    if (!SafeDivide(b, a, res)) {
+        throw ArithmeticalError();
+    }
+
     return res;
 }
 
@@ -74,7 +75,7 @@ void Read::eval() {
     string val;
     cin >> val;
     try {
-        int64_t value = stoi(val);
+        int64_t value = stoll(val);
         context.push(value);
     } catch (invalid_argument &e) {
         throw WrongArgument();
@@ -98,11 +99,13 @@ void Peek::eval(string &args) {
 
 void Push::eval(string &args) {
     try {
-        int64_t value = stoi(args);
+        int64_t value = stoll(args);
         context.push(value);
-    } catch (exception &e) {
+    } catch (invalid_argument &e) {
         auto val = context.get_variable(args);
         context.push(val);
+    } catch (out_of_range &e) {
+        throw WrongArgument();
     }
 }
 
@@ -145,15 +148,12 @@ shared_ptr<Command> get_command_by_string(string &cur_string, Context &context) 
 
 void parse_stream(istream &stream, Context &context) {
     while (!stream.eof()) {
-        string strCommand;
-        stream >> strCommand;
+        string inputStr;
+        getline(stream, inputStr);
+        auto commaPos = inputStr.find(' ');
+        string strCommand = inputStr.substr(0, commaPos);
+        string strArgs = inputStr.substr(commaPos + 1, inputStr.length());
         shared_ptr<Command> command = get_command_by_string(strCommand, context);
-        if (auto argsCommand = dynamic_pointer_cast<ArgsCommand>(command)) {
-            string args;
-            getline(stream, args);
-            argsCommand->eval(args);
-        } else if (auto nonArgsCommand = dynamic_pointer_cast<NonArgsCommand>(command)) {
-            nonArgsCommand->eval();
-        }
+        command->eval(strArgs);
     }
 }
