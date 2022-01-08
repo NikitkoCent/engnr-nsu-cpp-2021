@@ -39,7 +39,9 @@ int main(int argc, char *argv[]) {
 
     file.open(filename, std::ios_base::binary);
     if (!file.is_open()) {
-        throw std::runtime_error("Invalid filename");
+        std::cerr << "Invalid filename" << std::endl;
+        std::cerr << help_message;
+        return 1;
     }
     try {
         if (name_mode == "sum64") {
