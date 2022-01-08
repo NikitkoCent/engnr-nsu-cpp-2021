@@ -33,7 +33,6 @@ void Pop::ct(type &tp, std::vector<std::string> str){
 
 void Push::ct(type &tp, std::vector<std::string> str) {
     if (str.size()<2) {
-        std::cout<<"ass";
         throw VarnameException();
     }
     std::string varname = str[1];
@@ -77,7 +76,7 @@ void Plus::ct(type &tp, std::vector<std::string> str) {
     int64_t se = tp.stack_.top();
     tp.stack_.pop();
     int64_t sum;
-    SafeAdd(se, fe, sum);
+    //SafeAdd(se, fe, sum);
     if(SafeAdd(se, fe, sum) == 0){
         throw SIException();
     }
@@ -94,7 +93,7 @@ void Minus::ct(type &tp, std::vector<std::string> str){
     int64_t se = tp.stack_.top();
     tp.stack_.pop();
     int64_t razn;
-    SafeSubtract(se, fe, razn);
+    //SafeSubtract(se, fe, razn);
     if(SafeSubtract(se, fe, razn) == 0){
         throw SIException();
     }
@@ -110,7 +109,7 @@ void Mul::ct(type &tp, std::vector<std::string> str){
     int64_t se = tp.stack_.top();
     tp.stack_.pop();
     int64_t mull;
-    SafeMultiply(se, fe, mull);
+    //SafeMultiply(se, fe, mull);
     if(SafeMultiply(se, fe, mull) == 0){
         throw SIException();
     }
@@ -129,7 +128,7 @@ void Div::ct(type &tp, std::vector<std::string> str){
         throw ZeroException();
     }
     int64_t divv;
-    SafeDivide(se, fe, divv);
+    //SafeDivide(se, fe, divv);
     if(SafeDivide(se, fe, divv) == 0){
         throw SIException();
     }
@@ -172,9 +171,11 @@ void countingg(std::istream &is) {
 
 }
 
-void counting(std::ifstream &file, int args){
+void counting(std::stringstream &in, std::ifstream &file, int args){
+    if(args == 1){ countingg(std::cin);}
     if(args == 2){ countingg(file);}
-    else { countingg(std::cin);}
+    if(args == 3){ countingg(in);}
+
 }
 
 

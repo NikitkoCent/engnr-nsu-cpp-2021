@@ -263,7 +263,7 @@ public:
 };
 
 void countingg(std::istream &is);
-void counting(std::ifstream& in, int args);
+void counting(std::stringstream &in1, std::ifstream& in2, int args);
 
 bool is_number(std::string &str);
 

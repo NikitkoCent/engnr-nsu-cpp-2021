@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
     try {
         std::ifstream file;
         std::string path;
+        std::stringstream in;
 
         if(argc != 1 && argc != 2){
             std::cerr << "Error: The argument is entered incorrectly" << std::endl;
@@ -37,7 +38,7 @@ int main(int argc, char *argv[]) {
             }
 
         }
-        counting(file, argc);
+        counting(in, file, argc);
     }
     catch (StackException &error){
         std::cerr << error.what() << std::endl;
