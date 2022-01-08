@@ -150,6 +150,7 @@ void parse_stream(istream &stream, Context &context) {
     while (!stream.eof()) {
         string inputStr;
         getline(stream, inputStr);
+        if (inputStr.empty()) return;
         auto commaPos = inputStr.find(' ');
         string strCommand = inputStr.substr(0, commaPos);
         string strArgs = inputStr.substr(commaPos + 1, inputStr.length());

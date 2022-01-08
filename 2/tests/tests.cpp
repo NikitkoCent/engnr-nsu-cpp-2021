@@ -22,7 +22,14 @@ TEST(CALCULATOR1, EXAMPLE_TEST) {
     parse_stream(data, context);
     EXPECT_EQ(oss.str(), result);
 }
-
+TEST(CALCULATOR1, EMPTY_TEST) {
+    std::stringstream data("");
+    string result;
+    std::ostringstream oss;
+    Context context(oss);
+    parse_stream(data, context);
+    EXPECT_EQ(oss.str(), result);
+}
 TEST(CALCULATOR1, DOUBLE_PRINT) {
     std::stringstream data("PUSH 100\n"
                            "PRINT\n"
