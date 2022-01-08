@@ -11,12 +11,11 @@
 #include "../../libs/SafeInt/SafeInt.hpp"
 #include <memory>
 
-using namespace std;
 
-class StackException : public runtime_error {
-    string what_message = "Error: ";
+class StackException : public std::runtime_error {
+    std::string what_message = "Error: ";
 public:
-    explicit StackException(const string &whatMessage) : runtime_error(whatMessage),
+    explicit StackException(const std::string &whatMessage) : runtime_error(whatMessage),
                                                 what_message(whatMessage) {};
     const char *what() const noexcept override {
         return what_message.c_str();
@@ -25,37 +24,37 @@ public:
 
 class WrongArgument : public StackException {
 public:
-    explicit WrongArgument(const string &whatMessage) : StackException(whatMessage) {}
+    explicit WrongArgument(const std::string &whatMessage) : StackException(whatMessage) {}
     WrongArgument() : StackException("WrongArg") {}
 };
 
 class EmptyStack : public StackException {
 public:
-    explicit EmptyStack(const string &whatMessage) : StackException(whatMessage) {}
+    explicit EmptyStack(const std::string &whatMessage) : StackException(whatMessage) {}
     EmptyStack() : StackException("Stack is Empty") {}
 };
 
 class FewElementError : public StackException {
 public:
-    explicit FewElementError(const string &whatMessage) : StackException(whatMessage) {}
+    explicit FewElementError(const std::string &whatMessage) : StackException(whatMessage) {}
     FewElementError() : StackException("FewElementError") {}
 };
 
 class UnknownCommand : public StackException {
 public:
-    explicit UnknownCommand(const string &whatMessage) : StackException(whatMessage) {}
+    explicit UnknownCommand(const std::string &whatMessage) : StackException(whatMessage) {}
     UnknownCommand() : StackException("Unknown command was found") {}
 };
 
 class OverflowException : public StackException {
 public:
-    explicit OverflowException(const string &whatMessage) : StackException(whatMessage) {}
+    explicit OverflowException(const std::string &whatMessage) : StackException(whatMessage) {}
     OverflowException() : StackException("Overflow happened") {}
 };
 
 class DivisionByZero : public StackException {
 public:
-    explicit DivisionByZero(const string &whatMessage) : StackException(whatMessage) {}
+    explicit DivisionByZero(const std::string &whatMessage) : StackException(whatMessage) {}
     DivisionByZero() : StackException("DivisionByZeroError") {}
 };
 
@@ -65,14 +64,14 @@ public:
 };
 
 struct ContextExecution {
-    stack<SafeInt<int64_t, CustomException>> stack;
-    map<string, SafeInt<int64_t, CustomException>> variables;
+    std::stack<SafeInt<int64_t, CustomException>> stack;
+    std::map<std::string, SafeInt<int64_t, CustomException>> variables;
 };
 
 
 class Command {
 public:
-    explicit Command(string &args) { params = args; }
+    explicit Command(std::string &args) { params = args; }
 
     virtual void
     command(ContextExecution &context_execution) = 0;
@@ -80,19 +79,19 @@ public:
     virtual ~Command() = default;
 
 protected:
-    string params;
+    std::string params;
 };
 
 
 class PopException : public EmptyStack {
 public:
-    explicit PopException(const string &whatMessage) : EmptyStack(whatMessage) {}
+    explicit PopException(const std::string &whatMessage) : EmptyStack(whatMessage) {}
     PopException() : EmptyStack("POP operation failed.") {}
 };
 
 class Pop : public Command {
 public:
-    explicit Pop(string &args);
+    explicit Pop(std::string &args);
 
     void
     command(ContextExecution &context_execution) override;
@@ -102,13 +101,13 @@ public:
 
 class PushException : public WrongArgument {
 public:
-    explicit PushException(const string &whatMessage) : WrongArgument(whatMessage) {}
+    explicit PushException(const std::string &whatMessage) : WrongArgument(whatMessage) {}
     PushException() : WrongArgument("PUSH operation failed.") {}
 };
 
 class Push : public Command {
 public:
-    explicit Push(string &args);
+    explicit Push(std::string &args);
 
     void
     command(ContextExecution &context_execution) override;
@@ -117,13 +116,13 @@ public:
 
 class PeekException : public EmptyStack {
 public:
-    explicit PeekException(const string &whatMessage) : EmptyStack(whatMessage) {}
+    explicit PeekException(const std::string &whatMessage) : EmptyStack(whatMessage) {}
     PeekException() : EmptyStack("PEEK operation failed.") {}
 };
 
 class Peek : public Command {
 public:
-    explicit Peek(string &args);
+    explicit Peek(std::string &args);
 
     void
     command(ContextExecution &context_execution) override;
@@ -132,13 +131,13 @@ public:
 
 class AbsException : public EmptyStack {
 public:
-    explicit AbsException(const string &whatMessage) : EmptyStack(whatMessage) {}
+    explicit AbsException(const std::string &whatMessage) : EmptyStack(whatMessage) {}
     AbsException() : EmptyStack("ABS operation failed.") {}
 };
 
 class Abs : public Command {
 public:
-    explicit Abs(string &args);
+    explicit Abs(std::string &args);
 
     void
     command(ContextExecution &context_execution) override;
@@ -147,13 +146,13 @@ public:
 
 class PlusException : public FewElementError {
 public:
-    explicit PlusException(const string &whatMessage) : FewElementError(whatMessage) {}
+    explicit PlusException(const std::string &whatMessage) : FewElementError(whatMessage) {}
     PlusException() : FewElementError("PLUS operation failed.") {}
 };
 
 class Plus : public Command {
 public:
-    explicit Plus(string &args);
+    explicit Plus(std::string &args);
 
     void
     command(ContextExecution &context_execution) override;
@@ -161,13 +160,13 @@ public:
 
 class MinusException : public FewElementError {
 public:
-    explicit MinusException(const string &whatMessage) : FewElementError(whatMessage) {}
+    explicit MinusException(const std::string &whatMessage) : FewElementError(whatMessage) {}
     MinusException() : FewElementError("MINUS operation failed.") {}
 };
 
 class Minus : public Command {
 public:
-    explicit Minus(string &args);
+    explicit Minus(std::string &args);
 
     void
     command(ContextExecution &context_execution) override;
@@ -176,13 +175,13 @@ public:
 
 class MultiplyException : public FewElementError {
 public:
-    explicit MultiplyException(const string &whatMessage) : FewElementError(whatMessage) {}
+    explicit MultiplyException(const std::string &whatMessage) : FewElementError(whatMessage) {}
     MultiplyException() : FewElementError("MUL operation failed.") {}
 };
 
 class Multiply : public Command {
 public:
-    explicit Multiply(string &args);
+    explicit Multiply(std::string &args);
 
     void
     command(ContextExecution &context_execution) override;
@@ -191,13 +190,13 @@ public:
 
 class DivisionException : public FewElementError {
 public:
-    explicit DivisionException(const string &whatMessage) : FewElementError(whatMessage) {}
+    explicit DivisionException(const std::string &whatMessage) : FewElementError(whatMessage) {}
     DivisionException() : FewElementError("DIV operation failed.") {}
 };
 
 class Division : public Command {
 public:
-    explicit Division(string &args);
+    explicit Division(std::string &args);
 
     void
     command(ContextExecution &context_execution) override;
@@ -206,13 +205,13 @@ public:
 
 class PrintException : public EmptyStack {
 public:
-    explicit PrintException(const string &whatMessage) : EmptyStack(whatMessage) {}
+    explicit PrintException(const std::string &whatMessage) : EmptyStack(whatMessage) {}
     PrintException() : EmptyStack("PRINT operation failed.") {}
 };
 
 class Print : public Command {
 public:
-    explicit Print(string &args);
+    explicit Print(std::string &args);
 
     void
     command(ContextExecution &context_execution) override;
@@ -221,20 +220,20 @@ public:
 
 class ReadException : public WrongArgument {
 public:
-    explicit ReadException(const string &whatMessage) : WrongArgument(whatMessage) {}
+    explicit ReadException(const std::string &whatMessage) : WrongArgument(whatMessage) {}
     ReadException() : WrongArgument("READ operation failed.") {}
 };
 
 class Read : public Command {
 public:
-    explicit Read(string &args);
+    explicit Read(std::string &args);
 
     void command(ContextExecution &context_execution) override;
 };
 
 class Comment : public Command {
 public:
-    explicit Comment(string &args);
+    explicit Comment(std::string &args);
 
     void command(ContextExecution &context_execution) override;
 };
@@ -242,17 +241,24 @@ public:
 class StackCalc {
     ContextExecution context_execution;
 public:
-    void command(unique_ptr<Command> cmd);
+    void command(std::unique_ptr<Command> cmd);
 
-    Command *read_command(string &command_line);
+    Command *read_command(std::string &command_line);
 
-    map<string, SafeInt<int64_t, CustomException>> FindResult() {
+    std::map<std::string, SafeInt<int64_t, CustomException>> FindResult() {
         return context_execution.variables;
     }
 };
 
-StackCalc ReadFromStream(istream &str);
+StackCalc ReadFromStream(std::istream &str);
 
 StackCalc OneCommandRead();
 
 #endif
+
+
+
+
+
+
+

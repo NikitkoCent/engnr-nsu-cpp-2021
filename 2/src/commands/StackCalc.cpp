@@ -7,9 +7,7 @@
 #include <charconv>
 #include <algorithm>
 
-using namespace std;
-
-Pop::Pop(string &args) : Command(args) {}
+Pop::Pop(std::string &args) : Command(args) {}
 
 void Pop::command(ContextExecution &context_execution) {
     if (!context_execution.stack.empty()) {
@@ -19,19 +17,19 @@ void Pop::command(ContextExecution &context_execution) {
     }
 }
 
-bool is_number(const string &s) {
-    return !s.empty() && (all_of(s.begin(), s.end(), [](char c) { return ::isdigit(c); }) ||
-                          (s[0] == '-' && all_of(s.begin() + 1, s.end(), [](char c) { return ::isdigit(c); })));
+bool is_number(const std::string &s) {
+    return !s.empty() && (std::all_of(s.begin(), s.end(), [](char c) { return ::isdigit(c); }) ||
+                          (s[0] == '-' && std::all_of(s.begin() + 1, s.end(), [](char c) { return ::isdigit(c); })));
 }
 
 
-Push::Push(string &args) : Command(args) {}
+Push::Push(std::string &args) : Command(args) {}
 
 void Push::command(ContextExecution &context_execution) {
     if (is_number(params)) {
         int64_t result{};
-        auto[ptr, ec]{from_chars(params.data(), params.data() + params.size(), result)};
-        if (ec == errc::result_out_of_range) {
+        auto[ptr, ec]{std::from_chars(params.data(), params.data() + params.size(), result)};
+        if (ec == std::errc::result_out_of_range) {
             throw OverflowException();
         }
         context_execution.stack.push(result);
@@ -44,7 +42,7 @@ void Push::command(ContextExecution &context_execution) {
 }
 
 
-Peek::Peek(string &args) : Command(args) {}
+Peek::Peek(std::string &args) : Command(args) {}
 
 void Peek::command(ContextExecution &context_execution) {
     if (!context_execution.stack.empty()) {
@@ -55,7 +53,7 @@ void Peek::command(ContextExecution &context_execution) {
 }
 
 
-Abs::Abs(string &args) : Command(args) {}
+Abs::Abs(std::string &args) : Command(args) {}
 
 void Abs::command(ContextExecution &context_execution) {
     if (!context_execution.stack.empty()) {
@@ -74,7 +72,7 @@ void Abs::command(ContextExecution &context_execution) {
 }
 
 
-Plus::Plus(string &args) : Command(args) {}
+Plus::Plus(std::string &args) : Command(args) {}
 
 void Plus::command(ContextExecution &context_execution) {
     if (context_execution.stack.size() >= 2) {
@@ -89,7 +87,7 @@ void Plus::command(ContextExecution &context_execution) {
     }
 }
 
-Minus::Minus(string &args) : Command(args) {}
+Minus::Minus(std::string &args) : Command(args) {}
 
 void Minus::command(ContextExecution &context_execution) {
     if (context_execution.stack.size() >= 2) {
@@ -105,9 +103,10 @@ void Minus::command(ContextExecution &context_execution) {
 }
 
 
-Multiply::Multiply(string &args) : Command(args) {}
+Multiply::Multiply(std::string &args) : Command(args) {}
 
-void Multiply::command(ContextExecution &context_execution) {
+void
+Multiply::command(ContextExecution &context_execution) {
     if (context_execution.stack.size() >= 2) {
         SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
         context_execution.stack.pop();
@@ -121,12 +120,15 @@ void Multiply::command(ContextExecution &context_execution) {
 }
 
 
-Division::Division(string &args) : Command(args) {}
+Division::Division(std::string &args) : Command(args) {}
 
-void Division::command(ContextExecution &context_execution) {
+void
+Division::command(ContextExecution &context_execution) {
     if (context_execution.stack.size() >= 2) {
+//        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
         int64_t val1 = context_execution.stack.top();
         context_execution.stack.pop();
+//        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
         int64_t val2 = context_execution.stack.top();
         if (val1 != 0) {
             context_execution.stack.pop();
@@ -143,38 +145,40 @@ void Division::command(ContextExecution &context_execution) {
 }
 
 
-Print::Print(string &args) : Command(args) {}
+Print::Print(std::string &args) : Command(args) {}
 
 void Print::command(ContextExecution &context_execution) {
     if (!context_execution.stack.empty()) {
         SafeInt<int64_t, CustomException> val = context_execution.stack.top();
         context_execution.variables["result"] = val;
-        cout << (int64_t) val << endl;
+        std::cout << (int64_t) val << std::endl;
     } else {
         throw PrintException();
     }
 }
 
 
-Read::Read(string &args) : Command(args) {}
+Read::Read(std::string &args) : Command(args) {}
 
 void Read::command(ContextExecution &context_execution) {
-    string val;
-    cin >> val;
+//    try {
+    std::string val;
+    std::cin >> val;
     if (is_number(val)) {
         int64_t result{};
-        from_chars(val.data(), val.data() + val.size(), result);
+        std::from_chars(val.data(), val.data() + val.size(), result);
         context_execution.stack.push(result);
     } else {
         throw ReadException();
     }
 }
 
-Comment::Comment(string &args) : Command(args) {}
+Comment::Comment(std::string &args) : Command(args) {}
 
-void Comment::command(ContextExecution &context_execution) {}
+void
+Comment::command(ContextExecution &context_execution) {}
 
-void StackCalc::command(unique_ptr<Command> cmd) {
+void StackCalc::command(std::unique_ptr<Command> cmd) {
     cmd->command(context_execution);
 }
 
@@ -183,11 +187,11 @@ void CustomException::SafeIntOnOverflow() {
 }
 
 
-Command *StackCalc::read_command(string &command_line) {
-    string help = "Usage:\n./Calculator <filepath> or ./Calculator\n"
-                       "Commands:\n#, POP, PUSH <number>, PUSH <varname>, PEEK <varname>, ABS, PLUS, MINUS, MUL, DIV, PRINT, READ.";
-    string command;
-    stringstream x;
+Command *StackCalc::read_command(std::string &command_line) {
+    std::string help = "Usage: ./Calculator <filepath> or ./Calculator"
+                       "Commands: #, POP, PUSH <number>, PUSH <varname>, PEEK <varname>, ABS, PLUS, MINUS, MUL, DIV, PRINT, READ.";
+    std::string command;
+    std::stringstream x;
     x << command_line;
     x >> command;
     Command *operation;
@@ -227,31 +231,42 @@ Command *StackCalc::read_command(string &command_line) {
 
 
 StackCalc OneCommandRead() {
+//    try {
     StackCalc calculator;
-    string command_line = "s";
-    while (!cin.eof()) {
-        getline(cin, command_line);
+    std::string command_line = "s";
+    while (!std::cin.eof()) {
+        getline(std::cin, command_line);
         if (command_line.empty()) continue;
-        unique_ptr<Command> cmd(calculator.read_command(command_line));
+        std::unique_ptr<Command> cmd(calculator.read_command(command_line));
         if (cmd == nullptr) {
             continue;
         }
-        calculator.command(move(cmd));
+        calculator.command(std::move(cmd));
     }
     return calculator;
+//    }catch(StackException &e){
+//        std::cerr << e.what() << std::endl;
+//        throw &e;
+//    }
+
 }
 
 
-StackCalc ReadFromStream(istream &file) {
+StackCalc ReadFromStream(std::istream &file) {
     StackCalc calculator;
-    string command_line;
+    std::string command_line;
     while (!file.eof()) {
-        getline(file, command_line);
-        unique_ptr<Command> cmd(calculator.read_command(command_line));
+        std::getline(file, command_line);
+//        try {
+        std::unique_ptr<Command> cmd(calculator.read_command(command_line));
         if (cmd == nullptr) {
             continue;
         }
-        calculator.command(move(cmd));
+        calculator.command(std::move(cmd));
+//        } catch (StackException &e) {
+//            std::cerr << e.what() << std::endl;
+//            throw &e;
+//        }
     }
     return calculator;
 }

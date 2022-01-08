@@ -2,10 +2,8 @@
 #include "../src/commands/StackCalc.h"
 #include "gtest/gtest.h"
 
-using namespace std;
-
 TEST(CALCULATOR1, EXAMPLE_TEST) {
-    stringstream data("# myVar = -14 / 5\n"
+    std::stringstream data("# myVar = -14 / 5\n"
                        "PUSH -14\n"
                        "PUSH 5\n"
                        "DIV\n"
@@ -25,7 +23,7 @@ TEST(CALCULATOR1, EXAMPLE_TEST) {
 }
 
 TEST(CALCULATOR1, EASY_TEST) {
-    stringstream data("PUSH 1\n"
+    std::stringstream data("PUSH 1\n"
                            "PUSH 2\n"
                            "PUSH 3\n"
                            "PUSH 4\n"
@@ -42,7 +40,7 @@ TEST(CALCULATOR1, EASY_TEST) {
 }
 
 TEST(CALCULATOR1, HARD_TEST) {
-    stringstream data("PUSH 4\n"
+    std::stringstream data("PUSH 4\n"
                            "PEEK a\n"
                            "POP\n"
                            "\n"
@@ -95,7 +93,7 @@ TEST(CALCULATOR1, HARD_TEST) {
 }
 
 TEST(CALCULATOR1, ERROR_TEST) {
-    stringstream data("PUSH 1\n"
+    std::stringstream data("PUSH 1\n"
                            "PUSH 5\n"
                            "PLUS\n"
                            "POP\n"
@@ -105,7 +103,7 @@ TEST(CALCULATOR1, ERROR_TEST) {
 }
 
 TEST(CALCULATOR1, DIVISION_BY_ZERO) {
-    stringstream data("PUSH 1\n"
+    std::stringstream data("PUSH 1\n"
                            "PUSH 0\n"
                            "DIV\n");
     EXPECT_THROW(ReadFromStream(data), DivisionByZero);
@@ -113,7 +111,7 @@ TEST(CALCULATOR1, DIVISION_BY_ZERO) {
 }
 
 TEST(CALCULATOR1, UNKNOWN_COMMAND) {
-    stringstream data("PUSH 1\n"
+    std::stringstream data("PUSH 1\n"
                            "PUSH 2\n"
                            "PLUS\n"
                            "PRIN\n");
@@ -122,7 +120,7 @@ TEST(CALCULATOR1, UNKNOWN_COMMAND) {
 }
 
 TEST(CALCULATOR1, OVERFLOW_BY_PLUS) {
-    stringstream data("PUSH 9223372036854775806\n"
+    std::stringstream data("PUSH 9223372036854775806\n"
                            "PUSH 9223372036854775806\n"
                            "PLUS\n");
     EXPECT_THROW(ReadFromStream(data), OverflowException);
@@ -130,15 +128,7 @@ TEST(CALCULATOR1, OVERFLOW_BY_PLUS) {
 }
 
 TEST(CALCULATOR1, OVERFLOW_BY_ABS) {
-    stringstream data("PUSH -9223372036854775808\n"
+    std::stringstream data("PUSH -9223372036854775808\n"
                            "ABS\n");
-    EXPECT_THROW(ReadFromStream(data), OverflowException);
-}
-
-TEST(CALCULATOR1, OVERFLOW_BY_DIV) {
-    stringstream data("PUSH -9223372036854775808\n"
-                           "PUSH -1\n"
-                           "DIV\n"
-                           "PRINT");
     EXPECT_THROW(ReadFromStream(data), OverflowException);
 }
