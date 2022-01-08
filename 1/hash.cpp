@@ -1,6 +1,6 @@
 #include "hash.h"
 
-uint32_t adler32(std::istream &file) {
+uint32_t adler32(std::ifstream &file) {
     uint32_t a = 1, b = 0;
     unsigned char s;
 
@@ -12,7 +12,7 @@ uint32_t adler32(std::istream &file) {
     return ((b << 16) | a);
 }
 
-uint64_t sum64(std::istream &file) {
+uint64_t sum64(std::ifstream &file) {
     uint64_t sum_block, sum = 0, c;
     unsigned char k;
 
