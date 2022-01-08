@@ -42,7 +42,7 @@ void start_tutorial() {
                  "For this manual I had to use the non-hired labor of two slaves (bots), so you can see what your opponent will do.\n"
                  "Let's see our opponent board.\n"
                  "Enter something to continue...\n";
-    getchar();
+    getchar(); getchar();
 
     for (int i = 0; i < 10; i++) {
         std::string coords = viewer.next();
@@ -92,37 +92,37 @@ int main(int argc, char** argv) {
         return 0;
     }
     BattleShipModel model;
-    BaseGamer *g1, *g2;
+    std::unique_ptr<BaseGamer> g1, g2;
     if (result["f"].as<std::string>() == "interactive") {
-        g1 = new ConsoleGamer(&model, result["p"].as<std::vector<std::string>>()[0]);
+        g1 = std::make_unique<ConsoleGamer>(&model, result["p"].as<std::vector<std::string>>()[0]);
     } else if (result["f"].as<std::string>() == "random") {
-        g1 = new RandomGamer(&model);
+        g1 = std::make_unique<RandomGamer>(&model);
     } else if (result["f"].as<std::string>() == "optimal") {
-        g1 = new OptimalGamer(&model);
+        g1 = std::make_unique<OptimalGamer>(&model);
     } else if(result["f"].as<std::string>() == "imbalanced") {
-        g1 = new ImbalancedGamer(&model);
+        g1 = std::make_unique<ImbalancedGamer>(&model);
     } else {
         std::cerr << "Wrong --first argument!";
         return 1;
     }
 
     if (result["s"].as<std::string>() == "interactive") {
-        g2 = new ConsoleGamer(&model, result["p"].as<std::vector<std::string>>()[1]);
+        g2 = std::make_unique<ConsoleGamer>(&model, result["p"].as<std::vector<std::string>>()[0]);
     } else if (result["s"].as<std::string>() == "random") {
-        g2 = new RandomGamer(&model);
+        g2 = std::make_unique<RandomGamer>(&model);
     } else if (result["s"].as<std::string>() == "optimal") {
-        g2 = new OptimalGamer(&model);
+        g2 = std::make_unique<OptimalGamer>(&model);
     } else if(result["s"].as<std::string>() == "imbalanced") {
-        g2 = new ImbalancedGamer(&model);
+        g2 = std::make_unique<ImbalancedGamer>(&model);
     } else {
         std::cerr << "Wrong --second argument!";
         return 1;
     }
 
-
     BattleShipView view(&model);
-    BattleShipController controller(&model, g1, g2);
+    BattleShipController controller(&model, std::move(g1), std::move(g2));
     controller.start(result["c"].as<int>());
+    return 0;
 }
 
 // A0 A3 C0 C2 E0 E2 G0 G1 I0 I1 J3 J4 H5 E6 I8 C8

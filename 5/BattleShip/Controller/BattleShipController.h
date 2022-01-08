@@ -16,11 +16,11 @@
 class BattleShipController {
 protected:
     BattleShipModel *model;
-    std::vector<BaseGamer*> gamers;
+    std::vector<std::unique_ptr<BaseGamer>> gamers;
     std::string path_to_log;
     std::string log;
 public:
-    explicit BattleShipController(BattleShipModel *bs_model, BaseGamer *g1, BaseGamer *g2);
+    explicit BattleShipController(BattleShipModel *bs_model, std::unique_ptr<BaseGamer> g1, std::unique_ptr<BaseGamer> g2);
     ~BattleShipController() = default;
 
     void start(int c);

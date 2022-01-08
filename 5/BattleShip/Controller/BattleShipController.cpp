@@ -12,14 +12,14 @@ std::size_t number_of_files_in_directory(const std::filesystem::path& path)
 }
 
 
-BattleShipController::BattleShipController(BattleShipModel *bs_model, BaseGamer *g1, BaseGamer *g2) {
+BattleShipController::BattleShipController(BattleShipModel *bs_model, std::unique_ptr<BaseGamer> g1, std::unique_ptr<BaseGamer> g2) {
     model = bs_model;
-    gamers.push_back(g1);
-    gamers.push_back(g2);
-    model->update_player_status(0, g1->is_bot);
-    model->update_player_status(1, g2->is_bot);
-    model->set_password(0, g1->pass);
-    model->set_password(1, g2->pass);
+    gamers.push_back(std::move(g1));
+    gamers.push_back(std::move(g2));
+    model->update_player_status(0, gamers[0]->is_bot);
+    model->update_player_status(1, gamers[1]->is_bot);
+    model->set_password(0, gamers[0]->show_pass());
+    model->set_password(1, gamers[1]->show_pass());
 }
 
 

@@ -59,6 +59,7 @@ int OptimalGamer::evaluate_ship_coords(int halos[10][10], int x0, int y0, int x1
     return loc_sum;
 }
 
+
 std::vector<std::string> OptimalGamer::turn_set_stage() {
     std::vector<std::string> v;
     auto board = std::get<0>(model->get_boards());

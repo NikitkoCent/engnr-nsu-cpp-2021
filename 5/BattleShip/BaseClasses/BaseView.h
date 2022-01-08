@@ -8,6 +8,7 @@
 
 class BaseView {
 public:
+    virtual ~BaseView() = default;
     virtual void update() const = 0;
 };
 

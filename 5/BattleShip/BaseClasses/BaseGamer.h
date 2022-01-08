@@ -15,15 +15,15 @@ class BaseGamer {
 protected:
     std::string alphabet;
     const BattleShipModel *model;
-
+    std::string pass; // da, da, password v pablike, i 4to?
 public:
     bool is_bot;
-    std::string pass; // da, da, password v pablike, i 4to?
 
-    BaseGamer(const BattleShipModel *m, std::string p): alphabet("ABCDEFGHIJ"), model(m), is_bot(false), pass(std::move(p)) {}
+    BaseGamer(const BattleShipModel *m, std::string p): alphabet("ABCDEFGHIJ"), model(m), pass(std::move(p)), is_bot(false)  {}
     virtual std::vector<std::string> turn_set_stage() = 0;
     virtual std::vector<std::string> turn_attack_stage() = 0;
     virtual std::string show_pass() {return pass;}
+    virtual ~BaseGamer() = default;
 };
 
 

@@ -30,7 +30,6 @@ std::vector<std::string> BaseBot::random_generate_next_turn() {
         v.push_back(v[0]);
     }
     else { // 2-4 cell ships
-        bool possible;
         do {
             v.clear();
             int first = static_cast<int>(get_engine()() % 10);      // first x
@@ -49,8 +48,7 @@ std::vector<std::string> BaseBot::random_generate_next_turn() {
                     s_first = static_cast<int>(get_engine()() % 10);
                 v.push_back(alphabet[s_first] + std::to_string(second));
             }
-            possible = model->check_possibility_to_set(v[0], v[1]);
-        } while (!possible);
+        } while (!model->check_possibility_to_set(v[0], v[1]));
     }
     return v;
 }

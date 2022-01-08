@@ -122,7 +122,6 @@ int BattleShipModel::hit(const std::string& c) {
         boards[can_see_board_number][x][y] = MISS;
         current_player = 1-current_player;
         lock();
-        check_winner();
         update_view();
         if (!awaiting_password)
             game_message = "";
@@ -203,7 +202,7 @@ bool BattleShipModel::check_possibility_to_set(const std::string& c0, const std:
 
         if (x1 != x0 && y1 != y0) return false;
 
-        if (boards[current_player][x0][y0] == SHIP || boards[current_player][x1][y1] == SHIP) return false;
+//        if (boards[current_player][x0][y0] == SHIP || boards[current_player][x1][y1] == SHIP) return false;
 
         for (int i = x0; i <= x1; i++) {
             for (int j = y0; j <= y1; j++) {
