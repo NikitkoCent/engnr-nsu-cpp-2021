@@ -15,4 +15,4 @@ target_include_directories(ct
         )
 
 enable_testing()
-add_test(NAME googletest COMMAND cl)
+add_test(NAME googletest COMMAND ct)
