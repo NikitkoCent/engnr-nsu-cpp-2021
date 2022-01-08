@@ -111,7 +111,7 @@ void Division::command(Memory &memory) {
         int64_t val2 = memory.is_stack.top();
         if (val1 != 0) {
             memory.is_stack.pop();
-            int64_t res;
+            int64_t res=0;
             SafeDivide(val2, val1, res);
             memory.is_stack.push(res);
         } else {
