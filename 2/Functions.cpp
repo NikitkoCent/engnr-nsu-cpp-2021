@@ -35,7 +35,7 @@ bool strToInteger(Param p) {
     if (ss.good()) {
         k = 1;
     }
-    else if (num == 0 && s.vst[1][0] != '0') {
+    else if (num == 0 && p.vst[1][0] != '0') {
         k = 1;
     }
     else {
