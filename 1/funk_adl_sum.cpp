@@ -4,8 +4,7 @@
 
 #include "funk_adl_sum.h"
 #include <iostream>
-#include <fstream>
-#include <cstring>
+
 using namespace std;
 
 uint32_t adler32(ifstream &file) {
@@ -16,7 +15,8 @@ uint32_t adler32(ifstream &file) {
         a = (a + buf) % 65521;
         b = (b + a) % 65521;
     }
-    return (b << 16u) + a;
+    uint32_t result = (b << 16u) | a;
+    return result;
 }
 
 uint64_t sum64(ifstream &file) {
@@ -32,7 +32,7 @@ uint64_t sum64(ifstream &file) {
         block <<= 8u;
         block += buf;
         size++;
-
     }
-    return result + block;
+    result += block;
+    return result;
 }
