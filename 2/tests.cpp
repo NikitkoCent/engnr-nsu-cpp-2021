@@ -2,7 +2,6 @@
 #include "Lab_2.h" 
 #include "Fabric.h"
 #include "Operations.h"
-#include "Exceptions.h"
 #include "Functions.cpp"
 
 TEST(TestCalc, Test1) {
