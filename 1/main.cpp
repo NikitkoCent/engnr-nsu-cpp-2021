@@ -18,7 +18,8 @@ int main(int argc, char *argv[]) {
                 std::cout << help_message;
                 return 0;
             } else {
-                throw std::runtime_error("Invalid arguments");
+                std::cerr << help_message;
+                return 1;
             }
         } else if (argc == 4) {
             if (argv[1] == "-m") {
@@ -28,10 +29,12 @@ int main(int argc, char *argv[]) {
                 name_mode = argv[3];
                 filename = argv[1];
             } else {
-                throw std::runtime_error("Invalid arguments");
+                std::cerr << help_message;
+                return 1;
             }
         } else {
-            throw std::runtime_error("Invalid arguments");
+            std::cerr << help_message;
+            return 1;
         }
 
         file.open(filename, std::ios_base::binary);
@@ -44,7 +47,8 @@ int main(int argc, char *argv[]) {
         } else if (name_mode == "adler32") {
             std::cout << std::hex << adler32(file) << std::endl;
         } else {
-            throw std::runtime_error("Invalid mode");
+            std::cerr << help_message;
+            return 1;
         }
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
