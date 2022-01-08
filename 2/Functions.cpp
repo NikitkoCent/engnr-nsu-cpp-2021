@@ -8,7 +8,7 @@ void split(Param &p, const string& s, char delim) {
     }
 }
 
-bool integer_check(Param& s) {
+/*bool integer_check(Param& s) {
     stringstream ss;
     ss << s.vst[1];
     int64_t num = 0;
@@ -24,10 +24,24 @@ bool integer_check(Param& s) {
     }
     return false;
 }
-
+*/
 
 bool strToInteger(Param p) {
-    if (integer_check(p)) {
+    stringstream ss;
+    ss << p.vst[1];
+    int64_t num = 0;
+    ss >> num;
+    int k = 1;
+    if (ss.good()) {
+        k = 1;
+    }
+    else if (num == 0 && s.vst[1][0] != '0') {
+        k = 1;
+    }
+    else {
+        k = 0;
+    }
+    if (k) {
         try {
             SafeInt<int64_t> number = SafeInt<int64_t>::SafeAtoI(p.vst[1].c_str());
             if (number - number == 0) {
