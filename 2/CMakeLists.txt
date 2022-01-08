@@ -14,7 +14,6 @@ add_subdirectory(tests)
 if (MSVC)
     target_compile_options(calculator
             PRIVATE /W4
-#            PRIVATE /WX
             )
 else()
     target_compile_options(calculator

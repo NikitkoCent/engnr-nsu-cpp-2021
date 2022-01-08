@@ -7,22 +7,24 @@
 #include "../../libs/SafeInt/SafeInt.hpp"
 #include <stdexcept>
 
+using namespace std;
+
 int main(int argc, char *argv[]) {
     try {
-        std::string filepath;
-        std::string help = "Usage: ./Calculator <filepath> or ./Calculator\n"
-                           "Commands: #, POP, PUSH <number>, PUSH <varname>, PEEK <varname>, ABS, PLUS, MINUS, MUL, DIV, PRINT, READ.";
+        string filepath;
+        string help = "Usage:\n./Calculator <filepath> or ./Calculator\n"
+                           "Commands:\n#, POP, PUSH <number>, PUSH <varname>, PEEK <varname>, ABS, PLUS, MINUS, MUL, DIV, PRINT, READ.";
         bool flag = false;
 
         if (argc > 1) {
             if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "-help") == 0) {
-                std::cout << help << std::endl;
+                cout << help << endl;
                 return 0;
             }
             if (argc == 2) {
                 filepath = argv[1];
             } else {
-                std::cerr << "Wrong usage." << help << std::endl;
+                cerr << "Wrong usage" << help << endl;
                 return 1;
             }
         } else {
@@ -32,10 +34,10 @@ int main(int argc, char *argv[]) {
         if (flag) {
             OneCommandRead();
         } else {
-            std::ifstream file;
+            ifstream file;
             file.open(filepath);
             if (!file.is_open()) {
-                std::cerr << "FileNotFoundError" << help << std::endl;
+                cerr << "FileNotFoundError" << help << endl;
                 return 1;
             } else if (file.peek() == EOF) {
                 return 0;
@@ -43,12 +45,12 @@ int main(int argc, char *argv[]) {
             ReadFromStream(file);
         }
     }  catch (const StackException &e) {
-        std::cerr << e.what() << std::endl;
+        cerr << e.what() << endl;
         return 1;
     }  catch (SafeIntException &e) {
         return 1;
-    }  catch (std::runtime_error &e) {
-        std::cerr << e.what() << std::endl;
+    }  catch (runtime_error &e) {
+        cerr << e.what() << endl;
         return 1;
     }
     return 0;
