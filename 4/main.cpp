@@ -21,14 +21,14 @@ using std::cin;
 using std::endl;
 using std::move;
 
-unsigned long long worker(ThreadPool<int> &tp, const string &file) {
+unsigned long long worker(ThreadPool<int> &tp, const string &file, const bool &cancel) {
     cout << "Starting worker for " << &tp << " " << file << endl;
     unsigned long long sz = 0;
     int cnt = 0;
     vector<std::future<int>> futs;
 
     for (auto &p: fs::recursive_directory_iterator(file)) {
-        if (is_regular_file(p)) {
+        if (is_regular_file(p) && !cancel) {
 //            cout << "File: " << p.path() << endl;
             auto task_fut = tp.submit(move([p] {
                 auto sz = fs::file_size(p.path());
@@ -38,6 +38,9 @@ unsigned long long worker(ThreadPool<int> &tp, const string &file) {
             futs.emplace_back(move(task_fut));
             cout << "\rFiles: " << cnt <<"           ";
             cnt++;
+        } else if (cancel) {
+            cout << "Task was canceled!" << endl;
+            return 0;
         }
     }
 
@@ -55,6 +58,7 @@ unsigned long long worker(ThreadPool<int> &tp, const string &file) {
 
 int main() {
     string cmd;
+    bool cancel = false;
     ThreadPool<unsigned long long> task_pool(1);
     ThreadPool<int> subtask_pool;
 
@@ -72,10 +76,12 @@ int main() {
             break;
         } else if (cmd == ":cancel") {
             cout << "Canceling tasks!" << endl;
+            cancel = true;
             task_pool.cancel_all();
             subtask_pool.cancel_all();
+            cancel = false;
         } else if (!cmd.empty()) {
-            task_pool.submit(move([&subtask_pool, cmd] { return worker(subtask_pool, cmd); }));
+            task_pool.submit(move([&subtask_pool, cmd, &cancel] { return worker(subtask_pool, cmd, cancel); }));
         } else {
             cout << "Cnt: " << task_pool.task_count() << " " << subtask_pool.task_count() << endl;
         }

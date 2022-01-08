@@ -63,13 +63,12 @@ public:
     }
 
     auto submit(std::function<TaskT()> &&f) {
+        std::unique_lock<std::mutex> lock{m_mutex}; // fix Spurious wakeup
         std::packaged_task<TaskT()> task( f );
         auto future = task.get_future();
-//        auto taskp = std::make_unique<std::packaged_task<TaskT()>>(task);
         tasks.push(task);
         m_notifier.notify_one();
         return future;
-//        return 0;
     }
 
     void cancel_all() {
@@ -79,6 +78,7 @@ public:
     }
 
     void join() {
+        std::unique_lock<std::mutex> lock{m_mutex}; // fix Spurious wakeup
         m_stop = true;
         m_notifier.notify_all();
 
@@ -130,6 +130,8 @@ private:
         m_notifier.wait(lock, [this]() {
             return !tasks.empty() || m_stop;
         });
+
+        if (m_stop) throw QueueEmptyException(); // stop in catch in thread_loop
 
         return tasks.next();
     }
