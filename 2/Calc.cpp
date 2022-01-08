@@ -36,15 +36,19 @@ void Push::ct(type &tp, std::vector<std::string> str) {
         throw VarnameException();
     }
     std::string varname = str[1];
-    if (is_number(varname)){
-        tp.stack_.push(std::stoll(varname));
-    }
-    else{
-        auto it = tp.mp.find(varname);
-        if (it == tp.mp.end()) {
-            throw PushException();
+    try {
+        if (is_number(varname)) {
+            tp.stack_.push(std::stoll(varname));
+        } else {
+            auto it = tp.mp.find(varname);
+            if (it == tp.mp.end()) {
+                throw PushException();
+            }
+            tp.stack_.push(it->second);
         }
-        tp.stack_.push(it->second);
+    }
+    catch(std::out_of_range){
+        throw SIException();
     }
 }
 
@@ -61,10 +65,15 @@ void Abs::ct(type &tp, std::vector<std::string> str) {
     if (tp.stack_.empty()) {
         throw AbsException(); //e.s.
     }
-    SafeInt<int64_t> value = tp.stack_.top();
-    tp.stack_.pop();
-    if(value < 0) {value = (-1)*value;}
-    tp.stack_.push(value);
+    try{
+        SafeInt<int64_t> value = tp.stack_.top();
+        tp.stack_.pop();
+        if(value < 0) {value = (-1)*value;}
+        tp.stack_.push(value);
+    }
+    catch(...){
+        throw SIException();
+    }
 }
 
 void Plus::ct(type &tp, std::vector<std::string> str) {
