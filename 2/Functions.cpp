@@ -8,7 +8,7 @@ void split(Param &p, const string& s, char delim) {
     }
 }
 
-/*bool integer_check(Param& s) {
+bool integer_check(Param& s) {
     stringstream ss;
     ss << s.vst[1];
     int64_t num = 0;
@@ -24,8 +24,8 @@ void split(Param &p, const string& s, char delim) {
     }
     return false;
 }
-*/
 
+/*
 bool strToInteger(Param p) {
     stringstream ss;
     ss << p.vst[1];
@@ -53,7 +53,7 @@ bool strToInteger(Param p) {
         }
     }
     return false;
-}
+}*/
 
 bool check(Param s) {
         if (s.vst[0] == "POP") {
