@@ -7,38 +7,43 @@ project ("Lab_2_fabric")
 
 set(CMAKE_CXX_STANDARD 17)
 
+# Add source to this project's executable.
+add_executable (Lab_2_fabric "Lab_2.cpp" "Lab_2.h" "Functions.cpp" "Fabric.cpp" "Fabric.h" "Operations.cpp" "Operations.h" "Fabric.h" "Exceptions.cpp" )
+
 add_subdirectory(SafeInt)
 add_subdirectory(googletest)
-include_directories(googletest/googletest/include)
-add_executable(Lab_2_fabric "Lab_2.cpp" "Lab_2.h" "Functions.cpp" "Fabric.cpp" "Fabric.h" "Operations.cpp" "Operations.h" "Fabric.h" "Exceptions.cpp" )
-add_executable(Tests_lab tests.cpp
-               Lab_2.h 
-               Functions.cpp
-               Fabric.cpp
-               Fabric.h
-               Operations.cpp 
-               Operations.h
-               Fabric.h  
-               Exceptions.cpp )
+#add_subdirectory(tests)
+# TODO: Add tests and install targets if needed.
+if (MSVC)
+    target_compile_options( Lab_2_fabric
+        PRIVATE /W4          # warnings level
+#        PRIVATE /WX          # treat all warnings as errors
+    )
+else()
+    target_compile_options( Lab_2_fabric
+           PRIVATE -Wall        # basic set of warnings
+    )
+endif()
 
-target_link_libraries(Tests_lab
-                    gtest 
-                    gtest_main)
 
 enable_testing()
-add_test(google_test Tests_lab)
-if (MSVC)
-    target_compile_options(Lab_2_fabric
-            PRIVATE /W4          # warnings level
-            )
-    target_compile_options(Tests_lab
-            PRIVATE /W4          # warnings level
-            )
-else ()
-    target_compile_options(Lab_2_fabric
-            PRIVATE -Wall        # basic set of warnings
-            )
-    target_compile_options(Tests_lab
-            PRIVATE -Wall        # basic set of warnings
-            )
-endif () 
+
+add_executable(
+   tests
+   Lab_2.h 
+   Functions.cpp
+   Fabric.cpp
+   Fabric.h
+   Operations.cpp 
+   Operations.h
+   Fabric.h  
+   Exceptions.cpp
+)
+
+target_link_libraries(
+  tests
+  gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(tests)
