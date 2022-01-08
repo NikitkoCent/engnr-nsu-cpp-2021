@@ -38,7 +38,7 @@ TEST(TestCalc, Test1) {
 	EXPECT_EQ(p.stk.top(), result);
 }
 
-
+/*
 TEST(TestCalc, Test_example) {
 	std::stringstream line_cmd("# myVar = -14 / 5"
 		"PUSH - 14 \n"
@@ -76,7 +76,7 @@ TEST(TestCalc, Test_example) {
 //	p.vst.clear();
 //	p.stk = stack<int64_t>();
 //	p.var.clear();
-}
+}*/
 
 TEST(TestCalc, Test_divByZero) {
 	std::stringstream line_cmd("# (10 + 5*36)/0 PRINT"
