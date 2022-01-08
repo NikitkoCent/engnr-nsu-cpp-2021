@@ -9,7 +9,7 @@ void split(Param &p, const string& s, char delim) {
 }
 
 bool integer_check(Param& s) {
-    stringstream ss;
+    /*stringstream ss;
     ss << s.vst[1];
     int64_t num = 0;
     ss >> num;
@@ -21,8 +21,8 @@ bool integer_check(Param& s) {
     }
     else {
         return true;
-    }
-    return false;
+    }*/
+    return true;
 }
 
 /*
