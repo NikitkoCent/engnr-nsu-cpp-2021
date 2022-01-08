@@ -5,7 +5,7 @@ add_executable(tests
 target_link_libraries(tests
               #2
               test_files
-              gtest
+              gtest_main
               )
 target_include_directories(tests
               PRIVATE "./test_files #"./googletest/googletest/include/gtest"
