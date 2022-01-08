@@ -1,6 +1,6 @@
 #include "Lab_2.h"
 #include "Fabric.h"
-#include "Exceptions.h"
+//#include "Exceptions.h"
 
 void pop_cmd::execute(Param &p) {
         if (!p.stk.empty()) {
@@ -55,10 +55,10 @@ void plus_cmd::execute(Param& p)
         //int64_t val1 = 0;
         //int64_t val2 = 0;
         if (!p.stk.empty()) {
-            SafeInt<int64_t> val1(p.stk.top());
+            SafeInt<int64_t, IntOverflow> val1(p.stk.top());
             p.stk.pop();
             if (!p.stk.empty()) {
-                SafeInt<int64_t> val2(p.stk.top());
+                SafeInt<int64_t, IntOverflow> val2(p.stk.top());
                 p.stk.pop();
                 p.stk.push(val1+val2);
             }
@@ -140,19 +140,20 @@ void div_cmd::execute(Param& p) {
     
 };
 
-
-void print_cmd::execute(Param& p){
-        if (!p.stk.empty()) {
-            cout << p.stk.top() << endl;
-        }
-        else {
-            throw EmptyStack();
-        }
+void print_cmd::execute(Param& p) {
+    if (!p.stk.empty()) {
+        SafeInt<int64_t, IntOverflow> d(p.stk.top());
+        std::cout << int64_t(p.stk.top()) << endl;
+    }
+    else {
+        throw EmptyStack();
+    }
 };
 
-void read_cmd::execute(Param& p){
-        int64_t enterval = 0;
-        cin >> enterval;
-        p.stk.push((SafeInt<int64_t, IntOverflow>) enterval);
- };
+void read_cmd::execute(Param& p) {
+    int64_t i = 0;
+    SafeInt<int64_t, IntOverflow> enterval(i);
+    cin >> i;
+    p.stk.push(i);
+};
 

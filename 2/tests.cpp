@@ -150,9 +150,9 @@ TEST(TestCalc, Test_empty_stack) {
 }
 
 TEST(TestCalc, Test_Big_Number_MUL) {
-	std::stringstream line_cmd("# PUSH 999999999999 PUSH 999999999999 MUL"
-		"PUSH 999999999999 \n"
-		"PUSH 999999999999 \n"
+	std::stringstream line_cmd(
+		"PUSH 999999999999999999999  \n"
+		"PUSH 999999999999999999999 \n"
 		"MUL \n");
 	Param p;
 	string line;

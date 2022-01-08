@@ -9,14 +9,14 @@ void split(Param &p, const string& s, char delim) {
 }
 
 bool strToInteger(Param p) {
-    int64_t number = 0;
+    //SafeInt<int64_t, IntOverflow> number = 0;
     try {
-        number = std::stoll(p.vst[1]);
-        if (number - number == 0){
+        SafeInt<int64_t> number = SafeInt<int64_t>::SafeAtoI(p.vst[1].c_str());
+        if (number - number == 0) {
             return true;
         }
     }
-    catch (invalid_argument const& ) {
+    catch (invalid_argument const&) {
         return false;
     }
     return false;
