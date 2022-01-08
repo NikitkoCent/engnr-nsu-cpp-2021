@@ -3,7 +3,7 @@ project(lab3)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_compile_options(-DUSE_BOOST_FS)
+#add_compile_options(-DUSE_BOOST_FS)
 
 add_link_options(-pthread -v)
 
