@@ -19,14 +19,14 @@ public:
 
     static Operation *read_command(std::string &command_line);
 
-    std::map<std::string, SafeInt<int64_t, CustomException>> FindResult() {
+    std::map<std::string, SafeInt<int64_t>> FindResult() {
         return memory.variables;
     }
 };
 
-StackCalc ReadLine(std::istream &cin1);
+StackCalc ReadLine();
 
-//StackCalc ReadFromFile(std::istream &file);
+StackCalc ReadFromFile(std::istream &file);
 
 bool is_number(const std::string &s);
 

@@ -9,13 +9,14 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/projects/engnr-nsu-cpp-2021/2/Commands.cpp" "C:/projects/engnr-nsu-cpp-2021/2/cmake-build-debug/CMakeFiles/commands.dir/Commands.cpp.obj"
-  "C:/projects/engnr-nsu-cpp-2021/2/Errors.cpp" "C:/projects/engnr-nsu-cpp-2021/2/cmake-build-debug/CMakeFiles/commands.dir/Errors.cpp.obj"
   "C:/projects/engnr-nsu-cpp-2021/2/Operations.cpp" "C:/projects/engnr-nsu-cpp-2021/2/cmake-build-debug/CMakeFiles/commands.dir/Operations.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "../googletest/googletest/include"
+  "../SafeInt/Test"
   )
 
 # The set of dependency files which are needed:

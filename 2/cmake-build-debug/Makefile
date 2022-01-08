@@ -64,6 +64,30 @@ CMAKE_BINARY_DIR = C:\projects\engnr-nsu-cpp-2021\2\cmake-build-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	"C:\Program Files\JetBrains\CLion 2021.2.2\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	"C:\Program Files\JetBrains\CLion 2021.2.2\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	"C:\Program Files\JetBrains\CLion 2021.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	"C:\Program Files\JetBrains\CLion 2021.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -83,6 +107,37 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	"C:\Program Files\JetBrains\CLion 2021.2.2\bin\cmake\win\bin\ctest.exe" --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	"C:\Program Files\JetBrains\CLion 2021.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	"C:\Program Files\JetBrains\CLion 2021.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -116,37 +171,90 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named cpp_labs_2
+# Target rules for targets named cpp_lab_2
 
 # Build rule for target.
-cpp_labs_2: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 cpp_labs_2
-.PHONY : cpp_labs_2
+cpp_lab_2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 cpp_lab_2
+.PHONY : cpp_lab_2
 
 # fast build rule for target.
-cpp_labs_2/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_labs_2.dir\build.make CMakeFiles/cpp_labs_2.dir/build
-.PHONY : cpp_labs_2/fast
+cpp_lab_2/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2.dir\build.make CMakeFiles/cpp_lab_2.dir/build
+.PHONY : cpp_lab_2/fast
 
 #=============================================================================
-# Target rules for targets named commands
+# Target rules for targets named cpp_lab_2_test
 
 # Build rule for target.
-commands: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 commands
-.PHONY : commands
+cpp_lab_2_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 cpp_lab_2_test
+.PHONY : cpp_lab_2_test
 
 # fast build rule for target.
-commands/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\commands.dir\build.make CMakeFiles/commands.dir/build
-.PHONY : commands/fast
+cpp_lab_2_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2_test.dir\build.make CMakeFiles/cpp_lab_2_test.dir/build
+.PHONY : cpp_lab_2_test/fast
+
+#=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) $(MAKESILENT) -f lib\googletest\googlemock\CMakeFiles\gmock_main.dir\build.make lib/googletest/googlemock/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) $(MAKESILENT) -f lib\googletest\googlemock\CMakeFiles\gmock.dir\build.make lib/googletest/googlemock/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) $(MAKESILENT) -f lib\googletest\googletest\CMakeFiles\gtest.dir\build.make lib/googletest/googletest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) $(MAKESILENT) -f lib\googletest\googletest\CMakeFiles\gtest_main.dir\build.make lib/googletest/googletest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
 
 Commands.obj: Commands.cpp.obj
 .PHONY : Commands.obj
 
 # target to build an object file
 Commands.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\commands.dir\build.make CMakeFiles/commands.dir/Commands.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2.dir\build.make CMakeFiles/cpp_lab_2.dir/Commands.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2_test.dir\build.make CMakeFiles/cpp_lab_2_test.dir/Commands.cpp.obj
 .PHONY : Commands.cpp.obj
 
 Commands.i: Commands.cpp.i
@@ -154,7 +262,8 @@ Commands.i: Commands.cpp.i
 
 # target to preprocess a source file
 Commands.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\commands.dir\build.make CMakeFiles/commands.dir/Commands.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2.dir\build.make CMakeFiles/cpp_lab_2.dir/Commands.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2_test.dir\build.make CMakeFiles/cpp_lab_2_test.dir/Commands.cpp.i
 .PHONY : Commands.cpp.i
 
 Commands.s: Commands.cpp.s
@@ -162,39 +271,17 @@ Commands.s: Commands.cpp.s
 
 # target to generate assembly for a file
 Commands.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\commands.dir\build.make CMakeFiles/commands.dir/Commands.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2.dir\build.make CMakeFiles/cpp_lab_2.dir/Commands.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2_test.dir\build.make CMakeFiles/cpp_lab_2_test.dir/Commands.cpp.s
 .PHONY : Commands.cpp.s
-
-Errors.obj: Errors.cpp.obj
-.PHONY : Errors.obj
-
-# target to build an object file
-Errors.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\commands.dir\build.make CMakeFiles/commands.dir/Errors.cpp.obj
-.PHONY : Errors.cpp.obj
-
-Errors.i: Errors.cpp.i
-.PHONY : Errors.i
-
-# target to preprocess a source file
-Errors.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\commands.dir\build.make CMakeFiles/commands.dir/Errors.cpp.i
-.PHONY : Errors.cpp.i
-
-Errors.s: Errors.cpp.s
-.PHONY : Errors.s
-
-# target to generate assembly for a file
-Errors.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\commands.dir\build.make CMakeFiles/commands.dir/Errors.cpp.s
-.PHONY : Errors.cpp.s
 
 Operations.obj: Operations.cpp.obj
 .PHONY : Operations.obj
 
 # target to build an object file
 Operations.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\commands.dir\build.make CMakeFiles/commands.dir/Operations.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2.dir\build.make CMakeFiles/cpp_lab_2.dir/Operations.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2_test.dir\build.make CMakeFiles/cpp_lab_2_test.dir/Operations.cpp.obj
 .PHONY : Operations.cpp.obj
 
 Operations.i: Operations.cpp.i
@@ -202,7 +289,8 @@ Operations.i: Operations.cpp.i
 
 # target to preprocess a source file
 Operations.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\commands.dir\build.make CMakeFiles/commands.dir/Operations.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2.dir\build.make CMakeFiles/cpp_lab_2.dir/Operations.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2_test.dir\build.make CMakeFiles/cpp_lab_2_test.dir/Operations.cpp.i
 .PHONY : Operations.cpp.i
 
 Operations.s: Operations.cpp.s
@@ -210,15 +298,40 @@ Operations.s: Operations.cpp.s
 
 # target to generate assembly for a file
 Operations.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\commands.dir\build.make CMakeFiles/commands.dir/Operations.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2.dir\build.make CMakeFiles/cpp_lab_2.dir/Operations.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2_test.dir\build.make CMakeFiles/cpp_lab_2_test.dir/Operations.cpp.s
 .PHONY : Operations.cpp.s
+
+Tests.obj: Tests.cpp.obj
+.PHONY : Tests.obj
+
+# target to build an object file
+Tests.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2_test.dir\build.make CMakeFiles/cpp_lab_2_test.dir/Tests.cpp.obj
+.PHONY : Tests.cpp.obj
+
+Tests.i: Tests.cpp.i
+.PHONY : Tests.i
+
+# target to preprocess a source file
+Tests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2_test.dir\build.make CMakeFiles/cpp_lab_2_test.dir/Tests.cpp.i
+.PHONY : Tests.cpp.i
+
+Tests.s: Tests.cpp.s
+.PHONY : Tests.s
+
+# target to generate assembly for a file
+Tests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2_test.dir\build.make CMakeFiles/cpp_lab_2_test.dir/Tests.cpp.s
+.PHONY : Tests.cpp.s
 
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
 # target to build an object file
 main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_labs_2.dir\build.make CMakeFiles/cpp_labs_2.dir/main.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2.dir\build.make CMakeFiles/cpp_lab_2.dir/main.cpp.obj
 .PHONY : main.cpp.obj
 
 main.i: main.cpp.i
@@ -226,7 +339,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_labs_2.dir\build.make CMakeFiles/cpp_labs_2.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2.dir\build.make CMakeFiles/cpp_lab_2.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -234,7 +347,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_labs_2.dir\build.make CMakeFiles/cpp_labs_2.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\cpp_lab_2.dir\build.make CMakeFiles/cpp_lab_2.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -244,18 +357,27 @@ help:
 	@echo ... clean
 	@echo ... depend
 	@echo ... edit_cache
+	@echo ... install
+	@echo ... install/local
+	@echo ... install/strip
+	@echo ... list_install_components
 	@echo ... rebuild_cache
-	@echo ... commands
-	@echo ... cpp_labs_2
+	@echo ... test
+	@echo ... cpp_lab_2
+	@echo ... cpp_lab_2_test
+	@echo ... gmock
+	@echo ... gmock_main
+	@echo ... gtest
+	@echo ... gtest_main
 	@echo ... Commands.obj
 	@echo ... Commands.i
 	@echo ... Commands.s
-	@echo ... Errors.obj
-	@echo ... Errors.i
-	@echo ... Errors.s
 	@echo ... Operations.obj
 	@echo ... Operations.i
 	@echo ... Operations.s
+	@echo ... Tests.obj
+	@echo ... Tests.i
+	@echo ... Tests.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

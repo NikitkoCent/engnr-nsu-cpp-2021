@@ -9,12 +9,16 @@
 #include <charconv>
 #include <algorithm>
 
+using std::string;
+using std::endl;
+using std::cerr;
+
 void StackCalc::command(std::unique_ptr<Operation> cmd) {
     cmd->command(memory);
 }
 
-Operation *StackCalc::read_command(std::string &command_line) {
-    std::string command;
+Operation *StackCalc::read_command(string &command_line) {
+    string command;
     std::stringstream x;
     x << command_line;
     x >> command;
@@ -53,31 +57,31 @@ Operation *StackCalc::read_command(std::string &command_line) {
     return operation;
 }
 
-StackCalc ReadLine(std::istream &cin1) {
-try {
-    StackCalc calculator;
-    std::string command_line = "1";
-    while (!cin1.eof()) {
-        getline(cin1, command_line);
-        if (command_line.empty()) continue;
-
-        std::unique_ptr<Operation> cmd(calculator.read_command(command_line));
-        if (cmd == nullptr) {
-            continue;
-        }
-        calculator.command(std::move(cmd));
-    }
-    return calculator;
-    } catch(StackException &e){
-        std::cerr << e.what() << std::endl;
-        throw &e;
-    }
-
-}
+//StackCalc ReadLine() {
+//try {
+//    StackCalc calculator;
+//    string command_line = "1";
+//    while (!std:: cin.eof()) {
+//        getline(cin, command_line);
+//        if (command_line.empty()) continue;
+//
+//        std::unique_ptr<Operation> cmd(calculator.read_command(command_line));
+//        if (cmd == nullptr) {
+//            continue;
+//        }
+//        calculator.command(std::move(cmd));
+//    }
+//    return calculator;
+//    } catch(StackException &e){
+//        cerr << e.what() << endl;
+//        throw &e;
+//    }
+//
+//}
 
 StackCalc ReadFromFile(std::istream &file) {
     StackCalc calculator;
-    std::string command_line;
+    string command_line;
     while (!file.eof()) {
         std::getline(file, command_line);
 
@@ -90,7 +94,7 @@ StackCalc ReadFromFile(std::istream &file) {
     }
     return calculator;
 }
-bool is_number(const std::string &s) {
+bool is_number(const string &s) {
     return !s.empty() && (std::all_of(s.begin(), s.end(), [](char c) { return ::isdigit(c); }) ||
                           (s[0] == '-' && std::all_of(s.begin() + 1, s.end(), [](char c) { return ::isdigit(c); })));
 }

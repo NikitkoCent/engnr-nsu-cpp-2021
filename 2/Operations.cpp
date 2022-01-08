@@ -2,11 +2,11 @@
 // Created by Дарья on 06.01.2022.
 //
 #include "Commands.h"
-
 #include <string>
 #include <iostream>
 #include <charconv>
 
+Pop::Pop(std::string &args) : Operation(args) {}
 void Pop::command(Memory &memory) {
     if (!memory.stack.empty()) {
         memory.stack.pop();
@@ -14,6 +14,8 @@ void Pop::command(Memory &memory) {
         throw EmptyStack();
     }
 }
+
+Push::Push(std::string &args) : Operation(args) {}
 
 void Push::command(Memory &memory) {
     if (is_number(params)) {
@@ -31,6 +33,8 @@ void Push::command(Memory &memory) {
     }
 }
 
+Peek::Peek(std::string &args) : Operation(args) {}
+
 void Peek::command(Memory &memory) {
     if (!memory.stack.empty()) {
         memory.variables[params] = memory.stack.top();
@@ -38,16 +42,17 @@ void Peek::command(Memory &memory) {
         throw EmptyStack();
     }
 }
+Abs::Abs(std::string &args) : Operation(args) {}
 
 void Abs::command(Memory &memory) {
     if (!memory.stack.empty()) {
-        SafeInt<int64_t, CustomException> val = memory.stack.top();
+        SafeInt<int64_t> val = memory.stack.top();
         memory.stack.pop();
         if (val < 0) {
-            SafeInt<int64_t, CustomException> result = -val;
+            SafeInt<int64_t> result = -1*val;
             memory.stack.push(result);
         } else {
-            SafeInt<int64_t, CustomException> result = val;
+            SafeInt<int64_t> result = val;
             memory.stack.push(result);
         }
     } else {
@@ -55,44 +60,49 @@ void Abs::command(Memory &memory) {
     }
 }
 
+Plus::Plus (std::string &args) : Operation(args) {}
+
 void Plus::command(Memory &memory) {
     if (memory.stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = memory.stack.top();
+        SafeInt<int64_t> val1 = memory.stack.top();
         memory.stack.pop();
-        SafeInt<int64_t, CustomException> val2 = memory.stack.top();
+        SafeInt<int64_t> val2 = memory.stack.top();
         memory.stack.pop();
-        SafeInt<int64_t, CustomException> result = val1 + val2;
+        SafeInt<int64_t> result = val1 + val2;
         memory.stack.push(result);
     } else {
         throw EmptyStack();
     }
 }
+Minus::Minus(std::string &args) : Operation(args) {}
 
 void Minus::command(Memory &memory) {
     if (memory.stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = memory.stack.top();
+        SafeInt<int64_t> val1 = memory.stack.top();
         memory.stack.pop();
-        SafeInt<int64_t, CustomException> val2 = memory.stack.top();
+        SafeInt<int64_t> val2 = memory.stack.top();
         memory.stack.pop();
-        SafeInt<int64_t, CustomException> result = val2 - val1;
+        SafeInt<int64_t> result = val2 - val1;
         memory.stack.push(result);
     } else {
         throw EmptyStack();
     }
 }
+Multiply::Multiply(std::string &args) : Operation(args) {}
 
 void Multiply::command(Memory &memory) {
     if (memory.stack.size() >= 2) {
-        SafeInt<int64_t, CustomException> val1 = memory.stack.top();
+        SafeInt<int64_t> val1 = memory.stack.top();
         memory.stack.pop();
-        SafeInt<int64_t, CustomException> val2 = memory.stack.top();
+        SafeInt<int64_t> val2 = memory.stack.top();
         memory.stack.pop();
-        SafeInt<int64_t, CustomException> result = val1 * val2;
+        SafeInt<int64_t> result = val1 * val2;
         memory.stack.push(result);
     } else {
         throw EmptyStack();
     }
 }
+Division::Division(std::string &args) : Operation(args) {}
 
 void Division::command(Memory &memory) {
     if (memory.stack.size() >= 2) {
@@ -113,15 +123,18 @@ void Division::command(Memory &memory) {
     }
 }
 
+Print::Print(std::string &args) : Operation(args) {}
+
 void Print::command(Memory &memory) {
     if (!memory.stack.empty()) {
-        SafeInt<int64_t, CustomException> val = memory.stack.top();
+        SafeInt<int64_t> val = memory.stack.top();
         memory.variables["result"] = val;
         std::cout << (int64_t) val << std::endl;
     } else {
         throw EmptyStack();
     }
 }
+Read::Read(std::string &args) : Operation(args) {}
 
 void Read::command(Memory &memory) {
     std::string val;
@@ -134,5 +147,6 @@ void Read::command(Memory &memory) {
         throw EmptyStack();
     }
 }
+Comment::Comment(std::string &args) : Operation(args) {}
 
 void Comment::command(Memory &memory) {}

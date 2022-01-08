@@ -66,6 +66,7 @@ include CMakeFiles/cpp_labs_2.dir/progress.make
 include CMakeFiles/cpp_labs_2.dir/flags.make
 
 CMakeFiles/cpp_labs_2.dir/main.cpp.obj: CMakeFiles/cpp_labs_2.dir/flags.make
+CMakeFiles/cpp_labs_2.dir/main.cpp.obj: CMakeFiles/cpp_labs_2.dir/includes_CXX.rsp
 CMakeFiles/cpp_labs_2.dir/main.cpp.obj: ../main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\projects\engnr-nsu-cpp-2021\2\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cpp_labs_2.dir/main.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\cpp_labs_2.dir\main.cpp.obj -c C:\projects\engnr-nsu-cpp-2021\2\main.cpp

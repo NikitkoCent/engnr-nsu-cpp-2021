@@ -66,6 +66,7 @@ include CMakeFiles/commands.dir/progress.make
 include CMakeFiles/commands.dir/flags.make
 
 CMakeFiles/commands.dir/Commands.cpp.obj: CMakeFiles/commands.dir/flags.make
+CMakeFiles/commands.dir/Commands.cpp.obj: CMakeFiles/commands.dir/includes_CXX.rsp
 CMakeFiles/commands.dir/Commands.cpp.obj: ../Commands.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\projects\engnr-nsu-cpp-2021\2\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/commands.dir/Commands.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\commands.dir\Commands.cpp.obj -c C:\projects\engnr-nsu-cpp-2021\2\Commands.cpp
@@ -79,6 +80,7 @@ CMakeFiles/commands.dir/Commands.cpp.s: cmake_force
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\projects\engnr-nsu-cpp-2021\2\Commands.cpp -o CMakeFiles\commands.dir\Commands.cpp.s
 
 CMakeFiles/commands.dir/Operations.cpp.obj: CMakeFiles/commands.dir/flags.make
+CMakeFiles/commands.dir/Operations.cpp.obj: CMakeFiles/commands.dir/includes_CXX.rsp
 CMakeFiles/commands.dir/Operations.cpp.obj: ../Operations.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\projects\engnr-nsu-cpp-2021\2\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/commands.dir/Operations.cpp.obj"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\commands.dir\Operations.cpp.obj -c C:\projects\engnr-nsu-cpp-2021\2\Operations.cpp
@@ -91,34 +93,19 @@ CMakeFiles/commands.dir/Operations.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/commands.dir/Operations.cpp.s"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\projects\engnr-nsu-cpp-2021\2\Operations.cpp -o CMakeFiles\commands.dir\Operations.cpp.s
 
-CMakeFiles/commands.dir/Errors.cpp.obj: CMakeFiles/commands.dir/flags.make
-CMakeFiles/commands.dir/Errors.cpp.obj: ../Errors.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\projects\engnr-nsu-cpp-2021\2\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/commands.dir/Errors.cpp.obj"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\commands.dir\Errors.cpp.obj -c C:\projects\engnr-nsu-cpp-2021\2\Errors.cpp
-
-CMakeFiles/commands.dir/Errors.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/commands.dir/Errors.cpp.i"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\projects\engnr-nsu-cpp-2021\2\Errors.cpp > CMakeFiles\commands.dir\Errors.cpp.i
-
-CMakeFiles/commands.dir/Errors.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/commands.dir/Errors.cpp.s"
-	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\projects\engnr-nsu-cpp-2021\2\Errors.cpp -o CMakeFiles\commands.dir\Errors.cpp.s
-
 # Object files for target commands
 commands_OBJECTS = \
 "CMakeFiles/commands.dir/Commands.cpp.obj" \
-"CMakeFiles/commands.dir/Operations.cpp.obj" \
-"CMakeFiles/commands.dir/Errors.cpp.obj"
+"CMakeFiles/commands.dir/Operations.cpp.obj"
 
 # External object files for target commands
 commands_EXTERNAL_OBJECTS =
 
 libcommands.a: CMakeFiles/commands.dir/Commands.cpp.obj
 libcommands.a: CMakeFiles/commands.dir/Operations.cpp.obj
-libcommands.a: CMakeFiles/commands.dir/Errors.cpp.obj
 libcommands.a: CMakeFiles/commands.dir/build.make
 libcommands.a: CMakeFiles/commands.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\projects\engnr-nsu-cpp-2021\2\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libcommands.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\projects\engnr-nsu-cpp-2021\2\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libcommands.a"
 	$(CMAKE_COMMAND) -P CMakeFiles\commands.dir\cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\commands.dir\link.txt --verbose=$(VERBOSE)
 

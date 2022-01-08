@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/commands.dir/Commands.cpp.obj"
-  "CMakeFiles/commands.dir/Errors.cpp.obj"
   "CMakeFiles/commands.dir/Operations.cpp.obj"
   "libcommands.a"
   "libcommands.pdb"

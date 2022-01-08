@@ -17,16 +17,18 @@
 #include "Errors.h"
 #include <memory>
 
-
+using std::stack;
+using std::map;
+using std::string;
 
 struct Memory {
-    std::stack<SafeInt<int64_t, CustomException>> stack;
-    std::map<std::string, SafeInt<int64_t, CustomException>> variables;
+    stack<SafeInt<int64_t>> stack;
+    map<std::string, SafeInt<int64_t>> variables;
 };
 
 class Operation {
 public:
-    explicit Operation(std::string &args) { params = args; }
+    explicit Operation( string &args) { params = args; }
 
     virtual void
     command (Memory &memory) = 0;
@@ -34,19 +36,19 @@ public:
     virtual ~Operation() = default ;
 
 protected:
-    std::string params;
+    string params;
 };
 
 class Pop : public Operation {
 public:
-    explicit Pop(std::string &args);
+    explicit Pop(string &args);
 
     void command(Memory &memory) override;
 };
 
 class Push : public Operation {
 public:
-    explicit Push(std::string &args);
+    explicit Push(string &args);
 
     void
     command(Memory &memory) override;
@@ -54,7 +56,7 @@ public:
 
 class Peek : public Operation {
 public:
-    explicit Peek(std::string &args);
+    explicit Peek (string &args);
 
     void
     command(Memory &memory) override;
@@ -62,7 +64,7 @@ public:
 
 class Abs : public Operation {
 public:
-    explicit Abs(std::string &args);
+    explicit Abs(string &args);
 
     void
     command(Memory &memory) override;
@@ -70,7 +72,7 @@ public:
 
 class Plus : public Operation {
 public:
-    explicit Plus(std::string &args);
+    explicit Plus(string &args);
 
     void
     command(Memory &memory) override;
@@ -78,7 +80,7 @@ public:
 
 class Minus : public Operation {
 public:
-    explicit Minus(std::string &args);
+    explicit Minus(string &args);
 
     void
     command(Memory &memory) override;
@@ -86,7 +88,7 @@ public:
 
 class Multiply : public Operation {
 public:
-    explicit Multiply(std::string &args);
+    explicit Multiply(string &args);
 
     void
     command(Memory &memory) override;
@@ -94,7 +96,7 @@ public:
 
 class Division : public Operation {
 public:
-    explicit Division(std::string &args);
+    explicit Division(string &args);
 
     void
     command(Memory &memory) override;
@@ -102,7 +104,7 @@ public:
 
 class Print : public Operation {
 public:
-    explicit Print(std::string &args);
+    explicit Print(string &args);
 
     void
     command(Memory &memory) override;
@@ -110,14 +112,14 @@ public:
 
 class Read : public Operation {
 public:
-    explicit Read(std::string &args);
+    explicit Read(string &args);
 
     void command(Memory &memory) override;
 };
 
 class Comment : public Operation {
 public:
-    explicit Comment(std::string &args);
+    explicit Comment(string &args);
 
     void command(Memory &memory) override;
 };
