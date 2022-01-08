@@ -8,10 +8,10 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
-    string help = "Используйте\n"
-                  "-h                   : для того чтобы вывести справочную информацию\n"
-                  "<filename> -m <mode> : для того чтобы посчитать переданный вариант хеша переданного файла\n"
-                  "-m <mode> <filename> : для того чтобы посчитать переданный вариант хеша переданного файла\n"
+    string help = "Using\n"
+                  "-h                   : for get help message\n"
+                  "<filename> -m <mode> : for togo chtobi postchitat hesh for peredannogo file \n"
+                  "-m <mode> <filename> : for togo chtobi postchitat hesh for peredannogo file\n"
                   "\n"
                   "<mode> ∈ { adler32, sum64 }\n";
     ifstream in;
