@@ -21,25 +21,23 @@ using std::cin;
 using std::endl;
 using std::move;
 
-unsigned long long worker(ThreadPool<int> &tp, const string &file, const bool &cancel) {
+unsigned long long worker(ThreadPool<unsigned long long> &tp, const string &file, std::atomic<bool> &cancel) {
     cout << "Starting worker for " << &tp << " " << file << endl;
     unsigned long long sz = 0;
     int cnt = 0;
-    vector<std::future<int>> futs;
+    vector<std::future<unsigned long long>> futs;
 
     for (auto &p: fs::recursive_directory_iterator(file)) {
         if (is_regular_file(p) && !cancel) {
-//            cout << "File: " << p.path() << endl;
             auto task_fut = tp.submit(move([p] {
                 auto sz = fs::file_size(p.path());
-//                cout << "size of " << p.path() << " is " << sz << endl;
                 return sz;
             }));
             futs.emplace_back(move(task_fut));
-            cout << "\rFiles: " << cnt <<"           ";
+//            cout << "\rFiles: " << cnt <<"           ";
             cnt++;
         } else if (cancel) {
-            cout << "Task was canceled!" << endl;
+            cout << "Task" << file << " was canceled!" << endl;
             return 0;
         }
     }
@@ -56,11 +54,12 @@ unsigned long long worker(ThreadPool<int> &tp, const string &file, const bool &c
 }
 
 
-int main() {
+int main(int argc, char **argv) {
+
     string cmd;
-    bool cancel = false;
-    ThreadPool<unsigned long long> task_pool(1);
-    ThreadPool<int> subtask_pool;
+    std::atomic<bool> cancel = false;
+    ThreadPool<unsigned long long> task_pool(4);
+    ThreadPool<unsigned long long> subtask_pool;
 
     cout << &subtask_pool << endl;
 
@@ -79,6 +78,7 @@ int main() {
             cancel = true;
             task_pool.cancel_all();
             subtask_pool.cancel_all();
+            while (task_pool.active_count() > 0) std::this_thread::sleep_for(std::chrono::milliseconds(5));
             cancel = false;
         } else if (!cmd.empty()) {
             task_pool.submit(move([&subtask_pool, cmd, &cancel] { return worker(subtask_pool, cmd, cancel); }));

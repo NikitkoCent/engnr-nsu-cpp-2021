@@ -59,9 +59,7 @@ T SafeQueue<T>::next() {
 template<typename T>
 bool SafeQueue<T>::empty() {
     std::lock_guard<std::mutex> lock(m);
-    bool empty = true;
-    empty = this->q.empty();
-    return empty;
+    return this->q.empty();;
 }
 
 template<typename T>

@@ -78,12 +78,12 @@ public:
     }
 
     void join() {
-        std::unique_lock<std::mutex> lock{m_mutex}; // fix Spurious wakeup
         m_stop = true;
         m_notifier.notify_all();
 
         for (auto &thread : m_workers) {
             if (thread.joinable()) {
+                std::cout << "Done: " << &thread << std::endl;
 //                thread.detach();
                 thread.join();
             }
@@ -102,6 +102,10 @@ public:
 
     std::size_t task_count() {
         return tasks.get_length();
+    }
+
+    std::size_t active_count() {
+        return m_active;
     }
 
 private:
