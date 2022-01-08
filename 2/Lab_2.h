@@ -18,7 +18,7 @@ using std::ifstream;
 using std::stringstream;
 using std::invalid_argument;
 using std::endl;
-/*
+
 class Exception : public std::exception
 {
 public:
@@ -73,18 +73,18 @@ class IntOverflow : public SafeIntException
 public:
     static void SafeIntOnOverflow();
 };
-*/
+
 
 
 class Param {
 public:
-    stack<SafeInt<int64_t>> stk;
+    stack<SafeInt<int64_t, IntOverflow>> stk;
     vector<string> vst;
     map<string, SafeInt<int64_t>> var;
 
     ~Param() {
         vst.clear();
-        stk = stack<SafeInt<int64_t>>();
+        stk = stack<SafeInt<int64_t, IntOverflow>>();
         var.clear();
     }
 };

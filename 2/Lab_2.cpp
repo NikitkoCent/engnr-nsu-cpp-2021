@@ -1,6 +1,6 @@
 #include "Lab_2.h"
 #include "Operations.h"
-#include "Exceptions.h"
+//#include "Exceptions.h"
 
 int main(int argc, char* argv[]) {
 
