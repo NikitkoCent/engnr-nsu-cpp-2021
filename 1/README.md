@@ -19,5 +19,5 @@ Adler32 (https://en.wikipedia.org/wiki/Adler-32);
 
 Команды для запуска:
 
-1. cmake -G "MinGW Makefiles" -S "2" -B "2\cmake_"
-2. cmake --build "2\cmake_"
+1. cmake -G "MinGW Makefiles" -S "1" -B "1\cmake_"
+2. cmake --build "1\cmake_"
