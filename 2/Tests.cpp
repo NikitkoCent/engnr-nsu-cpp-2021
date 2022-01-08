@@ -74,5 +74,12 @@ TEST(Calc, test_exception_Emptystack) {
 TEST(Calc, test_exception_unknown)  {
     std::stringstream data("PUSH 1\n"
                            "Hello\n");
-    EXPECT_THROW(ReadFromFile(data), UnknownCommand);
-}
+    EXPECT_THROW(ReadFromFile(data), UnknownCommand);}
+
+TEST(Calc, test_exception_div)  {
+    std::stringstream data("PUSH -9223372036854775808\n"
+                           "PUSH -1\n"
+                           "DIV\n"
+                           "PRINT");
+    EXPECT_THROW(ReadFromFile(data), OverflowException);}
+

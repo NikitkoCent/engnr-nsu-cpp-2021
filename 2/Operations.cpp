@@ -112,7 +112,9 @@ void Division::command(Memory &memory) {
         if (val1 != 0) {
             memory.is_stack.pop();
             int64_t res=0;
-            SafeDivide(val2, val1, res);
+            if(SafeDivide(val2, val1, res)==false){
+                throw OverflowException();
+            };
             memory.is_stack.push(res);
         } else {
             throw DivisionByZero();
