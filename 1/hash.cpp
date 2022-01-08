@@ -1,32 +1,32 @@
 #include "hash.h"
 
-uint32_t adler32(std::ifstream &file) {
-    uint32_t a = 1, b = 0;
+uint32_t adler32(std::istream &file) {
+    uint32_t a, b;
+    a = 1;
+    b = 0;
     unsigned char s;
-
     while (file.read((char *) (&s), sizeof(unsigned char))) {
-        a = (a + s) % 65521;
-        b = (b + a) % 65521;
+        a = ( a + s ) % 65521;
+        b = ( b + a ) % 65521;
     }
-
     return ((b << 16) | a);
 }
 
-uint64_t sum64(std::ifstream &file) {
-    uint64_t sum_block, sum = 0, c;
+uint64_t sum64(std::istream &file) {
+    uint64_t s, result_sum, count;
+    result_sum = 0;
     unsigned char k;
-
     while (!file.eof()) {
-        sum_block = 0; c = 0;
-        while (c < 8 * sizeof(unsigned char)) {
+        s = 0;
+        count = 0;
+        while (count < 8 * sizeof(unsigned char)) {
             file.read((char *) (&k), sizeof(unsigned char));
             if (!file.gcount()) break;
-            sum_block <<= 8;
-            sum_block |= k & 0xff;
-            c++;
+            s <<= 8;
+            s |= k & 0xff;
+            count++;
         }
-        sum += sum_block;
+        result_sum += s;
     }
-
-    return sum;
+    return result_sum;
 }
