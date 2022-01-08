@@ -41,10 +41,6 @@ int main(int argc, char* argv[]) {
                     std::cerr << exceptions;
                     return 1;
                 }
-                catch (...) {
-                    std::cerr << "Program run error";
-                    return 1;
-                }
             }
         }
     }
@@ -75,10 +71,6 @@ int main(int argc, char* argv[]) {
                 }
                 catch (const char* exceptions) {
                     std::cerr << exceptions;
-                    return 1;
-                }
-                catch (...) {
-                    std::cerr << "Program run error";
                     return 1;
                 }
             }

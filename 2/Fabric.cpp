@@ -143,7 +143,6 @@ void div_cmd::execute(Param& p) {
 
 void print_cmd::execute(Param& p) {
     if (!p.stk.empty()) {
-        SafeInt<int64_t, IntOverflow> d(p.stk.top());
         std::cout << int64_t(p.stk.top()) << endl;
     }
     else {
