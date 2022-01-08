@@ -3,35 +3,35 @@
 int main(int argc, char *argv[]) {
     unsigned int mode = 0;
 
+    std::string help_message = "Using:\n"
+                               "./hasher <filename> -m <mode>\n"
+                               "./hasher -m <mode> <filename>\n"
+                               "<mode> = { adler32, sum64 }\n";
+
     std::string name_mode;
     std::string filename;
 
     std::ifstream file;
 
     if (argc == 2) {
-        std::cout << "Using:" << std::endl;
-        std::cout << "./hasher <filename> -m <mode>" << std::endl;
-        std::cout << "./hasher -m <mode> <filename>" << std::endl;
-        std::cout << "<mode> = { adler32, sum64 }" << std::endl;
-        return 0;
+        if(argv[1] == "-h") {
+            std::cout << help_message;
+            return 0;
+        } else {
+            throw std::runtime_error("Invalid arguments");
+        }
     } else if (argc == 4) {
         if (argv[1] == "-m") {
             name_mode = argv[2];
             filename = argv[3];
-        } else {
+        } else if(argv[2] == "-m") {
             name_mode = argv[3];
             filename = argv[1];
+        } else {
+            throw std::runtime_error("Invalid arguments");
         }
     } else {
         throw std::runtime_error("Invalid arguments");
-    }
-
-    if (name_mode == "adler32") {
-        mode = 2;
-    } else if (name_mode == "sum64") {
-        mode = 1;
-    } else {
-        throw std::runtime_error("Invalid mode");
     }
 
     file.open(filename, std::ios::binary);
@@ -40,13 +40,16 @@ int main(int argc, char *argv[]) {
     }
 
     try {
-        if (mode == 1) {
+        if (name_mode == "sum64") {
             std::cout << std::hex << sum64(file) << std::endl;
-        } else {
+        } else if(name_mode == "adler32") {
             std::cout << std::hex << adler32(file) << std::endl;
+        } else {
+            throw std::runtime_error("Invalid mode");
         }
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
+        std::cerr << help_message;
         return 1;
     }
     return 0;
