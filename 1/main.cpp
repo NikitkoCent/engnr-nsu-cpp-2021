@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
             throw std::runtime_error("Invalid arguments");
         }
 
-        file.open(filename, std::ios::binary);
+        file.open(filename, std::ios_base::binary);
         if (!file.is_open()) {
             throw std::runtime_error("Invalid filename");
         }
