@@ -43,6 +43,7 @@ void Push::ct(type &tp, std::vector<std::string> str) {
             auto it = tp.mp.find(varname);
             if (it == tp.mp.end()) {
                 throw PushException();
+
             }
             tp.stack_.push(it->second);
         }
