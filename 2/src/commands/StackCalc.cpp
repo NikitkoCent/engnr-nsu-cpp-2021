@@ -125,10 +125,8 @@ Division::Division(std::string &args) : Command(args) {}
 void
 Division::command(ContextExecution &context_execution) {
     if (context_execution.stack.size() >= 2) {
-//        SafeInt<int64_t, CustomException> val1 = context_execution.stack.top();
         int64_t val1 = context_execution.stack.top();
         context_execution.stack.pop();
-//        SafeInt<int64_t, CustomException> val2 = context_execution.stack.top();
         int64_t val2 = context_execution.stack.top();
         if (val1 != 0) {
             context_execution.stack.pop();
@@ -231,7 +229,6 @@ Command *StackCalc::read_command(std::string &command_line) {
 
 
 StackCalc OneCommandRead() {
-//    try {
     StackCalc calculator;
     std::string command_line = "s";
     while (!std::cin.eof()) {
@@ -244,10 +241,6 @@ StackCalc OneCommandRead() {
         calculator.command(std::move(cmd));
     }
     return calculator;
-//    }catch(StackException &e){
-//        std::cerr << e.what() << std::endl;
-//        throw &e;
-//    }
 
 }
 
@@ -257,16 +250,11 @@ StackCalc ReadFromStream(std::istream &file) {
     std::string command_line;
     while (!file.eof()) {
         std::getline(file, command_line);
-//        try {
         std::unique_ptr<Command> cmd(calculator.read_command(command_line));
         if (cmd == nullptr) {
             continue;
         }
         calculator.command(std::move(cmd));
-//        } catch (StackException &e) {
-//            std::cerr << e.what() << std::endl;
-//            throw &e;
-//        }
     }
     return calculator;
 }
