@@ -32,9 +32,11 @@ void Pop::ct(type &tp, std::vector<std::string> str){
 }
 
 void Push::ct(type &tp, std::vector<std::string> str) {
-    std::string varname = str[1];
-    if (varname.empty())
+    if (str.size()<2) {
+        std::cout<<"ass";
         throw VarnameException();
+    }
+    std::string varname = str[1];
     if (is_number(varname)){
         tp.stack_.push(std::stoll(varname));
     }
