@@ -48,7 +48,7 @@ void Push::ct(type &tp, std::vector<std::string> str) {
             tp.stack_.push(it->second);
         }
     }
-    catch(std::out_of_range){
+    catch(...){
         throw SIException();
     }
 }
