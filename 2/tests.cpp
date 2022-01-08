@@ -3,6 +3,7 @@
 #include "Fabric.h"
 #include "Operations.h"
 #include "Exceptions.h"
+#include "Functions.cpp"
 
 TEST(TestCalc, Test1) {
 	std::stringstream line_cmd("# (10 + 5*36)/4 + 15 PRINT"
