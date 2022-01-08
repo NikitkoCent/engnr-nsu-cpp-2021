@@ -14,7 +14,7 @@ void pop_cmd::execute(Param& p) {
 void push_cmd::execute(Param& p) {
     if (strToInteger(p) && p.vst.size() >= 2) {
         SafeInt<int64_t> number = SafeInt<int64_t>::SafeAtoI(p.vst[1].c_str());
-        p.stk.push(number);
+        p.stk.push(int64_t(number));
     }
     else {
         if (p.var.count(p.vst[1])) {
