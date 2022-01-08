@@ -36,7 +36,6 @@ void Plus::rep(const std::vector<std::string> &command_str,
         int64_t second_summand = data.values.top();
         data.values.pop();
         int64_t result;
-        SafeAdd(first_summand, second_summand, result);
         if (SafeAdd(first_summand, second_summand, result) == false) {
             throw CalcExceptions::my_overflow();
         }
@@ -58,7 +57,6 @@ void Minus::rep(const std::vector<std::string> &command_str,
         data.values.pop();
 
         int64_t result;
-        SafeSubtract(second_min, first_min, result);
         if (SafeSubtract(second_min, first_min, result) == false) {
             throw CalcExceptions::my_overflow();
         }
@@ -90,7 +88,6 @@ void Mul::rep(const std::vector<std::string> &command_str,
         data.values.pop();
 
         int64_t result;
-        SafeMultiply(first_mul, second_mul, result);
         if (SafeMultiply(first_mul, second_mul, result) == false) {
             throw CalcExceptions::my_overflow();
         }
@@ -116,7 +113,6 @@ void Div::rep(const std::vector<std::string> &command_str,
             throw CalcExceptions::DivisionByZero();
         }
         int64_t result;
-        SafeDivide(second_del, first_del, result);
         if (SafeDivide(second_del, first_del, result) == false) {
             throw CalcExceptions::my_overflow();
         }
