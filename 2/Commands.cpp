@@ -57,28 +57,6 @@ Operation *StackCalc::read_command(string &command_line) {
     return operation;
 }
 
-//StackCalc ReadLine() {
-//try {
-//    StackCalc calculator;
-//    string command_line = "1";
-//    while (!std:: cin.eof()) {
-//        getline(cin, command_line);
-//        if (command_line.empty()) continue;
-//
-//        std::unique_ptr<Operation> cmd(calculator.read_command(command_line));
-//        if (cmd == nullptr) {
-//            continue;
-//        }
-//        calculator.command(std::move(cmd));
-//    }
-//    return calculator;
-//    } catch(StackException &e){
-//        cerr << e.what() << endl;
-//        throw &e;
-//    }
-//
-//}
-
 StackCalc ReadFromFile(std::istream &file) {
     StackCalc calculator;
     string command_line;

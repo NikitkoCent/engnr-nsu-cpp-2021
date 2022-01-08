@@ -22,7 +22,7 @@ using std::map;
 using std::string;
 
 struct Memory {
-    stack<SafeInt<int64_t>> stack;
+    stack<SafeInt<int64_t>> is_stack;
     map<std::string, SafeInt<int64_t>> variables;
 };
 

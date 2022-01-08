@@ -24,8 +24,6 @@ public:
     }
 };
 
-StackCalc ReadLine();
-
 StackCalc ReadFromFile(std::istream &file);
 
 bool is_number(const std::string &s);

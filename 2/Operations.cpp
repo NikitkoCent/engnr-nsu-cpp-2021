@@ -8,8 +8,8 @@
 
 Pop::Pop(std::string &args) : Operation(args) {}
 void Pop::command(Memory &memory) {
-    if (!memory.stack.empty()) {
-        memory.stack.pop();
+    if (!memory.is_stack.empty()) {
+        memory.is_stack.pop();
     } else {
         throw EmptyStack();
     }
@@ -24,20 +24,20 @@ void Push::command(Memory &memory) {
         if (ec == std::errc::result_out_of_range) {
             throw OverflowException();
         }
-        memory.stack.push(result);
+        memory.is_stack.push(result);
     } else {
         auto elem = memory.variables.find(params);
         if (elem == memory.variables.end()) {
             throw WrongArgument();
-        } else memory.stack.push(elem->second);
+        } else memory.is_stack.push(elem->second);
     }
 }
 
 Peek::Peek(std::string &args) : Operation(args) {}
 
 void Peek::command(Memory &memory) {
-    if (!memory.stack.empty()) {
-        memory.variables[params] = memory.stack.top();
+    if (!memory.is_stack.empty()) {
+        memory.variables[params] = memory.is_stack.top();
     } else {
         throw EmptyStack();
     }
@@ -45,15 +45,15 @@ void Peek::command(Memory &memory) {
 Abs::Abs(std::string &args) : Operation(args) {}
 
 void Abs::command(Memory &memory) {
-    if (!memory.stack.empty()) {
-        SafeInt<int64_t> val = memory.stack.top();
-        memory.stack.pop();
+    if (!memory.is_stack.empty()) {
+        SafeInt<int64_t> val = memory.is_stack.top();
+        memory.is_stack.pop();
         if (val < 0) {
             SafeInt<int64_t> result = -1*val;
-            memory.stack.push(result);
+            memory.is_stack.push(result);
         } else {
             SafeInt<int64_t> result = val;
-            memory.stack.push(result);
+            memory.is_stack.push(result);
         }
     } else {
         throw EmptyStack();
@@ -63,13 +63,13 @@ void Abs::command(Memory &memory) {
 Plus::Plus (std::string &args) : Operation(args) {}
 
 void Plus::command(Memory &memory) {
-    if (memory.stack.size() >= 2) {
-        SafeInt<int64_t> val1 = memory.stack.top();
-        memory.stack.pop();
-        SafeInt<int64_t> val2 = memory.stack.top();
-        memory.stack.pop();
+    if (memory.is_stack.size() >= 2) {
+        SafeInt<int64_t> val1 = memory.is_stack.top();
+        memory.is_stack.pop();
+        SafeInt<int64_t> val2 = memory.is_stack.top();
+        memory.is_stack.pop();
         SafeInt<int64_t> result = val1 + val2;
-        memory.stack.push(result);
+        memory.is_stack.push(result);
     } else {
         throw EmptyStack();
     }
@@ -77,13 +77,13 @@ void Plus::command(Memory &memory) {
 Minus::Minus(std::string &args) : Operation(args) {}
 
 void Minus::command(Memory &memory) {
-    if (memory.stack.size() >= 2) {
-        SafeInt<int64_t> val1 = memory.stack.top();
-        memory.stack.pop();
-        SafeInt<int64_t> val2 = memory.stack.top();
-        memory.stack.pop();
+    if (memory.is_stack.size() >= 2) {
+        SafeInt<int64_t> val1 = memory.is_stack.top();
+        memory.is_stack.pop();
+        SafeInt<int64_t> val2 = memory.is_stack.top();
+        memory.is_stack.pop();
         SafeInt<int64_t> result = val2 - val1;
-        memory.stack.push(result);
+        memory.is_stack.push(result);
     } else {
         throw EmptyStack();
     }
@@ -91,13 +91,13 @@ void Minus::command(Memory &memory) {
 Multiply::Multiply(std::string &args) : Operation(args) {}
 
 void Multiply::command(Memory &memory) {
-    if (memory.stack.size() >= 2) {
-        SafeInt<int64_t> val1 = memory.stack.top();
-        memory.stack.pop();
-        SafeInt<int64_t> val2 = memory.stack.top();
-        memory.stack.pop();
+    if (memory.is_stack.size() >= 2) {
+        SafeInt<int64_t> val1 = memory.is_stack.top();
+        memory.is_stack.pop();
+        SafeInt<int64_t> val2 = memory.is_stack.top();
+        memory.is_stack.pop();
         SafeInt<int64_t> result = val1 * val2;
-        memory.stack.push(result);
+        memory.is_stack.push(result);
     } else {
         throw EmptyStack();
     }
@@ -105,15 +105,15 @@ void Multiply::command(Memory &memory) {
 Division::Division(std::string &args) : Operation(args) {}
 
 void Division::command(Memory &memory) {
-    if (memory.stack.size() >= 2) {
-        int64_t val1 = memory.stack.top();
-        memory.stack.pop();
-        int64_t val2 = memory.stack.top();
+    if (memory.is_stack.size() >= 2) {
+        int64_t val1 = memory.is_stack.top();
+        memory.is_stack.pop();
+        int64_t val2 = memory.is_stack.top();
         if (val1 != 0) {
-            memory.stack.pop();
+            memory.is_stack.pop();
             int64_t res;
             SafeDivide(val2, val1, res);
-            memory.stack.push(res);
+            memory.is_stack.push(res);
         } else {
             throw DivisionByZero();
         }
@@ -126,8 +126,8 @@ void Division::command(Memory &memory) {
 Print::Print(std::string &args) : Operation(args) {}
 
 void Print::command(Memory &memory) {
-    if (!memory.stack.empty()) {
-        SafeInt<int64_t> val = memory.stack.top();
+    if (!memory.is_stack.empty()) {
+        SafeInt<int64_t> val = memory.is_stack.top();
         memory.variables["result"] = val;
         std::cout << (int64_t) val << std::endl;
     } else {
@@ -142,7 +142,7 @@ void Read::command(Memory &memory) {
     if (is_number(val)) {
         int64_t result{};
         std::from_chars(val.data(), val.data() + val.size(), result);
-        memory.stack.push(result);
+        memory.is_stack.push(result);
     } else {
         throw EmptyStack();
     }
