@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
         if (strcmp(argv[1], "-m") == 0) {
             name_mode = argv[2];
             filename = argv[3];
-        } else if (strcmp(argv[1], "-m") == 0) {
+        } else if (strcmp(argv[2], "-m") == 0) {
             name_mode = argv[3];
             filename = argv[1];
         } else {
