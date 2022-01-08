@@ -36,6 +36,9 @@ add_executable(
   Fabric.h
   Operations.h
   Exceptions.h
+  Fabric.cpp
+  Operations.cpp
+  Exceptions.cpp
 )
 
 target_link_libraries(
