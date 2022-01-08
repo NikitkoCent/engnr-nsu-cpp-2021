@@ -4,3 +4,6 @@
 [submodule "2/SafeInt"]
 	path = 2/SafeInt
 	url = https://github.com/dcleblanc/SafeInt
+[submodule "googletest"]
+	path = googletest
+	url = https://github.com/google/googletest
