@@ -14,6 +14,7 @@
 #include <string>
 #include <fstream>
 #include <istream>
+#include <stdexcept>
 
 bool is_number(std::string &line) {
     char *p;
