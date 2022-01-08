@@ -73,9 +73,9 @@ TEST(TestCalc, Test_example) {
 		}
 	}
 	EXPECT_EQ(p.stk.top(), result);
-	p.vst.clear();
-	p.stk = stack<int64_t>();
-	p.var.clear();
+//	p.vst.clear();
+//	p.stk = stack<int64_t>();
+//	p.var.clear();
 }
 
 TEST(TestCalc, Test_divByZero) {
