@@ -71,6 +71,7 @@ void Abs::ct(type &tp, std::vector<std::string> str) {
         if(value < 0) {value = (-1)*value;}
         tp.stack_.push(value);
 
+
 }
 
 void Plus::ct(type &tp, std::vector<std::string> str) {
