@@ -1,8 +1,8 @@
-//#include "gtest/gtest.h"
+#include "gtest/gtest.h"
 #include "Lab_2.h" 
 #include "Fabric.h"
 #include "Operations.h"
-#include "Functions.cpp"
+//#include "Functions.cpp"
 
 TEST(TestCalc, Test1) {
 	std::stringstream line_cmd("# (10 + 5*36)/4 + 15 PRINT"

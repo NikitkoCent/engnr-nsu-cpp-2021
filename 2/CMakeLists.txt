@@ -38,6 +38,7 @@ add_executable(
   Fabric.cpp
   Operations.cpp
   Exceptions.cpp
+  Functions.cpp
 )
 
 target_link_libraries(
