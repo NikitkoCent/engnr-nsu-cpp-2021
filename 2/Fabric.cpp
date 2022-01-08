@@ -1,6 +1,6 @@
 #include "Lab_2.h"
 #include "Fabric.h"
-//#include "Exceptions.h"
+#include "Exceptions.h"
 
 void pop_cmd::execute(Param& p) {
     if (!p.stk.empty()) {
