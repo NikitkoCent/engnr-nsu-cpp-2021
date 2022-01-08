@@ -8,16 +8,35 @@ void split(Param &p, const string& s, char delim) {
     }
 }
 
-bool strToInteger(Param p) {
-    //SafeInt<int64_t, IntOverflow> number = 0;
-    try {
-        SafeInt<int64_t> number = SafeInt<int64_t>::SafeAtoI(p.vst[1].c_str());
-        if (number - number == 0) {
-            return true;
-        }
-    }
-    catch (invalid_argument const&) {
+bool integer_check(Param& s) {
+    stringstream ss;
+    ss << s.vst[1];
+    int64_t num = 0;
+    ss >> num;
+    if (ss.good()) {
         return false;
+    }
+    else if (num == 0 && s.vst[1][0] != '0') {
+        return false;
+    }
+    else {
+        return true;
+    }
+    return false;
+}
+
+
+bool strToInteger(Param p) {
+    if (integer_check(p)) {
+        try {
+            SafeInt<int64_t> number = SafeInt<int64_t>::SafeAtoI(p.vst[1].c_str());
+            if (number - number == 0) {
+                return true;
+            }
+        }
+        catch (invalid_argument const&) {
+            return false;
+        }
     }
     return false;
 }
