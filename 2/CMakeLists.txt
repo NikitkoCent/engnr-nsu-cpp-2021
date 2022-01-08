@@ -32,13 +32,13 @@ add_executable(
 
   tests
   tests.cpp
-  Lab_2.h
-  Fabric.h
-  Operations.h
-  Fabric.cpp
-  Operations.cpp
-  Exceptions.cpp
-  Functions.cpp
+  T_Lab_2.h
+  T_Fabric.h
+  T_Operations.h
+  T_Fabric.cpp
+  T_Operations.cpp
+  T_Exceptions.cpp
+  T_Functions.cpp
 )
 
 target_link_libraries(
