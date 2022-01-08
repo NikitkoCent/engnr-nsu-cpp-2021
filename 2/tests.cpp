@@ -28,32 +28,6 @@ TEST(TestCalc, Test1) {
 		if (p.vst.size() >= 1)
 		{
 
-		if (check(p)) {
-					cmd_stack = create_stack.Create(p);
-					cmd_stack->execute(p);
-				}
-				p.vst.clear();
-			
-		}
-	}
-	EXPECT_EQ(p.stk.top(), result);
-	p.~Param();
-}
-
-
-TEST(TestCalc, Test_example) {
-	string filename("tests/test_example/file.txt");
-	Param p;
-	string line;
-	OperationsFactory create_stack;
-	Operations* cmd_stack;
-	int64_t result = 220;
-	ifstream in(filename);
-	while (getline(in, line))
-	{
-		split(p, line, ' ');
-		if (p.vst.size() >= 1)
-		{
 			if (check(p)) {
 				cmd_stack = create_stack.Create(p);
 				cmd_stack->execute(p);
@@ -63,7 +37,46 @@ TEST(TestCalc, Test_example) {
 		}
 	}
 	EXPECT_EQ(p.stk.top(), result);
-	p.~Param();
+}
+
+
+TEST(TestCalc, Test_example) {
+	std::stringstream line_cmd("# myVar = -14 / 5"
+		"PUSH - 14 \n"
+		"PUSH 5 \n"
+		"DIV \n"
+		"PEEK myVar \n"
+		"POP \n"
+		"# PRINT(9 - myVar) * 20\n"
+		"PUSH 9 \n"
+		"PUSH myVar \n"
+		"MINUS \n"
+		"PUSH 20 \n"
+		"MUL \n"
+		"PRINT \n");
+	Param p;
+	string line;
+	OperationsFactory create_stack;
+	Operations* cmd_stack;
+	int64_t result = 220;
+	while (getline(line_cmd, line, '\n'))
+	{
+		split(p, line, ' ');
+		if (p.vst.size() >= 1)
+		{
+
+			if (check(p)) {
+				cmd_stack = create_stack.Create(p);
+				cmd_stack->execute(p);
+			}
+			p.vst.clear();
+
+		}
+	}
+	EXPECT_EQ(p.stk.top(), result);
+	p.vst.clear();
+	p.stk = stack<int64_t>();
+	p.var.clear();
 }
 
 TEST(TestCalc, Test_divByZero) {
@@ -94,13 +107,13 @@ TEST(TestCalc, Test_divByZero) {
 				p.vst.clear();
 			}
 			catch (Exception& expn) {
-				std::cerr << expn.what();
-				EXPECT_EQ(expn.what(), string("Error: Division by 0"));
+				ASSERT_TRUE(true);
+				return;
 
 			}
 		}
 	}
-	p.~Param();
+	ASSERT_TRUE(false);
 }
 
 
@@ -128,11 +141,44 @@ TEST(TestCalc, Test_empty_stack) {
 				p.vst.clear();
 			}
 			catch (Exception& expn) {
-				std::cerr << expn.what();
-				EXPECT_EQ(expn.what(), string("Error: Empty Stack"));
-
+				ASSERT_TRUE(true);
+				return;
 			}
 		}
 	}
-	p.~Param();
+	ASSERT_TRUE(false);
 }
+
+TEST(TestCalc, Test_Big_Number_MUL) {
+	std::stringstream line_cmd("# PUSH 999999999999 PUSH 999999999999 MUL"
+		"PUSH 999999999999 \n"
+		"PUSH 999999999999 \n"
+		"MUL \n");
+	Param p;
+	string line;
+	OperationsFactory create_stack;
+	Operations* cmd_stack;
+	while (getline(line_cmd, line, '\n'))
+	{
+		split(p, line, ' ');
+		if (p.vst.size() >= 1)
+		{
+
+			try {
+				if (check(p)) {
+					cmd_stack = create_stack.Create(p);
+					cmd_stack->execute(p);
+				}
+				p.vst.clear();
+			}
+			catch (SafeIntException& expn) {
+				ASSERT_TRUE(true);
+				return;
+			}
+		}
+	}
+	ASSERT_TRUE(false);
+}
+
+
+

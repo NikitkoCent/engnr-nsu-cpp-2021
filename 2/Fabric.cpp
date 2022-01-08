@@ -121,7 +121,7 @@ void div_cmd::execute(Param& p) {
         if (!p.stk.empty()) {
             SafeInt<int64_t,IntOverflow> val1(p.stk.top());
             p.stk.pop();
-            if (!p.stk.empty() && p.stk.top() != 0) {
+            if (!p.stk.empty() && val1 != 0) {
                 SafeInt<int64_t,IntOverflow> val2(p.stk.top());
                 p.stk.pop();
                 p.stk.push((int64_t)val2/(int64_t)val1);
