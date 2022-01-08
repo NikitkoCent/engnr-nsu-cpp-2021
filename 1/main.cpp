@@ -1,5 +1,8 @@
 #include "hash.h"
 
+#include <string>
+#include <cstring>
+
 int main(int argc, char *argv[]) {
     std::string help_message = "Using:\n"
                                "./hasher <filename> -m <mode>\n"
@@ -11,7 +14,7 @@ int main(int argc, char *argv[]) {
     std::ifstream file;
 
     if (argc == 2) {
-        if (argv[1] == "-h") {
+        if (strcmp(argv[1], "-h") == 0) {
             std::cout << help_message;
             return 0;
         } else {
@@ -19,10 +22,10 @@ int main(int argc, char *argv[]) {
             return 1;
         }
     } else if (argc == 4) {
-        if (argv[1] == "-m") {
+        if (strcmp(argv[1], "-m") == 0) {
             name_mode = argv[2];
             filename = argv[3];
-        } else if (argv[2] == "-m") {
+        } else if (strcmp(argv[1], "-m") == 0) {
             name_mode = argv[3];
             filename = argv[1];
         } else {
