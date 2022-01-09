@@ -132,3 +132,11 @@ TEST(CALCULATOR1, OVERFLOW_BY_ABS) {
                            "ABS\n");
     EXPECT_THROW(ReadFromStream(data), OverflowException);
 }
+
+TEST(CALCULATOR1, OVERFLOW_BY_DIV) {
+    std::stringstream data("PUSH -9223372036854775808"
+                           "PUSH -1\n"
+                           "DIV -1\n"
+                           "PRINT\n");
+    EXPECT_THROW(ReadFromStream(data), OverflowException);
+}
