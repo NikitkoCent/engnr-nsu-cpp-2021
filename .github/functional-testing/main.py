@@ -32,15 +32,15 @@ if build_config is not None:
 
 print()
 
-print('Looking for executable candidates for testing...')
-exe_candidates = ftutil.find_all_executable_candidates_for_testing(build_dir)
-if build_config is not None:
-    exe_candidates = [(root, file) for root, file in exe_candidates if build_config in root]
-print(f'Done. Found candidates: {exe_candidates}.')
-if len(exe_candidates) < 1:
-    raise RuntimeError('No executables found')
-if len(exe_candidates) > 4:
-    raise RuntimeError('Too many found executable candidates')
+# print('Looking for executable candidates for testing...')
+# exe_candidates = ftutil.find_all_executable_candidates_for_testing(build_dir)
+# if build_config is not None:
+#     exe_candidates = [(root, file) for root, file in exe_candidates if build_config in root]
+# print(f'Done. Found candidates: {exe_candidates}.')
+# if len(exe_candidates) < 1:
+#     raise RuntimeError('No executables found')
+# if len(exe_candidates) > 4:
+#     raise RuntimeError('Too many found executable candidates')
 
 print()
 
