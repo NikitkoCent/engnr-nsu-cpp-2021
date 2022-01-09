@@ -26,24 +26,3 @@ else()
 endif()
 
 
-enable_testing()
-
-add_executable(
-
-  tests
-  tests.cpp
-  Lab_2.h
-  Fabric.h
-  Operations.h
-  Fabric.cpp
-  Operations.cpp
-  Exceptions.cpp
-)
-
-target_link_libraries(
-  tests
-  gtest_main
-)
-
-include(GoogleTest)
-gtest_discover_tests(tests)
