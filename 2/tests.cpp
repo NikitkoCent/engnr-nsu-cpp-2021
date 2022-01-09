@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
-#include "../Lab_2.h" 
-#include "../Fabric.h"
-#include "../Operations.h"
+#include "Lab_2.h" 
+#include "Fabric.h"
+#include "Operations.h"
 //#include "Exceptions.h"
 //#include "Functions.cpp"
 
