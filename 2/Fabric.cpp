@@ -1,6 +1,6 @@
 #include "Lab_2.h"
 #include "Fabric.h"
-//#include "Exceptions.h"
+
 
 void pop_cmd::execute(Param& p) {
     if (!p.stk.empty()) {
@@ -53,8 +53,7 @@ void abs_cmd::execute(Param& p) {
 
 void plus_cmd::execute(Param& p)
 {
-    //int64_t val1 = 0;
-    //int64_t val2 = 0;
+
     if (!p.stk.empty()) {
         SafeInt<int64_t, IntOverflow> val1(p.stk.top());
         p.stk.pop();
@@ -75,8 +74,7 @@ void plus_cmd::execute(Param& p)
 
 void mul_cmd::execute(Param& p)
 {
-    //int64_t val1 = 0;
-    //int64_t val2 = 0;
+
     if (!p.stk.empty()) {
 
         SafeInt<int64_t, IntOverflow> val1(p.stk.top());
@@ -96,8 +94,7 @@ void mul_cmd::execute(Param& p)
     }
 };
 void minus_cmd::execute(Param& p) {
-    //int64_t val1 = 0;
-    //int64_t val2 = 0;
+
     if (!p.stk.empty()) {
         SafeInt<int64_t, IntOverflow> val1(p.stk.top());
         p.stk.pop();
@@ -117,8 +114,7 @@ void minus_cmd::execute(Param& p) {
 };
 
 void div_cmd::execute(Param& p) {
-    //int64_t val1 = 0;
-    //int64_t val2 = 0;
+
     if (!p.stk.empty()) {
         SafeInt<int64_t, IntOverflow> val1(p.stk.top());
         p.stk.pop();

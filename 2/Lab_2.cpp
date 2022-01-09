@@ -1,6 +1,6 @@
 #include "Lab_2.h"
 #include "Operations.h"
-//#include "Exceptions.h"
+
 
 int main(int argc, char* argv[]) {
 
@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
     ifstream in(filename);
     if (in.is_open())
     {
-        //        std::cout << filename << std::endl;
+
         while (getline(in, line))
         {
 

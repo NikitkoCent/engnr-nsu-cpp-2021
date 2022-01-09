@@ -89,6 +89,5 @@ public:
     }
 };
 void split(Param &p, const std::string& s, char delim);
-//bool strToInteger(Param p);
 bool check(Param s);
 bool integer_check(Param& s);

@@ -1,5 +1,5 @@
 #include "Lab_2.h"
-//#include "Exceptions.h"
+
 
 const string EmptyStack::GetError()
 {

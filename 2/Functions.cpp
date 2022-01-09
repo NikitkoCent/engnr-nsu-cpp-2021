@@ -25,35 +25,7 @@ bool integer_check(Param& s) {
     return true;
 }
 
-/*
-bool strToInteger(Param p) {
-    stringstream ss;
-    ss << p.vst[1];
-    int64_t num = 0;
-    ss >> num;
-    int k = 1;
-    if (ss.good()) {
-        k = 1;
-    }
-    else if (num == 0 && p.vst[1][0] != '0') {
-        k = 1;
-    }
-    else {
-        k = 0;
-    }
-    if (k) {
-        try {
-            SafeInt<int64_t> number = SafeInt<int64_t>::SafeAtoI(p.vst[1].c_str());
-            if (number - number == 0) {
-                return true;
-            }
-        }
-        catch (invalid_argument const&) {
-            return false;
-        }
-    }
-    return false;
-}*/
+
 
 bool check(Param s) {
         if (s.vst[0] == "POP") {

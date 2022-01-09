@@ -9,7 +9,7 @@ public:
 class pop_cmd : public Operations {
 public:
     void execute(Param& p);
-    //void Operations(Param& p);
+
 };
 
 class push_cmd : public Operations {

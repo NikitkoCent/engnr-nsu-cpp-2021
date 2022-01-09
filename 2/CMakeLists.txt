@@ -12,7 +12,7 @@ add_executable (Lab_2_fabric "Lab_2.cpp" "Lab_2.h" "Functions.cpp" "Fabric.cpp" 
 
 add_subdirectory(SafeInt)
 add_subdirectory(googletest)
-#add_subdirectory(tests)
+
 # TODO: Add tests and install targets if needed.
 if (MSVC)
     target_compile_options( Lab_2_fabric
