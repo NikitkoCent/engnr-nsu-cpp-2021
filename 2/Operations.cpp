@@ -17,13 +17,17 @@ void Pop::command(Memory &memory) {
 
 Push::Push(std::string &args) : Operation(args) {}
 
-void Push::command(Memory &memory) {
-    if (is_number(params)) {
+void Push::command(Memory &memory){
+        if (is_number(params)) {
         int64_t result{};
         auto[ptr, ec]{std::from_chars(params.data(), params.data() + params.size(), result)};
-        if (ec == std::errc::result_out_of_range) {
-            throw OverflowException();
-        }
+            if (ec == std::errc::invalid_argument)
+            {
+                throw WrongArgument();
+            }else if (ec == std::errc::result_out_of_range)
+            {
+                throw OverflowException();
+            }
         memory.is_stack.push(result);
     } else {
         auto elem = memory.variables.find(params);
@@ -31,6 +35,7 @@ void Push::command(Memory &memory) {
             throw WrongArgument();
         } else memory.is_stack.push(elem->second);
     }
+
 }
 
 Peek::Peek(std::string &args) : Operation(args) {}
@@ -44,10 +49,12 @@ void Peek::command(Memory &memory) {
 }
 Abs::Abs(std::string &args) : Operation(args) {}
 
-void Abs::command(Memory &memory) {
-    if (!memory.is_stack.empty()) {
+void Abs::command(Memory &memory){
+    try{
+        if (!memory.is_stack.empty()) {
         SafeInt<int64_t> val = memory.is_stack.top();
         memory.is_stack.pop();
+
         if (val < 0) {
             SafeInt<int64_t> result = -1*val;
             memory.is_stack.push(result);
@@ -57,7 +64,9 @@ void Abs::command(Memory &memory) {
         }
     } else {
         throw EmptyStack();
-    }
+    } } catch (SafeIntException &) {
+                throw OverflowException();
+        }
 }
 
 Plus::Plus (std::string &args) : Operation(args) {}
@@ -143,7 +152,14 @@ void Read::command(Memory &memory) {
     std::cin >> val;
     if (is_number(val)) {
         int64_t result{};
-        std::from_chars(val.data(), val.data() + val.size(), result);
+        auto [ptr, ec] { std::from_chars(val.data(), val.data() + val.size(), result) };
+       if (ec == std::errc::invalid_argument)
+        {
+            throw WrongArgument();
+        }else if (ec == std::errc::result_out_of_range)
+       {
+           throw OverflowException();
+       }
         memory.is_stack.push(result);
     } else {
         throw EmptyStack();

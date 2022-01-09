@@ -83,3 +83,9 @@ TEST(Calc, test_exception_div)  {
                            "PRINT");
     EXPECT_THROW(ReadFromFile(data), OverflowException);}
 
+TEST(Calc, test_exception_abs)  {
+    std::stringstream data("PUSH -9223372036854775808\n"
+                           "ABS\n"
+                           "PRINT");
+    EXPECT_THROW(ReadFromFile(data), OverflowException);}
+
