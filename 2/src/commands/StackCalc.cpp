@@ -166,7 +166,10 @@ void Read::command(ContextExecution &context_execution) {
     std::cin >> val;
     if (is_number(val)) {
         int64_t result{};
-        std::from_chars(val.data(), val.data() + val.size(), result);
+        auto res = std::from_chars(val.data(), val.data() + val.size(), result);
+        if (res.ec == std::errc::invalid_argument) {
+        	throw WrongArgument();
+        }
         context_execution.stack.push(result);
     } else {
         throw ReadException();
