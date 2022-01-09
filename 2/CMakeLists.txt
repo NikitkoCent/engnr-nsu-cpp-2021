@@ -37,6 +37,7 @@ add_executable(
   Operations.h
   Fabric.cpp
   Operations.cpp
+  Functions.cpp
   Exceptions.cpp
 )
 
