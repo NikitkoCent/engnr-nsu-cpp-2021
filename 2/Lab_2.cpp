@@ -9,7 +9,6 @@ void input_processing(string line, Param& p) {
     if (p.vst.size() >= 1)
     {
         if (check(p)) {
-            cout << line << endl;
             cmd_stack = create_stack.Create(p);
             cmd_stack->execute(p);
             delete cmd_stack;
