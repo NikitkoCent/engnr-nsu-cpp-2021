@@ -129,7 +129,7 @@ void div_cmd::execute(Param& p) {
             int64_t val2 = p.stk.top();
             p.stk.pop();
             if (!SafeDivide(val2, val1, result)) {
-                throw IntOverflow;     
+                throw IntOverflow();     
             };
             p.stk.push(result);
         }
