@@ -128,7 +128,9 @@ void div_cmd::execute(Param& p) {
         if (!p.stk.empty() && val1 != 0) {
             int64_t val2 = p.stk.top();
             p.stk.pop();
-            SafeDivide(val2, val1, result);
+            if (!SafeDivide(val2, val1, result)) {
+                throw IntOverflow;     
+            };
             p.stk.push(result);
         }
         else if (p.stk.top() == 0) {
