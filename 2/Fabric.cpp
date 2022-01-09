@@ -40,11 +40,17 @@ void peek_cmd::execute(Param& p) {
 };
 
 void abs_cmd::execute(Param& p) {
-    int64_t absvar = 0;
     if (!p.stk.empty()) {
-        absvar = abs(int64_t(p.stk.top()));
+        SafeInt<int64_t, IntOverflow> val1(p.stk.top());
         p.stk.pop();
-        p.stk.push(absvar);
+        if (val >= 0) {
+            p.stk.push(val1);
+        }
+        else {
+            SafeInt<int64_t, IntOverflow> res = -val1;
+            p.stk.push(res);
+            
+        }
     }
     else {
         throw EmptyStack();
@@ -118,10 +124,12 @@ void div_cmd::execute(Param& p) {
     if (!p.stk.empty()) {
         SafeInt<int64_t, IntOverflow> val1(p.stk.top());
         p.stk.pop();
+        int64_t result = 0;
         if (!p.stk.empty() && val1 != 0) {
             SafeInt<int64_t, IntOverflow> val2(p.stk.top());
             p.stk.pop();
-            p.stk.push((int64_t)val2 / (int64_t)val1);
+            SafeDivide(val2, val1, result);
+            p.stk.push(result);
         }
         else if (p.stk.top() == 0) {
             throw divByZero();
