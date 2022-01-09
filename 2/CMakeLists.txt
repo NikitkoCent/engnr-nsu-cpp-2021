@@ -1,11 +1,11 @@
 ﻿# CMakeList.txt : CMake project for Lab_2_fabric, include source and define
 # project specific logic here.
 #
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.20)
 
 project ("Lab_2_fabric")
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(googletest)
 add_subdirectory(SafeInt)
