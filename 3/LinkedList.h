@@ -1,22 +1,11 @@
 #include <cstddef>
 #include <cstdint>
 #include <iterator>
-#include <iostream>
-
-
-template<bool is_T, typename T, typename F>
-struct conditional {
-    using type = F;
-};
-
-template<typename T, typename F>
-struct conditional<true, T, F> {
-    using type = T;
-};
-
+#include <type_traits>
+#include <typeinfo>
 
 template<bool is_T, typename T, typename F>
-using conditional_t = typename conditional<is_T, T, F>::type;
+using conditional_t = typename std::conditional<is_T, T, F>::type;
 
 
 template<typename T>
@@ -36,7 +25,7 @@ private:
         Node *next;
     };
 
-    Node *mate = reinterpret_cast<Node *>(new int8_t[sizeof(Node)]);
+    Node *mate = new Node;
     size_type _size = 0;
 
     template<bool is_const>
@@ -180,7 +169,6 @@ public:
 
 public:
     LinkedList() {
-        std::cout << "default constructor" << std::endl;
         mate->next = nullptr;
         mate->prev = nullptr;
         // mate -> value is UB
@@ -210,14 +198,12 @@ public:
         insert(cend(), first, last);
     }
 
-    LinkedList(std::initializer_list<T> init) : LinkedList() {
+    LinkedList(std::initializer_list <T> init) : LinkedList() {
         *this = init;
     }
 
     ~LinkedList() {
-        std::cout << this << std::endl;
         if (!empty()) clear();
-        std::cout << "delete mate" << std::endl;
         delete mate;
     }
 
@@ -237,12 +223,11 @@ public:
         other.mate->prev = nullptr;
         _size = other._size;
         other._size = 0;
-        std::cout << "move" << std::endl;
         return *this;
 
     }
 
-    LinkedList &operator=(std::initializer_list<T> ilist) {
+    LinkedList &operator=(std::initializer_list <T> ilist) {
 
         assign(ilist);
         return *this;
@@ -259,7 +244,7 @@ public:
         insert(cend(), first, last);
     }
 
-    void assign(std::initializer_list<T> ilist) {
+    void assign(std::initializer_list <T> ilist) {
         if (!empty()) clear();
         assign(ilist.begin(), ilist.end());
     }
@@ -345,23 +330,15 @@ private:
         Node *new_node = new Node;
         if (this->empty()) {
             new_node->prev = pos._ptr;
-            std::cout << "1: " << new_node->prev << std::endl;
             new_node->next = pos._ptr;
-            std::cout << "2: " << new_node->next << std::endl;
             pos._ptr->next = new_node;
-            std::cout << "3: " << pos._ptr->next << std::endl;
             pos._ptr->prev = new_node;
-            std::cout << "4: " << pos._ptr->prev << std::endl;
 
         } else {
             new_node->prev = pos._ptr->prev;
-            std::cout << "5: " << new_node->prev << " = " << pos._ptr->prev << std::endl;
             new_node->next = pos._ptr;
-            std::cout << "6: " << new_node->next << " = " << pos._ptr << std::endl;
             pos._ptr->prev = new_node;
-            std::cout << "7: " << pos._ptr->prev << " = " << new_node << std::endl;
             new_node->prev->next = new_node;
-            std::cout << "8: " << new_node->prev->next << " = " << new_node << std::endl;
         }
         ++_size;
         return iterator(new_node);
@@ -377,7 +354,7 @@ public:
 
     iterator insert(const_iterator pos, T &&value) {
         iterator it = insert_without_value(pos);
-        it._ptr->value = value;
+        it._ptr->value = std::move(value);
         return it;
     }
 
@@ -409,7 +386,7 @@ public:
 
     }
 
-    iterator insert(const_iterator pos, std::initializer_list<T> ilist) {
+    iterator insert(const_iterator pos, std::initializer_list <T> ilist) {
         return insert(pos, ilist.begin(), ilist.end());
     }
 
@@ -423,9 +400,9 @@ public:
 
     void push_front(T &&value) {
         if (empty()) {
-            insert(cend(), value);
+            insert(cend(), std::move(value));
         } else {
-            insert(cbegin(), value);
+            insert(cbegin(), std::move(value));
         }
     }
 
@@ -434,7 +411,7 @@ public:
     }
 
     void push_back(T &&value) {
-        insert(cend(), value);
+        insert(cend(), std::move(value));
     }
 
 public:
@@ -443,7 +420,6 @@ public:
         pos._ptr->prev->next = pos._ptr->next;
         iterator it(pos._ptr->next);
 
-        (pos._ptr->value).~value_type();
         delete pos._ptr;
 
         --_size;
@@ -458,7 +434,6 @@ public:
 
     iterator erase(const_iterator first, const_iterator last) {
         while (first != last) {
-            std::cout << *last << std::endl;
             erase(first++);
         }
         return iterator(last._ptr);
@@ -519,13 +494,6 @@ public:
 
     }
 
-    void print() {
-        for (const_reference x: *this) std::cout << x << std::endl;
-        std::cout << std::endl;
-        std::cout << std::endl;
-        std::cout << std::endl;
-    };
-
 
     template<typename Compare>
     void sort(Compare comp) {
@@ -560,7 +528,7 @@ public:
 
     void reverse() noexcept {
         iterator temp;
-        for (iterator &it = begin();; --it) {
+        for (iterator it = begin();; --it) {
             temp = it;
             it._ptr->next = it._ptr->prev;
             it._ptr->prev = temp._ptr->next;
@@ -599,7 +567,6 @@ private:
 
 public:
     void clear() noexcept {
-        std::cout << "clear" << std::endl;
         erase(cbegin(), cend());
     }
 
@@ -625,13 +592,7 @@ public:
     }
 
     void swap(LinkedList &other) noexcept {
-        size_type temp_sz = _size;
-        Node *temp = mate;
-        mate = other.mate;
-        other.mate = temp;
-
-        _size = other._size;
-        other._size = temp_sz;
+        std::swap(*this, other);
     }
 
 };

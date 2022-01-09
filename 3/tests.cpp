@@ -37,16 +37,6 @@ TEST(LinkedList, Constructors) {
     LinkedList<int> lst7(std::move(lst4));
     EXPECT_THAT(lst7, ElementsAre(1, 2, 3, 4, 5));
     EXPECT_THAT(lst4, IsEmpty());
-
-    std::cout << "0: " << &lst << std::endl;
-    std::cout << "2: " << &lst2 << std::endl;
-    std::cout << "3: " << &lst3 << std::endl;
-    std::cout << "4: " << &lst4 << std::endl;
-    std::cout << "5: " << &lst5 << std::endl;
-    std::cout << "6: " << &lst6 << std::endl;
-    std::cout << "7: " << &lst7 << std::endl;
-
-
 }
 
 TEST(LinkedList, FuncsAssign) {
@@ -184,13 +174,8 @@ TEST(LinkedList, FuncsSortRemoveUnique) {
     authentic_lst.unique();
     EXPECT_THAT(lst, ::testing::ElementsAreArray(authentic_lst));
 
-    for(int& x : lst){ std::cout << x << std::endl;}
-
-    std::cout << std::endl;
-
     lst.unique(p);
     authentic_lst.unique(p);
-    for(int& x : lst){ std::cout << x << std::endl;}
 
     EXPECT_THAT(lst, ::testing::ElementsAreArray(authentic_lst));
 
