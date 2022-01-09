@@ -2,18 +2,19 @@
 #include "Operations.h"
 
 
-void input_processing(string line, Param &p) {
+void input_processing(string line, Param& p) {
     OperationsFactory create_stack;
     Operations* cmd_stack;
     split(p, line, ' ');
     if (p.vst.size() >= 1)
     {
         if (check(p)) {
+            cout << line << endl;
             cmd_stack = create_stack.Create(p);
             cmd_stack->execute(p);
             delete cmd_stack;
-         }
-         p.vst.clear();
+        }
+        p.vst.clear();
     }
 
 }
@@ -28,37 +29,34 @@ int main(int argc, char* argv[]) {
         filename = argv[1];
     }
     ifstream in(filename);
-    if (argc >= 2 && in.is_open() == 1)
-    {
-        std::cerr << "File not found" << endl;
+    try {
+        if (in.is_open())
+        {
+            while (getline(in, line)) {
+                input_processing(line, p);
+            }
+        }
+        else if (argc >= 2 && in.is_open() == 1)
+        {
+            std::cerr << "File not found" << endl;
+            return 1;
+        }
+        else {
+            while (getline(cin, line))
+            {
+                input_processing(line, p);
+            }
+        }
+
+    }
+    catch (Exception& expn) {
+        std::cerr << expn.what();
         return 1;
     }
-    else {
-        try {
-            if (in.is_open())
-            {
-                while (getline(in, line)) {
-                    input_processing(line, p);
-                }
-            }
-            else {
-                while (getline(cin, line))
-                {
-                    input_processing(line, p);
-                }
-            }
-
-        }
-        catch (Exception& expn) {
-            std::cerr << expn.what();
-            return 1;
-        }
-        catch (const char* exceptions) {
-            std::cerr << exceptions;
-            return 1;
-        }
+    catch (const char* exceptions) {
+        std::cerr << exceptions;
+        return 1;
     }
-    
-
     return 0;
 }
+
