@@ -2,7 +2,7 @@
 #include "Operations.h"
 
 
-void input_processing(string line, Param p) {
+void input_processing(string line, Param &p) {
     OperationsFactory create_stack;
     Operations* cmd_stack;
     split(p, line, ' ');
