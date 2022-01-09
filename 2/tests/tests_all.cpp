@@ -134,7 +134,7 @@ TEST(CALCULATOR1, OVERFLOW_BY_ABS) {
 }
 
 TEST(CALCULATOR1, OVERFLOW_BY_DIV) {
-    std::stringstream data("PUSH -9223372036854775808"
+    std::stringstream data("PUSH -9223372036854775808\n"
                            "PUSH -1\n"
                            "DIV -1\n"
                            "PRINT\n");
