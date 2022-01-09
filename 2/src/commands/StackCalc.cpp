@@ -131,7 +131,9 @@ Division::command(ContextExecution &context_execution) {
         if (val1 != 0) {
             context_execution.stack.pop();
             int64_t res;
-            SafeDivide(val2, val1, res);
+            if (!SafeDivide(val2, val1, res)) {
+            	throw OverflowException();
+            }
             context_execution.stack.push(res);
         } else {
             throw DivisionByZero();
