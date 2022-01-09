@@ -16,7 +16,7 @@ enable_testing()
 include_directories(googletest/googletest/include)
 include_directories(SafeInt/Test)
 
-add_library(calculator_lib STATIC Lab_2.h Functions.cpp Fabric.cpp Fabric.h Operations.cpp Operations.h Fabric.h Exceptions.cpp)
+add_library(calc_functions STATIC Lab_2.h Functions.cpp Fabric.cpp Fabric.h Operations.cpp Operations.h Fabric.h Exceptions.cpp)
 
 add_executable(Lab_2_fabric Lab_2.cpp)
 
