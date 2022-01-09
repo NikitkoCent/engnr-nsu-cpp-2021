@@ -2,7 +2,7 @@
 ## Интрукция по запуску утилиты calculator:
 ``git clone https://github.com/uchansansan/Cpp-Lab2.git``  
 ``cd Cpp-Lab2 && mkdir cmake_dir && cd cmake_dir``  
-``cmake .. && make``  
+``cmake . && make``  
 ``cd src && cd calculator``  
 
 Утилита собрана, можно запускать ее:  
