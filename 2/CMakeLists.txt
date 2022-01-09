@@ -1,27 +1,18 @@
 ﻿# CMakeList.txt : CMake project for Lab_2_fabric, include source and define
 # project specific logic here.
 #
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required (VERSION 3.20)
 
 project ("Lab_2_fabric")
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_subdirectory(googletest)
+# Add source to this project's executable.
+add_executable (Lab_2_fabric "Lab_2.cpp" "Lab_2.h" "Functions.cpp" "Fabric.cpp" "Fabric.h" "Operations.cpp" "Operations.h" "Fabric.h" "Exceptions.cpp")
+
 add_subdirectory(SafeInt)
-add_subdirectory(tests)
-
-enable_testing()
-
-include_directories(googletest/googletest/include)
-include_directories(SafeInt/Test)
-
-add_library(calc_functions STATIC Lab_2.h Functions.cpp Fabric.cpp Fabric.h Operations.cpp Operations.h Fabric.h Exceptions.cpp)
-
-add_executable(Lab_2_fabric Lab_2.cpp)
-
-target_link_libraries(Lab_2_fabric calc_functions)
-
+add_subdirectory(googletest)
+#add_subdirectory(tests)
 # TODO: Add tests and install targets if needed.
 if (MSVC)
     target_compile_options( Lab_2_fabric
@@ -35,3 +26,24 @@ else()
 endif()
 
 
+enable_testing()
+
+add_executable(
+
+  tests
+  tests.cpp
+  Lab_2.h
+  Fabric.h
+  Operations.h
+  Fabric.cpp
+  Operations.cpp
+  Exceptions.cpp
+)
+
+target_link_libraries(
+  tests
+  gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(tests)
