@@ -43,7 +43,7 @@ void abs_cmd::execute(Param& p) {
     if (!p.stk.empty()) {
         SafeInt<int64_t, IntOverflow> val1(p.stk.top());
         p.stk.pop();
-        if (val >= 0) {
+        if (val1 >= 0) {
             p.stk.push(val1);
         }
         else {
@@ -124,7 +124,7 @@ void div_cmd::execute(Param& p) {
     if (!p.stk.empty()) {
         SafeInt<int64_t, IntOverflow> val1(p.stk.top());
         p.stk.pop();
-        int64_t result = 0;
+        SafeInt<int64_t, IntOverflow> result;
         if (!p.stk.empty() && val1 != 0) {
             SafeInt<int64_t, IntOverflow> val2(p.stk.top());
             p.stk.pop();
