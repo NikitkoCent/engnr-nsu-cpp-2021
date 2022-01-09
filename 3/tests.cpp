@@ -182,6 +182,11 @@ TEST(LinkedList, FuncsSortRemoveUnique) {
     authentic_lst = {10, 1, 2, 3, 4, 0, 1, 1, 2, 3, 1, 5, 20};
     lst = {10, 1, 2, 3, 4, 0, 1, 1, 2, 3, 1, 5, 20};
 
+    lst.reverse();
+    authentic_lst.reverse();
+    EXPECT_THAT(lst, ::testing::ElementsAreArray(authentic_lst));
+
+
     lst.remove(3);
     authentic_lst.remove(3);
     EXPECT_THAT(lst, ::testing::ElementsAreArray(authentic_lst));

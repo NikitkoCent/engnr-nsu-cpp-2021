@@ -527,12 +527,16 @@ public:
     }
 
     void reverse() noexcept {
-        iterator temp;
-        for (iterator it = begin();; --it) {
-            temp = it;
-            it._ptr->next = it._ptr->prev;
-            it._ptr->prev = temp._ptr->next;
-            if (it == end()) break;
+        iterator first = begin();
+        iterator last = --end();
+        size_type swaps = _size / 2;
+        while(swaps) {
+            value_type temp = first._ptr -> value;
+            first._ptr -> value = last._ptr->value;
+            last._ptr -> value = temp;
+            ++first;
+            --last;
+            --swaps;
         }
     }
 
