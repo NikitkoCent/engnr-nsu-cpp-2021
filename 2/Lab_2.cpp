@@ -2,7 +2,7 @@
 #include "Operations.h"
 
 
-void input_processing(ifstream &ins, string &line, Param &p) {
+void input_processing(string &line, Param &p) {
     OperationsFactory create_stack;
     Operations* cmd_stack;
     split(p, line, ' ');
@@ -38,13 +38,13 @@ int main(int argc, char* argv[]) {
             if (in.is_open())
             {
                 while (getline(in, line)) {
-                    input_processing(ins, line, p);
+                    input_processing(line, p);
                 }
             }
             else {
                 while (getline(cin, line))
                 {
-                    input_processing(ins, line, p);
+                    input_processing(line, p);
                 }
             }
 
