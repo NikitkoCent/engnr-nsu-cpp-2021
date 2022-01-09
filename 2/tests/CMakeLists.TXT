@@ -9,7 +9,7 @@ target_link_libraries(tests_calc
         )
 
 target_include_directories(tests_calc
-        PRIVATE "../libs/googletest/googletest/include"
+        PRIVATE "../googletest/googletest/include"
         )
 
 enable_testing()
