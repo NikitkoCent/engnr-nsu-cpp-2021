@@ -12,5 +12,6 @@ target_include_directories(tests_calc
         PRIVATE "../googletest/googletest/include"
         )
 
+
 enable_testing()
 add_test(NAME googletest COMMAND tests_calc) 
