@@ -122,11 +122,11 @@ void minus_cmd::execute(Param& p) {
 void div_cmd::execute(Param& p) {
 
     if (!p.stk.empty()) {
-        SafeInt<int64_t, IntOverflow> val1(p.stk.top());
+        int64_t val1 = p.stk.top();
         p.stk.pop();
-        SafeInt<int64_t, IntOverflow> result;
+        int64_t result = 0;
         if (!p.stk.empty() && val1 != 0) {
-            SafeInt<int64_t, IntOverflow> val2(p.stk.top());
+            int64_t val2 = p.stk.top();
             p.stk.pop();
             SafeDivide(val2, val1, result);
             p.stk.push(result);

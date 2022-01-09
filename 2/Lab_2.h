@@ -72,6 +72,18 @@ class IntOverflow : public SafeIntException
 {
 public:
     static void SafeIntOnOverflow();
+}; 
+
+class IntSafeDivByZero : public Exception
+{
+public:
+    virtual const string GetError();
+};
+
+class DivByZeroSafeInt : public SafeIntException
+{
+public:
+    static void SafeIntOnDivZero();
 };
 
 

@@ -41,5 +41,14 @@ void IntOverflow::SafeIntOnOverflow() {
     throw SafeIntExceptionStack();
 }
 
+const string IntSafeDivByZero::GetError()
+{
+    return "SafeIngter divizion by zero";
+}
+
+void DivByZeroSafeInt::SafeIntOnDivZero() {
+    throw IntSafeDivByZero();
+}
+
 
 
