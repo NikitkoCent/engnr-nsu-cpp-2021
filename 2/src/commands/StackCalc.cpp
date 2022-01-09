@@ -28,10 +28,24 @@ Push::Push(std::string &args) : Command(args) {}
 void Push::command(ContextExecution &context_execution) {
     if (is_number(params)) {
         int64_t result{};
-        auto[ptr, ec]{std::from_chars(params.data(), params.data() + params.size(), result)};
-        if (ec == std::errc::result_out_of_range) {
-            throw OverflowException();
-        }
+        
+//        auto[ptr, ec]{std::from_chars(params.data(), params.data() + params.size(), result)};
+//        if (ec == std::errc::result_out_of_range) {
+//            throw OverflowException();
+//        } else if (ec == std::errc::invalid_argument) {
+//            throw WrongArgument();
+//        }
+        
+        try {
+            auto[ptr, ec]{std::from_chars(params.data(), params.data() + params.size(), result)};
+        } catch (const std::system_error& e) {
+            std::cerr << "Caught a system_error\n";
+            if(e.code() == std::errc::invalid_argument)
+               std::cerr << "The error condition is std::errc::invalid_argument\n";
+            std::cerr << "the error description is " << e.what() << '\n';
+    	}
+        
+        
         context_execution.stack.push(result);
     } else {
         auto elem = context_execution.variables.find(params);
