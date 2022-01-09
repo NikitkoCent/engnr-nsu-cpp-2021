@@ -18,7 +18,7 @@ include_directories(SafeInt/Test)
 
 add_library(calculator_lib STATIC Lab_2.h Functions.cpp Fabric.cpp Fabric.h Operations.cpp Operations.h Fabric.h Exceptions.cpp)
 
-add_executable(Lab_2_fabric main.cpp)
+add_executable(Lab_2_fabric Lab_2.cpp)
 
 target_link_libraries(Lab_2_fabric calc_functions)
 
