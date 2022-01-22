@@ -1,20 +1,19 @@
 #pragma once
 
-#include "WorkerResult.h"
-#include "Task.h"
+#include <string>
+#include <iostream>
 #include <mutex>
-
-class WorkerPool;
 
 class UserInterface
 {
 private:
-	WorkerPool* pool;
-	std::mutex mut;
+	std::mutex mutex;
 public:
-	UserInterface(WorkerPool* pool);
-	void TakeResult(WorkerResult* result);
-	void Work();
+	UserInterface() = default;
+	~UserInterface() = default;
+
+	std::string In();
+	void Out(std::string str);
+	void Err(std::string str);
 };
 
-int mcmp(const char* x_, const char* y_);
