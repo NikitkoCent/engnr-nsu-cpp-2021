@@ -17,7 +17,7 @@ bool TaskQueue::Dequeue(std::function<void()>& task)
 		dequeueWait.wait(lock);
 	if (taskQueue.empty())
 		return false;
-	task = std::move(taskQueue.front());     /////
+	task = (taskQueue.front());     /////
 	taskQueue.pop();
 	return true;
 }

@@ -4,7 +4,7 @@ ThreadPool::ThreadPool(size_t threadsCount)
 {
 	threads.resize(threadsCount);
 	for (auto& thread : threads)
-		thread = std::move(std::thread(&ThreadPool::ThreadWork, this));
+		thread = (std::thread(&ThreadPool::ThreadWork, this));
 }
 
 void ThreadPool::ThreadWork()
