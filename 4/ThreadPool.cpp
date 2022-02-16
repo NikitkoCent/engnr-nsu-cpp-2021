@@ -2,6 +2,7 @@
 
 ThreadPool::ThreadPool(size_t threadsCount)
 {
+	stopped = false;
 	threads.resize(threadsCount);
 	for (auto& thread : threads)
 		thread = (std::thread(&ThreadPool::ThreadWork, this));
@@ -10,13 +11,22 @@ ThreadPool::ThreadPool(size_t threadsCount)
 void ThreadPool::ThreadWork()
 {
 	std::function<void()> task;
-	while (tasks.Dequeue(task))
-		task();
+	while (!stopped)
+	{
+		std::unique_lock<std::mutex> waitingMutex;
+		waitingThreads.wait(waitingMutex);
+		while (tasks.Dequeue(task))
+			task();
+	}
 }
 
 size_t ThreadPool::AddTask(std::function<void()> task)
 {
-	return tasks.Enqueue(task);
+	if (stopped)
+		return 0;
+	auto result = tasks.Enqueue(task);
+	waitingThreads.notify_one();
+	return result;
 }
 
 void ThreadPool::Cancel()
@@ -26,7 +36,8 @@ void ThreadPool::Cancel()
 
 void ThreadPool::Stop()
 {
-	tasks.Stop();
+	stopped = true;
+	waitingThreads.notify_all();
 }
 
 void ThreadPool::WaitAll()

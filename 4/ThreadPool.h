@@ -5,6 +5,8 @@
 #include <utility>
 #include <functional>
 #include <thread>
+#include <atomic>
+#include <condition_variable>
 
 #include "TaskQueue.h"
 
@@ -13,6 +15,10 @@ class ThreadPool
 private:
 	TaskQueue tasks;
 	std::vector<std::thread> threads;
+
+	std::mutex waitingMutex;
+	std::condition_variable waitingThreads;
+	std::atomic<bool> stopped;
 
 	void ThreadWork();
 public:
