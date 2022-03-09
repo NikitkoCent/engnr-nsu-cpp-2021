@@ -3,6 +3,8 @@ project(cpp_task2_StackCalk)
 
 set(CMAKE_CXX_STANDARD 17)
 
+include_directories(lib/SafeInt/)
+
 add_executable(cpp_task2_StackCalk Main.cpp Memory.cpp Memory.h MError.cpp MError.h Operation.cpp Operation.h OperationHandler.cpp OperationHandler.h StackCalculator.cpp StackCalculator.h)
 
 if (MSVC)
