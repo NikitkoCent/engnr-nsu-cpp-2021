@@ -20,7 +20,7 @@ if (MSVC)
 	target_compile_options
 	(	
 		cpp_task2_StackCalk 
-			# PRIVATE /W4          # warnings level
+			PRIVATE /W4          # warnings level
 			# PRIVATE /WX          # treat all warnings as errors
 	)
 else()
