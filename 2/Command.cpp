@@ -38,7 +38,7 @@ void Peek::Work(std::string args)
 	st >> arg;
 	if (!(st >> std::ws).eof())
 		throw FloodedCommand();
-	_memory.SetVar(arg, _memory.Pop());
+	_memory.SetVar(arg, _memory.Pull());
 }
 
 void Abs::Work(std::string args)
