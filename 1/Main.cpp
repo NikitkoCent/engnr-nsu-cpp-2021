@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 		}
 
 		std::ifstream file;
-		file.open(path, std::ios::binary);
+		file.open(path, std::ios_base::binary);
 
 		if (!file.is_open())
 		{

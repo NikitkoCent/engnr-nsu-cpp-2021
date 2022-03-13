@@ -7,7 +7,7 @@ uint64_t Sum64::Use(std::istream& file)
 	size_t size = 0;
 	unsigned char byte;
 
-	while (file >> byte)
+	while (file.read((char*)(&byte), sizeof(unsigned char)))
 	{
 		block = (block << 8) | byte;
 		size += 1;
