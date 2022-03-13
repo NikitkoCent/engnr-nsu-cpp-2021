@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <algorithm>
+#include <execution>
 
 #include "Errors.h"
 

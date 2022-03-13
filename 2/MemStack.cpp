@@ -2,7 +2,7 @@
 
 void CheckVarName(std::string& name)
 {
-	if (name.empty() || !std::all_of(name.begin(), name.end(), std::isalpha))
+	if (name.empty() || !std::all_of(std::execution::seq, name.begin(), name.end(), std::isalpha))
 		throw VarName();
 }
 
