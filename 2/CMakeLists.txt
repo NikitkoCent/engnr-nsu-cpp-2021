@@ -12,6 +12,7 @@ add_executable(
 	MemStack.h MemStack.cpp
 	Command.h Command.cpp
 	PeekCommand.h PeekCommand.cpp
+	Calculator.h Calculator.cpp
 )
 
 if (MSVC)
