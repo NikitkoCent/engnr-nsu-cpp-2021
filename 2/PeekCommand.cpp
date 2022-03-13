@@ -10,7 +10,7 @@ PeekCommand::PeekCommand(MemStack& memory)
 		{"ABS", std::make_shared<Abs>(memory)},
 		{"PLUS", std::make_shared<Plus>(memory)},
 		{"MINUS", std::make_shared<Minus>(memory)},
-		{"MIL", std::make_shared<Mul>(memory)},
+		{"MUL", std::make_shared<Mul>(memory)},
 		{"DIV", std::make_shared<Div>(memory)},
 		{"PRINT", std::make_shared<Print>(memory)},
 		{"READ", std::make_shared<Read>(memory)},
