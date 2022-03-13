@@ -22,6 +22,6 @@ std::shared_ptr<Command> PeekCommand::Get(std::string command)
 {
 	auto result = _commands.find(command);
 	if (result == _commands.end())
-		throw UVar();
+		throw UCommand();
 	return result->second;
 }

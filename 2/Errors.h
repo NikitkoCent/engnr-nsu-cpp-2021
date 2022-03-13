@@ -48,3 +48,9 @@ class NotANumber : public Errors
 public:
 	NotANumber() : Errors("int number expected") {}
 };
+
+class UCommand : public Errors
+{
+public:
+	UCommand() : Errors("unknown command") {}
+};
