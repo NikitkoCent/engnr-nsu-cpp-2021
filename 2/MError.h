@@ -9,7 +9,7 @@ private:
 public:
 	MError(std::string errorText) { this->errorText = errorText; }
 	std::string ErrorText() { return errorText; }
-	virtual ~MError() {}
+	virtual ~MError() = default;
 };
 
 class EmptyStack : public MError

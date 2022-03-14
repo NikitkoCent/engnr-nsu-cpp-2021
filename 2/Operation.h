@@ -18,7 +18,7 @@ public:
 	IOperation(std::string name) { this->name = name; }
 	std::string Name() { return name; };
 	virtual void Use(Memory& mem, std::string args) = 0;
-	virtual ~IOperation() {}
+	virtual ~IOperation() = default;
 };
 
 class Pop : public IOperation
