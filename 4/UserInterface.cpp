@@ -2,10 +2,10 @@
 
 std::string UserInterface::In()
 {
-	getchar();
+	std::string in;
+	std::getline(std::cin, in);
 	std::lock_guard<std::mutex> lock(mutex);
 	std::cout << " > ";
-	std::string in;
 	std::cin >> in;
 	std::cin.seekg(std::cin.end);
 	return in;

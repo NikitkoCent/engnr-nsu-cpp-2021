@@ -13,8 +13,8 @@ void ThreadPool::ThreadWork()
 	std::function<void()> task;
 	while (!stopped)
 	{
-		std::unique_lock<std::mutex> waitingMutex;
-		waitingThreads.wait(waitingMutex);
+		std::unique_lock<std::mutex> lock(waitingMutex);
+		waitingThreads.wait(lock);
 		while (tasks.Dequeue(task))
 			task();
 	}

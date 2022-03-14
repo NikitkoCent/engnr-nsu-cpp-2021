@@ -16,6 +16,5 @@ private:
 	void Help();
 public:
 	WorkManager(size_t threadCount) : threadPool(threadCount) {};
-	~WorkManager() = default;
 	void Work();
 };
