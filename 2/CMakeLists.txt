@@ -1,18 +1,39 @@
 cmake_minimum_required(VERSION 3.17)
+
 project(StackCalc)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(libs/SafeInt/)
+add_subdirectory(libs/googletest)
 
-add_executable(
-	StackCalc
-	Main.cpp
+add_subdirectory(libs/SafeInt)
+
+add_subdirectory(test)
+
+enable_testing()
+
+add_library(
+	StackCalcLib
 	Errors.h
 	MemStack.h MemStack.cpp
 	Command.h Command.cpp
 	PeekCommand.h PeekCommand.cpp
 	Calculator.h Calculator.cpp
+)
+
+target_include_directories(
+	StackCalcLib
+	PUBLIC "libs/SafeInt"
+)
+
+add_executable(
+	StackCalc
+	Main.cpp
+)
+
+target_link_libraries(
+	StackCalc
+	StackCalcLib
 )
 
 if (MSVC)

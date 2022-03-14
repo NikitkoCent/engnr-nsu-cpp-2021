@@ -2,15 +2,13 @@
 
 #include <string>
 
-using namespace std;
-
 class Errors
 {
 private:
-	string _text;
+	std::string _text;
 public:
-	Errors(string text) : _text(text) {}
-	string Text() { return _text; }
+	Errors(std::string text) : _text(text) {}
+	std::string Text() { return _text; }
 };
 
 class Overflow : public Errors
@@ -31,6 +29,12 @@ public:
 	UVar() : Errors("unknown variable") {}
 };
 
+class UCommand : public Errors
+{
+public:
+	UCommand() : Errors("unknown command") {}
+};
+
 class VarName : public Errors
 {
 public:
@@ -47,10 +51,4 @@ class NotANumber : public Errors
 {
 public:
 	NotANumber() : Errors("int number expected") {}
-};
-
-class UCommand : public Errors
-{
-public:
-	UCommand() : Errors("unknown command") {}
 };

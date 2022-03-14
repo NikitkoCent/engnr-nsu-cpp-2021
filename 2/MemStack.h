@@ -9,8 +9,8 @@
 class MemStack
 {
 private:
-	map<string, int64_t> _var;
-	stack<int64_t> _stk;
+	std::map<std::string, int64_t> _var;
+	std::stack<int64_t> _stk;
 public:
 	int64_t Pop();
 	int64_t Pull();

@@ -1,8 +1,5 @@
 #include <iostream>
-#include <string>
-#include <sstream>
 #include <fstream>
-#include <istream>
 
 #include "Calculator.h"
 
@@ -13,14 +10,14 @@ int main(int argc, char* argv[])
 		std::ifstream fs(argv[1]);
 		if (!fs.is_open())
 		{
-			std::cerr << "cant open file";
+			std::cerr << "cant open file" << std::endl;
 			return 1;
 		}
 		return Calculator::Work(fs);
 	}
 	else if (argc != 1)
 	{
-		std::cerr << "invalid arguments";
+		std::cerr << "invalid arguments" << std::endl;
 		return 1;
 	}
 

@@ -28,7 +28,7 @@ int Calculator::Work(std::istream& st)
 		}
 		catch (Errors& err)
 		{
-			std::cerr << err.Text() << " at " << counter << " line";
+			std::cerr << err.Text() << " at " << counter << " line" << std::endl;
 			return 1;
 		}
 	}

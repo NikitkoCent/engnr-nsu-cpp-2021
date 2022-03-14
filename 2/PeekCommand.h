@@ -13,4 +13,3 @@ public:
 	PeekCommand(MemStack& memory);
 	std::shared_ptr<Command> Get(std::string command);
 };
-

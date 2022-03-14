@@ -1,9 +1,18 @@
 #include "Command.h"
 
-void CheckReadOverflow(int64_t val)
+bool SafeIntFromStr(std::string& str, int64_t& result)
 {
-	if ((val == std::numeric_limits<int64_t>::max()) || (val == std::numeric_limits<int64_t>::min()))
+	auto [ptr, ec] { std::from_chars(str.data(), str.data() + str.size(), result) };
+
+	if (ec == std::errc())
+	{
+		if (!(std::stringstream(ptr) >> std::ws).eof())
+			return false;
+		return true;
+	}
+	else if (ec == std::errc::result_out_of_range)
 		throw Overflow();
+	return false;
 }
 
 void Pop::Work(std::string args)
@@ -20,13 +29,9 @@ void Push::Work(std::string args)
 	st >> arg;
 	if (!(st >> std::ws).eof())
 		throw FloodedCommand();
-	st = std::stringstream(arg);
 	int64_t val;
-	if (st >> val)
-	{
-		CheckReadOverflow(val);
+	if (SafeIntFromStr(arg, val))
 		_memory.Push(val);
-	}
 	else
 		_memory.Push(_memory.GetVar(arg));
 }
@@ -108,12 +113,11 @@ void Read::Work(std::string args)
 {
 	if (!(std::stringstream(args) >> std::ws).eof())
 		throw FloodedCommand();
+	std::string arg;
 	int64_t val;
-	if (std::cin >> val)
-	{
-		CheckReadOverflow(val);
+	std::cin >> arg;
+	if (SafeIntFromStr(arg, val))
 		_memory.Push(val);
-	}
 	else
 		throw NotANumber();
 }

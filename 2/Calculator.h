@@ -11,4 +11,3 @@ class Calculator
 public:
 	static int Work(std::istream& st);
 };
-
