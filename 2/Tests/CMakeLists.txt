@@ -22,4 +22,4 @@ target_include_directories(
 
 enable_testing()
 
-add_test(NAME googletest COMMAND sct)
+add_test(NAME googletest COMMAND cpp_task2_StackCalk_Test)
