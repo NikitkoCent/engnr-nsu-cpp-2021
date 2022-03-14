@@ -9,6 +9,7 @@ private:
 public:
 	Errors(std::string text) : _text(text) {}
 	std::string Text() { return _text; }
+	virtual ~Errors() = default;
 };
 
 class Overflow : public Errors

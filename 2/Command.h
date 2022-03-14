@@ -18,6 +18,7 @@ protected:
 public:
 	Command(MemStack& memory) : _memory(memory) {}
 	virtual void Work(std::string args) = 0;
+	virtual ~Command() = default;
 };
 
 class Pop : public Command
