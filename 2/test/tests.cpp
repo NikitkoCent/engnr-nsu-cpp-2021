@@ -1,5 +1,6 @@
 #include <sstream>
 #include <fstream>
+#include <istream>
 #include <iostream>
 
 #include <gtest/gtest.h>
@@ -11,7 +12,7 @@ void CalcTest(std::string input, std::string exp_cout, std::string exp_cerr, int
 	testing::internal::CaptureStderr();
 	testing::internal::CaptureStdout();
 
-	std::iostream& st = std::stringstream(input);
+	std::istream& st = std::stringstream(input);
 	auto exitcode = Calculator::Work(st);
 	auto err = testing::internal::GetCapturedStderr();
 	auto out = testing::internal::GetCapturedStdout();
