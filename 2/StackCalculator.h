@@ -9,9 +9,9 @@
 class StackCalculator
 {
 private:
-	int FromStream(std::istream& st);
 	OperationHandler ops;
 	Memory mem;
 public:
+	int FromStream(std::istream& st);
 	int Run(int argc, char* argv[]);
 };

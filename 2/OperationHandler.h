@@ -15,4 +15,3 @@ public:
 	OperationHandler();
 	std::shared_ptr<IOperation> Get(std::string command);
 };
-

@@ -1,31 +1,31 @@
 cmake_minimum_required(VERSION 3.20)
+
 project(cpp_task2_StackCalk)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(lib/SafeInt/)
+add_subdirectory(lib/googleTest)
 
-add_executable (
-	cpp_task2_StackCalk
-	Main.cpp
-	Memory.cpp Memory.h
-	MError.cpp MError.h
-	Operation.cpp Operation.h
-	OperationHandler.cpp OperationHandler.h
-	StackCalculator.cpp StackCalculator.h
+add_subdirectory(lib/SafeInt)
+
+add_subdirectory(Tests)
+
+enable_testing()
+
+add_library(
+	cpp_task2_StackCalk_Lib
+	Memory.h Memory.cpp
+	MError.h
+	Operation.h Operation.cpp
+	OperationHandler.h OperationHandler.cpp
+	StackCalculator.h StackCalculator.cpp
 )
 
-if (MSVC)
-	target_compile_options (	
-		cpp_task2_StackCalk 
-			PRIVATE /W4          # warnings level
-			# PRIVATE /WX          # treat all warnings as errors
-	)
-else()
-	target_compile_options (
-		cpp_task2_StackCalk 
-			PRIVATE -Wall        # basic set of warnings
-			# PRIVATE -pedantic    # modern C++ inspections
-			# PRIVATE -Werror      # treat all warnings as errors
-	)
-endif()
+target_include_directories(
+	cpp_task2_StackCalk_Lib
+	PUBLIC "lib/SafeInt"
+)
+
+add_executable(cpp_task2_StackCalk Main.cpp)
+
+target_link_libraries(cpp_task2_StackCalk cpp_task2_StackCalk_Lib)

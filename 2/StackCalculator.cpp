@@ -25,12 +25,12 @@ int StackCalculator::FromStream(std::istream& st)
 	}
 	catch (MError& err)
 	{
-		std::cerr << "<line: " << counter << "> " << err.ErrorText();
+		std::cerr << "<line: " << counter << "> " << err.ErrorText() << std::endl;
 		return 1;
 	}
 	catch (...)
 	{
-		std::cerr << "<line: " << counter << "> " << UnexpectedError().ErrorText();
+		std::cerr << "<line: " << counter << "> " << UnexpectedError().ErrorText() << std::endl;
 		return 1;
 	}
 }
@@ -44,12 +44,12 @@ int StackCalculator::Run(int argc, char* argv[])
 		if (fs.is_open())
 			return FromStream(fs);
 
-		std::cerr << FileError(argv[1]).ErrorText();
+		std::cerr << FileError(argv[1]).ErrorText() << std::endl;
 		return 1;
 	}
 	else if (argc == 1)
 		return FromStream(std::cin);
 
-	std::cerr << "invalid args";
+	std::cerr << "invalid args << std::endl";
 	return 1;
 }

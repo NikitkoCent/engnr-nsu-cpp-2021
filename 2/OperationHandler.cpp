@@ -17,13 +17,14 @@ OperationHandler::OperationHandler()
 		std::make_shared<Comment>(),
 	};
 
-	for (size_t i = 0; i < opList.size(); i++)
-		ops[opList[i].get()->Name()] = opList[i];
+	for (auto i = opList.begin(); i != opList.end(); i++)
+		ops[(*i).get()->Name()] = *i;
 }
 
 std::shared_ptr<IOperation> OperationHandler::Get(std::string command)
 {
-	if (ops.find(command) == ops.end())
+	auto op = ops.find(command);
+	if (op == ops.end())
 		throw UnknownCommand(command);
-	return ops[command];
+	return op->second;
 }

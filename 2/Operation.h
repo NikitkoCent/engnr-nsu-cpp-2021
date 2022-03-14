@@ -7,7 +7,7 @@
 #include <functional>
 
 #include "Memory.h"
-#include "lib/SafeInt/SafeInt.hpp"
+#include "SafeInt.hpp"
 #include "MError.h"
 
 class IOperation
@@ -18,6 +18,7 @@ public:
 	IOperation(std::string name) { this->name = name; }
 	std::string Name() { return name; };
 	virtual void Use(Memory& mem, std::string args) = 0;
+	virtual ~IOperation() {}
 };
 
 class Pop : public IOperation
