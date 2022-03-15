@@ -6,8 +6,7 @@ std::string UserInterface::In()
 	std::getline(std::cin, in);
 	std::lock_guard<std::mutex> lock(mutex);
 	std::cout << " > ";
-	std::cin >> in;
-	std::cin.seekg(std::cin.end);
+	std::getline(std::cin, in);
 	return in;
 }
 
