@@ -17,7 +17,8 @@ bool DirSize(std::filesystem::path path, uintmax_t& result)
 				return false;
 			size += inSize;
 		}
-		size += std::filesystem::file_size(p);
+		else
+			size += std::filesystem::file_size(p);
 	}
 	result = size;
 	return true;
