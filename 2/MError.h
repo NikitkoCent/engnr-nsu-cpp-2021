@@ -54,6 +54,12 @@ public:
 	FileError(std::string path) : MError("couldn open file: \"" + path + "\"") {}
 };
 
+class InvalidArgs : public MError
+{
+public:
+	InvalidArgs() : MError("invalid args") {}
+};
+
 class UnexpectedError : public MError
 {
 public:

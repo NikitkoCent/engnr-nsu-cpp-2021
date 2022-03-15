@@ -10,17 +10,16 @@ int StackCalculator::FromStream(std::istream& st)
 		{
 			std::string command;
 			std::string args;
-			std::istringstream sst(line);
+			std::stringstream sst(line);
 
 			sst >> command;
 			std::getline(sst >> std::ws, args);
 
-			if (command == "")
+			if (command.empty())
 				continue;
 
-			ops.Get(command).get()->Use(mem, args);
+			ops.Get(command)->Use(mem, args);
 		}
-
 		return 0;
 	}
 	catch (MError& err)
@@ -37,10 +36,9 @@ int StackCalculator::FromStream(std::istream& st)
 
 int StackCalculator::Run(int argc, char* argv[])
 {
-	if (argc != 1)
+	if (argc == 2)
 	{
-		std::fstream fs;
-		fs.open(argv[1], std::fstream::in);
+		std::ifstream fs(argv[1]);
 		if (fs.is_open())
 			return FromStream(fs);
 
@@ -50,6 +48,6 @@ int StackCalculator::Run(int argc, char* argv[])
 	else if (argc == 1)
 		return FromStream(std::cin);
 
-	std::cerr << "invalid args << std::endl";
+	std::cerr << InvalidArgs().ErrorText() << std::endl;
 	return 1;
 }

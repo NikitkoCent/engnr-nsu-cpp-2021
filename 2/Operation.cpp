@@ -12,20 +12,17 @@ void Pop::Use(Memory& mem, std::string args)
 
 void FPushVar(Memory& mem, std::string args)
 {
-	std::stringstream ss;
+	std::stringstream ss(args);
 	std::string name;
-	ss << args;
 	ss >> name;
 	mem.Push(mem.Get(name));
 }
 
 void FPush(Memory& mem, std::string args)
 {
-	std::stringstream ss;
+	std::stringstream ss(args);
 	int64_t val;
-	ss << args;
-	ss >> val;
-	if (ss)
+	if (ss >> val)
 	{
 		mem.Push(val);
 		return;
@@ -43,7 +40,7 @@ void Push::Use(Memory& mem, std::string args)
 	{
 		return FPush(mem, args);
 	}
-	catch (NotANumber err)
+	catch (NotANumber& err)
 	{
 		return FPushVar(mem, args);
 	}
@@ -61,12 +58,8 @@ void Abs::Use(Memory& mem, std::string args)
 {
 	auto val = mem.Pop();
 	if (val < 0)
-	{
-		int64_t valx;
-		if (!SafeMultiply((int64_t)-1, val, valx))
+		if (!SafeMultiply(val, -1, val))
 			throw Overflow();
-		val = valx;
-	}
 	mem.Push(val);
 }
 
@@ -80,7 +73,6 @@ void Plus::Use(Memory& mem, std::string args)
 
 void Minus::Use(Memory& mem, std::string args)
 {
-
 	auto x = mem.Pop();
 	auto y = mem.Pop();
 	int64_t res;
@@ -116,7 +108,7 @@ void Print::Use(Memory& mem, std::string args)
 void Read::Use(Memory& mem, std::string args)
 {
 	std::cout << args;
-	std::string nargs;
-	std::cin >> nargs;
-	return FPush(mem, nargs);
+	std::string arg;
+	std::cin >> arg;
+	return FPush(mem, arg);
 }
