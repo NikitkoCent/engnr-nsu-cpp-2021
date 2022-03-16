@@ -19,28 +19,86 @@ std::string WorkManager::Help()
 		"\n";
 }
 
-bool DirSize(std::filesystem::path path, uintmax_t& result)
+uintmax_t WorkManager::DirSize(std::filesystem::path path)
 {
-	if (!std::filesystem::exists(path))
-	{
-		result = 0;
-		return false;
-	}
+	return DirSize(path, path);
+}
+
+uintmax_t WorkManager::DirSize(std::filesystem::path path, std::filesystem::path local_path)
+{
 	uintmax_t size = 0;
-	for (auto& p : std::filesystem::recursive_directory_iterator(path))
-		if (!std::filesystem::is_directory(p))
-			size += std::filesystem::file_size(p);
-	result = size;
-	return true;
+
+	if (!std::filesystem::exists(local_path))
+	{
+		ui.Err("\"" + path.string() + "\" : directory doesnot exist");
+		return size;
+	}
+
+	std::filesystem::directory_iterator p_iter;
+	
+	try
+	{
+		if (!std::filesystem::is_directory(local_path))
+			return std::filesystem::file_size(local_path);
+		else
+			p_iter = std::filesystem::directory_iterator(local_path);
+	}
+	catch (std::filesystem::filesystem_error&)
+	{
+		ui.Err("\"" + path.string() + "\" : cant calculate \"" + local_path.string() + "\"");
+		return size;
+	}
+
+	std::filesystem::directory_entry last_p;
+	bool flag = true;
+
+	try
+	{
+		for (auto& p : p_iter)
+		{
+			if (flag)
+				flag = false;
+			else
+			{
+				if (p == last_p)
+					return size;
+			}
+
+			last_p = p;
+
+			if (std::filesystem::is_directory(p))
+				size += DirSize(path, p);
+			else
+			{
+				try
+				{
+					size += std::filesystem::file_size(p);
+				}
+				catch (std::filesystem::filesystem_error&)
+				{
+					ui.Err("\"" + path.string() + "\" : cant calculate \"" + p.path().string() + "\"");
+				}
+			}
+		}
+	}
+	catch (std::filesystem::filesystem_error&)
+	{
+		ui.Err("\"" + path.string() + "\" : calculating \"" + local_path.string() + "\" stopped, cant calculate \"" + (*p_iter).path().string() + "\"");
+	}
+
+	return size;
 }
 
 void WorkManager::WorkProcess(std::string path)
 {
-	uintmax_t result;
-	if (DirSize(path, result))
-		ui.Out("\"" + path + "\" : " + std::to_string(result) + " bytes");
-	else
-		ui.Err("\"" + path + "\" : file does not exist");
+	try
+	{
+		ui.Out("\"" + path + "\" : " + std::to_string(DirSize(path)) + " bytes");
+	}
+	catch (...)
+	{
+		ui.Err("\"" + path + "\" : unexpected error");
+	}
 }
 
 void WorkManager::Work()

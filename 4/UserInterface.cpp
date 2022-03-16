@@ -7,13 +7,14 @@ UserInterface::UserInterface()
 
 std::string UserInterface::In()
 {
-	std::string in;
+	std::string in = "";
 	while ((std::stringstream(in) >> std::ws).eof())
 	{
 		if (firstFlag)
 			std::getline(std::cin, in);
 		else
 			firstFlag = true;
+
 		std::lock_guard<std::mutex> lock(mutex);
 		std::cout << " > ";
 		std::getline(std::cin, in);
