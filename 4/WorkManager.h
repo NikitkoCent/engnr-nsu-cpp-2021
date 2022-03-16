@@ -13,8 +13,8 @@ private:
 	ThreadPool threadPool;
 
 	void WorkProcess(std::string path);
-	void Help();
 public:
 	WorkManager(size_t threadCount) : threadPool(threadCount) {};
+	static std::string Help();
 	void Work();
 };

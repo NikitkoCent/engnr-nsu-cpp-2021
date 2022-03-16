@@ -1,9 +1,17 @@
 #include "UserInterface.h"
 
+UserInterface::UserInterface()
+{
+	firstFlag = false;
+}
+
 std::string UserInterface::In()
 {
 	std::string in;
-	std::getline(std::cin, in);
+	if (firstFlag)
+		std::getline(std::cin, in);
+	else
+		firstFlag = true;
 	std::lock_guard<std::mutex> lock(mutex);
 	std::cout << " > ";
 	std::getline(std::cin, in);

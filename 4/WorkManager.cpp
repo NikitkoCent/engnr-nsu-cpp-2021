@@ -1,5 +1,24 @@
 #include "WorkManager.h"
 
+std::string WorkManager::Help()
+{
+	return
+		"\n\n                 --HELP--"
+		"\nto enter the input mode, you must press \"enter\""
+		"\nin input mode, the \" > \" sign is displayed in the line"
+		"\n"
+		"\nin input mode you can enter the following commands:"
+		"\n"
+		"\n\t<path to directory> = put path to queue"
+		"\n\t:help               = call the help"
+		"\n\t:cancel             = cancel all waiting tasks"
+		"\n\t:exit               = exit program"
+		"\n"
+		"\nthe program will go into standby mode"
+		"\nafter completing the input and pressing \"enter\""
+		"\n";
+}
+
 bool DirSize(std::filesystem::path path, uintmax_t& result)
 {
 	if (!std::filesystem::exists(path))
@@ -9,17 +28,8 @@ bool DirSize(std::filesystem::path path, uintmax_t& result)
 	}
 	uintmax_t size = 0;
 	for (auto& p : std::filesystem::recursive_directory_iterator(path))
-	{
-		if (std::filesystem::is_directory(p))
-		{
-			uintmax_t inSize;
-			if (!DirSize(p.path(), inSize))
-				return false;
-			size += inSize;
-		}
-		else
+		if (!std::filesystem::is_directory(p))
 			size += std::filesystem::file_size(p);
-	}
 	result = size;
 	return true;
 }
@@ -31,11 +41,6 @@ void WorkManager::WorkProcess(std::string path)
 		ui.Out("\"" + path + "\" : " + std::to_string(result) + " bytes");
 	else
 		ui.Err("\"" + path + "\" : file does not exist");
-}
-
-void WorkManager::Help()
-{
-	ui.Out(" --help-- ");
 }
 
 void WorkManager::Work()
@@ -51,7 +56,7 @@ void WorkManager::Work()
 		else if (in.compare(":cancel") == 0)
 			threadPool.Cancel();
 		else if (in.compare(":help") == 0)
-			Help();
+			ui.Out(Help());
 		else
 		{
 			auto pos = threadPool.AddTask([&, in] { WorkProcess(in); });
