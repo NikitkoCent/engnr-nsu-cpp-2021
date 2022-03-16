@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <mutex>
+#include <sstream>
 
 class UserInterface
 {
